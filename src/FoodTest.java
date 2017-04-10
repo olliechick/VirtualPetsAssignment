@@ -2,6 +2,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * Tests for Food class implmentation
+ * @author Samuel Pell
+ *
+ */
 public class FoodTest {
 
 	public String nullString;

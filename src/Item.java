@@ -1,8 +1,6 @@
 /**
  * Item class for Virtual Pets Assignment
  * @author Samuel Pell
- *
- * Base class for Food and Toy
  */
 public abstract class Item {
 	
@@ -42,7 +40,7 @@ public abstract class Item {
 	 */
 	public void setName(String newName) throws IllegalArgumentException{
 		if (newName != null && newName != ""){
-			name = newName;
+			this.name = newName;
 		} else {
 			throw new IllegalArgumentException("Item name must not be null or the empty string");
 		}
@@ -55,7 +53,7 @@ public abstract class Item {
 	 */
 	public void setPrice(int newPrice) throws IllegalArgumentException{
 		if (newPrice > 0){
-			price = newPrice;
+			this.price = newPrice;
 		} else{
 			throw new IllegalArgumentException("Item price must be > 0");
 		}
@@ -68,7 +66,7 @@ public abstract class Item {
 	 */
 	public void setDescription(String newDescription) throws IllegalArgumentException{
 		if (newDescription != null){
-			description = newDescription;
+			this.description = newDescription;
 		} else {
 			throw new IllegalArgumentException("Item description must not be null");
 		}
