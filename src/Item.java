@@ -67,7 +67,7 @@ public abstract class Item {
 	 */
 	public void setDescription(String newDescription){
 		if (newDescription != null){
-			name = newDescription;
+			description = newDescription;
 		} else {
 			throw new IllegalArgumentException("Item description must not be null");
 		}
