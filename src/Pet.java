@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * 
  * @author Ollie Chick
@@ -40,7 +42,9 @@ public class Pet {
 	public Boolean getIsMisbehaving(){return isMisbehaving;}
 
 	// Setters
-	public void setName(String name){this.name=name;}
+	public void setName(String name, ArrayList<String> existingNames){
+//		if(name not in )
+		this.name=name;}
 	public void setGender(String gender){this.gender=gender;}
 	public void setIsSick(Boolean isSick){this.isSick = isSick;}
 	public void setIsRevivable(Boolean isRevivable){this.isRevivable = isRevivable;}
