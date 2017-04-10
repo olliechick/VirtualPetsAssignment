@@ -1,0 +1,68 @@
+/**
+ * Item class for Virtual Pets Assignment
+ * @author Samuel
+ *
+ * Base class for Food and Toy
+ */
+public abstract class Item {
+	
+	private String name;
+	private String description;
+	private int price;
+	
+	/**
+	 * Gets the name of the item
+	 * @return item name
+	 */
+	public String getName(){
+		return name;
+	}
+	
+	/**
+	 * Returns the items description
+	 * @return item description
+	 */
+	public String getDescription(){
+		return description;
+	}
+	
+	/**
+	 * Returns the price of the item
+	 * @return item price
+	 */
+	public int getPrice(){
+		return price;
+	}
+	
+	/**
+	 * Sets the name of the item. The items name cannot be null or the
+	 * empty string
+	 * @param newName
+	 */
+	public void setName(String newName){
+		if (newName != null && newName != ""){
+			name = newName;
+		}
+	}
+	
+	/**
+	 * Sets the price of the item
+	 * @param newPrice
+	 */
+	public void setPrice(int newPrice){
+		if (newPrice > 0){
+			price = newPrice;
+		}
+	}
+	
+	/**
+	 * Sets the decription of the item. The items description cannot be
+	 * null or the empty string 
+	 * @param newDescription
+	 */
+	public void setDescription(String newDescription){
+		if (newDescription != null && newDescription != ""){
+			name = newDescription;
+		} 
+	}
+}
