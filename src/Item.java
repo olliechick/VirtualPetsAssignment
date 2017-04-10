@@ -36,10 +36,11 @@ public abstract class Item {
 	
 	/**
 	 * Sets the name of the item. The items name cannot be null or the
-	 * empty string
-	 * @param newName
+	 * empty string 
+	 * @param newName items new name
+	 * @throws IllegalArgumentException newName is null or the empty string
 	 */
-	public void setName(String newName){
+	public void setName(String newName) throws IllegalArgumentException{
 		if (newName != null && newName != ""){
 			name = newName;
 		} else {
@@ -49,10 +50,10 @@ public abstract class Item {
 	
 	/**
 	 * Sets the price of the item. Item price must be greater than 0
-	 * @param newPrice
-	 * @throws IllegalArgumentException
+	 * @param newPrice item's new price
+	 * @throws IllegalArgumentException newPrice is less than 0
 	 */
-	public void setPrice(int newPrice){
+	public void setPrice(int newPrice) throws IllegalArgumentException{
 		if (newPrice > 0){
 			price = newPrice;
 		} else{
@@ -62,10 +63,10 @@ public abstract class Item {
 	
 	/**
 	 * Sets the decription of the item. The items description cannot be null 
-	 * @param newDescription
-	 * @throws IllegalArgumentException
+	 * @param newDescription items new description
+	 * @throws IllegalArgumentException newDescription is null object
 	 */
-	public void setDescription(String newDescription){
+	public void setDescription(String newDescription) throws IllegalArgumentException{
 		if (newDescription != null){
 			description = newDescription;
 		} else {

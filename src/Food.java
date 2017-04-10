@@ -10,11 +10,11 @@ public class Food extends Item{
 	
 	/**
 	 * Constructor for Food item
-	 * @param name
-	 * @param description
-	 * @param price
-	 * @param healthChange
-	 * @param portionSizing
+	 * @param name name of food
+	 * @param description food description
+	 * @param price price of food
+	 * @param healthChange how much the pets health increase by when it is eaten
+	 * @param portionSizing how large the portion is
 	 */
 	public Food(String name, String description, int price, int healthChange, int portionSizing){
 		super();
@@ -44,7 +44,7 @@ public class Food extends Item{
 	
 	/**
 	 * Change the health increase of the food
-	 * @param increase
+	 * @param increase new health increase
 	 */
 	public void setHealthIncrease(int increase){
 		healthIncrease = increase;
@@ -52,9 +52,10 @@ public class Food extends Item{
 	
 	/**
 	 * Set the portion size, portion size must be greater than 0.
-	 * @param size
+	 * @param size new portion size
+	 * @throws IllegalArgumentException size less than 0
 	 */
-	public void setPortionSize(int size){
+	public void setPortionSize(int size) throws IllegalArgumentException{
 		if (size > 0){
 			portionSize = size;
 		} else{
