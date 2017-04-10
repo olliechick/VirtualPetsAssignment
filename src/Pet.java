@@ -1,9 +1,7 @@
-import java.util.ArrayList;
-
 /**
  * 
- * @author Ollie Chick
  * A class for pets
+ * @author Ollie Chick
  *
  */
 public class Pet {
@@ -42,9 +40,7 @@ public class Pet {
 	public Boolean getIsMisbehaving(){return isMisbehaving;}
 
 	// Setters
-	public void setName(String name, ArrayList<String> existingNames){
-//		if(name not in )
-		this.name=name;}
+	public void setName(String name){this.name=name;}
 	public void setGender(String gender){this.gender=gender;}
 	public void setIsSick(Boolean isSick){this.isSick = isSick;}
 	public void setIsRevivable(Boolean isRevivable){this.isRevivable = isRevivable;}
@@ -73,11 +69,11 @@ public class Pet {
 	public void increasePercentBladderFull(int increase){percentBladderFull=increaseValue(increase, percentBladderFull);}
 	public void increaseFatigue(int increase){fatigue=increaseValue(increase, fatigue);}
 	public void increasePlayfulness(int increase){playfulness=increaseValue(increase, playfulness);}
-	
+
 	public void increaseWeight(double increase){
 		double newWeight = weight + increase;
 		if (newWeight < 1e-6){
 			throw new IllegalArgumentException("negative or 0 weight");
 		}else{weight = newWeight;}
-		}
+	}
 }

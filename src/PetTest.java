@@ -1,7 +1,4 @@
 import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class PetTest {
@@ -74,22 +71,41 @@ public class PetTest {
 	@Test
 	public void testSetName() {
 		Pet myPet = new Pet("Dragon");
+		Pet myPet2 = new Pet("Dog");
 		
 		String name = "Fred";
-//		myPet.setName(name);
+		String name2 = null;
+		String name3 = "George";
+		
+		myPet.setName(name);
 		assertEquals(myPet.getName(), name);
 		
-		String name2 = null;
-//		myPet.setName(name2);
+		myPet.setName(name2);
 		assertEquals(myPet.getName(), name2);
+		
+		myPet2.setName(name3);
+		assertEquals(myPet2.getName(), name3);
 	}
 
 	@Test
 	public void testSetGender() {
 		Pet myPet = new Pet("Dragon");
-		String gender = "Male";
+
+		String gender = "male";
+		String gender2 = "female";
+		String gender3 = "table";
+
 		myPet.setGender(gender);
 		assertEquals(myPet.getGender(), gender);
+		myPet.setGender(gender2);
+		assertEquals(myPet.getGender(), gender2);
+		
+		try {
+			myPet.setGender(gender3);
+		    fail( "Accepts invalid gender" );
+		} catch (IllegalArgumentException e){}
+		
+		assertEquals(myPet.getGender(), gender2);
 	}
 
 	@Test
