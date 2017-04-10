@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -9,30 +10,42 @@ import org.junit.Test;
  */
 public class FoodTest {
 
-	public String nullString;
+	private String nullString;
+	private Food myFood;
+	private String[] species = {"Wildcat", "Human", "Vegan"};
+	private int[] values = {3, 5, -10};
+	
+	@Before
+	public void setup() throws Exception{
+		this.myFood = new Food("Meatloaf", "A delicious meaty loaf", new Integer(20), new Integer(2));
+		myFood.setHealthIncrease(species, values);
+	}
 
 	@Test
 	public void testGetHealthIncrease() {
-		Food myFood = new Food("Meatloaf", "A delicious meaty loaf", new Integer(20), new Integer(-3), new Integer(2));
-		assertEquals(myFood.getHealthIncrease(), -3);
+		for (int i = 0; i < species.length; i++){
+			assertEquals(myFood.getHealthIncrease(species[i]), values[i]);
+		}
+		try {
+			myFood.getHealthIncrease("Alien");
+			fail("Found a species which doesn't exits");
+		} catch (IllegalArgumentException exception){}
 	}
 
 	@Test
 	public void testGetPortionSize() {
-		Food myFood = new Food("Meatloaf", "A delicious meaty loaf", new Integer(20), new Integer(-3), new Integer(2));
 		assertEquals(myFood.getPortionSize(), 2);
 	}
 
 	@Test
 	public void testSetHealthIncrease() {
-		Food myFood = new Food("Meatloaf", "A delicious meaty loaf", new Integer(20), new Integer(-3), new Integer(2));
-		myFood.setHealthIncrease(-5);
-		assertEquals(myFood.getHealthIncrease(), -5);		
+		for (int i = 0; i < species.length; i++){
+			assertEquals(myFood.getHealthIncrease(species[i]), values[i]);
+		}
 	}
 
 	@Test
 	public void testSetPortionSize() {
-		Food myFood = new Food("Meatloaf", "A delicious meaty loaf", new Integer(20), new Integer(-3), new Integer(2));
 		myFood.setPortionSize(3);
 		assertEquals(myFood.getPortionSize(), 3);
 		try {
@@ -52,25 +65,21 @@ public class FoodTest {
 
 	@Test
 	public void testGetName() {
-		Food myFood = new Food("Meatloaf", "A delicious meaty loaf", new Integer(20), new Integer(-3), new Integer(2));
 		assertEquals(myFood.getName(), "Meatloaf");
 	}
 
 	@Test
 	public void testGetDescription() {
-		Food myFood = new Food("Meatloaf", "A delicious meaty loaf", new Integer(20), new Integer(-3), new Integer(2));
 		assertEquals(myFood.getDescription(), "A delicious meaty loaf");
 	}
 
 	@Test
 	public void testGetPrice() {
-		Food myFood = new Food("Meatloaf", "A delicious meaty loaf", new Integer(20), new Integer(-3), new Integer(2));
 		assertEquals(myFood.getPrice(), 20);
 	}
 
 	@Test
 	public void testSetName() {
-		Food myFood = new Food("Meatloaf", "A delicious meaty loaf", new Integer(20), new Integer(-3), new Integer(2));
 		myFood.setName("Delicious Meatloaf");
 		assertEquals(myFood.getName(), "Delicious Meatloaf");
 		try {
@@ -90,7 +99,6 @@ public class FoodTest {
 
 	@Test
 	public void testSetPrice() {
-		Food myFood = new Food("Meatloaf", "A delicious meaty loaf", new Integer(20), new Integer(-3), new Integer(2));
 		myFood.setPrice(50);
 		assertEquals(myFood.getPrice(), 50);
 		try {
@@ -110,7 +118,6 @@ public class FoodTest {
 
 	@Test
 	public void testSetDescription() {
-		Food myFood = new Food("Meatloaf", "A delicious meaty loaf", new Integer(20), new Integer(-3), new Integer(2));
 		myFood.setDescription("Dry and stale meatloaf");
 		assertEquals(myFood.getDescription(), "Dry and stale meatloaf");
 		try {
