@@ -62,7 +62,7 @@ public abstract class Item {
 	}
 	
 	/**
-	 * Sets the decription of the item. The items description cannot be null 
+	 * Sets the description of the item. The items description cannot be null 
 	 * @param newDescription items new description
 	 * @throws IllegalArgumentException newDescription is null object
 	 */
