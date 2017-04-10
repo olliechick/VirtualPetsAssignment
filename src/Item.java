@@ -13,7 +13,7 @@ public abstract class Item {
 	 * @return item name
 	 */
 	public String getName(){
-		return name;
+		return this.name;
 	}
 	
 	/**
@@ -21,7 +21,7 @@ public abstract class Item {
 	 * @return item description
 	 */
 	public String getDescription(){
-		return description;
+		return this.description;
 	}
 	
 	/**
@@ -29,7 +29,7 @@ public abstract class Item {
 	 * @return item price
 	 */
 	public int getPrice(){
-		return price;
+		return this.price;
 	}
 	
 	/**

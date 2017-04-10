@@ -31,7 +31,7 @@ public class Food extends Item{
 	 * @return change in HP for pet
 	 */
 	public int getHealthIncrease(){
-		return healthIncrease;
+		return this.healthIncrease;
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public class Food extends Item{
 	 * @return portion size
 	 */
 	public int getPortionSize(){
-		return portionSize;
+		return this.portionSize;
 	}
 	
 	/**
