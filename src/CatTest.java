@@ -66,20 +66,24 @@ public class CatTest {
 		//check new values are as expected
 		assertTrue(initialDurability  > myToy.getDurability());
 		
-		//check if initial happiness is lower than new happines or they are both maxed out (100)
+		//check for no changed to maxed out happiness
 		assertTrue((initialHappiness == 100 && myCat.getHappiness() == 100));
+		//check if initial happiness is lower than new happiness 
 		assertTrue(otherInitialHappiness < myOtherCat.getHappiness());
 		
-		//check if initial fatigue is lower than new fatigue or they are both 100
+		//check if initial fatigue is lower than new fatigue 
 		assertTrue(initialFatigue < myCat.getFatigue());
+		//check for no change in maximum fatigue case
 		assertTrue(otherInitialFatigue == 100 && myOtherCat.getFatigue() == 100);
 		
-		//check if initial mischeviousness is lower than new mischeviousness or they are both 0
+		//check for no change in minimum case
 		assertTrue(initialMischievousness == 0 && myCat.getMischievousness() == 0);
+		//check if initial mischeviousness is higher than new mischeviousness 
 		assertTrue(otherInitialMischievousness > myOtherCat.getMischievousness());
 		
-		//check if animal is hungrier than before or that hunger was initially maxed at 100 
+		//check if animal is hungrier than before 
 		assertTrue(initialHunger < myCat.getHunger());
+		//Check for no change in maxed out case
 		assertTrue(otherInitialHunger == 100 && myOtherCat.getHunger() == 100);
 	}
 
