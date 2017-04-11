@@ -10,6 +10,7 @@ public class Pet {
 	private String name; //either cat, dog, goat, horse, alpaca, or polar bear
 	private String gender; //either male or female
 	private String species;
+	private int health; //out of 100
 	private int mischievousness; //out of 100
 	private int happiness; //out of 100
 	private int hunger; //out of 100
@@ -23,6 +24,7 @@ public class Pet {
 
 	public Pet(String species){
 		this.species = species;
+		health = 100;
 		mischievousness = 0;
 		happiness = 100;
 		hunger = 0;
@@ -47,6 +49,7 @@ public class Pet {
 	public String getName(){return name;}
 	public String getGender(){return gender;}
 	public String getSpecies(){return species;}
+	public int getHealth(){return health;}
 	public int getMischievousness(){return mischievousness;}
 	public int getHappiness(){return happiness;}
 	public int getHunger(){return hunger;}
@@ -103,6 +106,7 @@ public class Pet {
 	}
 
 	// Increasers - like setters, but increase value rather than setting it
+	public void increaseHealth(int increase){health=increaseValue(increase, health);}
 	public void increaseMischievousness(int increase){mischievousness=increaseValue(increase, mischievousness);}
 	public void increaseHappiness(int increase){happiness=increaseValue(increase, happiness);}
 	public void increaseHunger(int increase){hunger=increaseValue(increase, hunger);}

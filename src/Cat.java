@@ -4,30 +4,37 @@
  *
  */
 public class Cat extends Pet implements Liveable {
+	
+	String species = "cat";
 
 	@Override
 	public void play(Toy toy) {
-		currentDurability = toy.getDurability();
-		newDu
-
+		toy.decrementDurability(1);
+		super.increaseHappiness(1);
+		super.increaseFatigue(1);
+		super.increaseMischievousness(-1);
+		super.increasePlayfulness(0); //what should go in here??
 	}
 
 	@Override
 	public void sleep() {
-		// TODO Auto-generated method stub
-
+		super.increaseFatigue(-80);
 	}
 
 	@Override
 	public void goToilet() {
-		// TODO Auto-generated method stub
-
+		super.increasePercentBladderFull(-100);
 	}
 
 	@Override
 	public void feed(Food food) {
-		// TODO Auto-generated method stub
-
+		int portionSize = food.getPortionSize();
+		int healthIncrease = food.getHealthIncrease(species);
+		super.increaseHunger(-portionSize);
+		super.increaseWeight(portionSize);
+		super.increasePercentBladderFull(portionSize);
+		super.increaseHappiness(healthIncrease);
+		super.increase
 	}
 
 	@Override

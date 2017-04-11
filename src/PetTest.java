@@ -23,6 +23,7 @@ public class PetTest {
 		assertEquals(myPet.getIsSick(), false);
 		assertEquals(myPet.getIsRevivable(), true);
 		assertEquals(myPet.getIsMisbehaving(), false);
+		assertEquals(myPet.getHealth(), 100);
 		assertEquals(myPet.getMischievousness(), 0);
 		assertEquals(myPet.getHappiness(), 100);
 		assertEquals(myPet.getHunger(), 0);
@@ -169,6 +170,28 @@ public class PetTest {
 
 		myPet.setIsMisbehaving(false);
 		assertEquals(myPet.getIsMisbehaving(), false);	
+	}
+
+	@Test
+	public void testIncreaseHealth() {
+		myPet.increaseHealth(-500);
+		assertEquals(myPet.getHealth(), 0);
+		myPet.increaseHealth(5);
+		assertEquals(myPet.getHealth(), 5);
+		myPet.increaseHealth(-10);
+		assertEquals(myPet.getHealth(), 0);
+		myPet.increaseHealth(2);
+		assertEquals(myPet.getHealth(), 2);
+		myPet.increaseHealth(20000);
+		assertEquals(myPet.getHealth(), 100);
+		myPet.increaseHealth(250);
+		assertEquals(myPet.getHealth(), 100);
+		myPet.increaseHealth(-2);
+		assertEquals(myPet.getHealth(), 98);
+		myPet.increaseHealth(-500);
+		assertEquals(myPet.getHealth(), 0);
+		myPet.increaseHealth(-20);
+		assertEquals(myPet.getHealth(), 0);
 	}
 
 	@Test
