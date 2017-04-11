@@ -1,13 +1,14 @@
+
 /**
- * 
- * A class for pets
- * @author Ollie Chick
+ *
+ * A class for pets 
+ * @author Ollie Chics
  *
  */
 public class Pet {
 
-	private String name;
-	private String gender;
+	private String name; //either cat, dog, goat, horse, alpaca, or polar bear
+	private String gender; //either male or female
 	private String species;
 	private int mischievousness; //out of 100
 	private int happiness; //out of 100
@@ -22,6 +23,24 @@ public class Pet {
 
 	public Pet(String species){
 		this.species = species;
+		mischievousness = 0;
+		happiness = 100;
+		hunger = 0;
+		percentBladderFull = 0;
+		fatigue = 0;
+		playfulness = 0;
+		isSick = false;
+		isRevivable = true;
+		isMisbehaving = false;
+		switch(species){
+			case "cat": 
+			case "dog": weight = 4.0; break;
+			case "goat": weight = 50.0; break;
+			case "horse": weight = 500.0; break;
+			case "alpaca": weight = 60.0; break;
+			case "polar bear": weight = 250.0; break;
+			default: throw new IllegalArgumentException("Species not recognised.");
+		}
 	}
 
 	// Getters
@@ -40,19 +59,40 @@ public class Pet {
 	public Boolean getIsMisbehaving(){return isMisbehaving;}
 
 	// Setters
-	public void setName(String name){this.name=name;}
-	public void setGender(String gender){this.gender=gender;}
+
+	/**
+	 * Sets the name of an pet.
+	 * @param name the name of the pet
+	 * @throws IllegalArgumentException if the name is null
+	 */
+	public void setName(String name){
+		if(name == null){
+			throw new IllegalArgumentException("Null name.");
+		}else{this.name=name;}
+	}
+
+	/**
+	 * Sets the gender of an animal.
+	 * @param gender can be either "male" or "female"
+	 * @throws IllegalArgumentException if the gender is not "male" or "female"
+	 */
+	public void setGender(String gender){
+		if(gender != "male" && gender != "female"){
+			throw new IllegalArgumentException("Invalid gender.");
+		}else{this.gender=gender;}
+	}
+
 	public void setIsSick(Boolean isSick){this.isSick = isSick;}
 	public void setIsRevivable(Boolean isRevivable){this.isRevivable = isRevivable;}
 	public void setIsMisbehaving(Boolean isMisbehaving){this.isMisbehaving = isMisbehaving;}
 
 	/**
-	 * 
+	 * This is a private function called by the increasers to make sure they stay within 0-100
 	 * @param increase This is how much to increase the value by
 	 * @param valueToIncrease This is the initial value
 	 * @return the new value
 	 */
-	public int increaseValue(int increase, int valueToIncrease){
+	private int increaseValue(int increase, int valueToIncrease){
 		int newValue = valueToIncrease + increase;
 		if(newValue < 0){ //if this makes it negative
 			newValue = 0;
