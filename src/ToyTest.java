@@ -43,9 +43,38 @@ public class ToyTest {
 	}
 
 	@Test
-	public void testSetDurability() {
-		assertEquals(myToy.getDurability(), 15);
-		assertEquals(myOtherToy.getDurability(), 2);
+	public void testDecrementDurability() {
+		//First try decrementing by a negative number
+		try {
+			myToy.decrementDurability(-5);
+			fail("Allows a negative durability change");
+		} catch (IllegalArgumentException exception){
+			assertEquals(exception.getMessage(), "durability must decrease");
+		}
+		
+		//Then try decrementing by 0
+		try {
+			myToy.decrementDurability(0);
+			fail("Allows a 0 durability change");
+		} catch (IllegalArgumentException exception){
+			assertEquals(exception.getMessage(), "durability must decrease");
+		}
+		
+		//Try having a 0 durability toy
+		try {
+			myToy.decrementDurability(15);
+			fail("Allows a 0 durability");
+		} catch (IllegalArgumentException exception){
+			assertEquals(exception.getMessage(), "durability is zero or negative");
+		}
+		
+		//Try having a -ve durability toy
+		try {
+			myToy.decrementDurability(16);
+			fail("Allows a 0 durability");
+		} catch (IllegalArgumentException exception){
+			assertEquals(exception.getMessage(), "durability is zero or negative");
+		}
 	}
 
 	@Test

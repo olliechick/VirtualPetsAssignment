@@ -2,13 +2,12 @@ import java.util.HashMap;
 
 /**
  * Toy class implementation for Virtual Pets
- * @author Samuel
+ * @author Samuel Pell and Ollie Chick
  *
  */
 public class Toy extends Item{
 	
 	private int durability;
-	//private int happinessIncrease;
 	private HashMap<String, Integer> happinessIncrease = new HashMap<String, Integer>();
 	
 	/**
@@ -16,14 +15,19 @@ public class Toy extends Item{
 	 * @param name Toy Name
 	 * @param description Toy description
 	 * @param price Price of toy
-	 * @param durability How durabil the toy is
+	 * @param durability How durable the toy is
+	 * @throws IllegalArgumentException Toys durability must be greater than 0
 	 */
-	public Toy(String name, String description, int price, int durability){
+	public Toy(String name, String description, int price, int durability) throws IllegalArgumentException{
 		super();
 		super.setName(name);
 		super.setDescription(description);
 		super.setPrice(price);
-		this.setDurability(durability);
+		if (durability <= 0){
+			throw new IllegalArgumentException("durability is zero or negative");
+		} else {
+			this.durability = durability;
+		}
 	}
 	
 	/**
@@ -42,22 +46,26 @@ public class Toy extends Item{
 	 */
 	public int getHappinessIncrease(String species) throws IllegalArgumentException{
 		if (this.happinessIncrease.get(species) == null){
-			throw new IllegalArgumentException("Specises " + species + " is not known to this toy " + this.getName());
+			throw new IllegalArgumentException("Species " + species + " is not known to this toy " + this.getName());
 		} else{
 			return this.happinessIncrease.get(species);
 		}
 	}
 	
 	/**
-	 * Set the objects durabilty. New durability must be greater than 0
+	 * Set the objects durability. New durability must be greater than 0
 	 * @param durability Items remaining durability
-	 * @throws IllegalArgumentException Durability must be larger than 0
+	 * @throws IllegalArgumentException durability decrease must be larger than 0
+	 * @throws IllegalArgumentException Items durability is negative or 0; it needs to be removed from the player's toyList
 	 */
-	public void setDurability(int durability) throws IllegalArgumentException{
-		if (durability < 0){
-			throw new IllegalArgumentException("durability has gone below 0");
-		} else{
-			this.durability = durability;
+	public void decrementDurability(int durability) throws IllegalArgumentException{
+		if (durability <= 0){
+			throw new IllegalArgumentException("durability must decrease");
+		}
+		
+		this.durability -= durability;
+		if (this.durability <= 0){
+			throw new IllegalArgumentException("durability is zero or negative");
 		}
 	}
 	
