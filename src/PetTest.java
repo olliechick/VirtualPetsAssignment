@@ -189,7 +189,6 @@ public class PetTest {
 		assertEquals(myPet.getMischievousness(), 0);
 		myPet.increaseMischievousness(-20);
 		assertEquals(myPet.getMischievousness(), 0);
-
 	}
 
 	@Test
@@ -304,6 +303,10 @@ public class PetTest {
 		assertEquals(myPet.getWeight(), 3, delta);
 		myPet.increaseWeight(5.01);
 		assertEquals(myPet.getWeight(), 8.01, delta);
+		try {
+			myPet.increaseWeight(-10);
+			fail("Accepts negative weight.");
+		} catch (IllegalArgumentException e){}
 	}
 
 }
