@@ -2,168 +2,311 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class PetTest {
+
+	String name = "Fred";
+	String name2 = "Harry";
+	String gender = "male";
+	String gender2 = "female";
+	String gender3 = "table";
+	String species = "cat";
+	String species2 = "dog";
+	String species3 = "dragon";
+	String species4 = "Cat";
+
+	Pet myPet = new Pet(species);
+	Pet myPet2 = new Pet(species2);
 	
+	double delta = 1e-6; //error for doubles, used in assertEquals() for methods involving weight
+
+	@Test
+	public void testPet() {
+		assertEquals(myPet.getIsSick(), false);
+		assertEquals(myPet.getIsRevivable(), true);
+		assertEquals(myPet.getIsMisbehaving(), false);
+		assertEquals(myPet.getMischievousness(), 0);
+		assertEquals(myPet.getHappiness(), 100);
+		assertEquals(myPet.getHunger(), 0);
+		assertEquals(myPet.getPercentBladderFull(), 0);
+		assertEquals(myPet.getFatigue(), 0);
+		assertEquals(myPet.getPlayfulness(), 0);
+
+		try {
+			@SuppressWarnings("unused")
+			Pet myPet3 = new Pet(species3);
+			fail("Accepts bad species.");
+		} catch (IllegalArgumentException e){}
+
+		try {
+			@SuppressWarnings("unused")
+			Pet myPet3 = new Pet(species4);
+			fail("Accepts bad species.");
+		} catch (IllegalArgumentException e){}
+	}
+
 	@Test
 	public void testGetName() {
-		fail("Not yet implemented");
+		myPet.setName(name);
+		assertEquals(myPet.getName(), name);
 	}
 
 	@Test
 	public void testGetGender() {
-		fail("Not yet implemented");
+		myPet.setGender(gender);
+		assertEquals(myPet.getGender(), gender);
 	}
 
 	@Test
 	public void testGetSpecies() {
-		fail("Not yet implemented");
+		assertEquals(myPet.getSpecies(), species);
 	}
 
 	@Test
 	public void testGetMischievousness() {
-		fail("Not yet implemented");
+		assertEquals(myPet.getMischievousness(), 0);
 	}
 
 	@Test
 	public void testGetHappiness() {
-		fail("Not yet implemented");
+		assertEquals(myPet.getHappiness(), 100);
 	}
 
 	@Test
 	public void testGetHunger() {
-		fail("Not yet implemented");
+		assertEquals(myPet.getHunger(), 0);
 	}
 
 	@Test
 	public void testGetPercentBladderFull() {
-		fail("Not yet implemented");
+		assertEquals(myPet.getPercentBladderFull(), 0);
 	}
 
 	@Test
 	public void testGetFatigue() {
-		fail("Not yet implemented");
+		assertEquals(myPet.getFatigue(), 0);
 	}
 
 	@Test
 	public void testGetPlayfulness() {
-		fail("Not yet implemented");
+		assertEquals(myPet.getPlayfulness(), 0);
 	}
 
 	@Test
 	public void testGetWeight() {
-		fail("Not yet implemented");
+		assertEquals(myPet.getWeight(), 4, delta);
 	}
 
 	@Test
 	public void testGetIsSick() {
-		fail("Not yet implemented");
+		assertEquals(myPet.getIsSick(), false);
 	}
 
 	@Test
 	public void testGetIsRevivable() {
-		fail("Not yet implemented");
+		assertEquals(myPet.getIsRevivable(), true);
 	}
 
 	@Test
 	public void testGetIsMisbehaving() {
-		fail("Not yet implemented");
+		assertEquals(myPet.getIsMisbehaving(), false);
 	}
 
 	@Test
 	public void testSetName() {
-		Pet myPet = new Pet("Dragon");
-		Pet myPet2 = new Pet("Dog");
-		
-		String name = "Fred";
-		String name2 = null;
-		String name3 = "George";
-		
+
 		myPet.setName(name);
 		assertEquals(myPet.getName(), name);
-		
-		myPet.setName(name2);
-		assertEquals(myPet.getName(), name2);
-		
-		myPet2.setName(name3);
-		assertEquals(myPet2.getName(), name3);
+
+		try {
+			myPet.setName(null);
+			fail("Accepts null name.");
+		} catch (IllegalArgumentException e){
+			assertEquals(myPet.getName(), name);
+		}
 	}
 
 	@Test
 	public void testSetGender() {
-		Pet myPet = new Pet("Dragon");
-
-		String gender = "male";
-		String gender2 = "female";
-		String gender3 = "table";
 
 		myPet.setGender(gender);
 		assertEquals(myPet.getGender(), gender);
+
 		myPet.setGender(gender2);
 		assertEquals(myPet.getGender(), gender2);
-		
+
 		try {
 			myPet.setGender(gender3);
-		    fail( "Accepts invalid gender" );
-		} catch (IllegalArgumentException e){}
-		
-		assertEquals(myPet.getGender(), gender2);
+			fail("Accepts invalid gender.");
+		} catch (IllegalArgumentException e){
+			assertEquals(myPet.getGender(), gender2);
+		}
 	}
 
 	@Test
-	public void testSetIsSick() {
-		Pet myPet = new Pet("Dragon");
-		Boolean isSick = false;
-		myPet.setIsSick(isSick);
-		assertEquals(myPet.getIsSick(), isSick);
+	public void testSetIsSick() {	
+
+		myPet.setIsSick(true);
+		assertEquals(myPet.getIsSick(), true);
+
+		myPet.setIsSick(false);
+		assertEquals(myPet.getIsSick(), false);
 	}
 
 	@Test
 	public void testSetIsRevivable() {
-		fail("Not yet implemented");
+
+		myPet.setIsRevivable(true);
+		assertEquals(myPet.getIsRevivable(), true);
+
+		myPet.setIsRevivable(false);
+		assertEquals(myPet.getIsRevivable(), false);
 	}
 
 	@Test
 	public void testSetIsMisbehaving() {
-		fail("Not yet implemented");
-	}
 
-	@Test
-	public void testIncreaseValue() {
-		fail("Not yet implemented");
+		myPet.setIsMisbehaving(true);
+		assertEquals(myPet.getIsMisbehaving(), true);
+
+		myPet.setIsMisbehaving(false);
+		assertEquals(myPet.getIsMisbehaving(), false);	
 	}
 
 	@Test
 	public void testIncreaseMischievousness() {
-		fail("Not yet implemented");
+		myPet.increaseMischievousness(5);
+		assertEquals(myPet.getMischievousness(), 5);
+		myPet.increaseMischievousness(-10);
+		assertEquals(myPet.getMischievousness(), 0);
+		myPet.increaseMischievousness(2);
+		assertEquals(myPet.getMischievousness(), 2);
+		myPet.increaseMischievousness(20000);
+		assertEquals(myPet.getMischievousness(), 100);
+		myPet.increaseMischievousness(250);
+		assertEquals(myPet.getMischievousness(), 100);
+		myPet.increaseMischievousness(-2);
+		assertEquals(myPet.getMischievousness(), 98);
+		myPet.increaseMischievousness(-500);
+		assertEquals(myPet.getMischievousness(), 0);
+		myPet.increaseMischievousness(-20);
+		assertEquals(myPet.getMischievousness(), 0);
 	}
 
 	@Test
 	public void testIncreaseHappiness() {
-		fail("Not yet implemented");
+		myPet.increaseHappiness(-500);
+		assertEquals(myPet.getHappiness(), 0);
+		myPet.increaseHappiness(5);
+		assertEquals(myPet.getHappiness(), 5);
+		myPet.increaseHappiness(-10);
+		assertEquals(myPet.getHappiness(), 0);
+		myPet.increaseHappiness(2);
+		assertEquals(myPet.getHappiness(), 2);
+		myPet.increaseHappiness(20000);
+		assertEquals(myPet.getHappiness(), 100);
+		myPet.increaseHappiness(250);
+		assertEquals(myPet.getHappiness(), 100);
+		myPet.increaseHappiness(-2);
+		assertEquals(myPet.getHappiness(), 98);
+		myPet.increaseHappiness(-500);
+		assertEquals(myPet.getHappiness(), 0);
+		myPet.increaseHappiness(-20);
+		assertEquals(myPet.getHappiness(), 0);
 	}
 
 	@Test
 	public void testIncreaseHunger() {
-		fail("Not yet implemented");
+		myPet.increaseHunger(5);
+		assertEquals(myPet.getHunger(), 5);
+		myPet.increaseHunger(-10);
+		assertEquals(myPet.getHunger(), 0);
+		myPet.increaseHunger(2);
+		assertEquals(myPet.getHunger(), 2);
+		myPet.increaseHunger(20000);
+		assertEquals(myPet.getHunger(), 100);
+		myPet.increaseHunger(250);
+		assertEquals(myPet.getHunger(), 100);
+		myPet.increaseHunger(-2);
+		assertEquals(myPet.getHunger(), 98);
+		myPet.increaseHunger(-500);
+		assertEquals(myPet.getHunger(), 0);
+		myPet.increaseHunger(-20);
+		assertEquals(myPet.getHunger(), 0);
 	}
 
 	@Test
 	public void testIncreasePercentBladderFull() {
-		fail("Not yet implemented");
+		myPet.increasePercentBladderFull(5);
+		assertEquals(myPet.getPercentBladderFull(), 5);
+		myPet.increasePercentBladderFull(-10);
+		assertEquals(myPet.getPercentBladderFull(), 0);
+		myPet.increasePercentBladderFull(2);
+		assertEquals(myPet.getPercentBladderFull(), 2);
+		myPet.increasePercentBladderFull(20000);
+		assertEquals(myPet.getPercentBladderFull(), 100);
+		myPet.increasePercentBladderFull(250);
+		assertEquals(myPet.getPercentBladderFull(), 100);
+		myPet.increasePercentBladderFull(-2);
+		assertEquals(myPet.getPercentBladderFull(), 98);
+		myPet.increasePercentBladderFull(-500);
+		assertEquals(myPet.getPercentBladderFull(), 0);
+		myPet.increasePercentBladderFull(-20);
+		assertEquals(myPet.getPercentBladderFull(), 0);
 	}
 
 	@Test
 	public void testIncreaseFatigue() {
-		fail("Not yet implemented");
+		myPet.increaseFatigue(5);
+		assertEquals(myPet.getFatigue(), 5);
+		myPet.increaseFatigue(-10);
+		assertEquals(myPet.getFatigue(), 0);
+		myPet.increaseFatigue(2);
+		assertEquals(myPet.getFatigue(), 2);
+		myPet.increaseFatigue(20000);
+		assertEquals(myPet.getFatigue(), 100);
+		myPet.increaseFatigue(250);
+		assertEquals(myPet.getFatigue(), 100);
+		myPet.increaseFatigue(-2);
+		assertEquals(myPet.getFatigue(), 98);
+		myPet.increaseFatigue(-500);
+		assertEquals(myPet.getFatigue(), 0);
+		myPet.increaseFatigue(-20);
+		assertEquals(myPet.getFatigue(), 0);
 	}
 
 	@Test
 	public void testIncreasePlayfulness() {
-		fail("Not yet implemented");
+		myPet.increasePlayfulness(5);
+		assertEquals(myPet.getPlayfulness(), 5);
+		myPet.increasePlayfulness(-10);
+		assertEquals(myPet.getPlayfulness(), 0);
+		myPet.increasePlayfulness(2);
+		assertEquals(myPet.getPlayfulness(), 2);
+		myPet.increasePlayfulness(20000);
+		assertEquals(myPet.getPlayfulness(), 100);
+		myPet.increasePlayfulness(250);
+		assertEquals(myPet.getPlayfulness(), 100);
+		myPet.increasePlayfulness(-2);
+		assertEquals(myPet.getPlayfulness(), 98);
+		myPet.increasePlayfulness(-500);
+		assertEquals(myPet.getPlayfulness(), 0);
+		myPet.increasePlayfulness(-20);
+		assertEquals(myPet.getPlayfulness(), 0);
 	}
 
 	@Test
 	public void testIncreaseWeight() {
-		fail("Not yet implemented");
+		myPet.increaseWeight(0);
+		assertEquals(myPet.getWeight(), 4, delta);
+		myPet.increaseWeight(0.5);
+		assertEquals(myPet.getWeight(), 4.5, delta);
+		myPet.increaseWeight(-1.5);
+		assertEquals(myPet.getWeight(), 3, delta);
+		myPet.increaseWeight(5.01);
+		assertEquals(myPet.getWeight(), 8.01, delta);
+		try {
+			myPet.increaseWeight(-10);
+			fail("Accepts negative weight.");
+		} catch (IllegalArgumentException e){}
 	}
 
 }
