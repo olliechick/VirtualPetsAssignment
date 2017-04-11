@@ -23,9 +23,11 @@ public class FoodTest {
 
 	@Test
 	public void testGetHealthIncrease() {
+		//Test that all health increases are set correctly
 		for (int i = 0; i < species.length; i++){
 			assertEquals(myFood.getHealthIncrease(species[i]), values[i]);
 		}
+		//Test that an unknown species throws an error
 		try {
 			myFood.getHealthIncrease("Alien");
 			fail("Found a species which doesn't exits");
@@ -33,21 +35,12 @@ public class FoodTest {
 	}
 
 	@Test
-	public void testGetPortionSize() {
-		assertEquals(myFood.getPortionSize(), 2);
-	}
-
-	@Test
-	public void testSetHealthIncrease() {
-		for (int i = 0; i < species.length; i++){
-			assertEquals(myFood.getHealthIncrease(species[i]), values[i]);
-		}
-	}
-
-	@Test
 	public void testSetPortionSize() {
+		//Check that portion size can be set to a normal value
 		myFood.setPortionSize(3);
 		assertEquals(myFood.getPortionSize(), 3);
+		
+		//Test that portion size cannot be negative
 		try {
 		    myFood.setPortionSize(-1);
 		    fail("Allowed an illegal portion size to be entered" );
@@ -55,6 +48,7 @@ public class FoodTest {
 			assertEquals(myFood.getPortionSize(), 3);
 		}
 		
+		//Test that portion size cannot be 0
 		try{
 			myFood.setPortionSize(0);
 			fail("Allowed an illegal portion size to be entered" );
@@ -63,25 +57,19 @@ public class FoodTest {
 		}
 	}
 
-	@Test
-	public void testGetName() {
-		assertEquals(myFood.getName(), "Meatloaf");
-	}
-
-	@Test
-	public void testGetDescription() {
-		assertEquals(myFood.getDescription(), "A delicious meaty loaf");
-	}
-
-	@Test
-	public void testGetPrice() {
-		assertEquals(myFood.getPrice(), 20);
-	}
+	
+	/*---------------------------------------------------*
+	 * This section test Item base class implementation  *
+	 *                  works correctly                  *
+	 *---------------------------------------------------*/
 
 	@Test
 	public void testSetName() {
+		//Test if name can be set to a normal value
 		myFood.setName("Delicious Meatloaf");
 		assertEquals(myFood.getName(), "Delicious Meatloaf");
+		
+		//Test if name can be set to the empty string
 		try {
 		    myFood.setName("");
 		    fail("Allowed an illegal item name to be entered" );
@@ -89,6 +77,7 @@ public class FoodTest {
 			assertEquals(myFood.getName(), "Delicious Meatloaf");
 		}
 		
+		//Test if name can be set to null
 		try{
 			myFood.setName(nullString);
 			fail("Allowed an illegal item name to be entered" );
@@ -99,8 +88,11 @@ public class FoodTest {
 
 	@Test
 	public void testSetPrice() {
+		//Test if price can be set to a normal value
 		myFood.setPrice(50);
 		assertEquals(myFood.getPrice(), 50);
+		
+		//Test if price can be set to 0 (shouldn't be possible)
 		try {
 		    myFood.setPrice(0);
 		    fail("Allowed an illegal item name to be entered" );
@@ -108,6 +100,7 @@ public class FoodTest {
 			assertEquals(myFood.getPrice(), 50);
 		}
 		
+		//Test if price can be set to -ve values (shouldn't be possible)
 		try{
 			myFood.setPrice(-10);
 			fail("Allowed an illegal item name to be entered" );
@@ -118,8 +111,11 @@ public class FoodTest {
 
 	@Test
 	public void testSetDescription() {
+		//Test items description can be set to a sane string
 		myFood.setDescription("Dry and stale meatloaf");
 		assertEquals(myFood.getDescription(), "Dry and stale meatloaf");
+		
+		//Test if food description can be set to the empty string (should be possible)
 		try {
 		    myFood.setDescription("");
 		    assertEquals(myFood.getDescription(), "");
@@ -127,6 +123,7 @@ public class FoodTest {
 			fail("Prevented a legal item name to be entered" );
 		}
 		
+		//Test if food desciption can be set to null
 		try{
 			myFood.setName(nullString);
 			fail("Allowed an illegal item name to be entered" );
