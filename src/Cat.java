@@ -13,11 +13,11 @@ public class Cat extends Pet implements Liveable {
 
 	@Override
 	public void play(Toy toy) {
+		int happinessIncrease = toy.getHappinessIncrease(species);
 		toy.decrementDurability(1);
-		super.increaseHappiness(1);
+		super.increaseHappiness(happinessIncrease);
 		super.increaseFatigue(1);
-		super.increaseMischievousness(-1);
-		super.increasePlayfulness(0); //what should go in here??
+		super.increaseMischievousness(-happinessIncrease);
 		super.increaseHunger(1);
 	}
 

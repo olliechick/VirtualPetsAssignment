@@ -16,7 +16,6 @@ public class Pet {
 	private int hunger; //out of 100
 	private int percentBladderFull; //out of 100
 	private int fatigue; //out of 100
-	private int playfulness; //out of 100
 	private double weight; // in kg
 	private Boolean isSick;
 	private Boolean isRevivable;
@@ -30,7 +29,6 @@ public class Pet {
 		hunger = 0;
 		percentBladderFull = 0;
 		fatigue = 0;
-		playfulness = 0;
 		isSick = false;
 		isRevivable = true;
 		isMisbehaving = false;
@@ -55,7 +53,6 @@ public class Pet {
 	public int getHunger(){return hunger;}
 	public int getPercentBladderFull(){return percentBladderFull;}
 	public int getFatigue(){return fatigue;}
-	public int getPlayfulness(){return playfulness;}
 	public double getWeight(){return weight;}
 	public Boolean getIsSick(){return isSick;}
 	public Boolean getIsRevivable(){return isRevivable;}
@@ -112,7 +109,6 @@ public class Pet {
 	public void increaseHunger(int increase){hunger=increaseValue(increase, hunger);}
 	public void increasePercentBladderFull(int increase){percentBladderFull=increaseValue(increase, percentBladderFull);}
 	public void increaseFatigue(int increase){fatigue=increaseValue(increase, fatigue);}
-	public void increasePlayfulness(int increase){playfulness=increaseValue(increase, playfulness);}
 
 	public void increaseWeight(double increase){
 		double newWeight = weight + increase;

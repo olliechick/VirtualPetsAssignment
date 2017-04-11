@@ -29,7 +29,6 @@ public class PetTest {
 		assertEquals(myPet.getHunger(), 0);
 		assertEquals(myPet.getPercentBladderFull(), 0);
 		assertEquals(myPet.getFatigue(), 0);
-		assertEquals(myPet.getPlayfulness(), 0);
 
 		try {
 			@SuppressWarnings("unused")
@@ -84,11 +83,6 @@ public class PetTest {
 	@Test
 	public void testGetFatigue() {
 		assertEquals(myPet.getFatigue(), 0);
-	}
-
-	@Test
-	public void testGetPlayfulness() {
-		assertEquals(myPet.getPlayfulness(), 0);
 	}
 
 	@Test
@@ -294,26 +288,6 @@ public class PetTest {
 		assertEquals(myPet.getFatigue(), 0);
 		myPet.increaseFatigue(-20);
 		assertEquals(myPet.getFatigue(), 0);
-	}
-
-	@Test
-	public void testIncreasePlayfulness() {
-		myPet.increasePlayfulness(5);
-		assertEquals(myPet.getPlayfulness(), 5);
-		myPet.increasePlayfulness(-10);
-		assertEquals(myPet.getPlayfulness(), 0);
-		myPet.increasePlayfulness(2);
-		assertEquals(myPet.getPlayfulness(), 2);
-		myPet.increasePlayfulness(20000);
-		assertEquals(myPet.getPlayfulness(), 100);
-		myPet.increasePlayfulness(250);
-		assertEquals(myPet.getPlayfulness(), 100);
-		myPet.increasePlayfulness(-2);
-		assertEquals(myPet.getPlayfulness(), 98);
-		myPet.increasePlayfulness(-500);
-		assertEquals(myPet.getPlayfulness(), 0);
-		myPet.increasePlayfulness(-20);
-		assertEquals(myPet.getPlayfulness(), 0);
 	}
 
 	@Test
