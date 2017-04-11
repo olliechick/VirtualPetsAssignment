@@ -2,7 +2,7 @@
 /**
  *
  * A class for pets 
- * @author Ollie Chics
+ * @author Ollie Chick
  *
  */
 public class Pet {

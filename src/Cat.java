@@ -4,8 +4,12 @@
  *
  */
 public class Cat extends Pet implements Liveable {
+
+	static String species = "cat";
 	
-	String species = "cat";
+	public Cat() {
+		super(species);
+	}
 
 	@Override
 	public void play(Toy toy) {
@@ -14,6 +18,7 @@ public class Cat extends Pet implements Liveable {
 		super.increaseFatigue(1);
 		super.increaseMischievousness(-1);
 		super.increasePlayfulness(0); //what should go in here??
+		super.increaseHunger(1);
 	}
 
 	@Override
@@ -33,26 +38,24 @@ public class Cat extends Pet implements Liveable {
 		super.increaseHunger(-portionSize);
 		super.increaseWeight(portionSize);
 		super.increasePercentBladderFull(portionSize);
-		super.increaseHappiness(healthIncrease);
-		super.increase
+		super.increaseHappiness(healthIncrease*portionSize);
+		super.increaseHealth(healthIncrease);
 	}
 
 	@Override
 	public void misbehave() {
-		// TODO Auto-generated method stub
-
+		super.increaseHappiness(-1);
+		super.setIsMisbehaving(true);
 	}
 
 	@Override
 	public void beSick() {
-		// TODO Auto-generated method stub
-
+		super.setIsSick(true);
 	}
 
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
-
+		super.setIsRevivable(false);
 	}
 
 }
