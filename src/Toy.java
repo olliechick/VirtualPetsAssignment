@@ -2,7 +2,8 @@ import java.util.HashMap;
 
 /**
  * Toy class implementation for Virtual Pets
- * @author Samuel Pell and Ollie Chick
+ * @author Samuel Pell
+ * @author Ollie Chick
  *
  */
 public class Toy extends Item{
