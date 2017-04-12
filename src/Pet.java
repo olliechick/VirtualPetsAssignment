@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
 
 /**
  *
@@ -21,7 +26,7 @@ public class Pet {
 	private Boolean isRevivable;
 	private Boolean isMisbehaving;
 
-	public Pet(String species){
+	public Pet(String species) throws IOException{
 		this.species = species;
 		health = 100;
 		mischievousness = 0;
@@ -32,9 +37,13 @@ public class Pet {
 		isSick = false;
 		isRevivable = true;
 		isMisbehaving = false;
+		File currentDir = new File (".");
+		System.out.println ("Current dir : " + dir1.getCanonicalPath());
+		BufferedReader reader = Files.newBufferedReader(currentDir, charset)
+		weight = readFile(fileName, defaultWeight, species);
 		switch(species){
 			case "cat": 
-			case "dog": weight = 4.0; break;
+			case "dog": weight = 4; break;
 			case "goat": weight = 50.0; break;
 			case "horse": weight = 500.0; break;
 			case "alpaca": weight = 60.0; break;
@@ -86,6 +95,40 @@ public class Pet {
 	public void setIsRevivable(Boolean isRevivable){this.isRevivable = isRevivable;}
 	public void setIsMisbehaving(Boolean isMisbehaving){this.isMisbehaving = isMisbehaving;}
 
+	// Increasers - like setters, but increase value rather than setting it
+	public void increaseHealth(int increase){health=increaseValue(increase, health);}
+	public void increaseMischievousness(int increase){mischievousness=increaseValue(increase, mischievousness);}
+	public void increaseHappiness(int increase){happiness=increaseValue(increase, happiness);}
+	public void increaseHunger(int increase){hunger=increaseValue(increase, hunger);}
+	public void increasePercentBladderFull(int increase){percentBladderFull=increaseValue(increase, percentBladderFull);}
+	public void increaseFatigue(int increase){fatigue=increaseValue(increase, fatigue);}
+
+	public void increaseWeight(double increase){
+		double newWeight = weight + increase;
+		if (newWeight < 1e-6){
+			throw new IllegalArgumentException("negative or 0 weight");
+		}else{weight = newWeight;}
+	}
+	
+	//other methods
+
+	protected String readFile(String fileName, String heading, String row){
+		try{
+			FileReader inputFile = new FileReader(fileName);
+			BufferedReader bufferReader = new BufferedReader(inputFile);
+			
+			String line;
+			while ((line = bufferReader.readLine()) != null)   {
+				System.out.println(line);
+				
+			}
+			bufferReader.close();
+		}catch(Exception e){
+			System.out.println("Error while reading file line by line:" + e.getMessage());                      
+		}
+		return " ";
+		
+	}
 	/**
 	 * This is a private function called by the increasers to make sure they stay within 0-100
 	 * @param increase This is how much to increase the value by
@@ -100,20 +143,5 @@ public class Pet {
 			newValue = 100;
 		}
 		return newValue;
-	}
-
-	// Increasers - like setters, but increase value rather than setting it
-	public void increaseHealth(int increase){health=increaseValue(increase, health);}
-	public void increaseMischievousness(int increase){mischievousness=increaseValue(increase, mischievousness);}
-	public void increaseHappiness(int increase){happiness=increaseValue(increase, happiness);}
-	public void increaseHunger(int increase){hunger=increaseValue(increase, hunger);}
-	public void increasePercentBladderFull(int increase){percentBladderFull=increaseValue(increase, percentBladderFull);}
-	public void increaseFatigue(int increase){fatigue=increaseValue(increase, fatigue);}
-
-	public void increaseWeight(double increase){
-		double newWeight = weight + increase;
-		if (newWeight < 1e-6){
-			throw new IllegalArgumentException("negative or 0 weight");
-		}else{weight = newWeight;}
 	}
 }

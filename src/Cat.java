@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 /**
  * Cat, a type of pet
  * @author Ollie Chick
@@ -6,8 +8,9 @@
 public class Cat extends Pet implements Liveable {
 
 	static String species = "cat";
-	
-	public Cat() {
+	int defaultWeight = 4;
+	s
+	public Cat() throws IOException {
 		super(species);
 	}
 
@@ -29,6 +32,7 @@ public class Cat extends Pet implements Liveable {
 	@Override
 	public void goToilet() {
 		super.increasePercentBladderFull(-100);
+		super.increaseWeight(super.getWeight() - defaultWeight);
 	}
 
 	@Override
