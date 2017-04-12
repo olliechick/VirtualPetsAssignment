@@ -1,4 +1,8 @@
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class PetTest {
@@ -12,14 +16,20 @@ public class PetTest {
 	String species2 = "dog";
 	String species3 = "dragon";
 	String species4 = "Cat";
-
-	Pet myPet = new Pet(species);
-	Pet myPet2 = new Pet(species2);
+	
+	Pet myPet;
+	Pet myPet2;
 	
 	double delta = 1e-6; //error for doubles, used in assertEquals() for methods involving weight
 
+	@Before
+	public void setUp() throws IOException { 
+		myPet = new Pet(species);
+		myPet2 = new Pet(species2);
+	}
+	
 	@Test
-	public void testPet() {
+	public void testPet() throws IOException {
 		assertEquals(myPet.getIsSick(), false);
 		assertEquals(myPet.getIsRevivable(), true);
 		assertEquals(myPet.getIsMisbehaving(), false);
