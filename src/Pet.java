@@ -8,6 +8,7 @@ import java.nio.file.Files;
  *
  * A class for pets 
  * @author Ollie Chick
+ * @author Samuel Pell
  *
  */
 public class Pet {
@@ -37,19 +38,19 @@ public class Pet {
 		isSick = false;
 		isRevivable = true;
 		isMisbehaving = false;
-		//		File currentDir = new File (".");
-		//		System.out.println ("Current dir : " + dir1.getCanonicalPath());
-		//		BufferedReader reader = Files.newBufferedReader(currentDir, charset)
-		String fileName = "/src/petdata.csv";
+
+		
+		String fileName = System.getProperty("user.dir") + "/src/petdata.csv";
 		String weightString = getDatumFromFile(fileName, "defaultWeight", species);
+		
 		switch(species){
-		case "cat": 
-		case "dog": weight = 4; break;
-		case "goat": weight = 50.0; break;
-		case "horse": weight = 500.0; break;
-		case "alpaca": weight = 60.0; break;
-		case "polar bear": weight = 250.0; break;
-		default: throw new IllegalArgumentException("Species not recognised.");
+			case "cat": 
+			case "dog": weight = 4; break;
+			case "goat": weight = 50.0; break;
+			case "horse": weight = 500.0; break;
+			case "alpaca": weight = 60.0; break;
+			case "polar bear": weight = 250.0; break;
+			default: throw new IllegalArgumentException("Species not recognised.");
 		}
 	}
 
@@ -78,7 +79,9 @@ public class Pet {
 	public void setName(String name){
 		if(name == null){
 			throw new IllegalArgumentException("Null name.");
-		}else{this.name=name;}
+		}else{
+			this.name=name;
+		}
 	}
 
 	/**
@@ -89,7 +92,9 @@ public class Pet {
 	public void setGender(String gender){
 		if(gender != "male" && gender != "female"){
 			throw new IllegalArgumentException("Invalid gender.");
-		}else{this.gender=gender;}
+		}else{
+			this.gender=gender;
+		}
 	}
 
 	public void setIsSick(Boolean isSick){this.isSick = isSick;}
@@ -108,40 +113,43 @@ public class Pet {
 		double newWeight = weight + increase;
 		if (newWeight < 1e-6){
 			throw new IllegalArgumentException("negative or 0 weight");
-		}else{weight = newWeight;}
+		}else{
+			weight = newWeight;
+		}
 	}
 
 	//other methods
 
 	protected String getDatumFromFile(String fileName, String heading, String row){
 		String datum;
-		int col=0;
+		int col = 0;
 		Boolean found = false;
+		
 		try{
 			FileReader inputFile = new FileReader(fileName);
 			BufferedReader bufferReader = new BufferedReader(inputFile);
 
 			String line;
-			int i=0;
+			int i = 0;
+			
 			while ((line = bufferReader.readLine()) != null){
 				switch(i){
-				case 0 : break; //description line
-				case 1 : 
-					int j=0;
-					for(String piece : line.split(",")){
-						if (piece == heading){
-							col = j;
-							found = true;
-						}j++;
-					if (!found){
-						throw new IllegalArgumentException("No such heading");
-					}
-					
-					}
-				default : if(line.split(",")[0]==row){
-					//found the right row
-					datum = line.split(",")[col];
-				}
+					case 0: break; //description line
+					case 1: 
+						int j = 0;
+						for(String piece : line.split(",")){
+							if (piece == heading){
+								col = j;
+								found = true;
+							}
+							j++;
+						}
+						if (!found){
+							throw new IllegalArgumentException("No such heading");
+						} //Should there be a break here?
+					default:
+						if(line.split(",")[0] == row) //found the right row
+							datum = line.split(",")[col];
 				}
 				i++;
 			}
@@ -149,7 +157,7 @@ public class Pet {
 		}catch(Exception e){
 			System.out.println("Error while reading file line by line:" + e.getMessage());                      
 		}
-		return " ";
+		return " "; //why does this only return a space?
 
 	}
 	/**
