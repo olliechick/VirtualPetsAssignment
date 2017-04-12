@@ -8,7 +8,7 @@ import org.junit.Test;
 /**
  * Tests for Pet class implmentation
  * @author Ollie Chick
- *
+ * @author Samuel Pell
  */
 public class PetTest {
 
@@ -31,6 +31,12 @@ public class PetTest {
 	public void setUp() throws IOException { 
 		myPet = new Pet(species);
 		myPet2 = new Pet(species2);
+		try{
+			Pet myPet3 = new Pet("Alien");
+			fail("Found unknown species");
+		} catch (IllegalArgumentException exception){
+			assertEquals(exception.getMessage(), "Unknown species: Alien");
+		}
 	}
 	
 	@Test

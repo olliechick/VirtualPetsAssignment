@@ -121,7 +121,7 @@ public class Pet {
 	//other methods
 
 	protected String getDatumFromFile(String fileName, String heading, String row){
-		String datum;
+		String datum = null;
 		int col = 0;
 		Boolean found = false;
 		
@@ -132,13 +132,14 @@ public class Pet {
 			String line;
 			int i = 0;
 			
-			while ((line = bufferReader.readLine()) != null){
+			line = bufferReader.readLine();
+			while (line != null){
 				switch(i){
 					case 0: break; //description line
 					case 1: 
 						int j = 0;
 						for(String piece : line.split(",")){
-							if (piece == heading){
+							if (piece.equals(heading)){
 								col = j;
 								found = true;
 							}
@@ -148,17 +149,23 @@ public class Pet {
 							throw new IllegalArgumentException("No such heading");
 						} //Should there be a break here?
 					default:
-						if(line.split(",")[0] == row) //found the right row
+						if(line.split(",")[0].equals(row)){ //if the right row
 							datum = line.split(",")[col];
+						}
 				}
 				i++;
+				line = bufferReader.readLine();
 			}
 			bufferReader.close();
+			inputFile.close();
 		}catch(Exception e){
-			System.out.println("Error while reading file line by line:" + e.getMessage());                      
+			System.out.println("Error while reading file line by line:" + e.getMessage());
 		}
-		return " "; //why does this only return a space?
-
+		if (datum == null){
+			throw new IllegalArgumentException("Unknown species: " + row);
+		} else{
+			return datum;
+		}
 	}
 	/**
 	 * This is a private function called by the increasers to make sure they stay within 0-100
