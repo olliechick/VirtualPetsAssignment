@@ -89,7 +89,14 @@ public class CatTest {
 
 	@Test
 	public void testSleep() {
-		fail("Not yet implemented");
+		int initialFatigue = myCat.getFatigue();
+		int otherInitialFatigue = myOtherCat.getFatigue();
+		
+		myCat.sleep();
+		myOtherCat.sleep();
+		
+		assertTrue(initialFatigue == 0 && myCat.getFatigue() == 0);
+		assertTrue(otherInitialFatigue > myOtherCat.getFatigue());
 	}
 
 	@Test
@@ -114,7 +121,8 @@ public class CatTest {
 
 	@Test
 	public void testDie() {
-		fail("Not yet implemented");
+		myCat.die();
+		assertFalse(myCat.getIsRevivable());
 	}
 
 }
