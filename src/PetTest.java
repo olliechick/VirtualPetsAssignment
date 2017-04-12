@@ -5,6 +5,11 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests for Pet class implmentation
+ * @author Ollie Chick
+ *
+ */
 public class PetTest {
 
 	String name = "Fred";

@@ -9,7 +9,6 @@ import org.junit.Before;
  * @author Samuel Pell
  *
  */
-
 public class CatTest {
 	
 	private Cat myCat;

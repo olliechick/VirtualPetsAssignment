@@ -1,5 +1,10 @@
 import java.util.ArrayList;
 
+/**
+ * Player class for VirtualPets
+ * @author Ollie Chick
+ *
+ */
 public class Player {
 	
 	String name;
