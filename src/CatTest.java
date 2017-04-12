@@ -109,21 +109,21 @@ public class CatTest {
 	@Test
 	public void testSleep() {
 		int initialFatigue = myCat.getFatigue();
-		int maxInitialFatigue = myOtherCat.getFatigue();
+		int maxInitialFatigue = myMinCat.getFatigue();
 		
 		myCat.sleep();
-		myOtherCat.sleep();
+		myMinCat.sleep();
 		
 		//check if initial fatigue is higher than new fatigue 
 		assertTrue(initialFatigue > myCat.getFatigue());
 		//check for no change in minimum fatigue case
-		assertTrue(maxInitialFatigue == 0 && myOtherCat.getFatigue() == 0);
+		assertTrue(maxInitialFatigue == 0 && myMinCat.getFatigue() == 0);
 	}
 
 	@Test
 	public void testGoToilet() {
 		int initialPercentBladderFull = myCat.getPercentBladderFull();
-		int maxInitialPercentBladderFull = myOtherCat.getPercentBladderFull();
+		int maxInitialPercentBladderFull = myMinCat.getPercentBladderFull();
 	}
 
 	@Test

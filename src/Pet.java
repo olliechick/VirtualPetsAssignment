@@ -37,18 +37,19 @@ public class Pet {
 		isSick = false;
 		isRevivable = true;
 		isMisbehaving = false;
-		File currentDir = new File (".");
-		System.out.println ("Current dir : " + dir1.getCanonicalPath());
-		BufferedReader reader = Files.newBufferedReader(currentDir, charset)
-		weight = readFile(fileName, defaultWeight, species);
+		//		File currentDir = new File (".");
+		//		System.out.println ("Current dir : " + dir1.getCanonicalPath());
+		//		BufferedReader reader = Files.newBufferedReader(currentDir, charset)
+		String fileName = "/src/petdata.csv";
+		String weightString = getDatumFromFile(fileName, "defaultWeight", species);
 		switch(species){
-			case "cat": 
-			case "dog": weight = 4; break;
-			case "goat": weight = 50.0; break;
-			case "horse": weight = 500.0; break;
-			case "alpaca": weight = 60.0; break;
-			case "polar bear": weight = 250.0; break;
-			default: throw new IllegalArgumentException("Species not recognised.");
+		case "cat": 
+		case "dog": weight = 4; break;
+		case "goat": weight = 50.0; break;
+		case "horse": weight = 500.0; break;
+		case "alpaca": weight = 60.0; break;
+		case "polar bear": weight = 250.0; break;
+		default: throw new IllegalArgumentException("Species not recognised.");
 		}
 	}
 
@@ -109,25 +110,47 @@ public class Pet {
 			throw new IllegalArgumentException("negative or 0 weight");
 		}else{weight = newWeight;}
 	}
-	
+
 	//other methods
 
-	protected String readFile(String fileName, String heading, String row){
+	protected String getDatumFromFile(String fileName, String heading, String row){
+		String datum;
+		int col=0;
+		Boolean found = false;
 		try{
 			FileReader inputFile = new FileReader(fileName);
 			BufferedReader bufferReader = new BufferedReader(inputFile);
-			
+
 			String line;
-			while ((line = bufferReader.readLine()) != null)   {
-				System.out.println(line);
-				
+			int i=0;
+			while ((line = bufferReader.readLine()) != null){
+				switch(i){
+				case 0 : break; //description line
+				case 1 : 
+					int j=0;
+					for(String piece : line.split(",")){
+						if (piece == heading){
+							col = j;
+							found = true;
+						}j++;
+					if (!found){
+						throw new IllegalArgumentException("No such heading");
+					}
+					
+					}
+				default : if(line.split(",")[0]==row){
+					//found the right row
+					datum = line.split(",")[col];
+				}
+				}
+				i++;
 			}
 			bufferReader.close();
 		}catch(Exception e){
 			System.out.println("Error while reading file line by line:" + e.getMessage());                      
 		}
 		return " ";
-		
+
 	}
 	/**
 	 * This is a private function called by the increasers to make sure they stay within 0-100

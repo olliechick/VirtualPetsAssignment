@@ -9,7 +9,6 @@ public class Cat extends Pet implements Liveable {
 
 	static String species = "cat";
 	int defaultWeight = 4;
-	s
 	public Cat() throws IOException {
 		super(species);
 	}
