@@ -1,0 +1,15 @@
+Line 1: explanation. Line 2: headings. Lines 3+: items.,,,,,,,,,
+name,description,price,portionSize,increaseHealthCat,increaseHealthDog,increaseHealthGoat,increaseHealthHorse,increaseHealthAlpaca,increaseHealthPolarBear
+cat biscuits,,5,2,20,2,-2,-2,-2,1
+dog biscuits,,10,2,5,20,-2,-2,-2,1
+dry hay,,20,5,0,0,10,30,30,0
+dry grass,,20,5,5,0,10,30,30,0
+lettuce,,2,4,2,2,20,20,20,0
+canned fish,,6,3,50,20,-10,-20,-20,5
+silage,,15,5,0,0,10,30,30,0
+seal meat,,50,10,20,20,-50,-50,-50,100
+wet cat food,,15,5,40,2,-2,-2,-2,1
+dog roll,,25,5,5,30,-10,-10,-10,3
+goat nuts,,20,4,2,2,30,0,0,0
+chocolate,,5,2,-80,-80,-80,-80,-80,30
+off fish,,,3,-30,-30,-80,-80,-80,-15
