@@ -36,12 +36,8 @@ public class Pet {
 		isSick = false;
 		isRevivable = true;
 		isMisbehaving = false;
-
-		
-		String fileName = System.getProperty("user.dir") + "/src/petdata.csv";
-		String weightString = getDatumFromFile(fileName, "defaultWeight", species);
-		
-		this.weight = Double.parseDouble(weightString);
+		String weightString = getDatumFromFile("petdata.csv", "defaultWeight", species);
+		weight = Double.parseDouble(weightString);
 	}
 
 	// Getters
@@ -117,6 +113,7 @@ public class Pet {
 	 * @return datum wanted
 	 */
 	public String getDatumFromFile(String fileName, String heading, String row){
+		fileName = System.getProperty("user.dir") + "/src/" + fileName;
 		String datum = null;
 		int col = 0;
 		Boolean found = false;

@@ -65,8 +65,8 @@ public class Toy extends Item{
 		}
 		
 		this.durability -= durability;
-		if (this.durability <= 0){
-			throw new IllegalArgumentException("durability is zero or negative");
+		if (this.durability < 0){
+			throw new IllegalArgumentException("durability is negative");
 		}
 	}
 	

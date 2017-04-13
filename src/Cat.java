@@ -8,7 +8,13 @@ import java.io.IOException;
 public class Cat extends Pet implements Liveable {
 
 	static String species = "cat";
-	int defaultWeight = 4;
+	
+	String weightString = getDatumFromFile("petdata.csv", "defaultWeight", species);
+	double defaultWeight = Double.parseDouble(weightString);
+	String bladderString = getDatumFromFile("petdata.csv", "bladderSize", species);
+	int bladderSize = Integer.parseInt(bladderString);
+	
+	
 	public Cat() throws IOException {
 		super(species);
 	}
@@ -31,7 +37,7 @@ public class Cat extends Pet implements Liveable {
 	@Override
 	public void goToilet() {
 		super.increasePercentBladderFull(-100);
-		super.increaseWeight(super.getWeight() - defaultWeight);
+		super.increaseWeight(defaultWeight - super.getWeight());
 	}
 
 	@Override
@@ -40,14 +46,14 @@ public class Cat extends Pet implements Liveable {
 		int healthIncrease = food.getHealthIncrease(species);
 		super.increaseHunger(-portionSize);
 		super.increaseWeight(portionSize);
-		super.increasePercentBladderFull(portionSize);
+		super.increasePercentBladderFull(portionSize/bladderSize+1);
 		super.increaseHappiness(healthIncrease*portionSize);
 		super.increaseHealth(healthIncrease);
 	}
 
 	@Override
 	public void misbehave() {
-		super.increaseHappiness(-1);
+		super.increaseHappiness(-10);
 		super.setIsMisbehaving(true);
 	}
 
@@ -58,7 +64,7 @@ public class Cat extends Pet implements Liveable {
 
 	@Override
 	public void die() {
-		super.setIsRevivable(false);
+		super.setIsRevivable(false); //This may be a problem 
 	}
 
 }
