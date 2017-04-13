@@ -116,7 +116,7 @@ public class Pet {
 	 * @param row The name of the item
 	 * @return datum wanted
 	 */
-	protected String getDatumFromFile(String fileName, String heading, String row){
+	public String getDatumFromFile(String fileName, String heading, String row){
 		String datum = null;
 		int col = 0;
 		Boolean found = false;

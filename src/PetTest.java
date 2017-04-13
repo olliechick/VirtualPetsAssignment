@@ -18,7 +18,7 @@ public class PetTest {
 	String gender2 = "female";
 	String gender3 = "table";
 	String species = "cat";
-	String species2 = "dog";
+	String species2 = "horse";
 	String species3 = "dragon";
 	String species4 = "Cat";
 	
@@ -31,6 +31,8 @@ public class PetTest {
 	public void setUp() throws IOException { 
 		myPet = new Pet(species);
 		myPet2 = new Pet(species2);
+		assertEquals(myPet.getWeight(),4,delta);
+		assertEquals(myPet2.getWeight(),500,delta);
 		
 		try{
 			new Pet("Alien");
@@ -326,6 +328,8 @@ public class PetTest {
 			myPet.increaseWeight(-10);
 			fail("Accepts negative weight.");
 		} catch (IllegalArgumentException e){}
+		myPet.increaseWeight(5000);
+		assertEquals(myPet.getWeight(), 5008.01, delta);
 	}
 
 }
