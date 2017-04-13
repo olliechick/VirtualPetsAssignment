@@ -7,16 +7,14 @@ import java.io.IOException;
  */
 public class Cat extends Pet implements Liveable {
 
-	static String species = "cat";
-	
-	String weightString = getDatumFromFile("petdata.csv", "defaultWeight", species);
-	double defaultWeight = Double.parseDouble(weightString);
-	String bladderString = getDatumFromFile("petdata.csv", "bladderSize", species);
-	int bladderSize = Integer.parseInt(bladderString);
-	
+	private static String species = "cat";
+	double defaultWeight;
+	int bladderSize;
 	
 	public Cat() throws IOException {
 		super(species);
+		defaultWeight = Double.parseDouble(getDatumFromFile("petdata.csv", "defaultWeight", species));
+		bladderSize = Integer.parseInt(getDatumFromFile("petdata.csv", "bladderSize", species));
 	}
 
 	@Override
