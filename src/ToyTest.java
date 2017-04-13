@@ -12,6 +12,7 @@ public class ToyTest {
 
 	private Toy myToy;
 	private Toy myOtherToy;
+	private Toy myThirdToy;
 	private String[] species = {"Wildcat", "Adult", "Child"};
 	private int[] myToyValues = {3, 2, 6};
 	private int[] myOtherToyValues = {30, 1000, -1100};
@@ -22,6 +23,7 @@ public class ToyTest {
 		this.myOtherToy = new Toy("Cheap Spinning Top", "A dull metal coloured spinning top", new Integer(5), new Integer(2));
 		this.myToy.setHappinessIncrease(species, myToyValues);
 		this.myOtherToy.setHappinessIncrease(species, myOtherToyValues);
+		this.myThirdToy = new Toy("String", "", 20, 15);
 	}
 
 	@Test
@@ -44,7 +46,17 @@ public class ToyTest {
 
 	@Test
 	public void testDecrementDurability() {
-		//First try decrementing by a negative number
+		//Standard use case - eventual decrement to 0
+		//when durability gets to 0 (after decrement) raise exception
+		myOtherToy.decrementDurability(1);
+		try{
+			myOtherToy.decrementDurability(1);
+			fail("Let durability = 0");
+		}catch(IllegalArgumentException e){
+			assertEquals(myOtherToy.getDurability(), 0);
+		}
+		
+		//Try decrementing by a negative number
 		try {
 			myToy.decrementDurability(-5);
 			fail("Allows a negative durability change");
@@ -60,7 +72,7 @@ public class ToyTest {
 			assertEquals(exception.getMessage(), "durability must decrease");
 		}
 		
-		//Try having a 0 durability toy
+		//Try having a 0 durability toy (directly to 0
 		try {
 			myToy.decrementDurability(15);
 			fail("Allows a 0 durability");
@@ -70,7 +82,7 @@ public class ToyTest {
 		
 		//Try having a -ve durability toy
 		try {
-			myToy.decrementDurability(16);
+			myThirdToy.decrementDurability(16);
 			fail("Allows a 0 durability");
 		} catch (IllegalArgumentException exception){
 			assertEquals(exception.getMessage(), "durability is zero or negative");
