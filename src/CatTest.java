@@ -27,7 +27,7 @@ public class CatTest {
 		int[] values = {25};
 		
 		//initialise myToy and myFood
-		myToy = new Toy("scratching post", "", 1, 3);
+		myToy = new Toy("scratching post", "", 1, 10);
 		myFood = new Food("Meatloaf", "", 1, 3);
 		
 		//add values for happiness increase to myToy
@@ -46,7 +46,7 @@ public class CatTest {
 		//Set myMinCat's attributes to minimum extremes
 		myMinCat.increaseMischievousness(100);
 		myMinCat.increaseHappiness(100);
-		myMinCat.increaseFatigue(100);
+		myMinCat.increaseFatigue(0);
 		myMinCat.increaseHunger(100);
 		myMinCat.increasePercentBladderFull(100);
 		myMinCat.increaseHealth(100);
@@ -107,14 +107,14 @@ public class CatTest {
 
 	@Test
 	public void testSleep() {
-		int initialFatigue = myCat.getFatigue();
+		int initialFatigue = myMaxCat.getFatigue();
 		int maxInitialFatigue = myMinCat.getFatigue();
 		
-		myCat.sleep();
+		myMaxCat.sleep();
 		myMinCat.sleep();
 		
 		//check if initial fatigue is higher than new fatigue 
-		assertTrue(initialFatigue > myCat.getFatigue());
+		assertTrue(initialFatigue > myMaxCat.getFatigue());
 		//check for no change in minimum fatigue case
 		assertTrue(maxInitialFatigue == 0 && myMinCat.getFatigue() == 0);
 	}

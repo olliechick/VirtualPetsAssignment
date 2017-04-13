@@ -31,8 +31,9 @@ public class PetTest {
 	public void setUp() throws IOException { 
 		myPet = new Pet(species);
 		myPet2 = new Pet(species2);
+		
 		try{
-			Pet myPet3 = new Pet("Alien");
+			new Pet("Alien");
 			fail("Found unknown species");
 		} catch (IllegalArgumentException exception){
 			assertEquals(exception.getMessage(), "Unknown species: Alien");

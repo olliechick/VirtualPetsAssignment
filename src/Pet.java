@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
 
 /**
  *
@@ -43,7 +41,9 @@ public class Pet {
 		String fileName = System.getProperty("user.dir") + "/src/petdata.csv";
 		String weightString = getDatumFromFile(fileName, "defaultWeight", species);
 		
-		switch(species){
+		this.weight = Double.parseDouble(weightString);
+		
+		/*switch(species){
 			case "cat": 
 			case "dog": weight = 4; break;
 			case "goat": weight = 50.0; break;
@@ -51,7 +51,7 @@ public class Pet {
 			case "alpaca": weight = 60.0; break;
 			case "polar bear": weight = 250.0; break;
 			default: throw new IllegalArgumentException("Species not recognised.");
-		}
+		}*/
 	}
 
 	// Getters
@@ -119,7 +119,13 @@ public class Pet {
 	}
 
 	//other methods
-
+	/**
+	 * Read the file form the path inputed and selects the data neccessary.
+	 * @param fileName File to read from
+	 * @param heading Name of the column in the data file
+	 * @param row The name of the species
+	 * @return data wanted
+	 */
 	protected String getDatumFromFile(String fileName, String heading, String row){
 		String datum = null;
 		int col = 0;
@@ -132,8 +138,7 @@ public class Pet {
 			String line;
 			int i = 0;
 			
-			line = bufferReader.readLine();
-			while (line != null){
+			while ((line = bufferReader.readLine()) != null){
 				switch(i){
 					case 0: break; //description line
 					case 1: 
@@ -147,26 +152,30 @@ public class Pet {
 						}
 						if (!found){
 							throw new IllegalArgumentException("No such heading");
-						} //Should there be a break here?
+						}
+						break;
 					default:
 						if(line.split(",")[0].equals(row)){ //if the right row
 							datum = line.split(",")[col];
 						}
 				}
 				i++;
-				line = bufferReader.readLine();
 			}
+			
+			//when done close both reader and file
 			bufferReader.close();
 			inputFile.close();
+			
 		}catch(Exception e){
 			System.out.println("Error while reading file line by line:" + e.getMessage());
 		}
-		if (datum == null){
+		
+		if (datum == null)
 			throw new IllegalArgumentException("Unknown species: " + row);
-		} else{
+		else
 			return datum;
-		}
 	}
+	
 	/**
 	 * This is a private function called by the increasers to make sure they stay within 0-100
 	 * @param increase This is how much to increase the value by
