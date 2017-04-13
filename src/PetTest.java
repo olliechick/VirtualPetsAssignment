@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests for Pet class implmentation
+ * Tests for Pet class implementation
  * @author Ollie Chick
  * @author Samuel Pell
  */

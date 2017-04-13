@@ -42,16 +42,6 @@ public class Pet {
 		String weightString = getDatumFromFile(fileName, "defaultWeight", species);
 		
 		this.weight = Double.parseDouble(weightString);
-		
-		/*switch(species){
-			case "cat": 
-			case "dog": weight = 4; break;
-			case "goat": weight = 50.0; break;
-			case "horse": weight = 500.0; break;
-			case "alpaca": weight = 60.0; break;
-			case "polar bear": weight = 250.0; break;
-			default: throw new IllegalArgumentException("Species not recognised.");
-		}*/
 	}
 
 	// Getters
@@ -130,6 +120,7 @@ public class Pet {
 		String datum = null;
 		int col = 0;
 		Boolean found = false;
+		String typeOfItem = null;
 		
 		try{
 			FileReader inputFile = new FileReader(fileName);
@@ -143,6 +134,7 @@ public class Pet {
 					case 0: break; //description line
 					case 1: 
 						int j = 0;
+						typeOfItem = line.split(",")[0];
 						for(String piece : line.split(",")){
 							if (piece.equals(heading)){
 								col = j;
@@ -171,7 +163,7 @@ public class Pet {
 		}
 		
 		if (datum == null)
-			throw new IllegalArgumentException("Unknown species: " + row);
+			throw new IllegalArgumentException("Unknown " + typeOfItem + ": " + row);
 		else
 			return datum;
 	}
