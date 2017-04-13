@@ -110,11 +110,11 @@ public class Pet {
 
 	//other methods
 	/**
-	 * Read the file form the path inputed and selects the data neccessary.
+	 * Read the file form the path inputed and selects the data necessary.
 	 * @param fileName File to read from
 	 * @param heading Name of the column in the data file
-	 * @param row The name of the species
-	 * @return data wanted
+	 * @param row The name of the item
+	 * @return datum wanted
 	 */
 	protected String getDatumFromFile(String fileName, String heading, String row){
 		String datum = null;
