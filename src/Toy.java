@@ -55,6 +55,8 @@ public class Toy extends Item{
 	
 	/**
 	 * Set the objects durability. New durability must be greater than 0
+	 * 
+	 * Durability is counted in number of uses remaining at 0 the item has no uses left and needs to be destroyed
 	 * @param durability Items remaining durability
 	 * @throws IllegalArgumentException durability decrease must be larger than 0
 	 * @throws IllegalArgumentException Items durability is negative or 0; it needs to be removed from the player's toyList

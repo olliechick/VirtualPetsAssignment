@@ -66,6 +66,7 @@ public class CatTest {
 		myMinCat.increaseHunger(-100);
 		myMinCat.increasePercentBladderFull(-100);
 		myMinCat.increaseHealth(-100);
+
 	}
 
 	@Test
