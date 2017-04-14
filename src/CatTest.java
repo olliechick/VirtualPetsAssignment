@@ -75,7 +75,21 @@ public class CatTest {
 	@Test
 	public void testCat() {
 		assertEquals(myCat.getSpecies(), "cat");
-		
+		Pet[] petArray = new Pet[]{myCat, myMinCat};
+		Pet pet = petArray[0];
+//		System.out.println(pet.getClass() == class Cat);
+		System.out.println(pet.getSpecies());
+//		try{
+//			((Dog) pet).misbehave();}catch(ClassCastException exception){}
+		try{Dog apet = (Dog) pet;}catch(ClassCastException e){}finally{Dog apet = (Dog) pet;}
+		try{Cat apet = (Cat) pet;}catch(ClassCastException e){}finally{Cat apet = (Cat) pet;}
+//		Cat apet = (Cat) pet;
+		apet.misbehave(); //why can't apet be resolved???????????????????????
+		System.out.println(pet.getClass());
+		System.out.println(pet.getHappiness());
+		System.out.println();
+
+
 		//TODO add assertTrue(myMaxCat.getHappiness()==100); etc.
 	}
 
@@ -91,7 +105,12 @@ public class CatTest {
 		//play with the toy
 		myCat.play(myToy);
 		myMaxCat.play(myToy);
-		myMinCat.play(myToy);
+		try{
+			myMinCat.play(myToy);
+			fail("Does nothing if you play with a toy until it is destroyed.");
+		} catch (IllegalArgumentException exception){
+			assertEquals(exception.getMessage(), "durability is zero or negative");
+		}
 		
 		/*
 		 * Their happiness will increase or decrease.
@@ -245,7 +264,6 @@ public class CatTest {
 		assertEquals(myMaxCat.getPercentBladderFull(), 100);
 
 		//check new happiness is higher
-		System.out.println(""+myCat.getHappiness()+" > "+initialHappiness);
 		assertTrue(myCat.getHappiness() > initialHappiness);
 		//check for no change in max case
 		assertEquals(myMaxCat.getHappiness(), 100);
