@@ -12,12 +12,12 @@ public class Toy extends Item{
 	private HashMap<String, Integer> happinessIncrease = new HashMap<String, Integer>();
 	
 	/**
-	 * Constructor for Toy item
-	 * @param name Toy Name
+	 * Constructor for Toy item.
+	 * @param name Toy name
 	 * @param description Toy description
 	 * @param price Price of toy
 	 * @param durability How durable the toy is
-	 * @throws IllegalArgumentException Toys durability must be greater than 0
+	 * @throws IllegalArgumentException Toy's durability must be greater than 0
 	 */
 	public Toy(String name, String description, int price, int durability) throws IllegalArgumentException{
 		super();
@@ -32,48 +32,47 @@ public class Toy extends Item{
 	}
 	
 	/**
-	 * Gets the items remain durability
-	 * @return items durability
+	 * Gets the item's remaining durability.
+	 * @return item's durability
 	 */
 	public int getDurability(){
 		return this.durability;
 	}
 	
 	/**
-	 * Returns the amount happiness increases for the pet using the toy
+	 * Returns the amount happiness increases for the pet using the toy.
 	 * @param species Species of animal using toy
 	 * @return Happiness increase
 	 * @throws IllegalArgumentException Species not known
 	 */
 	public int getHappinessIncrease(String species) throws IllegalArgumentException{
 		if (this.happinessIncrease.get(species) == null){
-			throw new IllegalArgumentException("Species " + species + " is not known to this toy " + this.getName());
+			throw new IllegalArgumentException("Species " + species + " is not known to the toy " + this.getName());
 		} else{
 			return this.happinessIncrease.get(species);
 		}
 	}
 	
 	/**
-	 * Set the objects durability. New durability must be greater than 0
-	 * 
-	 * Durability is counted in number of uses remaining at 0 the item has no uses left and needs to be destroyed
-	 * @param durability Items remaining durability
-	 * @throws IllegalArgumentException durability decrease must be larger than 0
-	 * @throws IllegalArgumentException Items durability is negative or 0; it needs to be removed from the player's toyList
+	 * Decrements the objects durability; the new durability must be greater than 0.
+	 * Durability is counted in number of uses remaining; at 0, the item has no uses left and needs to be removed from the player's toyList.
+	 * @param durability Item's remaining durability
+	 * @throws IllegalArgumentException Durability decrease must be larger than 0
+	 * @throws IllegalArgumentException Item's durability is negative or 0; it needs to be removed from the player's toyList
 	 */
-	public void decrementDurability(int durability) throws IllegalArgumentException{
-		if (durability <= 0){
+	public void decrementDurability(int decrement) throws IllegalArgumentException{
+		if (decrement <= 0){
 			throw new IllegalArgumentException("durability must decrease");
 		}
 		
-		this.durability -= durability;
-		if (this.durability <= 0){
+		durability -= decrement;
+		if (durability <= 0){
 			throw new IllegalArgumentException("durability is zero or negative");
 		}
 	}
 	
 	/**
-	 * Sets the objects happiness increase on a per species basis.
+	 * Sets the object's happiness increase on a per species basis.
 	 * @param species Species for which this increase applies
 	 * @param increase Happiness increase
 	 */

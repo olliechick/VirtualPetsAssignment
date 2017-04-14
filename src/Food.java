@@ -11,12 +11,12 @@ public class Food extends Item{
 	private int portionSize;
 	
 	/**
-	 * Constructor for Food item
-	 * <h3><i>Warning: You must still call Food.setHealthIncrease before using that functionality</i></h3>
-	 * @param name name of food
-	 * @param description food description
-	 * @param price price of food
-	 * @param portionSize how large the portion is
+	 * Constructor for Food item.
+	 * <b>Warning: You must still call Food.setHealthIncrease before using that functionality.</b>
+	 * @param name Name of food
+	 * @param description Food description
+	 * @param price Price of food
+	 * @param portionSize How large the food is
 	 */
 	public Food(String name, String description, int price, int portionSize){
 		super();
@@ -27,10 +27,10 @@ public class Food extends Item{
 	}
 	
 	/**
-	 * Get how much eating each food changes the health
-	 * of the animal
-	 * @return change in HP for pet
-	 * @param species relevant species
+	 * Gets how much eating each food changes the health
+	 * of the animal.
+	 * @param species Relevant species
+	 * @return Change in health for pet
 	 * @throws IllegalArgumentException Species not known
 	 */
 	public int getHealthIncrease(String species) throws IllegalArgumentException{
@@ -42,15 +42,15 @@ public class Food extends Item{
 	}
 	
 	/**
-	 * Get portion size for the food
-	 * @return portion size
+	 * Gets portion size for the food
+	 * @return Portion size
 	 */
 	public int getPortionSize(){
 		return this.portionSize;
 	}
 	
 	/**
-	 * Sets the foods health increase on a per species basis.
+	 * Sets the food's health increase on a per species basis.
 	 * @param species Species for which this increase applies
 	 * @param increase Happiness increase
 	 */
@@ -61,15 +61,15 @@ public class Food extends Item{
 	}
 	
 	/**
-	 * Set the portion size, portion size must be greater than 0.
-	 * @param size new portion size
-	 * @throws IllegalArgumentException size less than 0
+	 * Sets the portion size; this must be greater than 0.
+	 * @param size New portion size
+	 * @throws IllegalArgumentException Negative or 0 size
 	 */
 	public void setPortionSize(int size) throws IllegalArgumentException{
 		if (size > 0){
 			this.portionSize = size;
 		} else{
-			throw new IllegalArgumentException("Portion size must be > 0");
+			throw new IllegalArgumentException("Portion size must be greater than zero.");
 		}
 	}
 }
