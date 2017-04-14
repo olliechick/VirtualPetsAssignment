@@ -89,7 +89,6 @@ public class CatTest {
 		System.out.println(pet.getHappiness());
 		System.out.println();
 
-
 		//TODO add assertTrue(myMaxCat.getHappiness()==100); etc.
 	}
 
@@ -274,8 +273,6 @@ public class CatTest {
 		assertEquals(myMaxCat.getHealth(), 100);
 		
 	}
-	
-	//TODO finish all tests below here
 
 	@Test
 	public void testMisbehave() {
@@ -288,7 +285,6 @@ public class CatTest {
 		assertTrue(myCat.getHappiness() < initialHappiness);
 		//check for no change in min case
 		assertEquals(myMinCat.getHappiness(), 0);
-		
 	}
 
 	@Test
