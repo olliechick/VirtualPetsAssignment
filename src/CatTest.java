@@ -18,6 +18,7 @@ public class CatTest {
 	private Toy myBadToy; 
 	private Food myFood;
 	private Food myBadFood;
+	private double delta;
 
 	@Before
 	public void setUp() throws Exception{		
@@ -28,6 +29,8 @@ public class CatTest {
 		String[] species = {myCat.getSpecies()};
 		int[] values = {20};
 		int[] badValues = {-20};
+		
+		delta = 1e-6; //error for doubles, used in assertEquals() for methods involving weight
 
 		//initialise toys and foods
 		myToy = new Toy("Ball", "", 1, 3); //name, description, price, durability
@@ -39,7 +42,7 @@ public class CatTest {
 		myToy.setHappinessIncrease(species, values);
 		myBadToy.setHappinessIncrease(species, badValues);
 		//add values for health increase to foods
-		myFood.setHealthIncrease(species, badValues);
+		myFood.setHealthIncrease(species, values);
 		myBadFood.setHealthIncrease(species, badValues);
 		
 		//Set myCat's attributes to middle
@@ -49,7 +52,7 @@ public class CatTest {
 		myCat.increaseHunger(50);
 		myCat.increasePercentBladderFull(50);
 		myCat.increaseFatigue(50);
-		
+		myCat.increaseWeight(1); //so there is a change when it returns to defaultWeight
 
 		//Set myMaxCat's attributes to maximum extremes
 		myMaxCat.increaseMischievousness(100);
@@ -179,42 +182,101 @@ public class CatTest {
 		//check new durability is lower
 		assertTrue(myBadToy.getDurability() < initialDurability);
 	}
-	
-	//TODO finish all tests below here
 
 	@Test
 	public void testSleep() {
 		int initialFatigue = myMaxCat.getFatigue();
-		int maxInitialFatigue = myMinCat.getFatigue();
 
+		myCat.sleep();
 		myMaxCat.sleep();
 		myMinCat.sleep();
 
-		//check if initial fatigue is higher than new fatigue 
-		assertTrue(initialFatigue > myMaxCat.getFatigue());
+		//check new fatigue is lower
+		assertTrue(myCat.getFatigue() < initialFatigue);
 		//check for no change in minimum fatigue case
-		assertTrue(maxInitialFatigue == 0 && myMinCat.getFatigue() == 0);
+		assertEquals(myMinCat.getFatigue(), 0);
 	}
 
 	@Test
 	public void testGoToilet() {
-		int initialPercentBladderFull = myCat.getPercentBladderFull();
-		int maxInitialPercentBladderFull = myMinCat.getPercentBladderFull();
+		double initialWeight = myCat.getWeight();
+		double initialMinWeight = myMinCat.getWeight();
+		
+		myCat.goToilet();
+		myMaxCat.goToilet();
+		myMinCat.goToilet();
+		
+		//check bladder is now empty
+		assertEquals(myCat.getPercentBladderFull(), 0);
+		//check for no change in already empty bladder
+		assertEquals(myCat.getPercentBladderFull(), 0);
+		
+		//check new weight is lower
+		assertTrue(myCat.getWeight() < initialWeight);
+		//check no change for a normal weight cat
+		assertEquals(myMinCat.getWeight(), initialMinWeight, delta);
 	}
 
 	@Test
 	public void testFeed() {
-		fail("Not yet implemented");
+		//get initial values
+		int initialHunger = myCat.getHunger();
+		double initialWeight = myCat.getWeight();
+		int initialPercentBladderFull = myCat.getPercentBladderFull();
+		int initialHappiness = myCat.getHappiness();
+		int initialHealth = myCat.getHealth();
+
+		//eat the food
+		myCat.feed(myFood);
+		myMaxCat.feed(myFood);
+		myMinCat.feed(myFood);
+		
+		//check new hunger is lower
+		assertTrue(myCat.getHunger() < initialHunger);
+		//check for no change in minimum hunger case
+		assertEquals(myMinCat.getHunger(), 0);
+		
+		//check new weight is higher
+		assertTrue(myCat.getWeight() > initialWeight);
+
+		//check new percent bladder full is higher
+		assertTrue(myCat.getPercentBladderFull() > initialPercentBladderFull);
+		//check for no change in max case
+		assertEquals(myMaxCat.getPercentBladderFull(), 100);
+
+		//check new happiness is higher
+		System.out.println(""+myCat.getHappiness()+" > "+initialHappiness);
+		assertTrue(myCat.getHappiness() > initialHappiness);
+		//check for no change in max case
+		assertEquals(myMaxCat.getHappiness(), 100);
+
+		//check new health is higher
+		assertTrue(myCat.getHealth() > initialHealth);
+		//check for no change in max case
+		assertEquals(myMaxCat.getHealth(), 100);
+		
 	}
+	
+	//TODO finish all tests below here
 
 	@Test
 	public void testMisbehave() {
-		fail("Not yet implemented");
+		//get initial values
+		int initialHappiness = myCat.getHappiness();
+		
+		myCat.misbehave();
+		
+		//check new happiness is lower
+		assertTrue(myCat.getHappiness() < initialHappiness);
+		//check for no change in min case
+		assertEquals(myMinCat.getHappiness(), 0);
+		
 	}
 
 	@Test
 	public void testBeSick() {
-		fail("Not yet implemented");
+		myCat.beSick();
+		//nothing to test
 	}
 
 	@Test
