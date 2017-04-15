@@ -282,6 +282,45 @@ public class CatTest {
 	}
 
 	@Test
+	public void testFeedBad() {
+		//get initial values
+		int initialHunger = myCat.getHunger();
+		double initialWeight = myCat.getWeight();
+		int initialPercentBladderFull = myCat.getPercentBladderFull();
+		int initialHappiness = myCat.getHappiness();
+		int initialHealth = myCat.getHealth();
+
+		//eat the food
+		myCat.feed(myBadFood);
+		myMaxCat.feed(myBadFood);
+		myMinCat.feed(myBadFood);
+		
+		//check new hunger is lower
+		assertTrue(myCat.getHunger() < initialHunger);
+		//check for no change in minimum hunger case
+		assertEquals(myMinCat.getHunger(), 0);
+		
+		//check new weight is higher
+		assertTrue(myCat.getWeight() > initialWeight);
+
+		//check new percent bladder full is higher
+		assertTrue(myCat.getPercentBladderFull() > initialPercentBladderFull);
+		//check for no change in max case
+		assertEquals(myMaxCat.getPercentBladderFull(), 100);
+
+		//check new happiness is lower
+		assertTrue(myCat.getHappiness() < initialHappiness);
+		//check for no change in min case
+		assertEquals(myMinCat.getHappiness(), 0);
+
+		//check new health is lower
+		assertTrue(myCat.getHealth() < initialHealth);
+		//check for no change in min case
+		assertEquals(myMinCat.getHealth(), 0);
+		
+	}
+
+	@Test
 	public void testMisbehave() {
 		//get initial values
 		int initialHappiness = myCat.getHappiness();
