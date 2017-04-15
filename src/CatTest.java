@@ -81,10 +81,12 @@ public class CatTest {
 		
 		System.out.println(pet.getSpecies());
 
-		try{Dog apet = (Dog) pet;}catch(ClassCastException e){}finally{Dog apet = (Dog) pet;}
-		try{Cat apet = (Cat) pet;}catch(ClassCastException e){}finally{Cat apet = (Cat) pet;}
+		try{Dog apet = (Dog) pet;}
+		catch(ClassCastException e){Cat apet = (Cat) apet;}
+		finally{Dog apet = (Dog) pet;}
+//		try{Cat apet = (Cat) pet;}catch(ClassCastException e){}finally{Cat apet = (Cat) pet;}
 		
-		apet.misbehave(); //why can't apet be resolved???????????????????????
+		apet.misbehave(); //why can't apet be resolved NOW???????????????????????
 		System.out.println(pet.getClass());
 		System.out.println(pet.getHappiness());
 		System.out.println();
