@@ -180,5 +180,55 @@ public class Pet {
 		}
 		return newValue;
 	}
+
+	/**
+	 * The pet plays with the toy.
+	 * Their happiness will increase or decrease.
+	 * Their fatigue will increase.
+	 * Their mischievousness will decrease or increase.
+	 * Their hunger will increase.
+	 * Also, the toy's durability will decrease.
+	 * @param toy the toy the pet plays with
+	 */
+	public void play(Toy toy){}
 	
+	/**
+	 * The pet sleeps.
+	 * Their fatigue will decrease.
+	 */
+	public void sleep(){}
+	
+	/**
+	 * The pet goes toilet.
+	 * Their percent bladder full will decrease to 0.
+	 * Their weight will return to normal.
+	 */
+	public void goToilet(){}
+	
+	/**
+	 * The pet eats food.
+	 * Their hunger will decrease.
+	 * Their weight will increase.
+	 * Their percent bladder full will increase.
+	 * Their happiness will increase or decrease.
+	 * Their health will increase or decrease.
+	 * @param food the food the pet eats
+	 */
+	public void feed(Food food){}
+	
+	/**
+	 * Their happiness will decrease.
+	 */
+	public void misbehave(){}
+	
+	/**
+	 * The pet is sick.
+	 */
+	void beSick(){}
+	
+	/**
+	 * The pet dies.
+	 * They can no longer be revived.
+	 */
+	void die(){}
 }
