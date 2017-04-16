@@ -5,7 +5,7 @@ import java.io.IOException;
  * @author Ollie Chick
  *
  */
-public class Cat extends Pet implements Liveable {
+public class Cat extends Pet {
 
 	private static String species = "cat";
 	double defaultWeight;

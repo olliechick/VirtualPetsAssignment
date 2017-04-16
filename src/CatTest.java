@@ -102,10 +102,8 @@ public class CatTest {
 		assertEquals(myMinCat.getFatigue(), 0);
 		
 
-		try{Dog apet = (Dog) pet; apet.misbehave();}
-		catch(ClassCastException e){}
-		try{Cat apet = (Cat) pet; apet.misbehave();}
-		catch(ClassCastException e){}
+		pet.misbehave();
+		assertEquals(pet.getHappiness(), 40);
 	}
 
 	@Test
