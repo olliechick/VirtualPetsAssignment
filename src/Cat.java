@@ -50,12 +50,6 @@ public class Cat extends Pet {
 	}
 
 	@Override
-	public void misbehave() {
-		super.increaseHappiness(-10);
-		super.setIsMisbehaving(true);
-	}
-
-	@Override
 	public void beSick() {
 		super.setIsSick(true);
 	}

@@ -219,7 +219,9 @@ public class Pet {
 	/**
 	 * Their happiness will decrease.
 	 */
-	public void misbehave(){}
+	public void misbehave(){
+		increaseHappiness(-10);
+		setIsMisbehaving(true);}
 	
 	/**
 	 * The pet is sick.
