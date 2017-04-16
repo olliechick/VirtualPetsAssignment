@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class Dog extends Pet implements Liveable {
+public class Dog extends Pet {
 
 	public Dog() throws IOException {
 		super("dog");
