@@ -76,6 +76,7 @@ public class CatTest {
 	public void testCat() {
 		assertEquals(myCat.getSpecies(), "cat");
 		
+		
 		Pet[] petArray = new Pet[]{myCat, myMinCat};
 		Pet pet = petArray[0];		
 
