@@ -77,21 +77,35 @@ public class CatTest {
 		assertEquals(myCat.getSpecies(), "cat");
 		
 		Pet[] petArray = new Pet[]{myCat, myMinCat};
-		Pet pet = petArray[0];
-		
-		System.out.println(pet.getSpecies());
+		Pet pet = petArray[0];		
 
-		try{Dog apet = (Dog) pet;}
-		catch(ClassCastException e){Cat apet = (Cat) apet;}
-		finally{Dog apet = (Dog) pet;}
-//		try{Cat apet = (Cat) pet;}catch(ClassCastException e){}finally{Cat apet = (Cat) pet;}
-		
-		apet.misbehave(); //why can't apet be resolved NOW???????????????????????
-		System.out.println(pet.getClass());
-		System.out.println(pet.getHappiness());
-		System.out.println();
+		assertEquals(myCat.getHealth(), 50);
+		assertEquals(myCat.getMischievousness(), 50);
+		assertEquals(myCat.getHappiness(), 50);
+		assertEquals(myCat.getHunger(), 50);
+		assertEquals(myCat.getPercentBladderFull(), 50);
+		assertEquals(myCat.getFatigue(), 50);
+		assertEquals(myCat.getWeight(), 4+1, delta);
 
-		//TODO add assertTrue(myMaxCat.getHappiness()==100); etc.
+		assertEquals(myMaxCat.getHealth(), 100);
+		assertEquals(myMaxCat.getMischievousness(), 100);
+		assertEquals(myMaxCat.getHappiness(), 100);
+		assertEquals(myMaxCat.getHunger(), 100);
+		assertEquals(myMaxCat.getPercentBladderFull(), 100);
+		assertEquals(myMaxCat.getFatigue(), 100);
+
+		assertEquals(myMinCat.getHealth(), 0);
+		assertEquals(myMinCat.getMischievousness(), 0);
+		assertEquals(myMinCat.getHappiness(), 0);
+		assertEquals(myMinCat.getHunger(), 0);
+		assertEquals(myMinCat.getPercentBladderFull(), 0);
+		assertEquals(myMinCat.getFatigue(), 0);
+		
+
+		try{Dog apet = (Dog) pet; apet.misbehave();}
+		catch(ClassCastException e){}
+		try{Cat apet = (Cat) pet; apet.misbehave();}
+		catch(ClassCastException e){}
 	}
 
 	@Test
