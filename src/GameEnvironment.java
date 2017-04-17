@@ -243,6 +243,7 @@ public class GameEnvironment {
 	/**
 	 * Main entry point.
 	 * @param args Arguments - don't really have many of them
+	 * @throws IOException So it doesn't complain at me
 	 */
 	public static void main(String[] args) throws IOException{
 		//Testing if setup works
