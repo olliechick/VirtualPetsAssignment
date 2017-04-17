@@ -3,6 +3,7 @@ import java.util.ArrayList;
 /**
  * Player class for VirtualPets
  * @author Ollie Chick
+ * @author Samuel Pell
  *
  */
 public class Player {
@@ -16,6 +17,9 @@ public class Player {
 
 	public Player() {
 		balance = 100;
+		petList = new ArrayList<Pet>();
+		foodStock = new ArrayList<Food>();
+		toyList = new ArrayList<Toy>();
 	}
 
 	//Getters

@@ -11,9 +11,9 @@ import java.io.IOException;
  */
 public class Pet {
 
-	private String name; //either cat, dog, goat, horse, alpaca, or polar bear
+	private String name; 
 	private String gender; //either male or female
-	private String species;
+	private String species; //either cat, dog, goat, horse, alpaca, or polar bear
 	private int health; //out of 100
 	private int mischievousness; //out of 100
 	private int happiness; //out of 100
