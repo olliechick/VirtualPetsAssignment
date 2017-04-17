@@ -1,7 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Scanner;
 import java.io.IOException;
+
 
 /**
  * Launching off point for Virtual Pets game.
@@ -12,6 +16,8 @@ public class GameEnvironment {
 	
 	private Player[] playerList;
 	private ArrayList<String> nameList = new ArrayList<String>();
+	private HashMap<String, Food> foodPrototypes;
+	private HashMap<String, Toy> toyPrototypes;
 	private int dayNumber;
 	private int numberOfDays;
 	private Random randomNumGen;
@@ -179,6 +185,104 @@ public class GameEnvironment {
 		return newPet;
 	}
 	
+	/**
+	 * Gets lines 2 onwards from a data file specified.
+	 * @param fileName File to get data from.
+	 * @return ArrayList of each line as a string.
+	 */
+	private ArrayList<String> getDataFromFile(String fileName){
+		fileName = System.getProperty("user.dir") + "/src/" + fileName;
+		String line;
+		ArrayList<String> data = new ArrayList<String>();
+		
+		try{
+			FileReader inputFile = new FileReader(fileName);
+			BufferedReader bufferReader = new BufferedReader(inputFile);
+			
+			bufferReader.readLine(); //ignore first line
+			
+			while ((line = bufferReader.readLine()) != null){
+				data.add(line);
+			}
+			
+			bufferReader.close(); //tidy up after reading file
+			inputFile.close();
+		}catch (IOException e){ 
+			//If there is an IO error here just give up.
+			System.err.println("Error while reading file line by line:" + e.getMessage());
+			System.exit(0);
+		}
+		
+		return data;
+	}
+	
+	private Object[] parseLine(String line, HashMap<Integer, String> mapping){
+		String[] splitLine = line.split(",");
+		
+		String name = new String();
+		String description = new String();
+		Integer price = new Integer(0);
+		Integer size = new Integer(0);
+		Integer[] increase = new Integer[mapping.keySet().size() - 4]; //number of columns - number of columns that are the universal
+		String[] speciesOrder = new String[mapping.keySet().size() - 4];
+		
+		int i = 0;
+		for(int col = 0; col < splitLine.length; col++){
+			switch(mapping.get(col)){
+				case "name":
+					name = splitLine[col];
+					break;
+				case "description":
+					description = splitLine[col];
+					break;
+				case "price":
+					price = Integer.parseInt(splitLine[col]);
+					break;
+				case "durability":
+				case "portionSize":
+					size = Integer.parseInt(splitLine[col]);
+					break;
+				default:
+					if(mapping.get(col).substring(0, 17).equals("increaseHappiness")){
+						speciesOrder[i] = mapping.get(col).substring(17);
+						increase[i] = Integer.parseInt(splitLine[col]); 
+						i++;
+					}else if(mapping.get(col).substring(0, 15).equals("increaseHealth")){
+						speciesOrder[i] = mapping.get(col).substring(15);
+						increase[i] = Integer.parseInt(splitLine[col]);
+						i++;
+					}
+					break;
+			}
+		}
+		
+		return new Object[] {name, description, price, size, speciesOrder, increase};
+	}
+	
+	/**
+	 * 
+	 */
+	private void generateFoodPrototypes(){
+		foodPrototypes = new HashMap<String, Food>();
+		ArrayList<String> data = getDataFromFile("foodData.csv");
+		HashMap<Integer, String> mapping = new HashMap<Integer, String>(); //mapping of columns number to fields
+		
+		String[] firstLine = data.get(0).split(",");
+		data.remove(0); //remove the first line so later iteration is easier
+		
+		for(int i = 0; i < firstLine.length; i++){
+			mapping.put(i, firstLine[i]); //create mapping of columns to fields
+		}
+		
+		for(String line: data){
+			Object[] information = parseLine(line, mapping);
+			Food newFood = new Food((String) information[0], (String) information[1], (Integer) information[2], (Integer) information[3]);
+			newFood.setHealthIncrease((String[]) information[4], (Integer[]) information[5]);
+			
+			foodPrototypes.put((String) information[0], newFood);
+		}
+	}
+	
 	
 	/**
 	 * Creates a pet for a player
@@ -193,9 +297,16 @@ public class GameEnvironment {
 		}catch (IllegalArgumentException exception){
 			System.out.println("Unknown error. Please try again.");
 		}
-		//TODO: Finish implementing createPet
+		
+		if (randomNumGen.nextBoolean()){ //gender decided by randomNumGen
+			newPet.setGender("female");
+		} else{
+			newPet.setGender("male");
+		}
+		
 		return newPet;
 	}
+	
 	
 	/**
 	 * Creates a new player
@@ -214,6 +325,7 @@ public class GameEnvironment {
 		}
 		return newPlayer;
 	}
+	
 	
 	/**
 	 * Tidy up to close gracefully
@@ -236,7 +348,24 @@ public class GameEnvironment {
 	
 		for (int i = 0; i < numPlayers; i++){
 			playerList[i] = createPlayer();
-		}		
+		}
+		
+		//generateToyPrototypes();
+		generateFoodPrototypes();
+		System.out.println(foodPrototypes);
+	}
+	
+	
+	/**
+	 * Sets up random number generator for testing.
+	 * @param args Only argument is a seed of type long for the generator.
+	 */
+	private void initialiseNumGenerator(String[] args){
+		if (args.length == 1){
+			randomNumGen = new Random(Long.parseLong(args[0]));
+		}else {
+			randomNumGen = new Random();
+		}
 	}
 	
 	
@@ -248,6 +377,7 @@ public class GameEnvironment {
 	public static void main(String[] args) throws IOException{
 		//Testing if setup works
 		GameEnvironment mainGame = new GameEnvironment();
+		mainGame.initialiseNumGenerator(args);
 		mainGame.setup();
 		mainGame.tearDown();
 	}

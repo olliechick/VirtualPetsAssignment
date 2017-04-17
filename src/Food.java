@@ -54,7 +54,7 @@ public class Food extends Item{
 	 * @param species Species for which this increase applies
 	 * @param increase Happiness increase
 	 */
-	public void setHealthIncrease(String[] species, int[] increase){
+	public void setHealthIncrease(String[] species, Integer[] increase){
 		for (int i =0; i < species.length; i++){
 			this.healthIncrease.put(species[i], increase[i]);
 		}
@@ -71,5 +71,9 @@ public class Food extends Item{
 		} else{
 			throw new IllegalArgumentException("Portion size must be greater than zero.");
 		}
+	}
+	
+	public String toString(){
+		return "Food: " + super.getName() + " - " + super.getDescription() + " - $" + super.getPrice();
 	}
 }

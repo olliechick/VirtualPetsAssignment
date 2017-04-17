@@ -210,7 +210,7 @@ public class Pet {
 			inputFile.close();
 			
 		}catch(Exception e){
-			System.out.println("Error while reading file line by line:" + e.getMessage());
+			System.err.println("Error while reading file line by line:" + e.getMessage());
 		}
 		
 		if (datum == null)
