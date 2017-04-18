@@ -115,13 +115,22 @@ public class Pet {
 	 * Also, the toy's durability will decrease.
 	 * @param toy the toy the pet plays with
 	 */
-	public void play(Toy toy){}
+	public void play(Toy toy, int fatigueIncrease, int harshness){
+		int happinessIncrease = toy.getHappinessIncrease(species);
+		increaseHappiness(happinessIncrease);
+		increaseFatigue(fatigueIncrease);
+		increaseMischievousness(-happinessIncrease);
+		increaseHunger(fatigueIncrease);
+		toy.decrementDurability(harshness);
+	}
 	
 	/**
 	 * The pet sleeps.
 	 * Their fatigue will decrease.
 	 */
-	public void sleep(){}
+	public void sleep(){
+		increaseFatigue(-80);
+	}
 	
 	/**
 	 * The pet goes toilet.
