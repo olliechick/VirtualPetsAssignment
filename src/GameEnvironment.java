@@ -228,7 +228,8 @@ public class GameEnvironment {
 	 */
 	private Object[] parseLine(String line, HashMap<Integer, String> mapping){
 		String[] splitLine = line.split(",");
-		
+		 
+		//Create returnable fields
 		String name = new String();
 		String description = new String();
 		Integer price = new Integer(0);
@@ -237,7 +238,7 @@ public class GameEnvironment {
 		String[] speciesOrder = new String[mapping.keySet().size() - 4];
 		
 		int i = 0;
-		for(int col = 0; col < splitLine.length; col++){
+		for(int col = 0; col < splitLine.length; col++){ //for each column look at the field header and decide where the data lives
 			switch(mapping.get(col)){
 				case "name":
 					name = splitLine[col];
@@ -253,19 +254,20 @@ public class GameEnvironment {
 					size = Integer.parseInt(splitLine[col]);
 					break;
 				default:
-					if(mapping.get(col).substring(0, 17).equals("increaseHappiness")){
+					if(mapping.get(col).substring(0, 16).equals("increaseHappiness")){
 						speciesOrder[i] = mapping.get(col).substring(17);
-						increase[i] = Integer.parseInt(splitLine[col]); 
+						increase[i] = Integer.parseInt(splitLine[col]);
 						i++;
-					}else if(mapping.get(col).substring(0, 15).equals("increaseHealth")){
-						speciesOrder[i] = mapping.get(col).substring(15);
+					}else if(mapping.get(col).substring(0, 14).equals("increaseHealth")){
+						speciesOrder[i] = mapping.get(col).substring(14);
 						increase[i] = Integer.parseInt(splitLine[col]);
 						i++;
 					}
 					break;
 			}
 		}
-		System.out.println(speciesOrder);
+		
+		//TODO: This isn't very Java like but it reduces code duplication
 		return new Object[] {name, description, price, size, speciesOrder, increase};
 	}
 	
@@ -365,7 +367,6 @@ public class GameEnvironment {
 		
 		//generateToyPrototypes();
 		generateFoodPrototypes();
-		System.out.println(foodPrototypes);
 	}
 	
 	
