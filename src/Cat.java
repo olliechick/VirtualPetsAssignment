@@ -34,29 +34,11 @@ public class Cat extends Pet {
 
 	@Override
 	public void goToilet() {
-		super.increasePercentBladderFull(-100);
-		super.increaseWeight(defaultWeight - super.getWeight());
+		super.goToilet(defaultWeight);
 	}
 
-	@Override
 	public void feed(Food food) {
-		int portionSize = food.getPortionSize();
-		int healthIncrease = food.getHealthIncrease(species);
-		super.increaseHunger(-portionSize);
-		super.increaseWeight(portionSize);
-		super.increasePercentBladderFull(portionSize/bladderSize+1);
-		super.increaseHappiness(healthIncrease*portionSize);
-		super.increaseHealth(healthIncrease);
-	}
-
-	@Override
-	public void beSick() {
-		super.setIsSick(true);
-	}
-
-	@Override
-	public void die() {
-		super.setIsRevivable(false); //This may be a problem 
+		super.feed(food,  bladderSize);
 	}
 
 }

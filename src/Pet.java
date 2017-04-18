@@ -104,6 +104,8 @@ public class Pet {
 		}
 	}
 	
+	//doing functions
+	
 	/**
 	 * The pet plays with the toy.
 	 * Their happiness will increase or decrease.
@@ -126,7 +128,10 @@ public class Pet {
 	 * Their percent bladder full will decrease to 0.
 	 * Their weight will return to normal.
 	 */
-	public void goToilet(){}
+	public void goToilet(double defaultWeight){
+		increasePercentBladderFull(-100);
+		increaseWeight(defaultWeight - getWeight());
+		}
 	
 	/**
 	 * The pet eats food.
@@ -137,7 +142,15 @@ public class Pet {
 	 * Their health will increase or decrease.
 	 * @param food the food the pet eats
 	 */
-	public void feed(Food food){}
+	public void feed(Food food, int bladderSize){
+		int portionSize = food.getPortionSize();
+		int healthIncrease = food.getHealthIncrease(species);
+		increaseHunger(-portionSize);
+		increaseWeight(portionSize);
+		increasePercentBladderFull(portionSize/bladderSize+1);
+		increaseHappiness(healthIncrease*portionSize);
+		increaseHealth(healthIncrease);
+		}
 	
 	/**
 	 * Their happiness will decrease.
@@ -150,13 +163,17 @@ public class Pet {
 	/**
 	 * The pet is sick.
 	 */
-	void beSick(){}
+	void beSick(){
+		setIsSick(true);
+	}
 	
 	/**
 	 * The pet dies.
 	 * They can no longer be revived.
 	 */
-	void die(){}
+	void die(){
+		setIsRevivable(false); //This may be a problem 
+	}
 
 	//other methods
 	/**
