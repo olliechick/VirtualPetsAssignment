@@ -216,6 +216,16 @@ public class GameEnvironment {
 		return data;
 	}
 	
+	
+	/**
+	 * Parses a line into food or toy info to create prototype items
+	 * 
+	 * Takes a line read from a data file, splits it, and then iterates along the columns.
+	 * Maps the columns to data fields and then returns an object array of the information
+	 * @param line String taken from either foodData or toyData files
+	 * @param mapping Mapping generated from the first line of columns to fields
+	 * @return Object array in format {String name, String description, Integer price, Integer size, String[] speciesOrder, Intger[] increase}
+	 */
 	private Object[] parseLine(String line, HashMap<Integer, String> mapping){
 		String[] splitLine = line.split(",");
 		
@@ -223,7 +233,7 @@ public class GameEnvironment {
 		String description = new String();
 		Integer price = new Integer(0);
 		Integer size = new Integer(0);
-		Integer[] increase = new Integer[mapping.keySet().size() - 4]; //number of columns - number of columns that are the universal
+		Integer[] increase = new Integer[mapping.keySet().size() - 4]; //number of columns - number of columns common to each animal
 		String[] speciesOrder = new String[mapping.keySet().size() - 4];
 		
 		int i = 0;
@@ -255,12 +265,12 @@ public class GameEnvironment {
 					break;
 			}
 		}
-		
+		System.out.println(speciesOrder);
 		return new Object[] {name, description, price, size, speciesOrder, increase};
 	}
 	
 	/**
-	 * 
+	 * Generates all food prototypes for game
 	 */
 	private void generateFoodPrototypes(){
 		foodPrototypes = new HashMap<String, Food>();
@@ -275,6 +285,7 @@ public class GameEnvironment {
 		}
 		
 		for(String line: data){
+			//TODO: any recomendations on tidying this code?
 			Object[] information = parseLine(line, mapping);
 			Food newFood = new Food((String) information[0], (String) information[1], (Integer) information[2], (Integer) information[3]);
 			newFood.setHealthIncrease((String[]) information[4], (Integer[]) information[5]);
@@ -287,7 +298,7 @@ public class GameEnvironment {
 	/**
 	 * Creates a pet for a player
 	 * @return Pet player has designed
-	 * @throws IOException
+	 * @throws IOException Pet creation side effect
 	 */
 	private Pet createPet() throws IOException{
 		Pet newPet = createPetSpecies();
@@ -311,6 +322,7 @@ public class GameEnvironment {
 	/**
 	 * Creates a new player
 	 * @return A fully created player
+	 * @throws IOException Pet creation side effect
 	 */
 	private Player createPlayer() throws IOException{
 		Player newPlayer = new Player();
@@ -339,6 +351,7 @@ public class GameEnvironment {
 	 * Performs all setup for the game.
 	 * 
 	 * Creates players, their pets, and a prototype of each Toy and Food.
+	 * @throws IOException Pet creation side effect
 	 */
 	private void setup() throws IOException{
 		numberOfDays = getNumberOfDays();

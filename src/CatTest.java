@@ -27,8 +27,8 @@ public class CatTest {
 		myMinCat = new Cat();
 
 		String[] species = {myCat.getSpecies()};
-		int[] values = {20};
-		int[] badValues = {-20};
+		Integer[] values = {20};
+		Integer[] badValues = {-20};
 		
 		delta = 1e-6; //error for doubles, used in assertEquals() for methods involving weight
 

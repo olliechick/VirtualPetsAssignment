@@ -14,8 +14,8 @@ public class ToyTest {
 	private Toy myOtherToy;
 	private Toy myThirdToy;
 	private String[] species = {"Wildcat", "Adult", "Child"};
-	private int[] myToyValues = {3, 2, 6};
-	private int[] myOtherToyValues = {30, 1000, -1100};
+	private Integer[] myToyValues = {3, 2, 6};
+	private Integer[] myOtherToyValues = {30, 1000, -1100};
 	
 	@Before
 	public void setUp() throws Exception {
@@ -35,8 +35,8 @@ public class ToyTest {
 	@Test
 	public void testGetHappinessIncrease() {
 		for (int i = 0; i < species.length; i++){
-			assertEquals(myToy.getHappinessIncrease(species[i]), myToyValues[i]);
-			assertEquals(myOtherToy.getHappinessIncrease(species[i]), myOtherToyValues[i]);
+			assertEquals(myToy.getHappinessIncrease(species[i]), (int) myToyValues[i]);
+			assertEquals(myOtherToy.getHappinessIncrease(species[i]), (int) myOtherToyValues[i]);
 		}
 		try {
 			myToy.getHappinessIncrease("Alien");
@@ -92,8 +92,8 @@ public class ToyTest {
 	@Test
 	public void testSetHappinessIncrease() {
 		for (int i = 0; i < species.length; i++){
-			assertEquals(myToy.getHappinessIncrease(species[i]), myToyValues[i]);
-			assertEquals(myOtherToy.getHappinessIncrease(species[i]), myOtherToyValues[i]);
+			assertEquals(myToy.getHappinessIncrease(species[i]), (int) myToyValues[i]);
+			assertEquals(myOtherToy.getHappinessIncrease(species[i]), (int) myOtherToyValues[i]);
 		}
 	}
 }

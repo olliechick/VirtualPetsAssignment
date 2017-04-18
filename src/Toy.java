@@ -49,7 +49,7 @@ public class Toy extends Item{
 		if (this.happinessIncrease.get(species) == null){
 			throw new IllegalArgumentException("Species " + species + " is not known to the toy " + this.getName());
 		} else{
-			return this.happinessIncrease.get(species);
+			return (int) this.happinessIncrease.get(species);
 		}
 	}
 	
@@ -77,8 +77,8 @@ public class Toy extends Item{
 	 * @param species Species for which this increase applies
 	 * @param increase Happiness increase
 	 */
-	public void setHappinessIncrease(String[] species, int[] increase){
-		for (int i =0; i < species.length; i++){
+	public void setHappinessIncrease(String[] species, Integer[] increase){
+		for (int i = 0; i < species.length; i++){
 			this.happinessIncrease.put(species[i], increase[i]);
 		}
 	}

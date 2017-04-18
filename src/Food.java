@@ -37,7 +37,7 @@ public class Food extends Item{
 		if (this.healthIncrease.get(species) == null){
 			throw new IllegalArgumentException("Species " + species + " is not known to this food " + this.getName());
 		} else{
-			return this.healthIncrease.get(species);
+			return (int) this.healthIncrease.get(species);
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class Food extends Item{
 	 * @param increase Happiness increase
 	 */
 	public void setHealthIncrease(String[] species, Integer[] increase){
-		for (int i =0; i < species.length; i++){
+		for (int i = 0; i < species.length; i++){
 			this.healthIncrease.put(species[i], increase[i]);
 		}
 	}

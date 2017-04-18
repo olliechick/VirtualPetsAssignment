@@ -13,7 +13,7 @@ public class FoodTest {
 	private String nullString;
 	private Food myFood;
 	private String[] species = {"Wildcat", "Human", "Vegan"};
-	private int[] values = {3, 5, -10};
+	private Integer[] values = {3, 5, -10};
 	
 	@Before
 	public void setup() throws Exception{
@@ -25,7 +25,7 @@ public class FoodTest {
 	public void testGetHealthIncrease() {
 		//Test that all health increases are set correctly
 		for (int i = 0; i < species.length; i++){
-			assertEquals(myFood.getHealthIncrease(species[i]), values[i]);
+			assertEquals(myFood.getHealthIncrease(species[i]), (int) values[i]);
 		}
 		//Test that an unknown species throws an error
 		try {
