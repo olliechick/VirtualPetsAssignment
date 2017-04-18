@@ -2,54 +2,27 @@ import java.io.IOException;
 
 public class Dog extends Pet {
 
+	private static String species = "dog";
+	private double defaultWeight;
+	private int bladderSize;
+	
 	public Dog() throws IOException {
-		super("dog");
-		// TODO Auto-generated constructor stub
+		super(species);
+		defaultWeight = Double.parseDouble(getDatumFromFile("petdata.csv", "defaultWeight", species));
+		bladderSize = Integer.parseInt(getDatumFromFile("petdata.csv", "bladderSize", species));
 	}
 
-	@Override
 	public void play(Toy toy) {
-		// TODO Auto-generated method stub
-
+		int fatigueIncrease = 5;
+		int harshness = 2;
+		super.play(toy, fatigueIncrease, harshness);
 	}
 
-	@Override
-	public void sleep() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void goToilet() {
-		// TODO Auto-generated method stub
-
+		super.goToilet(defaultWeight);
 	}
 
-	@Override
 	public void feed(Food food) {
-		// TODO Auto-generated method stub
-
+		super.feed(food, bladderSize);
 	}
-
-	@Override
-	public void misbehave() {
-		// TODO Auto-generated method stub
-		System.out.println("Dog misbehaves");
-		super.increaseHappiness(-12);
-		super.setIsMisbehaving(true);
-
-	}
-
-	@Override
-	public void beSick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void die() {
-		// TODO Auto-generated method stub
-
-	}
-
 }
