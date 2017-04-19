@@ -147,6 +147,7 @@ public class Pet {
 		setIsMisbehaving(true);
 	}
 	
+	//Should these 2 methods be public
 	/**
 	 * The pet is sick.
 	 */
@@ -157,6 +158,13 @@ public class Pet {
 	 * They can no longer be revived.
 	 */
 	void die(){}
+	
+	/**
+	 * @return String representation of the pet
+	 */
+	public String toString(){
+		return "A " + gender + " " + species + " named " + name + " with " + health + "HP.";
+	}
 
 	//other methods
 	/**
