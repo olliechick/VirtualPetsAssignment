@@ -272,7 +272,7 @@ public class GameEnvironment {
 	}
 	
 	/**
-	 * Generates all food prototypes for game
+	 * Generates all food prototypes for game from "foodData.csv"
 	 */
 	private void generateFoodPrototypes(){
 		foodPrototypes = new HashMap<String, Food>();
@@ -297,7 +297,7 @@ public class GameEnvironment {
 	}
 	
 	/**
-	 * 
+	 * Generates all toy prototypes for game from "toyData.csv"
 	 */
 	private void generateToyPrototypes(){
 		toyPrototypes = new HashMap<String, Toy>();
