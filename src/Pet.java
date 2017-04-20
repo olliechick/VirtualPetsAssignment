@@ -169,6 +169,7 @@ public class Pet {
 		setIsMisbehaving(true);
 	}
 	
+	//Should these 2 methods be public
 	/**
 	 * The pet is sick.
 	 */
@@ -182,6 +183,13 @@ public class Pet {
 	 */
 	void die(){
 		setIsRevivable(false); //This may be a problem 
+	}
+	
+	/**
+	 * @return String representation of the pet
+	 */
+	public String toString(){
+		return "A " + gender + " " + species + " named " + name + " with " + health + "HP.";
 	}
 
 	//other methods

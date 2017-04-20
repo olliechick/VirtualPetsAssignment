@@ -296,6 +296,30 @@ public class GameEnvironment {
 		}
 	}
 	
+	/**
+	 * 
+	 */
+	private void generateToyPrototypes(){
+		toyPrototypes = new HashMap<String, Toy>();
+		ArrayList<String> data = getDataFromFile("toyData.csv");
+		HashMap<Integer, String> mapping = new HashMap<Integer, String>(); //mapping of columns number to fields
+		
+		String[] firstLine = data.get(0).split(",");
+		data.remove(0); //remove the first line so later iteration is easier
+		
+		for(int i = 0; i < firstLine.length; i++){
+			mapping.put(i, firstLine[i]); //create mapping of columns to fields
+		}
+		
+		for(String line: data){
+			//TODO: any recomendations on tidying this code?
+			Object[] information = parseLine(line, mapping);
+			Toy newToy = new Toy((String) information[0], (String) information[1], (Integer) information[2], (Integer) information[3]);
+			newToy.setHappinessIncrease((String[]) information[4], (Integer[]) information[5]);
+			
+			toyPrototypes.put((String) information[0], newToy);
+		}
+	}
 	
 	/**
 	 * Creates a pet for a player
@@ -311,7 +335,8 @@ public class GameEnvironment {
 			System.out.println("Unknown error. Please try again.");
 		}
 		
-		if (randomNumGen.nextBoolean()){ //gender decided by randomNumGen
+		Boolean genderDecider = randomNumGen.nextBoolean();
+		if (genderDecider){ //gender decided by randomNumGen
 			newPet.setGender("female");
 		} else{
 			newPet.setGender("male");
@@ -363,9 +388,15 @@ public class GameEnvironment {
 	
 		for (int i = 0; i < numPlayers; i++){
 			playerList[i] = createPlayer();
+			
+			//DEBUG
+			for (Pet pet: playerList[i].getPetList()){
+				System.out.println(pet);
+			}
+			//DEBUG
 		}
 		
-		//generateToyPrototypes();
+		generateToyPrototypes();
 		generateFoodPrototypes();
 	}
 	
