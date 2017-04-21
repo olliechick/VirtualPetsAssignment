@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 import java.io.BufferedReader;
@@ -24,6 +25,7 @@ public class GameEnvironment {
 	private Scanner inputReader = new Scanner(System.in);
 	
 	
+	//TODO: Extract CL interface to another class?
 	/**
 	 * Gets the number of days the game is to run for.
 	 * @return Number of days to run game for.
@@ -50,6 +52,7 @@ public class GameEnvironment {
 		return numDays;
 	}
 	
+	//TODO: Extract CL interface to another class?
 	/**
 	 * Used to ask the user the number of pets/players desired (between 1 and 3 inclusive).
 	 * @param query Query to pose to user.
@@ -77,6 +80,7 @@ public class GameEnvironment {
 		return numReq;
 	}
 	
+	//TODO: Extract CL interface to another class?
 	/**
 	 * Checks if a name is a duplicate.
 	 * @param name Name to check for duplication.
@@ -95,6 +99,7 @@ public class GameEnvironment {
 		return found;
 	}
 	
+	//TODO: Extract CL interface to another class?
 	/**
 	 * Get the name of a player or pet.
 	 * @param query Query to pose to user.
@@ -130,6 +135,7 @@ public class GameEnvironment {
 	}
 	
 	//TODO: Ask Ollie how to handle IOException from Pet class
+	//TODO: Extract all CL interfaces to another class?
 	/**
 	 * Creates a pet object based on user input
 	 * @return pet of species desired by player
@@ -254,12 +260,12 @@ public class GameEnvironment {
 					size = Integer.parseInt(splitLine[col]);
 					break;
 				default:
-					if(mapping.get(col).substring(0, 16).equals("increaseHappiness")){
-						speciesOrder[i] = mapping.get(col).substring(17);
+					if(mapping.get(col).substring(0, 17).equals("increaseHappiness")){
+						speciesOrder[i] = formatSpeciesName(mapping.get(col).substring(17));
 						increase[i] = Integer.parseInt(splitLine[col]);
 						i++;
 					}else if(mapping.get(col).substring(0, 14).equals("increaseHealth")){
-						speciesOrder[i] = mapping.get(col).substring(14);
+						speciesOrder[i] = formatSpeciesName(mapping.get(col).substring(14));
 						increase[i] = Integer.parseInt(splitLine[col]);
 						i++;
 					}
@@ -272,9 +278,33 @@ public class GameEnvironment {
 	}
 	
 	/**
+	 * Format species name in a uniform way. 
+	 * 
+	 * In the item data csv files the headings aren't formatted the same way as the pet species
+	 * are used in code. This function converts between them. It does this by making the
+	 * species header lower case, comparing this against a list of special cases, apply any 
+	 * neccessary changes and returning that formated string.
+	 * @param unformatted
+	 * @return formattes species name
+	 */
+	private String formatSpeciesName(String unformatted){
+		String formatted;
+		unformatted = unformatted.toLowerCase();
+		switch(unformatted){
+			case "polarbear":
+				formatted = "polar bear";
+				break;
+			default:
+				formatted = unformatted;
+				break;
+		}
+		return formatted;
+	}
+	
+	/**
 	 * Generates all food prototypes for game from "foodData.csv"
 	 */
-	private void generateFoodPrototypes(){
+	public void generateFoodPrototypes(){
 		foodPrototypes = new HashMap<String, Food>();
 		ArrayList<String> data = getDataFromFile("foodData.csv");
 		HashMap<Integer, String> mapping = new HashMap<Integer, String>(); //mapping of columns number to fields
@@ -299,7 +329,7 @@ public class GameEnvironment {
 	/**
 	 * Generates all toy prototypes for game from "toyData.csv"
 	 */
-	private void generateToyPrototypes(){
+	public void generateToyPrototypes(){
 		toyPrototypes = new HashMap<String, Toy>();
 		ArrayList<String> data = getDataFromFile("toyData.csv");
 		HashMap<Integer, String> mapping = new HashMap<Integer, String>(); //mapping of columns number to fields
@@ -388,12 +418,6 @@ public class GameEnvironment {
 	
 		for (int i = 0; i < numPlayers; i++){
 			playerList[i] = createPlayer();
-			
-			//DEBUG
-			for (Pet pet: playerList[i].getPetList()){
-				System.out.println(pet);
-			}
-			//DEBUG
 		}
 		
 		generateToyPrototypes();
@@ -405,7 +429,7 @@ public class GameEnvironment {
 	 * Sets up random number generator for testing.
 	 * @param args Only argument is a seed of type long for the generator.
 	 */
-	private void initialiseNumGenerator(String[] args){
+	public void initialiseNumGenerator(String[] args){
 		if (args.length == 1){
 			randomNumGen = new Random(Long.parseLong(args[0]));
 		}else {
@@ -413,6 +437,14 @@ public class GameEnvironment {
 		}
 	}
 	
+	
+	public HashMap<String, Food> getFoodPrototypes(){
+		return foodPrototypes;
+	}
+	
+	public HashMap<String, Toy> getToyPrototypes(){
+		return toyPrototypes;
+	}
 	
 	/**
 	 * Main entry point.
