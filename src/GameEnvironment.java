@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.Random;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Scanner;
 import java.io.IOException;
 
 
@@ -21,105 +20,7 @@ public class GameEnvironment {
 	private int dayNumber;
 	private int numberOfDays;
 	private Random randomNumGen;
-	private Scanner inputReader = new Scanner(System.in);
 	
-	
-	//TODO: Extract CL interface to another class?
-	/**
-	 * Gets the number of days the game is to run for.
-	 * @return Number of days to run game for.
-	 */
-	private int getNumberOfDays(){
-		Integer numDays = null;
-		
-		do{
-			System.out.print("How many days?    ");
-			System.out.flush();
-			String userInput = inputReader.next();
-			try{
-				numDays = Integer.parseInt(userInput);
-				if (numDays < 1){ 
-					//if number is 0 or less throw exception
-					numDays = null;
-					throw new NumberFormatException();
-				}
-			}catch (NumberFormatException exception){
-				System.out.println("Please enter an integer greater than 0.");
-			}
-		}while (numDays == null);
-		
-		return numDays;
-	}
-	
-	//TODO: Extract CL interface to another class?
-	/**
-	 * Used to ask the user the number of pets/players desired (between 1 and 3 inclusive).
-	 * @param query Query to pose to user.
-	 * @return Number of required pets or players.
-	 */
-	private int getNumberRequired(String query){
-		Integer numReq = null;
-		
-		do{
-			System.out.print(query);
-			System.out.flush();
-			String userInput = inputReader.next();
-			try{
-				numReq = Integer.parseInt(userInput);
-				if (numReq< 1 || numReq > 3){ 
-					//if number is out of bounds 1-3 throw exception
-					numReq = null;
-					throw new NumberFormatException();
-				}
-			}catch (NumberFormatException exception){
-				System.out.println("Please enter an integer between 1 and 3 inclusive.");
-			}
-		}while (numReq == null);
-		
-		return numReq;
-	}
-	
-	//TODO: Extract CL interface to another class?
-	/**
-	 * Checks if a name is a duplicate.
-	 * @param name Name to check for duplication.
-	 * @return Whether or not the name is a duplicate.
-	 */
-	private boolean nameTaken(String name){
-		boolean found = false;
-		int i = 0;
-		
-		while (!found && (i < nameList.size())){
-			if (nameList.get(i).equals(name))
-					found = true;
-			i++;
-		}
-		
-		return found;
-	}
-	
-	//TODO: Extract CL interface to another class?
-	/**
-	 * Get the name of a player or pet.
-	 * @param query Query to pose to user.
-	 * @return name of player or pet.
-	 */
-	private String getName(String query){
-		String name = null;
-		
-		do{
-			System.out.print(query);
-			System.out.flush();
-			name = inputReader.next();
-			if (nameTaken(name)){ //if name is already taken
-				name = null;
-				System.out.println("Duplicate names are not allowed.");
-			}
-		} while (name == null);
-		
-		nameList.add(name);
-		return name;
-	}
 	
 	/**
 	 * Sets the name for a new player.
@@ -127,68 +28,12 @@ public class GameEnvironment {
 	 */
 	private void setPlayerName(Player newPlayer){
 		try{
-			newPlayer.setName(getName("Player name: "));	
+			newPlayer.setName(CommandLineInterface.getName("Player name: ", nameList));	
 		}catch (IllegalArgumentException exception){
 			System.out.println("Unknown error. Please try again.");
 		}
 	}
 	
-	//TODO: Ask Ollie how to handle IOException from Pet class
-	//TODO: Extract all CL interfaces to another class?
-	/**
-	 * Creates a pet object based on user input
-	 * @return pet of species desired by player
-	 * @throws IOException because it isn't handled at lower levels
-	 */
-	private Pet createPetSpecies() throws IOException{
-		Pet newPet = new Cat();
-		String choice;
-		//Get pet species
-		do{
-			System.out.println("1- Alpaca\n2- Cat\n3- Dog\n4- Goat\n5- Horse\n6- Polar Bear");
-			System.out.print("What Pet would you like?    ");
-			System.out.flush();
-
-			choice = inputReader.next();
-
-			switch(choice.toLowerCase()){ //TODO: When all animals implemented add appropriate calls
-			case "1":
-			case "alpaca":
-				System.out.println("Creating " + choice);
-				break;
-
-			case "2":
-			case "cat": 
-				System.out.println("Creating " + choice);
-				newPet = new Cat();
-				break;
-
-			case "3":
-			case "dog":
-				System.out.println("Creating " + choice);
-				newPet = new Dog();
-				break;
-
-			case "4":
-			case "goat":
-
-			case "5":
-			case "horse":
-
-			case  "6":
-			case "polar bear":
-				System.out.println("Creating " + choice);
-				break;
-
-			default:
-				System.out.println(choice + " is not a valid option. Please enter one of the below choices.");
-				choice = null;
-				break;
-			}
-		}while (choice == null);
-		
-		return newPet;
-	}
 	
 	/**
 	 * Gets lines 2 onwards from a data file specified.
@@ -281,8 +126,8 @@ public class GameEnvironment {
 	 * 
 	 * In the item data csv files the headings aren't formatted the same way as the pet species
 	 * are used in code. This function converts between them. It does this by making the
-	 * species header lower case, comparing this against a list of special cases, apply any 
-	 * neccessary changes and returning that formated string.
+	 * species header lower case, comparing this against a list of special cases, applying any 
+	 * neccessary changes and returning that formatted string.
 	 * @param unformatted
 	 * @return formattes species name
 	 */
@@ -356,10 +201,10 @@ public class GameEnvironment {
 	 * @throws IOException Pet creation side effect
 	 */
 	private Pet createPet() throws IOException{
-		Pet newPet = createPetSpecies();
+		Pet newPet = CommandLineInterface.createPetSpecies();
 		
 		try{
-			newPet.setName(getName("Pet name: "));	
+			newPet.setName(CommandLineInterface.getName("Pet name: ", nameList));	
 		}catch (IllegalArgumentException exception){
 			System.out.println("Unknown error. Please try again.");
 		}
@@ -383,7 +228,7 @@ public class GameEnvironment {
 	private Player createPlayer() throws IOException{
 		Player newPlayer = new Player();
 		setPlayerName(newPlayer);
-		int numPets = getNumberRequired("How many pets for player " + newPlayer.getName() + "?    ");
+		int numPets = CommandLineInterface.getNumberRequired("How many pets for player " + newPlayer.getName() + "?    ");
 		
 		ArrayList<Pet> playerPetList = newPlayer.getPetList();
 		Pet newPet;
@@ -396,23 +241,15 @@ public class GameEnvironment {
 	
 	
 	/**
-	 * Tidy up to close gracefully
-	 */
-	private void tearDown(){
-		inputReader.close();
-	}
-	
-	
-	/**
 	 * Performs all setup for the game.
 	 * 
 	 * Creates players, their pets, and a prototype of each Toy and Food.
 	 * @throws IOException Pet creation side effect
 	 */
 	private void setup() throws IOException{
-		numberOfDays = getNumberOfDays();
+		numberOfDays = CommandLineInterface.getNumberOfDays();
 		dayNumber = 1;
-		int numPlayers = getNumberRequired("How many players?    ");
+		int numPlayers = CommandLineInterface.getNumberRequired("How many players?    ");
 		playerList = new Player[numPlayers];
 	
 		for (int i = 0; i < numPlayers; i++){
@@ -437,10 +274,18 @@ public class GameEnvironment {
 	}
 	
 	
+	/**
+	 * Method to return a list of food prototypes - for testing
+	 * @return Hashmap of food prototypes <String, Food>
+	 */
 	public HashMap<String, Food> getFoodPrototypes(){
 		return foodPrototypes;
 	}
 	
+	/**
+	 * Method to return a list of toy prototypes - for testing
+	 * @return Hashmap of toy prototypes <String, Toy>
+	 */
 	public HashMap<String, Toy> getToyPrototypes(){
 		return toyPrototypes;
 	}
@@ -455,8 +300,7 @@ public class GameEnvironment {
 		GameEnvironment mainGame = new GameEnvironment();
 		mainGame.initialiseNumGenerator(args);
 		mainGame.setup();
-		mainGame.tearDown();
+		//mainGame.tearDown();
+		CommandLineInterface.tearDown();
 	}
-	
-
 }
