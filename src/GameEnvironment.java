@@ -128,8 +128,8 @@ public class GameEnvironment {
 	 * are used in code. This function converts between them. It does this by making the
 	 * species header lower case, comparing this against a list of special cases, applying any 
 	 * neccessary changes and returning that formatted string.
-	 * @param unformatted
-	 * @return formattes species name
+	 * @param unformatted unformatted species name
+	 * @return formatted species name
 	 */
 	private String formatSpeciesName(String unformatted){
 		String formatted;
@@ -275,8 +275,8 @@ public class GameEnvironment {
 	
 	
 	/**
-	 * Method to return a list of food prototypes - for testing
-	 * @return Hashmap of food prototypes <String, Food>
+	 * Method to return a list of food prototypes - for testing.
+	 * @return Hash map of food prototypes mapping from food name to food prototype.
 	 */
 	public HashMap<String, Food> getFoodPrototypes(){
 		return foodPrototypes;
@@ -284,7 +284,7 @@ public class GameEnvironment {
 	
 	/**
 	 * Method to return a list of toy prototypes - for testing
-	 * @return Hashmap of toy prototypes <String, Toy>
+	 * @return Hash map of toy prototypes mapping from food name to food prototpe.
 	 */
 	public HashMap<String, Toy> getToyPrototypes(){
 		return toyPrototypes;

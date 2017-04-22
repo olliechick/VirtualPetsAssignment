@@ -2,6 +2,11 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Command line interface for Virtual Pets game.
+ * @author Samuel Pell
+ *
+ */
 public class CommandLineInterface {
 	
 	private static Scanner inputReader = new Scanner(System.in);
@@ -62,6 +67,7 @@ public class CommandLineInterface {
 	/**
 	 * Checks if a name is a duplicate.
 	 * @param name Name to check for duplication.
+	 * @param nameList List of already taken names.
 	 * @return Whether or not the name is a duplicate.
 	 */
 	private static boolean nameTaken(String name, ArrayList<String> nameList){
@@ -80,6 +86,7 @@ public class CommandLineInterface {
 	/**
 	 * Get the name of a player or pet.
 	 * @param query Query to pose to user.
+	 * @param nameList ArrayList of taken names.
 	 * @return name of player or pet.
 	 */
 	public static String getName(String query, ArrayList<String> nameList){
@@ -102,9 +109,9 @@ public class CommandLineInterface {
 	
 	//TODO: Ask Ollie how to handle IOException from Pet class
 	/**
-	 * Creates a pet object based on user input
-	 * @return pet of species desired by player
-	 * @throws IOException because it isn't handled at lower levels
+	 * Creates a pet object based on user input.
+	 * @return pet of species desired by player.
+	 * @throws IOException because it isn't handled at lower levels.
 	 */
 	public static Pet createPetSpecies() throws IOException{
 		Pet newPet = new Cat(); //default to cat
@@ -157,7 +164,7 @@ public class CommandLineInterface {
 	}
 	
 	/**
-	 * Tidy up to close gracefully
+	 * Tidy up to close gracefully.
 	 */
 	public static void tearDown(){
 		inputReader.close();
