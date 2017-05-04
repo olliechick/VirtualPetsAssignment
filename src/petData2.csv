@@ -1,0 +1,8 @@
+Line 1: explanation. Line 2: headings. Lines 3+: items.,,,,
+species,defaultWeight,bladderSize,harshness,fatigueIncrease
+cat,4,1,1,40
+dog,6,1,2,10
+goat,50,5,5,20
+horse,500,50,20,20
+alpaca,60,6,10,20
+polar bear,250,25,50,20

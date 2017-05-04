@@ -63,7 +63,7 @@ public class Toy extends Item{
 	 */
 	public void decrementDurability(int decrement) throws IllegalArgumentException{
 		if (decrement <= 0){
-			throw new IllegalArgumentException("durability must decrease");
+			throw new IllegalArgumentException("durability must decrease - currently, it is decrementing by "+decrement);
 		}
 		
 		durability -= decrement;

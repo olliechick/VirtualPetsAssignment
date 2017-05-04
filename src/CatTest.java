@@ -45,7 +45,7 @@ public class CatTest {
 		myFood.setHealthIncrease(species, values);
 		myBadFood.setHealthIncrease(species, badValues);
 		
-		//Set myCat's attributes to middle
+		//Set myCat's attributes to mid-values (50)
 		myCat.increaseHealth(-50);
 		myCat.increaseMischievousness(50);
 		myCat.increaseHappiness(-50);

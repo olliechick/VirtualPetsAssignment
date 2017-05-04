@@ -14,6 +14,7 @@ public class Pet {
 	private String name; 
 	private String gender; //either male or female
 	private String species; //either cat, dog, goat, horse, alpaca, or polar bear
+	
 	private int health; //out of 100
 	private int mischievousness; //out of 100
 	private int happiness; //out of 100
@@ -21,9 +22,16 @@ public class Pet {
 	private int percentBladderFull; //out of 100
 	private int fatigue; //out of 100
 	private double weight; // in kg
+	
 	private Boolean isSick;
 	private Boolean isRevivable;
 	private Boolean isMisbehaving;
+	
+	private double defaultWeight;
+	private int bladderSize;
+	private int fatigueIncrease;
+	private int harshness;
+	
 
 	public Pet(String species) throws IOException{
 		this.species = species;
@@ -36,8 +44,11 @@ public class Pet {
 		isSick = false;
 		isRevivable = true;
 		isMisbehaving = false;
-		String weightString = getDatumFromFile("petdata.csv", "defaultWeight", species);
-		weight = Double.parseDouble(weightString);
+		weight = Double.parseDouble(getDatumFromFile("petData.csv", "defaultWeight", species));
+		defaultWeight = weight;
+		bladderSize = Integer.parseInt(getDatumFromFile("petData.csv", "bladderSize", species));
+		fatigueIncrease = Integer.parseInt(getDatumFromFile("petData.csv", "fatigueIncrease", species));
+		harshness = Integer.parseInt(getDatumFromFile("petData.csv", "harshness", species));
 	}
 
 	// Getters
@@ -115,7 +126,7 @@ public class Pet {
 	 * Also, the toy's durability will decrease.
 	 * @param toy the toy the pet plays with
 	 */
-	public void play(Toy toy, int fatigueIncrease, int harshness){
+	public void play(Toy toy){
 		int happinessIncrease = toy.getHappinessIncrease(species);
 		increaseHappiness(happinessIncrease);
 		increaseFatigue(fatigueIncrease);
@@ -137,7 +148,7 @@ public class Pet {
 	 * Their percent bladder full will decrease to 0.
 	 * Their weight will return to normal.
 	 */
-	public void goToilet(double defaultWeight){
+	public void goToilet(){
 		increasePercentBladderFull(-100);
 		increaseWeight(defaultWeight - getWeight());
 		}
@@ -151,7 +162,7 @@ public class Pet {
 	 * Their health will increase or decrease.
 	 * @param food the food the pet eats
 	 */
-	public void feed(Food food, int bladderSize){
+	public void feed(Food food){
 		int portionSize = food.getPortionSize();
 		int healthIncrease = food.getHealthIncrease(species);
 		increaseHunger(-portionSize);
