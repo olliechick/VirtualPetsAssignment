@@ -41,8 +41,16 @@ public class Player {
 		}else{this.name=name;}
 	}
 	
+	/**
+	 * Takes away the amount spent from the balance.
+	 * @param amountSpent
+	 */
 	public void spend(int amountSpent){
-		
+		if (balance > amountSpent){
+			throw new IllegalArgumentException("Can't spend more than you have.");
+		}else{			
+			balance -= amountSpent;
+		}
 	}
 
 }
