@@ -44,13 +44,38 @@ public class Player {
 	/**
 	 * Takes away the amount spent from the balance.
 	 * @param amountSpent
+	 * @throws IllegalArgumentException if you try to spend a negative amount
+	 * @throws IllegalArgumentException if you try to spend more than you have
 	 */
 	public void spend(int amountSpent){
+		if (amountSpent < 0){
+			throw new IllegalArgumentException("Can't spend a negative amount.");
+		}
 		if (balance > amountSpent){
 			throw new IllegalArgumentException("Can't spend more than you have.");
 		}else{			
 			balance -= amountSpent;
 		}
+	}
+	
+	/**
+	 * Adds the amount earnt to the player's balance.
+	 * @param amountEarnt
+	 * @throws IllegalArgumentException if you try to earn a negative amount
+	 */
+	public void earn(int amountEarnt){
+		if (amountEarnt < 0){
+			throw new IllegalArgumentException("Can't earn a negative amount.");
+		}
+		balance += amountEarnt;
+	}
+	
+	/**
+	 * Calculate's the player's score and returns it
+	 * @return the player's score
+	 */
+	public double calculateAndGetScore(){
+		return petList.get(0).getWeight();
 	}
 
 }

@@ -22,53 +22,6 @@ public class CatTest {
 
 	@Before
 	public void setUp() throws Exception{		
-		myCat = new Cat();
-		myMaxCat = new Cat();
-		myMinCat = new Cat();
-
-		String[] species = {myCat.getSpecies()};
-		Integer[] values = {20};
-		Integer[] badValues = {-20};
-		
-		delta = 1e-6; //error for doubles, used in assertEquals() for methods involving weight
-
-		//initialise toys and foods
-		myToy = new Toy("Ball", "", 1, 3); //name, description, price, durability
-		myBadToy = new Toy("Roadspikes", "", 1, 3);
-		myFood = new Food("General petfood", "", 1, 3); //name, description, price, portionSize
-		myBadFood = new Food("Poison", "", 1, 3);
-
-		//add values for happiness increase to toys
-		myToy.setHappinessIncrease(species, values);
-		myBadToy.setHappinessIncrease(species, badValues);
-		//add values for health increase to foods
-		myFood.setHealthIncrease(species, values);
-		myBadFood.setHealthIncrease(species, badValues);
-		
-		//Set myCat's attributes to mid-values (50)
-		myCat.increaseHealth(-50);
-		myCat.increaseMischievousness(50);
-		myCat.increaseHappiness(-50);
-		myCat.increaseHunger(50);
-		myCat.increasePercentBladderFull(50);
-		myCat.increaseFatigue(50);
-		myCat.increaseWeight(1); //so there is a change when it returns to defaultWeight
-
-		//Set myMaxCat's attributes to maximum extremes
-		myMaxCat.increaseMischievousness(100);
-		myMaxCat.increaseHappiness(100);
-		myMaxCat.increaseFatigue(100);
-		myMaxCat.increaseHunger(100);
-		myMaxCat.increasePercentBladderFull(100);
-		myMaxCat.increaseHealth(100);
-
-		//Set myMinCat's attributes to minimum extremes
-		myMinCat.increaseMischievousness(-100);
-		myMinCat.increaseHappiness(-100);
-		myMinCat.increaseFatigue(-100);
-		myMinCat.increaseHunger(-100);
-		myMinCat.increasePercentBladderFull(-100);
-		myMinCat.increaseHealth(-100);
 
 	}
 

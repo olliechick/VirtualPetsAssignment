@@ -118,7 +118,7 @@ public class CommandLineInterface {
 		String choice;
 		//Get pet species
 		do{
-			System.out.println("1- Alpaca\n2- Cat\n3- Dog\n4- Goat\n5- Horse\n6- Polar Bear");
+			System.out.println("1. Alpaca\n2. Cat\n3. Dog\n4. Goat\n5. Horse\n6. Polar bear");
 			System.out.print("What Pet would you like?    ");
 			System.out.flush();
 
@@ -127,7 +127,7 @@ public class CommandLineInterface {
 			switch(choice.toLowerCase()){ //TODO: When all animals implemented add appropriate calls
 			case "1":
 			case "alpaca":
-				System.out.println("Creating " + choice);
+				System.out.println("Creating alpaca." + choice);
 				break;
 
 			case "2":
