@@ -117,7 +117,7 @@ public class GameEnvironment {
 			}
 		}
 		
-		//TODO: This isn't very Java like but it reduces code duplication
+		//This isn't very Java like but it reduces code duplication
 		return new Object[] {name, description, price, size, speciesOrder, increase};
 	}
 	
@@ -161,7 +161,6 @@ public class GameEnvironment {
 		}
 		
 		for(String line: data){
-			//TODO: any recomendations on tidying this code?
 			Object[] information = parseLine(line, mapping);
 			Food newFood = new Food((String) information[0], (String) information[1], (Integer) information[2], (Integer) information[3]);
 			newFood.setHealthIncrease((String[]) information[4], (Integer[]) information[5]);
@@ -186,7 +185,6 @@ public class GameEnvironment {
 		}
 		
 		for(String line: data){
-			//TODO: any recomendations on tidying this code?
 			Object[] information = parseLine(line, mapping);
 			Toy newToy = new Toy((String) information[0], (String) information[1], (Integer) information[2], (Integer) information[3]);
 			newToy.setHappinessIncrease((String[]) information[4], (Integer[]) information[5]);
@@ -253,6 +251,7 @@ public class GameEnvironment {
 		playerList = new Player[numPlayers];
 	
 		for (int i = 0; i < numPlayers; i++){
+			System.out.println("----------- Player Creation ----------");
 			playerList[i] = createPlayer();
 		}
 		

@@ -114,7 +114,7 @@ public class CommandLineInterface {
 	 * @throws IOException because it isn't handled at lower levels.
 	 */
 	public static Pet createPetSpecies() throws IOException{
-		Pet newPet = new Cat(); //default to cat
+		Pet newPet = new Cat(); //default to pet
 		String choice;
 		//Get pet species
 		do{
@@ -124,33 +124,36 @@ public class CommandLineInterface {
 
 			choice = inputReader.next();
 
-			switch(choice.toLowerCase()){ //TODO: When all animals implemented add appropriate calls
+			switch(choice.toLowerCase()){
 			case "1":
 			case "alpaca":
-				System.out.println("Creating alpaca." + choice);
+				newPet = new Alpaca();
 				break;
 
 			case "2":
-			case "cat": 
-				System.out.println("Creating " + choice);
+			case "cat":
 				newPet = new Cat();
 				break;
 
 			case "3":
 			case "dog":
-				System.out.println("Creating " + choice);
 				newPet = new Dog();
 				break;
 
 			case "4":
 			case "goat":
+				newPet = new Goat();
+				break;
+				
 
 			case "5":
 			case "horse":
+				newPet = new Horse();
+				break;
 
 			case  "6":
 			case "polar bear":
-				System.out.println("Creating " + choice);
+				newPet = new PolarBear();
 				break;
 
 			default:
