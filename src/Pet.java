@@ -180,20 +180,19 @@ public class Pet {
 		setIsMisbehaving(true);
 	}
 	
-	//Should these 2 methods be public
 	/**
 	 * The pet is sick.
 	 */
-	void beSick(){
-		setIsSick(true);
+	public void beSick(){
+		isSick = true;
 	}
 	
 	/**
 	 * The pet dies.
 	 * They can no longer be revived.
 	 */
-	void die(){
-		setIsRevivable(false); //This may be a problem 
+	public void die(){
+		isRevivable = false; //TODO This may be a problem?
 	}
 	
 	/**
