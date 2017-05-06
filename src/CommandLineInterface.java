@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Command line interface for Virtual Pets game.
  * @author Samuel Pell
+ * @author Ollie Chick
  *
  */
 public class CommandLineInterface {
@@ -19,7 +20,7 @@ public class CommandLineInterface {
 		Integer numDays = null;
 		
 		do{
-			System.out.print("How many days?    ");
+			System.out.print("How many days do you want to play for? ");
 			System.out.flush();
 			String userInput = inputReader.next();
 			try{
@@ -119,7 +120,7 @@ public class CommandLineInterface {
 		//Get pet species
 		do{
 			System.out.println("1. Alpaca\n2. Cat\n3. Dog\n4. Goat\n5. Horse\n6. Polar bear");
-			System.out.print("What Pet would you like?    ");
+			System.out.print("Which pet would you like? ");
 			System.out.flush();
 
 			choice = inputReader.next();
@@ -127,6 +128,8 @@ public class CommandLineInterface {
 			switch(choice.toLowerCase()){
 			case "1":
 			case "alpaca":
+			case "aplaca":
+			case "apalca":
 				newPet = new Alpaca();
 				break;
 
@@ -148,11 +151,20 @@ public class CommandLineInterface {
 
 			case "5":
 			case "horse":
+			case "hoarse":
 				newPet = new Horse();
 				break;
 
 			case  "6":
 			case "polar bear":
+			case "poler bear":
+			case "polarbear":
+			case "polerbear":
+			case "polar":
+			case "poler":
+			case "bear":
+			case "beer":
+			case "bare":
 				newPet = new PolarBear();
 				break;
 

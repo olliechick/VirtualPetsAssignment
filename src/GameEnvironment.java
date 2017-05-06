@@ -9,6 +9,7 @@ import java.io.IOException;
 /**
  * Launching off point for Virtual Pets game.
  * @author Samuel Pell
+ * @author Ollie Chick
  *
  */
 public class GameEnvironment {
@@ -76,41 +77,41 @@ public class GameEnvironment {
 	 * @param mapping Mapping generated from the first line of columns to fields
 	 * @return Object array in format {String name, String description, Integer price, Integer size, String[] speciesOrder, Intger[] increase}
 	 */
-	private Object[] parseLine(String line, HashMap<Integer, String> mapping){
+	private String[][] parseLine(String line, HashMap<Integer, String> mapping){
 		String[] splitLine = line.split(",");
 		 
 		//Create returnable fields
-		String name = new String();
-		String description = new String();
-		Integer price = new Integer(0);
-		Integer size = new Integer(0);
-		Integer[] increase = new Integer[mapping.keySet().size() - 4]; //number of columns - number of columns common to each animal
+		String[] name = new String[0];
+		String[] description = new String[0];
+		String[] price = new String[0];
+		String[] size = new String[0];
+		String[] increase = new String[mapping.keySet().size() - 4]; //number of columns - number of columns common to each animal
 		String[] speciesOrder = new String[mapping.keySet().size() - 4];
 		
 		int i = 0;
 		for(int col = 0; col < splitLine.length; col++){ //for each column look at the field header and decide where the data lives
 			switch(mapping.get(col)){
 				case "name":
-					name = splitLine[col];
+					name[0] = splitLine[col];
 					break;
 				case "description":
-					description = splitLine[col];
+					description[0] = splitLine[col];
 					break;
 				case "price":
-					price = Integer.parseInt(splitLine[col]);
+					price[0] = splitLine[col];
 					break;
 				case "durability":
 				case "portionSize":
-					size = Integer.parseInt(splitLine[col]);
+					size[0] = splitLine[col];
 					break;
 				default:
 					if(mapping.get(col).substring(0, 17).equals("increaseHappiness")){
 						speciesOrder[i] = formatSpeciesName(mapping.get(col).substring(17));
-						increase[i] = Integer.parseInt(splitLine[col]);
+						increase[i] = splitLine[col];
 						i++;
 					}else if(mapping.get(col).substring(0, 14).equals("increaseHealth")){
 						speciesOrder[i] = formatSpeciesName(mapping.get(col).substring(14));
-						increase[i] = Integer.parseInt(splitLine[col]);
+						increase[i] = splitLine[col];
 						i++;
 					}
 					break;
@@ -118,7 +119,7 @@ public class GameEnvironment {
 		}
 		
 		//This isn't very Java like but it reduces code duplication
-		return new Object[] {name, description, price, size, speciesOrder, increase};
+		return new String[][] {name, description, price, size, speciesOrder, increase};
 	}
 	
 	/**
@@ -127,7 +128,7 @@ public class GameEnvironment {
 	 * In the item data csv files the headings aren't formatted the same way as the pet species
 	 * are used in code. This function converts between them. It does this by making the
 	 * species header lower case, comparing this against a list of special cases, applying any 
-	 * neccessary changes and returning that formatted string.
+	 * necessary changes and returning that formatted string.
 	 * @param unformatted unformatted species name
 	 * @return formatted species name
 	 */
@@ -161,9 +162,13 @@ public class GameEnvironment {
 		}
 		
 		for(String line: data){
-			Object[] information = parseLine(line, mapping);
-			Food newFood = new Food((String) information[0], (String) information[1], (Integer) information[2], (Integer) information[3]);
-			newFood.setHealthIncrease((String[]) information[4], (Integer[]) information[5]);
+			String[][] information = parseLine(line, mapping);
+			String name = information[0][0];
+			String description = information[1][0];
+			int price = Integer.parseInt(information[2][0]);
+			int portionSize = Integer.parseInt(information[3][0]);
+			Food newFood = new Food(name, description, price, portionSize);
+			newFood.setHealthIncrease(information[4], information[5]);
 			
 			foodPrototypes.put((String) information[0], newFood);
 		}
@@ -226,7 +231,7 @@ public class GameEnvironment {
 	private Player createPlayer() throws IOException{
 		Player newPlayer = new Player();
 		setPlayerName(newPlayer);
-		int numPets = CommandLineInterface.getNumberRequired("How many pets for player " + newPlayer.getName() + "?    ");
+		int numPets = CommandLineInterface.getNumberRequired("Hi " + newPlayer.getName() + "! How many pets do you want?    ");
 		
 		ArrayList<Pet> playerPetList = newPlayer.getPetList();
 		Pet newPet;
@@ -283,7 +288,7 @@ public class GameEnvironment {
 	
 	/**
 	 * Method to return a list of toy prototypes - for testing
-	 * @return Hash map of toy prototypes mapping from food name to food prototpe.
+	 * @return Hash map of toy prototypes mapping from food name to food prototype.
 	 */
 	public HashMap<String, Toy> getToyPrototypes(){
 		return toyPrototypes;
