@@ -52,11 +52,13 @@ public class Food extends Item{
 	/**
 	 * Sets the food's health increase on a per species basis.
 	 * @param species Species for which this increase applies
-	 * @param increase Happiness increase
+	 * @param increases Happiness increase
 	 */
-	public void setHealthIncrease(String[] species, Integer[] increase){
+	public void setHealthIncrease(String[] species, String[] increases){
+		//Convert strings to integers
+		Integer[] convertedIncreases = super.convertStringsToInts(increases);
 		for (int i = 0; i < species.length; i++){
-			this.healthIncrease.put(species[i], increase[i]);
+			this.healthIncrease.put(species[i], convertedIncreases[i]);
 		}
 	}
 	

@@ -81,10 +81,10 @@ public class GameEnvironment {
 		String[] splitLine = line.split(",");
 		 
 		//Create returnable fields
-		String[] name = new String[0];
-		String[] description = new String[0];
-		String[] price = new String[0];
-		String[] size = new String[0];
+		String[] name = new String[1];
+		String[] description = new String[1];
+		String[] price = new String[1];
+		String[] size = new String[1];
 		String[] increase = new String[mapping.keySet().size() - 4]; //number of columns - number of columns common to each animal
 		String[] speciesOrder = new String[mapping.keySet().size() - 4];
 		
@@ -170,7 +170,7 @@ public class GameEnvironment {
 			Food newFood = new Food(name, description, price, portionSize);
 			newFood.setHealthIncrease(information[4], information[5]);
 			
-			foodPrototypes.put((String) information[0], newFood);
+			foodPrototypes.put(name, newFood);
 		}
 	}
 	
