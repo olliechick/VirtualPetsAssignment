@@ -17,7 +17,7 @@ public class GameEnvironmentTest {
 		referenceToy = new Toy("old shoe", "", 1, 4);
 		
 		String[] healthIncrease = {"20", "2", "-2", "-2", "-2", "1"}; //in species order
-		Integer[] happinessIncrease = {1, 40, 5, 0, 0, 1};
+		String[] happinessIncrease = {"1", "40", "5", "0", "0", "1"};
 		
 		referenceFood.setHealthIncrease(species, healthIncrease);
 		referenceToy.setHappinessIncrease(species, happinessIncrease);

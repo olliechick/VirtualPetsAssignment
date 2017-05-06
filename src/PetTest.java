@@ -43,8 +43,8 @@ public class PetTest {
 		
 		
 		String[] species = {myCat.getSpecies()};
-		Integer[] values = {20};
-		Integer[] badValues = {-20};
+		String[] values = {"20"};
+		String[] badValues = {"-20"};
 		
 		delta = 1e-6; //error for doubles, used in assertEquals() for methods involving weight
 

@@ -74,7 +74,7 @@ public abstract class Item {
 	
 	/**
 	 * Converts an array of string to an array of integers.
-	 * @param strings Array of string to be converted.
+	 * @param strings Array of strings to be converted.
 	 * @return Converted array.
 	 */
 	protected Integer[] convertStringsToInts(String[] strings){

@@ -81,6 +81,7 @@ public class GameEnvironment {
 		String[] splitLine = line.split(",");
 		 
 		//Create returnable fields
+		//Why'd you try to create 0 lenght arrays?
 		String[] name = new String[1];
 		String[] description = new String[1];
 		String[] price = new String[1];
@@ -190,11 +191,21 @@ public class GameEnvironment {
 		}
 		
 		for(String line: data){
-			Object[] information = parseLine(line, mapping);
-			Toy newToy = new Toy((String) information[0], (String) information[1], (Integer) information[2], (Integer) information[3]);
-			newToy.setHappinessIncrease((String[]) information[4], (Integer[]) information[5]);
+			String[][] information = parseLine(line, mapping);
 			
-			toyPrototypes.put((String) information[0], newToy);
+			String name = information[0][0];
+			String description = information[1][0];
+			int price = Integer.parseInt(information[2][0]);
+			int durability = Integer.parseInt(information[3][0]);
+			
+			Toy newToy = new Toy(name, description, price, durability);
+
+			for (String info: information[5]){
+				System.out.println(info);
+			}
+			newToy.setHappinessIncrease(information[4], information[5]);
+			
+			toyPrototypes.put(name, newToy);
 		}
 	}
 	

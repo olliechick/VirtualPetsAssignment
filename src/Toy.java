@@ -77,9 +77,10 @@ public class Toy extends Item{
 	 * @param species Species for which this increase applies
 	 * @param increase Happiness increase
 	 */
-	public void setHappinessIncrease(String[] species, Integer[] increase){
+	public void setHappinessIncrease(String[] species, String[] increases){
+		Integer[] convertedIncreases = super.convertStringsToInts(increases);
 		for (int i = 0; i < species.length; i++){
-			this.happinessIncrease.put(species[i], increase[i]);
+			this.happinessIncrease.put(species[i], convertedIncreases[i]);
 		}
 	}
 }

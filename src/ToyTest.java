@@ -14,8 +14,8 @@ public class ToyTest {
 	private Toy myOtherToy;
 	private Toy myThirdToy;
 	private String[] species = {"Wildcat", "Adult", "Child"};
-	private Integer[] myToyValues = {3, 2, 6};
-	private Integer[] myOtherToyValues = {30, 1000, -1100};
+	private String[] myToyValues = {"3", "2", "6"};
+	private String[] myOtherToyValues = {"30", "1000", "-1100"};
 	
 	@Before
 	public void setUp() throws Exception {
@@ -35,8 +35,8 @@ public class ToyTest {
 	@Test
 	public void testGetHappinessIncrease() {
 		for (int i = 0; i < species.length; i++){
-			assertEquals(myToy.getHappinessIncrease(species[i]), (int) myToyValues[i]);
-			assertEquals(myOtherToy.getHappinessIncrease(species[i]), (int) myOtherToyValues[i]);
+			assertEquals(myToy.getHappinessIncrease(species[i]), Integer.parseInt(myToyValues[i]));
+			assertEquals(myOtherToy.getHappinessIncrease(species[i]), Integer.parseInt(myOtherToyValues[i]));
 		}
 		try {
 			myToy.getHappinessIncrease("Alien");
@@ -61,7 +61,7 @@ public class ToyTest {
 			myToy.decrementDurability(-5);
 			fail("Allows a negative durability change");
 		} catch (IllegalArgumentException exception){
-			assertEquals(exception.getMessage(), "durability must decrease");
+			assertEquals(exception.getMessage().substring(0, 24), "durability must decrease");	
 		}
 		
 		//Then try decrementing by 0
@@ -69,7 +69,7 @@ public class ToyTest {
 			myToy.decrementDurability(0);
 			fail("Allows a 0 durability change");
 		} catch (IllegalArgumentException exception){
-			assertEquals(exception.getMessage(), "durability must decrease");
+			assertEquals(exception.getMessage().substring(0, 24), "durability must decrease");	
 		}
 		
 		//Try having a 0 durability toy (directly to 0
@@ -92,8 +92,8 @@ public class ToyTest {
 	@Test
 	public void testSetHappinessIncrease() {
 		for (int i = 0; i < species.length; i++){
-			assertEquals(myToy.getHappinessIncrease(species[i]), (int) myToyValues[i]);
-			assertEquals(myOtherToy.getHappinessIncrease(species[i]), (int) myOtherToyValues[i]);
+			assertEquals(myToy.getHappinessIncrease(species[i]), Integer.parseInt(myToyValues[i]));
+			assertEquals(myOtherToy.getHappinessIncrease(species[i]), Integer.parseInt(myOtherToyValues[i]));
 		}
 	}
 }

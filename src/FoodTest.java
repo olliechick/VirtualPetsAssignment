@@ -13,7 +13,7 @@ public class FoodTest {
 	private String nullString;
 	private Food myFood;
 	private String[] species = {"Wildcat", "Human", "Vegan"};
-	private Integer[] values = {3, 5, -10};
+	private String[] values = {"3", "5", "-10"};
 	
 	@Before
 	public void setup() throws Exception{
@@ -25,7 +25,7 @@ public class FoodTest {
 	public void testGetHealthIncrease() {
 		//Test that all health increases are set correctly
 		for (int i = 0; i < species.length; i++){
-			assertEquals(myFood.getHealthIncrease(species[i]), (int) values[i]);
+			assertEquals(myFood.getHealthIncrease(species[i]), Integer.parseInt(values[i]));
 		}
 		//Test that an unknown species throws an error
 		try {
@@ -129,6 +129,19 @@ public class FoodTest {
 			fail("Allowed an illegal item name to be entered" );
 		} catch (IllegalArgumentException exception) {
 			assertEquals(myFood.getDescription(), "");
+		}
+	}
+	
+	@Test
+	public void testConvertStringsToInts(){
+		String[] testArray = {"0", "-30", "5000", "-1", "-500000", "99999"};
+		Integer[] results = myFood.convertStringsToInts(testArray);
+		
+		Integer expectedResult;
+		
+		for(int i = 0; i < testArray.length; i++){
+			expectedResult = Integer.parseInt(testArray[i]);
+			assertEquals(results[i], expectedResult);
 		}
 	}
 }
