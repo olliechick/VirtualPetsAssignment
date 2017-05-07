@@ -198,11 +198,6 @@ public class GameEnvironment {
 			int durability = Integer.parseInt(information[3][0]);
 			
 			Toy newToy = new Toy(name, description, price, durability);
-
-			for (String info: information[5]){
-				System.out.println(info);
-				//TODO what is this for? --Ollie
-			}
 			newToy.setHappinessIncrease(information[4], information[5]);
 			
 			toyPrototypes.put(name, newToy);

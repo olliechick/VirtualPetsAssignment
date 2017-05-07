@@ -53,7 +53,7 @@ public class Food extends Item{
 	/**
 	 * Sets the food's health increase on a per species basis.
 	 * @param species Species for which this increase applies.
-	 * @param increase Happiness increase.
+	 * @param increases Happiness increase.
 	 */
 	public void setHealthIncrease(String[] species, String[] increases){
 		//Convert strings to integers

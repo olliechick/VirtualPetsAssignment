@@ -13,11 +13,11 @@ public class Toy extends Item{
 	
 	/**
 	 * Constructor for Toy item.
-	 * @param name Toy name
-	 * @param description Toy description
-	 * @param price Price of toy
-	 * @param durability How durable the toy is
-	 * @throws IllegalArgumentException Toy's durability must be greater than 0
+	 * @param name Toy name.
+	 * @param description Toy description.
+	 * @param price Price of toy.
+	 * @param durability How durable the toy is.
+	 * @throws IllegalArgumentException Toy's durability must be greater than 0.
 	 */
 	public Toy(String name, String description, int price, int durability) throws IllegalArgumentException{
 		super();
@@ -33,7 +33,7 @@ public class Toy extends Item{
 	
 	/**
 	 * Gets the item's remaining durability.
-	 * @return item's durability
+	 * @return item's durability.
 	 */
 	public int getDurability(){
 		return this.durability;
@@ -41,9 +41,9 @@ public class Toy extends Item{
 	
 	/**
 	 * Returns the amount happiness increases for the pet using the toy.
-	 * @param species Species of animal using toy
-	 * @return Happiness increase
-	 * @throws IllegalArgumentException Species not known
+	 * @param species Species of animal using toy.
+	 * @return Happiness increase.
+	 * @throws IllegalArgumentException Species not known.
 	 */
 	public int getHappinessIncrease(String species) throws IllegalArgumentException{
 		if (this.happinessIncrease.get(species) == null){
@@ -58,8 +58,8 @@ public class Toy extends Item{
 	 * 
 	 * Durability is counted in number of uses remaining; at 0, the item has no uses left and needs to be removed from the player's toyList.
 	 * @param decrement Amount to decrement durability by (must be larger than 0).
-	 * @throws IllegalArgumentException decrement must be larger than 0
-	 * @throws IllegalArgumentException Item's durability is negative or 0; it needs to be removed from the player's toyList
+	 * @throws IllegalArgumentException decrement must be larger than 0.
+	 * @throws IllegalArgumentException Item's durability is negative or 0; it needs to be removed from the player's toyList.
 	 */
 	public void decrementDurability(int decrement) throws IllegalArgumentException{
 		if (decrement <= 0){
@@ -74,13 +74,17 @@ public class Toy extends Item{
 	
 	/**
 	 * Sets the object's happiness increase on a per species basis.
-	 * @param species Species for which this increase applies
-	 * @param increase Happiness increase
+	 * @param species Species for which this increase applies.
+	 * @param increases Happiness increase.
 	 */
 	public void setHappinessIncrease(String[] species, String[] increases){
 		Integer[] convertedIncreases = super.convertStringsToInts(increases);
 		for (int i = 0; i < species.length; i++){
 			this.happinessIncrease.put(species[i], convertedIncreases[i]);
 		}
+	}
+	
+	public String toString(){
+		return "Toy: " + super.getName() + " - " + super.getDescription() + ". Cost: $" + super.getPrice() + ".";
 	}
 }
