@@ -267,10 +267,6 @@ public class GameEnvironment {
 		
 		generateToyPrototypes();
 		generateFoodPrototypes();
-		while (dayNumber<=numberOfDays){
-			CommandLineInterface.gameLoop(playerList, dayNumber);
-			dayNumber++;
-		}
 	}
 	
 	
@@ -323,6 +319,18 @@ public class GameEnvironment {
 		mainGame.generateToyPrototypes();
 		mainGame.generateFoodPrototypes();
 		mainGame.testStore();
+		
+
+		while (dayNumber<=numberOfDays){
+			CommandLineInterface.newDay(dayNumber);
+			for (Player player : playerList){
+				CommandLineInterface.newPlayer(player);
+				for (Pet pet : player.getPetList()){
+					CommandLineInterface.gameLoop(player, pet);
+				}
+			}
+			dayNumber++;
+		}
 		
 		CommandLineInterface.tearDown();
 	}

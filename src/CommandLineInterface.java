@@ -223,13 +223,24 @@ public class CommandLineInterface {
 	}
 	
 	/**
+	 * Initialises a day.
+	 */
+	public static void newDay(int dayNumber){
+		System.out.println("Day "+dayNumber);
+	}
+	
+	/**
+	 * Initialise a player's turn
+	 */
+	public static void newPlayer(Player player){
+		System.out.print(player.getName()+"'s turn.");
+	}
+	
+	/**
 	 * Main game loop for one player for one day.
 	 */
-	public static void gameLoop(Player[] playerList, int dayNumber){
-		System.out.println("Day "+dayNumber);
-		for (Player player : playerList){
-			System.out.println("Player "+player.getName()+"'s turn.");
-		}
+	public static void gameLoop(Player player, Pet pet){
+		System.out.println("Player "+player.getName()+"'s turn to do stuff with "+pet.getName());
 	}
 	
 	/**
