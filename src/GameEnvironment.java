@@ -81,7 +81,6 @@ public class GameEnvironment {
 		String[] splitLine = line.split(",");
 		 
 		//Create returnable fields
-		//Why'd you try to create 0 lenght arrays?
 		String[] name = new String[1];
 		String[] description = new String[1];
 		String[] price = new String[1];
@@ -119,7 +118,7 @@ public class GameEnvironment {
 			}
 		}
 		
-		//This isn't very Java like but it reduces code duplication
+		//This isn't very Javalike but it reduces code duplication
 		return new String[][] {name, description, price, size, speciesOrder, increase};
 	}
 	
@@ -202,6 +201,7 @@ public class GameEnvironment {
 
 			for (String info: information[5]){
 				System.out.println(info);
+				//TODO what is this for? --Ollie
 			}
 			newToy.setHappinessIncrease(information[4], information[5]);
 			
@@ -253,7 +253,6 @@ public class GameEnvironment {
 		return newPlayer;
 	}
 	
-	
 	/**
 	 * Performs all setup for the game.
 	 * 
@@ -273,6 +272,10 @@ public class GameEnvironment {
 		
 		generateToyPrototypes();
 		generateFoodPrototypes();
+		while (dayNumber<=numberOfDays){
+			CommandLineInterface.gameLoop(playerList, dayNumber);
+			dayNumber++;
+		}
 	}
 	
 	

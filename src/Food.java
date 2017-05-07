@@ -3,6 +3,7 @@ import java.util.HashMap;
 /**
  * Food class implementation for Virtual Pets
  * @author Samuel Pell
+ * @author Ollie Chick
  *
  */
 public class Food extends Item{
@@ -42,8 +43,8 @@ public class Food extends Item{
 	}
 	
 	/**
-	 * Gets portion size for the food
-	 * @return Portion size
+	 * Gets portion size for the food.
+	 * @return Portion size.
 	 */
 	public int getPortionSize(){
 		return this.portionSize;
@@ -51,8 +52,8 @@ public class Food extends Item{
 	
 	/**
 	 * Sets the food's health increase on a per species basis.
-	 * @param species Species for which this increase applies
-	 * @param increases Happiness increase
+	 * @param species Species for which this increase applies.
+	 * @param increase Happiness increase.
 	 */
 	public void setHealthIncrease(String[] species, String[] increases){
 		//Convert strings to integers
@@ -64,8 +65,8 @@ public class Food extends Item{
 	
 	/**
 	 * Sets the portion size; this must be greater than 0.
-	 * @param size New portion size
-	 * @throws IllegalArgumentException Negative or 0 size
+	 * @param size New portion size.
+	 * @throws IllegalArgumentException Negative or 0 size.
 	 */
 	public void setPortionSize(int size) throws IllegalArgumentException{
 		if (size > 0){
@@ -76,6 +77,6 @@ public class Food extends Item{
 	}
 	
 	public String toString(){
-		return "Food: " + super.getName() + " - " + super.getDescription() + " - $" + super.getPrice();
+		return "Food: " + super.getName() + " - " + super.getDescription() + ". Cost: $" + super.getPrice() + ".";
 	}
 }

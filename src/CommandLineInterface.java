@@ -178,6 +178,17 @@ public class CommandLineInterface {
 		return newPet;
 	}
 	
+	
+	/**
+	 * Main game loop for one player for one day.
+	 */
+	public static void gameLoop(Player[] playerList, int dayNumber){
+		System.out.println("Day "+dayNumber);
+		for (Player player : playerList){
+			System.out.println("Player "+player.getName()+"'s turn.");
+		}
+	}
+	
 	/**
 	 * Tidy up to close gracefully.
 	 */
