@@ -51,7 +51,7 @@ public class Player {
 		if (amountSpent < 0){
 			throw new IllegalArgumentException("Can't spend a negative amount.");
 		}
-		if (balance > amountSpent){
+		if (balance < amountSpent){
 			throw new IllegalArgumentException("Can't spend more than you have.");
 		}else{			
 			balance -= amountSpent;
