@@ -303,6 +303,10 @@ public class GameEnvironment {
 		return toyPrototypes;
 	}
 	
+	private void testStore(){
+		CommandLineInterface.store(new Player(), foodPrototypes, toyPrototypes);
+	}
+	
 	/**
 	 * Main entry point.
 	 * @param args Arguments - don't really have many of them
@@ -311,9 +315,15 @@ public class GameEnvironment {
 	public static void main(String[] args) throws IOException{
 		//Testing if setup works
 		GameEnvironment mainGame = new GameEnvironment();
-		mainGame.initialiseNumGenerator(args);
-		mainGame.setup();
+		//mainGame.initialiseNumGenerator(args);
+		//mainGame.setup();
 		//mainGame.tearDown();
+		
+		
+		mainGame.generateToyPrototypes();
+		mainGame.generateFoodPrototypes();
+		mainGame.testStore();
+		
 		CommandLineInterface.tearDown();
 	}
 }

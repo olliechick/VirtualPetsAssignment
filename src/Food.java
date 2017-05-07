@@ -77,6 +77,6 @@ public class Food extends Item{
 	}
 	
 	public String toString(){
-		return "Food: " + super.getName() + " - " + super.getDescription() + ". Cost: $" + super.getPrice() + ".";
+		return super.getName() + " - " + super.getDescription() + ". Cost: $" + super.getPrice() + ".";
 	}
 }

@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Command line interface for Virtual Pets game.
@@ -178,6 +180,47 @@ public class CommandLineInterface {
 		return newPet;
 	}
 	
+	public static String[] listPrototypes(HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes){
+		String[] foodNames = foodPrototypes.keySet().toArray(new String[0]);
+		String[] toyNames = toyPrototypes.keySet().toArray(new String[0]);
+		String[] ordering = new String[foodNames.length + toyNames.length];
+		
+		System.out.println("----------- Food -----------");
+		int currentOption = 1;
+		for (int i = 0; i < foodNames.length; i++){
+			System.out.println("" + currentOption + ". " + foodPrototypes.get(foodNames[i]).toString());
+			ordering[i] = foodNames[i];
+			currentOption++;
+		}
+		
+		System.out.println("----------- Toys -----------");
+		for (int i = 0; i< toyNames.length; i++){
+			System.out.println("" + currentOption + ". " + toyPrototypes.get(toyNames[i]).toString());
+			ordering[i + foodNames.length] = toyNames[i];
+			currentOption++;
+		}
+		
+		return ordering;
+	}
+	
+	/**
+	 * Store loop for player to purchase items from.
+	 * @param player Player entering the store.
+	 * @param foodPrototypes Hash map of the food item prototypes.
+	 * @param toyPrototypes Hash map of the toy item prototypes.
+	 */
+	public static void store(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes){
+		String choice;
+		do{
+			System.out.println("Hello " + player.getName() + ", what would you like to buy today?");
+			String[] ordering = listPrototypes(foodPrototypes, toyPrototypes);
+			
+			System.out.print("Please enter the number of the item you would like to buy.    ");
+			System.out.flush();
+			
+			choice = inputReader.next();
+		} while (choice == null);
+	}
 	
 	/**
 	 * Main game loop for one player for one day.

@@ -85,6 +85,6 @@ public class Toy extends Item{
 	}
 	
 	public String toString(){
-		return "Toy: " + super.getName() + " - " + super.getDescription() + ". Cost: $" + super.getPrice() + ".";
+		return super.getName() + " - " + super.getDescription() + ". Cost: $" + super.getPrice() + ".";
 	}
 }
