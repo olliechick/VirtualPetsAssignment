@@ -29,7 +29,7 @@ public class GameEnvironment {
 	 */
 	private void setPlayerName(Player newPlayer){
 		try{
-			newPlayer.setName(CommandLineInterface.getName("Player name: ", nameList));	
+			newPlayer.setName(CommandLineInterface.getName("\nPlayer name: ", nameList));	
 		}catch (IllegalArgumentException exception){
 			System.out.println("Unknown error. Please try again.");
 		}
@@ -75,7 +75,7 @@ public class GameEnvironment {
 	 * Maps the columns to data fields and then returns an object array of the information
 	 * @param line String taken from either foodData or toyData files
 	 * @param mapping Mapping generated from the first line of columns to fields
-	 * @return Object array in format {String name, String description, Integer price, Integer size, String[] speciesOrder, Intger[] increase}
+	 * @return Object array in format {String name, String description, Integer price, Integer size, String[] speciesOrder, Integer[] increase}
 	 */
 	private String[][] parseLine(String line, HashMap<Integer, String> mapping){
 		String[] splitLine = line.split(",");
@@ -237,7 +237,7 @@ public class GameEnvironment {
 	private Player createPlayer() throws IOException{
 		Player newPlayer = new Player();
 		setPlayerName(newPlayer);
-		int numPets = CommandLineInterface.getNumberRequired("Hi " + newPlayer.getName() + "! How many pets do you want?    ");
+		int numPets = CommandLineInterface.getNumberRequired("Hi " + newPlayer.getName() + "! How many pets do you want? ");
 		
 		ArrayList<Pet> playerPetList = newPlayer.getPetList();
 		Pet newPet;
@@ -257,11 +257,11 @@ public class GameEnvironment {
 	private void setup() throws IOException{
 		numberOfDays = CommandLineInterface.getNumberOfDays();
 		dayNumber = 1;
-		int numPlayers = CommandLineInterface.getNumberRequired("How many players?    ");
+		int numPlayers = CommandLineInterface.getNumberRequired("How many players? ");
 		playerList = new Player[numPlayers];
 	
 		for (int i = 0; i < numPlayers; i++){
-			System.out.println("----------- Player Creation ----------");
+//			System.out.println("----------- Player Creation ----------");
 			playerList[i] = createPlayer();
 		}
 		
@@ -306,15 +306,12 @@ public class GameEnvironment {
 		return toyPrototypes;
 	}
 	
-	private void testStore(){
-		CommandLineInterface.store(new Player(), foodPrototypes, toyPrototypes);
-	}
-	
 	/**
 	 * After the game, tells the user the scores, etc.
 	 */
 	private void postGame(){
-		CommandLineInterface.displayScores(playerList);
+		
+		CommandLineInterface.postGame(playerList);
 	}
 	
 	/**
@@ -326,7 +323,7 @@ public class GameEnvironment {
 			for (Player player : playerList){
 				CommandLineInterface.newPlayer(player);
 				for (Pet pet : player.getPetList()){
-					CommandLineInterface.interact(player, pet);
+					CommandLineInterface.interact(player, pet, foodPrototypes, toyPrototypes);
 				}
 			}
 			dayNumber++;
@@ -342,7 +339,7 @@ public class GameEnvironment {
 		GameEnvironment mainGame = new GameEnvironment();
 		
 		//Testing if setup works
-		mainGame.testStore();
+//		mainGame.testStore();
 		
 		
 		mainGame.initialiseNumGenerator(args);

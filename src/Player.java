@@ -77,5 +77,21 @@ public class Player {
 	public double calculateAndGetScore(){
 		return petList.get(0).getWeight();
 	}
+	
+	/**
+	 * Adds a toy to the player's inventory
+	 * @param toy Toy to be added.
+	 */
+	public void addToy(Toy toy){
+		toyList.add(toy);
+	}
+	
+	/**
+	 * Adds a food to the player's inventory
+	 * @param food Food to be added.
+	 */
+	public void addFood(Food food){
+		foodStock.add(food);
+	}
 
 }
