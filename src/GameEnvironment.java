@@ -29,7 +29,7 @@ public class GameEnvironment {
 	 */
 	private void setPlayerName(Player newPlayer){
 		try{
-			newPlayer.setName(CommandLineInterface.getName("\nPlayer name: ", nameList));	
+			newPlayer.setName(CommandLineInterface.getName("Player name: ", nameList));	
 		}catch (IllegalArgumentException exception){
 			System.out.println("Unknown error. Please try again.");
 		}

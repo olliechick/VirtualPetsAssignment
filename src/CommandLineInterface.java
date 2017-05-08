@@ -12,6 +12,7 @@ import java.util.Set;
  */
 public class CommandLineInterface {
 	
+	private static String divider = "----------/----------";
 	private static Scanner inputReader = new Scanner(System.in);
 	
 	/**
@@ -33,7 +34,7 @@ public class CommandLineInterface {
 					throw new NumberFormatException();
 				}
 			}catch (NumberFormatException exception){
-				System.out.println("\nPlease enter an integer greater than 0.");
+				System.out.println("Please enter an integer greater than 0.");
 			}
 		}while (numDays == null);
 		
@@ -47,7 +48,6 @@ public class CommandLineInterface {
 	 */
 	public static int getNumberRequired(String query){
 		Integer numReq = null;
-		System.out.println();
 		do{
 			System.out.print(query);
 			System.out.flush();
@@ -60,7 +60,7 @@ public class CommandLineInterface {
 					throw new NumberFormatException();
 				}
 			}catch (NumberFormatException exception){
-				System.out.println("\nPlease enter an integer between 1 and 3 inclusive.");
+				System.out.println("Please enter an integer between 1 and 3 inclusive.");
 			}
 		}while (numReq == null);
 		
@@ -120,7 +120,7 @@ public class CommandLineInterface {
 		Pet newPet = new Cat(); //default to pet TODO is this meant to be Pet newPet = new Pet()? --Ollie
 		String choice;
 		//Get pet species
-		System.out.println("\n1. Alpaca\n2. Cat\n3. Dog\n4. Goat\n5. Horse\n6. Polar bear");
+		System.out.println("1. Alpaca\n2. Cat\n3. Dog\n4. Goat\n5. Horse\n6. Polar bear");
 		do{
 			System.out.print("Which pet would you like? ");
 			System.out.flush();
@@ -208,14 +208,14 @@ public class CommandLineInterface {
 	 * Initialises a day.
 	 */
 	public static void newDay(int dayNumber){
-		System.out.println("\n=== Day "+dayNumber+" ===");
+		System.out.println("=== Day "+dayNumber+" ===");
 	}
 	
 	/**
 	 * Initialise a player's turn.
 	 */
 	public static void newPlayer(Player player){
-		System.out.println("\n--- "+player.getName()+"'s turn ---");
+		System.out.println("--- "+player.getName()+"'s turn ---");
 	}
 	
 	/**
@@ -227,7 +227,7 @@ public class CommandLineInterface {
 		int numOfActions = 2;
 		String choice;
 		while (numOfActions > 0){
-			System.out.print("\nHi "+player.getName()+"! You have "+numOfActions+" turns remaining today with "+pet.getName()
+			System.out.print("Hi "+player.getName()+"! You have "+numOfActions+" turns remaining today with "+pet.getName()
 			+". What would you like to do?\n1. View pet status\n2. Visit the store\n3. Feed your pet\n4. Play with your pet\n"
 			+"5. Put your pet to bed to sleep\n6. Let the pet go toilet\n7. Move on\n>>> ");
 			choice = inputReader.next();
@@ -264,22 +264,22 @@ public class CommandLineInterface {
 		}
 	}
 	
-	private static void goToilet(Pet pet) {
+	private static void goToilet(Pet pet){
 		// TODO Auto-generated method stub
 		
 	}
 
-	private static void sleep(Pet pet) {
+	private static void sleep(Pet pet){
 		// TODO Auto-generated method stub
 		
 	}
 
-	private static void playWithPet(Pet pet) {
+	private static void playWithPet(Pet pet){
 		// TODO Auto-generated method stub
 		
 	}
 
-	private static void feedPet(Pet pet) {
+	private static void feedPet(Pet pet){
 		// TODO Auto-generated method stub
 
 	}
@@ -290,21 +290,22 @@ public class CommandLineInterface {
 	 * @param foodPrototypes Hash map of the food item prototypes.
 	 * @param toyPrototypes Hash map of the toy item prototypes.
 	 */
-	private static void visitStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes) {
+	private static void visitStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes){
 		String choice;
 		String type;
 		String purchasedItemName;
 		Toy purchasedToy;
 		Food purchasedFood;
 		do{
-			System.out.println("\nHello " + player.getName() + ", you have $"+player.getBalance()+". What would you like to buy today?");
+			System.out.println("Hello " + player.getName() + ", you have $"+player.getBalance()+". What would you like to buy today?");
 			String[] ordering = listPrototypes(foodPrototypes, toyPrototypes);
 
 			System.out.print(">>> ");
 			System.out.flush();
 
 			choice = inputReader.next();
-			//TODO check that choice is between 1 and len(food) + len(toy). if not, choice = null;
+			//TODO add way to exit the store
+			//TODO check that choice is between 1 and len(food) + len(toy). if not, choice = null
 			purchasedItemName = ordering[Integer.parseInt(choice)-1];
 			//TODO make a switch statement for if it's a toy or food
 			type = "toy";
@@ -324,8 +325,9 @@ public class CommandLineInterface {
 		}
 	}
 
-private static void viewPetStatus(Pet pet) {
-	System.out.println("\nStatus of "+pet.getName()+":\nGender: "+pet.getGender()
+private static void viewPetStatus(Pet pet){
+	System.out.println(divider);
+	System.out.println("Status of "+pet.getName()+":\nGender: "+pet.getGender()
 		+"\nSpecies: "+pet.getSpecies()
 		+"\nFatigue: "+pet.getFatigue()
 		+"\nHappiness: "+pet.getHappiness()
@@ -337,8 +339,7 @@ private static void viewPetStatus(Pet pet) {
 		+"\nIs misbehaving: "+pet.getIsMisbehaving()
 		+"\nIs revivable: "+pet.getIsRevivable()
 		+"\nIs sick: "+pet.getIsSick());
-		
-		
+	System.out.println(divider);
 	}
 
 	/**
@@ -348,8 +349,8 @@ private static void viewPetStatus(Pet pet) {
 		inputReader.close();
 	}
 
-	public static void postGame(Player[] playerList) {
-		System.out.println("\nThat's the end of the game. And the results are in:");
+	public static void postGame(Player[] playerList){
+		System.out.println("That's the end of the game. And the results are in:");
 		for (Player player : playerList){
 			System.out.println(player.getName()+" has a score of "+player.calculateAndGetScore());
 		}
