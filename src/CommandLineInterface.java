@@ -233,14 +233,14 @@ public class CommandLineInterface {
 	 * Initialise a player's turn
 	 */
 	public static void newPlayer(Player player){
-		System.out.print(player.getName()+"'s turn.");
+		System.out.println(player.getName()+"'s turn.");
 	}
 	
 	/**
 	 * Main game loop for one player for one day.
 	 */
-	public static void gameLoop(Player player, Pet pet){
-		System.out.println("Player "+player.getName()+"'s turn to do stuff with "+pet.getName());
+	public static void interact(Player player, Pet pet){
+		System.out.println("Player "+player.getName()+" interacts with "+pet.getName()+".");
 	}
 	
 	/**
@@ -249,5 +249,12 @@ public class CommandLineInterface {
 	public static void tearDown(){
 		inputReader.close();
 	}
+
+	public static void displayScores(Player[] playerList) {
+		for (Player player : playerList){
+			System.out.println(player.getName()+" has a score of "+player.calculateAndGetScore());
+		}
+	}
+	
 }
 

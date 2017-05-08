@@ -269,6 +269,13 @@ public class GameEnvironment {
 		generateFoodPrototypes();
 	}
 	
+	/**
+	 * Tears down the game
+	 */
+	private void tearDown(){
+		CommandLineInterface.tearDown();
+	}
+	
 	
 	/**
 	 * Sets up random number generator for testing.
@@ -304,34 +311,48 @@ public class GameEnvironment {
 	}
 	
 	/**
-	 * Main entry point.
-	 * @param args Arguments - don't really have many of them
-	 * @throws IOException So it doesn't complain at me
+	 * After the game, tells the user the scores, etc.
 	 */
-	public static void main(String[] args) throws IOException{
-		//Testing if setup works
-		GameEnvironment mainGame = new GameEnvironment();
-		//mainGame.initialiseNumGenerator(args);
-		//mainGame.setup();
-		//mainGame.tearDown();
-		
-		
-		mainGame.generateToyPrototypes();
-		mainGame.generateFoodPrototypes();
-		mainGame.testStore();
-		
-
+	private void postGame(){
+		CommandLineInterface.displayScores(playerList);
+	}
+	
+	/**
+	 * Main game loop
+	 */
+	private void gameLoop(){
 		while (dayNumber<=numberOfDays){
 			CommandLineInterface.newDay(dayNumber);
 			for (Player player : playerList){
 				CommandLineInterface.newPlayer(player);
 				for (Pet pet : player.getPetList()){
-					CommandLineInterface.gameLoop(player, pet);
+					CommandLineInterface.interact(player, pet);
 				}
 			}
 			dayNumber++;
 		}
+	}
+	
+	/**
+	 * Main entry point.
+	 * @param args Arguments - don't really have many of them
+	 * @throws IOException So it doesn't complain at me
+	 */
+	public static void main(String[] args) throws IOException{
+		GameEnvironment mainGame = new GameEnvironment();
 		
-		CommandLineInterface.tearDown();
+		//Testing if setup works
+		mainGame.testStore();
+		
+		
+		mainGame.initialiseNumGenerator(args);
+		mainGame.setup();
+		mainGame.generateToyPrototypes();
+		mainGame.generateFoodPrototypes();
+		mainGame.gameLoop();
+		mainGame.postGame();
+		
+		mainGame.tearDown();
+		
 	}
 }
