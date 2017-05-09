@@ -42,7 +42,13 @@ public class GameEnvironment {
 	 * @return ArrayList of each line as a string.
 	 */
 	private ArrayList<String> getDataFromFile(String fileName){
-		fileName = System.getProperty("user.dir") + "/src/" + fileName;
+		String topDir = System.getProperty("user.dir");
+		System.out.println(topDir);
+		if (topDir.endsWith("bin")){
+			fileName = "../src/" + fileName;
+		}else{
+			fileName = System.getProperty("user.dir")  + "/src/" + fileName;
+		}
 		String line;
 		ArrayList<String> data = new ArrayList<String>();
 		
@@ -60,7 +66,7 @@ public class GameEnvironment {
 			inputFile.close();
 		}catch (IOException e){ 
 			//If there is an IO error here just give up.
-			System.err.println("Error while reading file line by line:" + e.getMessage());
+			System.err.println("Error while reading file line by line: " + e.getMessage());
 			System.exit(0);
 		}
 		

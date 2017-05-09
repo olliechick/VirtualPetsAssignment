@@ -212,7 +212,8 @@ public class Pet {
 	 */
 	public String getDatumFromFile(String fileName, String heading, String row){
 		String topDir = System.getProperty("user.dir");
-		if (topDir.endsWith("/bin")){
+		System.out.println(topDir);
+		if (topDir.endsWith("bin")){
 			fileName = "../src/" + fileName;
 		}else{
 			fileName = System.getProperty("user.dir")  + "/src/" + fileName;
@@ -259,7 +260,7 @@ public class Pet {
 			inputFile.close();
 			
 		}catch(Exception e){
-			System.err.println("Error while reading file line by line:" + e.getMessage());
+			System.err.println("Error while reading file line by line: " + e.getMessage());
 		}
 		
 		if (datum == null)
