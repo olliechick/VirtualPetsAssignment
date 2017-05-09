@@ -357,11 +357,10 @@ public class GameEnvironment {
 		mainGame.generateFoodPrototypes();
 		try {
 			mainGame.gameLoop();
+			mainGame.postGame();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-		mainGame.postGame();
 		
 		mainGame.tearDown();
 		

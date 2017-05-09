@@ -347,7 +347,7 @@ public class CommandLineInterface {
 			choice = inputReader.next();
 			switch(choice){
 			case("1"):
-				buyFromStore(player, foodPrototypes, toyPrototypes);
+				userWantsToStay = buyFromStore(player, foodPrototypes, toyPrototypes);
 				break;
 			case("2"):
 				printItems(player);
@@ -375,36 +375,51 @@ public class CommandLineInterface {
 		
 	}
 
-	private static void buyFromStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes) throws Exception{
+	/**
+	 * Lets the user buy something from the store.
+	 * @param player Player buying something.
+	 * @param foodPrototypes HashMap of foods.
+	 * @param toyPrototypes HashMap of Toys.
+	 * @return A boolean based on whether the user wants to stay in the store.
+	 * @throws Exception if there is an error
+	 */
+	private static Boolean buyFromStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes) throws Exception{
 		String choice;
 		String type = null;
 		String purchasedItemName = null;
 		Toy purchasedToy = null;
 		Food purchasedFood = null;
 		int maxPossibleChoice;
+		int i;
 
 		do{
 			System.out.println("Hello " + player.getName() + ", you have $"+player.getBalance()+". What would you like to buy today?");
 			String[] ordering = listPrototypes(foodPrototypes, toyPrototypes);
+			System.out.println(ordering.length+1 + ". Exit the store");
 
 			System.out.print(">>> ");
 			System.out.flush();
 
 			choice = inputReader.next();
-			maxPossibleChoice = foodPrototypes.size() + toyPrototypes.size();
+			maxPossibleChoice = foodPrototypes.size() + toyPrototypes.size() + 1;
 			if (Integer.parseInt(choice) < 1 || Integer.parseInt(choice) > maxPossibleChoice){
 				choice = null;
 				System.out.println("Sorry, that's not a valid option.");
 			}else{
-				purchasedItemName = ordering[Integer.parseInt(choice)-1];
-				//TODO make a switch statement for if it's a toy or food
-				type = "toy";
-				purchasedToy = toyPrototypes.get(purchasedItemName);
-				if (purchasedToy==null){
-					//it wasn't a toy
+				i = Integer.parseInt(choice);
+				System.out.println(i);
+				if(i>=1 && i <= foodPrototypes.size()){
+					type = "food";
+					purchasedItemName = ordering[i-1];
 					purchasedFood = foodPrototypes.get(purchasedItemName);
-				}
-				if (purchasedFood == null){
+					System.out.println(purchasedToy);
+				}else if(i > foodPrototypes.size() && i < maxPossibleChoice){
+					type = "toy";
+					purchasedItemName = ordering[i-1];
+					purchasedToy = toyPrototypes.get(purchasedItemName);
+				}else if(i==maxPossibleChoice){
+					type = "leave";
+				}else{
 					//error
 					throw new Exception("Error: not a toy or a food");
 				}
@@ -421,6 +436,7 @@ public class CommandLineInterface {
 				System.out.println("Sorry, you don't have enough money for that. You have $"+player.getBalance()+" and that item costs $"
 						+purchasedToy.getPrice()+".");
 			}
+			return true;
 		}else if(type=="food"){
 			try{
 				player.spend(purchasedFood.getPrice());
@@ -430,8 +446,11 @@ public class CommandLineInterface {
 				System.out.println("Sorry, you don't have enough money for that. You have $"+player.getBalance()+" and that item costs $"
 						+purchasedFood.getPrice()+".");
 			}
+			return true;
+		}else if(type == "leave"){
+			return false;
 		}else{
-			throw new Exception("Error: not a toy or a food"); 
+			return true;
 		}
 	}
 
