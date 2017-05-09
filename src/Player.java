@@ -75,7 +75,25 @@ public class Player {
 	 * @return the player's score
 	 */
 	public double calculateAndGetScore(){
-		return petList.get(0).getWeight();
+		Double score;
+		Double petScore;
+		
+		int happiness;
+		int fatigue;
+		int health;
+		int mischeviousness;
+		int hunger;
+		int percentBladderFull;
+		double weight;
+		
+		for(Pet currentPet: petList){
+			currentPet.getHappiness();
+			curre
+			
+			petScore
+		}
+		
+		return score / petList.size();
 	}
 	
 	/**

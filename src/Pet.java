@@ -211,7 +211,12 @@ public class Pet {
 	 * @return datum wanted
 	 */
 	public String getDatumFromFile(String fileName, String heading, String row){
-		fileName = System.getProperty("user.dir") + "/src/" + fileName;
+		String topDir = System.getProperty("user.dir");
+		if (topDir.endsWith("/bin")){
+			fileName = "../src/" + fileName;
+		}else{
+			fileName = System.getProperty("user.dir")  + "/src/" + fileName;
+		}
 		String datum = null;
 		int col = 0;
 		Boolean found = false;
