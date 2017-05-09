@@ -75,8 +75,4 @@ public class Food extends Item{
 			throw new IllegalArgumentException("Portion size must be greater than zero.");
 		}
 	}
-	
-	public String toString(){
-		return super.getName() + " - " + super.getDescription() + ". Cost: $" + super.getPrice() + ".";
-	}
 }
