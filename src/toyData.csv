@@ -1,13 +1,13 @@
 Line 1: explanation. Line 2: headings. Lines 3+: items.,,,,,,,,,
 name,description,price,durability,increaseHappinessCat,increaseHappinessDog,increaseHappinessGoat,increaseHappinessHorse,increaseHappinessAlpaca,increaseHappinessPolarBear
-ball,,5,10,20,20,5,5,5,20
-scratching post,,10,20,50,2,5,5,5,5
-tug of war rope,,2,5,1,40,0,0,0,10
-old shoe,,1,4,1,40,5,0,0,1
-ice block,,20,3,-10,2,2,2,2,50
-catnip mouse,,5,5,50,5,0,0,0,1
-water jug,,10,10,0,0,0,0,0,0
-tyre,,20,20,0,5,10,10,10,40
-goat standing platform,,50,50,5,0,50,0,0,10
-jolly ball,,10,10,20,20,5,5,5,30
-bone,,5,8,0,75,-20,-20,-20,10
+ball,A bouncy ball,5,10,20,20,5,5,5,20
+scratching post,Tall post perfect to scratch that itch,10,20,50,2,5,5,5,5
+tug of war rope,Thick knotted rope,2,5,1,40,0,0,0,10
+old shoe,1 previous owner,1,4,1,40,5,0,0,1
+ice block,Large block of ice,20,3,-10,2,2,2,2,50
+catnip mouse,A cloth mouse stuffed with catnip,5,5,50,5,0,0,0,1
+water jug,A gallon water cooler jug,10,10,0,0,0,0,0,0
+tyre,NB: Car not attached,20,20,0,5,10,10,10,40
+goat standing platform,Perfect for standing,50,50,5,0,50,0,0,10
+jolly ball,A large weight ball,10,10,20,20,5,5,5,30
+bone,Large calf bone,5,8,0,75,-20,-20,-20,10
