@@ -43,7 +43,6 @@ public class GameEnvironment {
 	 */
 	private ArrayList<String> getDataFromFile(String fileName){
 		String topDir = System.getProperty("user.dir");
-		System.out.println(topDir);
 		if (topDir.endsWith("bin")){
 			fileName = "../src/" + fileName;
 		}else{
