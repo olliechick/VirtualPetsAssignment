@@ -83,8 +83,4 @@ public class Toy extends Item{
 			this.happinessIncrease.put(species[i], convertedIncreases[i]);
 		}
 	}
-	
-	public String toString(){
-		return super.getName() + " - " + super.getDescription() + ". Cost: $" + super.getPrice() + ".";
-	}
 }
