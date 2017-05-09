@@ -239,11 +239,11 @@ public class CommandLineInterface {
 				visitStore(player, foodPrototypes, toyPrototypes);
 				break;
 			case("3"):
-				feedPet(pet);
+				feedPet(player, pet);
 				numOfActions--;
 				break;
 			case("4"):
-				playWithPet(pet);
+				playWithPet(player, pet);
 				numOfActions--;
 				break;
 			case("5"):
@@ -265,21 +265,45 @@ public class CommandLineInterface {
 	}
 	
 	private static void goToilet(Pet pet){
-		// TODO Auto-generated method stub
-		
+		pet.goToilet();		
 	}
 
 	private static void sleep(Pet pet){
-		// TODO Auto-generated method stub
+		pet.sleep();		
+	}
+
+	private static void playWithPet(Player player, Pet pet){
+		String choiceStr;
+		int choice;
+		Toy toy;
+		do{
+
+			System.out.println("Hi! What toy would you like your pet to play with?");
+			int i=1;
+			for(Toy playersToy : player.getToyList()){
+				System.out.println(i+". "+playersToy);
+				i++;
+			}
+			System.out.print(">>> ");
+			System.out.flush();
+
+			choiceStr = inputReader.next();
+			choice = Integer.parseInt(choiceStr);
+			//TODO add way to exit the store
+			//TODO check that choice is between 1 and i (i think, maybe i+1?). if not, choice = null
+			if (choice<=0 || choice > i-1){
+				choiceStr = null;
+			}else{
+				toy = player.getToyList().get(-1);
+				pet.play(toy);
+			}
+			
+		} while (choiceStr == null);
+		
 		
 	}
 
-	private static void playWithPet(Pet pet){
-		// TODO Auto-generated method stub
-		
-	}
-
-	private static void feedPet(Pet pet){
+	private static void feedPet(Player player, Pet pet){
 		// TODO Auto-generated method stub
 
 	}
@@ -291,39 +315,50 @@ public class CommandLineInterface {
 	 * @param toyPrototypes Hash map of the toy item prototypes.
 	 */
 	private static void visitStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes){
-		String choice;
-		String type;
-		String purchasedItemName;
-		Toy purchasedToy;
-		Food purchasedFood;
-		do{
-			System.out.println("Hello " + player.getName() + ", you have $"+player.getBalance()+". What would you like to buy today?");
-			String[] ordering = listPrototypes(foodPrototypes, toyPrototypes);
-
-			System.out.print(">>> ");
-			System.out.flush();
-
-			choice = inputReader.next();
-			//TODO add way to exit the store
-			//TODO check that choice is between 1 and len(food) + len(toy). if not, choice = null
-			purchasedItemName = ordering[Integer.parseInt(choice)-1];
-			//TODO make a switch statement for if it's a toy or food
-			type = "toy";
-			purchasedToy = toyPrototypes.get(purchasedItemName);
-			
-		} while (choice == null);
-
-		if(type=="toy"){
-			try{
-				player.spend(purchasedToy.getPrice());
-				player.addToy(purchasedToy);
-				System.out.println("You have bought: "+ purchasedItemName);
-			}catch(IllegalArgumentException e){
-				System.out.println("Sorry, you don't have enough money for that. You have $"+player.getBalance()+" and that item costs $"
-						+purchasedToy.getPrice()+".");
-			}
+		Boolean userWantsToStay = true;
+		System.out.println("Hello " + player.getName() + ", welcome to the store. What do you want to do?");
+		while(userWantsToStay){
+			System.out.println("1. View objects for sale\n2. View your items");
+			System.out.println("3. Exit the store");
+			buyFromStore(player, foodPrototypes, toyPrototypes);
 		}
 	}
+	
+private static void buyFromStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes){
+	String choice;
+	String type;
+	String purchasedItemName;
+	Toy purchasedToy;
+	Food purchasedFood;
+	
+	do{
+		System.out.println("Hello " + player.getName() + ", you have $"+player.getBalance()+". What would you like to buy today?");
+		String[] ordering = listPrototypes(foodPrototypes, toyPrototypes);
+
+		System.out.print(">>> ");
+		System.out.flush();
+
+		choice = inputReader.next();
+		//TODO add way to exit the store
+		//TODO check that choice is between 1 and len(food) + len(toy). if not, choice = null
+		purchasedItemName = ordering[Integer.parseInt(choice)-1];
+		//TODO make a switch statement for if it's a toy or food
+		type = "toy";
+		purchasedToy = toyPrototypes.get(purchasedItemName);
+		
+	} while (choice == null);
+
+	if(type=="toy"){
+		try{
+			player.spend(purchasedToy.getPrice());
+			player.addToy(purchasedToy);
+			System.out.println("You have bought: "+ purchasedItemName);
+		}catch(IllegalArgumentException e){
+			System.out.println("Sorry, you don't have enough money for that. You have $"+player.getBalance()+" and that item costs $"
+					+purchasedToy.getPrice()+".");
+		}
+	}
+}
 
 private static void viewPetStatus(Pet pet){
 	System.out.println(divider);

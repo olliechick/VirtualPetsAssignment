@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,11 +10,7 @@ public class PlayerTest {
 	String name2 = "Rex";
 	Player player1 = new Player();
 	Player player2 = new Player();
-
-	@Before
-	public void setUp() {
-	}
-
+	
 	@Test
 	public void testPlayer() {
 		assert(player1.getBalance()>0);
@@ -65,7 +63,8 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void testCalculateAndGetScore() {
+	public void testCalculateAndGetScore() throws IOException {
+		player1.getPetList().add(new Cat());
 		double score = player1.calculateAndGetScore();
 		//TODO add tests when score has actually been quantified
 	}
