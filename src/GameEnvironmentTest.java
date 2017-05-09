@@ -13,8 +13,8 @@ public class GameEnvironmentTest {
 	@Before
 	public void setUp() throws Exception {
 		myGame = new GameEnvironment();
-		referenceFood = new Food("cat biscuits", "", 5, 2);
-		referenceToy = new Toy("old shoe", "", 1, 4);
+		referenceFood = new Food("Cat biscuits", "dry biscuits any cat will love", 5, 2);
+		referenceToy = new Toy("Old shoe", "1 previous owner", 1, 4);
 		
 		String[] healthIncrease = {"20", "2", "-2", "-2", "-2", "1"}; //in species order
 		String[] happinessIncrease = {"1", "40", "5", "0", "0", "1"};
@@ -26,7 +26,7 @@ public class GameEnvironmentTest {
 	@Test
 	public void testGenerateFoodPrototypes() {
 		myGame.generateFoodPrototypes();
-		Food testFood = myGame.getFoodPrototypes().get("cat biscuits");
+		Food testFood = myGame.getFoodPrototypes().get("Cat biscuits");
 		assertEquals(testFood.getName(), referenceFood.getName());
 		assertEquals(testFood.getDescription(), referenceFood.getDescription());
 		assertEquals(testFood.getPrice(), referenceFood.getPrice());
@@ -42,7 +42,7 @@ public class GameEnvironmentTest {
 	@Test
 	public void testGenerateToyPrototypes() {
 		myGame.generateToyPrototypes();
-		Toy testToy = myGame.getToyPrototypes().get("old shoe");
+		Toy testToy = myGame.getToyPrototypes().get("Old shoe");
 		assertEquals(testToy.getName(), referenceToy.getName());
 		assertEquals(testToy.getDescription(), referenceToy.getDescription());
 		assertEquals(testToy.getPrice(), referenceToy.getPrice());

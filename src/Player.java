@@ -75,26 +75,51 @@ public class Player {
 	 * @return the player's score
 	 */
 	public double calculateAndGetScore(){
-//		Double score;
-//		Double petScore;
-//		
-//		int happiness;
-//		int fatigue;
-//		int health;
-//		int mischeviousness;
-//		int hunger;
-//		int percentBladderFull;
-//		double weight;
-//		
-//		for(Pet currentPet: petList){
-//			currentPet.getHappiness();
-//			curre
-//			
-//			petScore
-//		}
-//		
-//		return score / petList.size();
-		return 5;
+		Double score = 0.0;
+		Double petScore;
+		
+		int happiness;
+		int fatigue;
+		int health;
+		int mischeviousness;
+		int hunger;
+		int percentBladderFull;
+		double weight;
+		boolean misbehaving;
+		boolean sick;
+		
+		for(Pet currentPet: petList){
+			petScore = 0.0;
+			
+			happiness = currentPet.getHappiness();
+			fatigue = currentPet.getFatigue();
+			health = currentPet.getHealth();
+			mischeviousness = currentPet.getMischievousness();
+			hunger = currentPet.getHunger();
+			percentBladderFull = currentPet.getPercentBladderFull();
+			weight = currentPet.getWeight();
+			misbehaving = currentPet.getIsMisbehaving();
+			sick = currentPet.getIsSick();
+			
+			fatigue = 100 - fatigue;
+			mischeviousness = 100 - mischeviousness;
+			percentBladderFull = 100 - percentBladderFull;
+			hunger = 100 - hunger;
+			
+			petScore += (happiness + fatigue + mischeviousness + hunger + percentBladderFull + weight + health) ;
+			
+			if (sick){
+				petScore -= 150; 
+			}
+			
+			if (misbehaving){
+				petScore -= 50;
+			}
+			
+			score += petScore;
+		}
+		
+		return score / petList.size();
 	}
 	
 	/**

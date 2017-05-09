@@ -212,7 +212,6 @@ public class Pet {
 	 */
 	public String getDatumFromFile(String fileName, String heading, String row){
 		String topDir = System.getProperty("user.dir");
-		System.out.println(topDir);
 		if (topDir.endsWith("bin")){
 			fileName = "../src/" + fileName;
 		}else{

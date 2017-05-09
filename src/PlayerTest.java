@@ -1,10 +1,12 @@
 import static org.junit.Assert.*;
-
 import java.io.IOException;
-
-import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests for Player class implementation
+ * @author Ollie Chick
+ * @author Samuel Pell
+ */
 public class PlayerTest {
 	String name1 = "Harry";
 	String name2 = "Rex";
@@ -66,7 +68,26 @@ public class PlayerTest {
 	public void testCalculateAndGetScore() throws IOException {
 		player1.getPetList().add(new Cat());
 		double score = player1.calculateAndGetScore();
-		//TODO add tests when score has actually been quantified
+		assertEquals(604.0, score, 0.0001);
+		
+		Alpaca testPet = new Alpaca();
+		player1.getPetList().add(testPet);
+		
+		testPet.increaseFatigue(50);
+		testPet.increaseHappiness(-50);
+		
+		score = player1.calculateAndGetScore();
+		assertEquals(582.0, score, 0.0001);
+		
+		testPet.beSick();
+		testPet.increaseHunger(100);
+		testPet.increaseFatigue(50);
+		testPet.misbehave();
+		
+		score = player1.calculateAndGetScore();
+		
+		assertEquals(402.0, score, 0.0001);
+		
 	}
 
 }
