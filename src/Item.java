@@ -87,7 +87,7 @@ public abstract class Item {
 	}
 	
 	public String toString(){
-		String s =  getName() + " - " + getDescription()+ ".";
+		String s =  getName() + ": " + getDescription()+ ".";
 		return s;
 	}
 }
