@@ -322,17 +322,18 @@ public class GameEnvironment {
 	
 	/**
 	 * Main game loop
+	 * @throws Exception if error in code
 	 */
-	private void gameLoop(){
+	private void gameLoop() throws Exception{
 		dailyPetAllowance = 10; //dollars
 		while (dayNumber<=numberOfDays){
 			CommandLineInterface.newDay(dayNumber);
 			for (Player player : playerList){
-				player.earn(dailyPetAllowance*player.getPetList().size());
 				CommandLineInterface.newPlayer(player);
 				for (Pet pet : player.getPetList()){
 					CommandLineInterface.interact(player, pet, foodPrototypes, toyPrototypes);
 				}
+				player.earn(dailyPetAllowance*player.getPetList().size());
 			}
 			dayNumber++;
 		}
@@ -354,7 +355,12 @@ public class GameEnvironment {
 		mainGame.setup();
 		mainGame.generateToyPrototypes();
 		mainGame.generateFoodPrototypes();
-		mainGame.gameLoop();
+		try {
+			mainGame.gameLoop();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 		mainGame.postGame();
 		
 		mainGame.tearDown();

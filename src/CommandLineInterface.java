@@ -226,8 +226,9 @@ public class CommandLineInterface {
 	 * Main game loop for one player to interact with one pet.
 	 * @param toyPrototypes 
 	 * @param foodPrototypes 
+	 * @throws Exception if error in code
 	 */
-	public static void interact(Player player, Pet pet, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes){
+	public static void interact(Player player, Pet pet, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes) throws Exception{
 		int numOfActions = 2;
 		String choice;
 		while (numOfActions > 0){
@@ -332,14 +333,15 @@ public class CommandLineInterface {
 	 * @param player Player entering the store.
 	 * @param foodPrototypes Hash map of the food item prototypes.
 	 * @param toyPrototypes Hash map of the toy item prototypes.
+	 * @throws Exception 
 	 */
-	private static void visitStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes){
+	private static void visitStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes) throws Exception{
 		Boolean userWantsToStay = true;
 		String choice;
 		
-		System.out.println("Hello " + player.getName() + ", welcome to the store. What do you want to do?");
+		System.out.print("Hello " + player.getName() + ", welcome to the store. ");
 		while(userWantsToStay){
-			System.out.println("1. View objects for sale\n2. View your items"
+			System.out.println("What do you want to do?\n1. View objects for sale\n2. View your items"
 					+"\n3. Exit the store");
 			System.out.print(">>> ");
 			choice = inputReader.next();
@@ -361,6 +363,9 @@ public class CommandLineInterface {
 	}
 
 	private static void printItems(Player player) {
+		if (player.getToyList().size() == 0 && player.getFoodStock().size()==0){
+			System.out.println("You have no items.");
+		}
 		for (Toy toy : player.getToyList()){
 			System.out.println(toy);
 		}
@@ -370,12 +375,13 @@ public class CommandLineInterface {
 		
 	}
 
-	private static void buyFromStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes){
+	private static void buyFromStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes) throws Exception{
 		String choice;
-		String type;
-		String purchasedItemName;
-		Toy purchasedToy;
-		Food purchasedFood;
+		String type = null;
+		String purchasedItemName = null;
+		Toy purchasedToy = null;
+		Food purchasedFood = null;
+		int maxPossibleChoice;
 
 		do{
 			System.out.println("Hello " + player.getName() + ", you have $"+player.getBalance()+". What would you like to buy today?");
@@ -385,11 +391,24 @@ public class CommandLineInterface {
 			System.out.flush();
 
 			choice = inputReader.next();
-			//TODO check that choice is between 1 and len(food) + len(toy). if not, choice = null
-			purchasedItemName = ordering[Integer.parseInt(choice)-1];
-			//TODO make a switch statement for if it's a toy or food
-			type = "toy";
-			purchasedToy = toyPrototypes.get(purchasedItemName);
+			maxPossibleChoice = foodPrototypes.size() + toyPrototypes.size();
+			if (Integer.parseInt(choice) < 1 || Integer.parseInt(choice) > maxPossibleChoice){
+				choice = null;
+				System.out.println("Sorry, that's not a valid option.");
+			}else{
+				purchasedItemName = ordering[Integer.parseInt(choice)-1];
+				//TODO make a switch statement for if it's a toy or food
+				type = "toy";
+				purchasedToy = toyPrototypes.get(purchasedItemName);
+				if (purchasedToy==null){
+					//it wasn't a toy
+					purchasedFood = foodPrototypes.get(purchasedItemName);
+				}
+				if (purchasedFood == null){
+					//error
+					throw new Exception("Error: not a toy or a food");
+				}
+			}
 
 		} while (choice == null);
 
@@ -402,6 +421,17 @@ public class CommandLineInterface {
 				System.out.println("Sorry, you don't have enough money for that. You have $"+player.getBalance()+" and that item costs $"
 						+purchasedToy.getPrice()+".");
 			}
+		}else if(type=="food"){
+			try{
+				player.spend(purchasedFood.getPrice());
+				player.addFood(purchasedFood);
+				System.out.println("You have bought: "+ purchasedItemName);
+			}catch(IllegalArgumentException e){
+				System.out.println("Sorry, you don't have enough money for that. You have $"+player.getBalance()+" and that item costs $"
+						+purchasedFood.getPrice()+".");
+			}
+		}else{
+			throw new Exception("Error: not a toy or a food"); 
 		}
 	}
 
