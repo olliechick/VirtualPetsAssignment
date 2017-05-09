@@ -20,6 +20,7 @@ public class GameEnvironment {
 	private HashMap<String, Toy> toyPrototypes;
 	private int dayNumber;
 	private int numberOfDays;
+	private int dailyPetAllowance;
 	private Random randomNumGen;
 	
 	
@@ -323,9 +324,11 @@ public class GameEnvironment {
 	 * Main game loop
 	 */
 	private void gameLoop(){
+		dailyPetAllowance = 10; //dollars
 		while (dayNumber<=numberOfDays){
 			CommandLineInterface.newDay(dayNumber);
 			for (Player player : playerList){
+				player.earn(dailyPetAllowance*player.getPetList().size());
 				CommandLineInterface.newPlayer(player);
 				for (Pet pet : player.getPetList()){
 					CommandLineInterface.interact(player, pet, foodPrototypes, toyPrototypes);
