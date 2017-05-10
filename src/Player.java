@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author Samuel Pell
  *
  */
-public class Player {
+public class Player implements Comparable<Player>{
 	
 	String name;
 	int balance; // in dollars ($)
@@ -136,6 +136,24 @@ public class Player {
 	 */
 	public void addFood(Food food){
 		foodStock.add(food);
+	}
+	
+	/**
+	 * Compares this player with another to determine which of them has the higher score
+	 * Returns 1 if the other player has a higher score
+	 * Returns 0 if the other player has the same score
+	 * Returns -1 if the other player has a lower score
+	 * @param aPlayer a player
+	 * @param otherPlayer player to compare to aPlayer
+	 * @return whether the player has a higher or lower score
+	 */
+	public int compareTo(Player otherPlayer){
+		if (score < otherPlayer.getScore())
+			return 1;
+		else if (score > otherPlayer.getScore())
+			return -1;
+		else
+			return 0;
 	}
 
 }

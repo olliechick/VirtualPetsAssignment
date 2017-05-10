@@ -3,12 +3,17 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class GameEnvironmentTest {
 	
 	private GameEnvironment myGame;
 	private Food referenceFood;
 	private Toy referenceToy;
 	private String[] species = {"cat", "dog", "goat", "horse", "alpaca", "polar bear"};
+	Player player1;
+	Player player2;
+	Player player3;
 
 	@Before
 	public void setUp() throws Exception {
@@ -21,6 +26,14 @@ public class GameEnvironmentTest {
 		
 		referenceFood.setHealthIncrease(species, healthIncrease);
 		referenceToy.setHappinessIncrease(species, happinessIncrease);
+		
+		player1 = new Player();
+		player2 = new Player();
+		player3 = new Player();
+		
+		player1.setName("Harry");
+		player2.setName("Rex");
+		player3.setName("Reginald Fitzallen");
 	}
 
 	@Test
@@ -54,6 +67,59 @@ public class GameEnvironmentTest {
 			if (testToy.getHappinessIncrease(currentSpecies) != referenceToy.getHappinessIncrease(currentSpecies)){
 				fail("happinessIncrease not the same for :" + currentSpecies + " <" + testToy.getHappinessIncrease(currentSpecies) + "> vs <" + referenceToy.getHappinessIncrease(currentSpecies) + ">");
 			}
+		}
+	}
+	
+	@Test
+	public void testRankPlayers() throws IOException{
+		
+		player1.getPetList().add(new Cat());
+		
+		Alpaca testPet = new Alpaca();
+		
+		testPet.increaseFatigue(50);
+		testPet.increaseHappiness(-50);
+		testPet.beSick();
+		testPet.increaseHunger(100);
+		testPet.increaseFatigue(50);
+		testPet.misbehave();
+		
+		player2.getPetList().add(testPet);
+		
+		Dog testPet2 = new Dog();
+		testPet2.misbehave();
+		
+		player3.getPetList().add(testPet2);
+		
+		player1.calculateScore();
+		player2.calculateScore();
+		player3.calculateScore();
+		
+		myGame.addPlayers(new Player[] {player3, player2, player1});
+		
+		Player[] rankedArray = myGame.rankPlayers();
+		Player[] expectedRanking = new Player[] {player1, player3, player2};
+		
+		for (int i = 0; i < rankedArray.length; i++){
+			assertEquals(rankedArray[i], expectedRanking[i]);
+		}
+		
+		myGame.addPlayers(new Player[] {player3, player2});
+		
+		rankedArray = myGame.rankPlayers();
+		expectedRanking = new Player[] {player3, player2};
+		
+		for (int i = 0; i < rankedArray.length; i++){
+			assertEquals(rankedArray[i], expectedRanking[i]);
+		}
+		
+		myGame.addPlayers(new Player[] {player3});
+		
+		rankedArray = myGame.rankPlayers();
+		expectedRanking = new Player[] {player3};
+		
+		for (int i = 0; i < rankedArray.length; i++){
+			assertEquals(rankedArray[i], expectedRanking[i]);
 		}
 	}
 

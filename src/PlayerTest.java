@@ -12,6 +12,7 @@ public class PlayerTest {
 	String name2 = "Rex";
 	Player player1 = new Player();
 	Player player2 = new Player();
+	Player player3 = new Player();
 	
 	@Test
 	public void testPlayer() {
@@ -72,7 +73,7 @@ public class PlayerTest {
 		assertEquals(604.0, score, 0.0001);
 		
 		Alpaca testPet = new Alpaca();
-		player1.getPetList().add(testPet);
+		player2.getPetList().add(testPet);
 		
 		testPet.increaseFatigue(50);
 		testPet.increaseHappiness(-50);

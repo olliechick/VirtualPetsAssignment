@@ -297,12 +297,18 @@ public class CommandLineInterface {
 			}
 		}
 	}
-
+	
+	/**
+	 * @param pet
+	 */
 	private static void goToilet(Pet pet){
 		pet.goToilet();		
 		System.out.println("Your pet went to the toilet.");
 	}
-
+	
+	/**
+	 * @param pet
+	 */
 	private static void sleep(Pet pet){
 		pet.sleep();		
 		System.out.println("Your pet slept.");
@@ -423,7 +429,11 @@ public class CommandLineInterface {
 			
 		}
 	}
-
+	
+	/**
+	 * Prints items player has.
+	 * @param player Player to print items for.
+	 */
 	private static void printItems(Player player) {
 		if (player.getToyList().size() == 0 && player.getFoodStock().size()==0){
 			System.out.println("You have no items.");
@@ -622,127 +632,75 @@ public class CommandLineInterface {
 		inputReader.close();
 	}
 
+	/**
+	 * Takes a ranked list of players and displays the appropriate results to the user
+	 * @param playerList A list of players ranked in decending order of score
+	 * @throws Exception
+	 */
 	public static void postGame(Player[] playerList) throws Exception{
-		//first generate scoreTable
-		Player player1;
-		Player player2 = null;
-		Player player3 = null;
-		Player winner = null;
-		Player runnerUp = null;
-		Player loser = null;
-		Boolean highTie = false;
-		Boolean lowTie = false;
-		
-		switch(playerList.length){
-		case(3):
-			player3 = playerList[2];
-		case(2):
-			player2 = playerList[1];
-		case(1):
-			player1 = playerList[0];
-			break;
-		default:
-			throw new Exception("not 3 players");
-		}
-		
 		System.out.println("That's the end of the game. And the results are in:");
 		
 		switch(playerList.length){
-		case(1):
-			System.out.println(player1.getName()+" has a score of "+player1.getScore());
-			break;
-		case(2):
-			if (player1.getScore()>player2.getScore()){
-				//player1 won
-				System.out.println("The winner is "+player1.getName()+", with a score of "+player1.getScore());
-				System.out.println("Second place is "+player2.getName()+", with a score of "+player2.getScore());
-			}else if(player1.getScore()<player2.getScore()){
-				//player2 won
-				System.out.println("The winner is "+player2.getName()+", with a score of "+player2.getScore());
-				System.out.println("Second place is "+player1.getName()+", with a score of "+player1.getScore());
-			}else{
-				//tie
-				System.out.println("Joint winner is "+player1.getName()+", with a score of "+player1.getScore());
-				System.out.println("Joint winner is "+player2.getName()+", with a score of "+player2.getScore());
-			}
-			break;
-		case(3):
-			if (player1.getScore()>player2.getScore() && player2.getScore()>player3.getScore()){
-				winner = player1;
-				runnerUp = player2;
-				loser = player3;
-			}else if(player1.getScore()>player3.getScore() && player3.getScore()>player2.getScore()){
-				winner = player1;
-				runnerUp = player3;
-				loser = player2;
-			}else if(player2.getScore()>player1.getScore() && player1.getScore()>player3.getScore()){
-				winner = player2;
-				runnerUp = player1;
-				loser = player3;
-			}else if(player2.getScore()>player3.getScore() && player3.getScore()>player1.getScore()){
-				winner = player2;
-				runnerUp = player3;
-				loser = player1;
-			}else if(player3.getScore()>player1.getScore() && player1.getScore()>player2.getScore()){
-				winner = player3;
-				runnerUp = player1;
-				loser = player2;
-			}else if(player3.getScore()>player2.getScore() && player2.getScore()>player1.getScore()){
-				winner = player3;
-				runnerUp = player2;
-				loser = player1;
-			// Ties
-			}else if (player1.getScore()==player2.getScore() && player2.getScore()>player3.getScore()){
-				winner = player1;
-				runnerUp = player2;
-				loser = player3;
-				highTie = true;
-			}else if(player1.getScore()==player3.getScore() && player3.getScore()>player2.getScore()){
-				winner = player1;
-				runnerUp = player3;
-				loser = player2;
-				highTie = true;
-			}else if(player2.getScore()>player1.getScore() && player1.getScore()==player3.getScore()){
-				winner = player2;
-				runnerUp = player1;
-				loser = player3;
-				lowTie = true;
-			}else if(player2.getScore()==player3.getScore() && player3.getScore()>player1.getScore()){
-				winner = player2;
-				runnerUp = player3;
-				loser = player1;
-				highTie = true;
-			}else if(player3.getScore()>player1.getScore() && player1.getScore()==player2.getScore()){
-				winner = player3;
-				runnerUp = player1;
-				loser = player2;
-				lowTie = true;
-			}else if(player3.getScore()>player2.getScore() && player2.getScore()==player1.getScore()){
-				winner = player3;
-				runnerUp = player2;
-				loser = player1;
-				lowTie = true;
-			}
-		
-		
-			if(lowTie){
-				System.out.println("The winner is "+winner.getName()+", with a score of "+winner.getScore());
-				System.out.println("Joint second place is "+runnerUp.getName()+", with a score of "+runnerUp.getScore());
-				System.out.println("Joint second place is "+loser.getName()+", with a score of "+loser.getScore());
-			}else if(highTie){
-				System.out.println("Joint winner is "+winner.getName()+", with a score of "+winner.getScore());
-				System.out.println("Joint winner is "+runnerUp.getName()+", with a score of "+runnerUp.getScore());
-				System.out.println("Third place is "+loser.getName()+", with a score of "+loser.getScore());
-			}else{
-				System.out.println("The winner is "+winner.getName()+", with a score of "+winner.getScore());
-				System.out.println("Second place is "+runnerUp.getName()+", with a score of "+runnerUp.getScore());
-				System.out.println("Third place is "+loser.getName()+", with a score of "+loser.getScore());
-			}
-			break;
+			case(1):
+				System.out.println(playerList[0].getName()+" has a score of "+playerList[0].getScore());
+				break;
+				
+			case(2):
+				if (playerList[0].getScore() == playerList[1].getScore()){
+					//tie
+					System.out.println("Joint winner is " + playerList[0].getName() + ", with a score of " + playerList[0].getScore());
+					System.out.println("Joint winner is "+playerList[1].getName()+", with a score of "+playerList[1].getScore());
+				}else{
+					System.out.println("The winner is " + playerList[0].getName()+", with a score of " + playerList[0].getScore());
+					System.out.println("Second place is " + playerList[1].getName() + ", with a score of " + playerList[1].getScore());
+				}
+				break;
+				
+			case(3):
+				Player player1 = playerList[0];
+				Player player2 = playerList[1];
+				Player player3 = playerList[2];
 			
+				Player winner = null;
+				Player runnerUp = null;
+				Player loser = null;
+				boolean highTie = false;
+				boolean lowTie = false;
+			
+				if (player1.getScore() == player2.getScore()){
+					winner = player1;
+					runnerUp = player2;
+					loser = player3;
+					highTie = true;
+				}else if(player2.getScore() == player3.getScore()){
+					winner = player1;
+					runnerUp = player3;
+					loser = player2;
+					lowTie = true;
+				} else{
+					winner = playerList[0];
+					runnerUp = playerList[1];
+					loser = playerList[2];
+				}
+				
+				if(lowTie){
+					//if players 2 and 3 tie
+					System.out.println("The winner is "+winner.getName()+", with a score of "+winner.getScore());
+					System.out.println("Joint second place is "+runnerUp.getName()+", with a score of "+runnerUp.getScore());
+					System.out.println("Joint second place is "+loser.getName()+", with a score of "+loser.getScore());
+				}else if(highTie){
+					//if players 1 and 2 tie
+					System.out.println("Joint winner is "+winner.getName()+", with a score of "+winner.getScore());
+					System.out.println("Joint winner is "+runnerUp.getName()+", with a score of "+runnerUp.getScore());
+					System.out.println("Third place is "+loser.getName()+", with a score of "+loser.getScore());
+				}else{
+					//no ties
+					System.out.println("The winner is " + player1.getName()+", with a score of " + player1.getScore());
+					System.out.println("Second place is " + player2.getName() + ", with a score of " + player2.getScore());
+					System.out.println("Third place is "+loser.getName()+", with a score of "+loser.getScore());
+				}
+				break;
 		}
-		
-
 	}
 
 }

@@ -267,7 +267,6 @@ public class GameEnvironment {
 		playerList = new Player[numPlayers];
 	
 		for (int i = 0; i < numPlayers; i++){
-//			System.out.println("----------- Player Creation ----------");
 			playerList[i] = createPlayer();
 		}
 		
@@ -317,8 +316,11 @@ public class GameEnvironment {
 	 * @throws Exception if error in code
 	 */
 	private void postGame() throws Exception{
-		
-		CommandLineInterface.postGame(playerList);
+		for (int i = 0; i < playerList.length; i++){
+			playerList[i].calculateScore();
+		}
+		Player[] rankedPlayers = rankPlayers();
+		CommandLineInterface.postGame(rankedPlayers);
 	}
 	
 	/**
@@ -402,7 +404,35 @@ public class GameEnvironment {
 		
 		
 	}
-
+	
+	/**
+	 * Ranks players based on score in decending order of score. Assumes all scores have been calculated beforehand.
+	 * @return ranked list of players.
+	 */
+	public Player[] rankPlayers(){
+		//Add players to an ArrayList
+		ArrayList<Player> rankedList = new ArrayList<Player>();
+		for (int i = 0; i < playerList.length; i++){
+			rankedList.add(playerList[i]);
+		}
+		
+		//Sort the players
+		rankedList.sort(null);
+		
+		//Conver ArrayList to array and return array
+		Player[] rankedArray = new Player[rankedList.size()];
+		rankedArray = rankedList.toArray(rankedArray);
+		
+		return rankedArray;
+	}
+	
+	/**
+	 * Method purely for testing purposes.
+	 * @param playerArray Fully setup list of players.
+	 */
+	protected void addPlayers(Player[] playerArray){
+		playerList = playerArray;
+	}
 
 	/**
 	 * Main entry point.
