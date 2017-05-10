@@ -24,7 +24,7 @@ public class CommandLineInterface {
 		do{
 			System.out.print("How many days do you want to play for? ");
 			System.out.flush();
-			String userInput = inputReader.next();
+			String userInput = inputReader.nextLine();
 			try{
 				numDays = Integer.parseInt(userInput);
 				if (numDays < 1){ 
@@ -50,7 +50,7 @@ public class CommandLineInterface {
 		do{
 			System.out.print(query);
 			System.out.flush();
-			String userInput = inputReader.next();
+			String userInput = inputReader.nextLine();
 			try{
 				numReq = Integer.parseInt(userInput);
 				if (numReq< 1 || numReq > 3){ 
@@ -97,7 +97,7 @@ public class CommandLineInterface {
 		do{
 			System.out.print(query);
 			System.out.flush();
-			name = inputReader.next();
+			name = inputReader.nextLine();
 			if (nameTaken(name, nameList)){ //if name is already taken
 				name = null;
 				System.out.println("Duplicate names are not allowed.");
@@ -124,7 +124,7 @@ public class CommandLineInterface {
 			System.out.print("Which pet would you like? ");
 			System.out.flush();
 
-			choice = inputReader.next();
+			choice = inputReader.nextLine();
 
 			switch(choice.toLowerCase()){
 			case "1":
@@ -248,7 +248,7 @@ public class CommandLineInterface {
 			System.out.print("Hi "+player.getName()+"! You have "+numOfActions+" turns remaining today with "+pet.getName()
 			+". What would you like to do?\n1. View pet status\n2. Visit the store\n3. Feed your pet\n4. Play with your pet\n"
 			+"5. Put your pet to bed to sleep\n6. Let the pet go toilet\n7. Move on\n>>> ");
-			choice = inputReader.next();
+			choice = inputReader.nextLine();
 			switch(choice){
 			case("1"):
 				viewPetStatus(pet);
@@ -332,7 +332,7 @@ public class CommandLineInterface {
 			System.out.print(">>> ");
 			System.out.flush();
 			
-			choiceStr = inputReader.next();
+			choiceStr = inputReader.nextLine();
 			try{
 				choice = Integer.parseInt(choiceStr);
 			}catch(Exception e){
@@ -377,7 +377,7 @@ public class CommandLineInterface {
 			System.out.print(">>> ");
 			System.out.flush();
 			
-			choiceStr = inputReader.next();
+			choiceStr = inputReader.nextLine();
 			try{
 				choice = Integer.parseInt(choiceStr);
 			}catch(Exception e){
@@ -412,7 +412,7 @@ public class CommandLineInterface {
 			System.out.println("What do you want to do?\n1. View objects for sale\n2. View your items"
 					+"\n3. Exit the store");
 			System.out.print(">>> ");
-			choice = inputReader.next();
+			choice = inputReader.nextLine();
 			switch(choice){
 			case("1"):
 				userWantsToStay = buyFromStore(player, foodPrototypes, toyPrototypes);
@@ -472,7 +472,7 @@ public class CommandLineInterface {
 			System.out.print(">>> ");
 			System.out.flush();
 
-			choice = inputReader.next();
+			choice = inputReader.nextLine();
 			maxPossibleChoice = foodPrototypes.size() + toyPrototypes.size() + 1;
 			if (Integer.parseInt(choice) < 1 || Integer.parseInt(choice) > maxPossibleChoice){
 				choice = null;
@@ -552,7 +552,7 @@ public class CommandLineInterface {
 		System.out.print("WARNING! YOUR PET IS MISBEHAVING! ");
 		do{
 			System.out.println("DO YOU WANT TO DISCIPLINE? (Y/N)");
-			choiceStr = inputReader.next();
+			choiceStr = inputReader.nextLine();
 			if (choiceStr.toLowerCase().equals("y")){
 				choice = true;
 			}else if(choiceStr.toLowerCase().equals("n")){
@@ -578,7 +578,7 @@ public class CommandLineInterface {
 		if(balance >= 50){
 			do{
 				System.out.println("DO YOU WANT TO PAY $50 FOR TREATMENT? YOU CURRENTLY HAVE $"+balance+". (Y/N)");
-				choiceStr = inputReader.next();
+				choiceStr = inputReader.nextLine();
 				if (choiceStr.toLowerCase().equals("y")){
 					choice = true;
 				}else if(choiceStr.toLowerCase().equals("n")){
@@ -608,7 +608,7 @@ public class CommandLineInterface {
 		if(revivable){
 		do{
 			System.out.println("DO YOU WANT TO REVIVE THEM? (Y/N)");
-			choiceStr = inputReader.next();
+			choiceStr = inputReader.nextLine();
 			if (choiceStr.toLowerCase().equals("y")){
 				choice = true;
 			}else if(choiceStr.toLowerCase().equals("n")){
