@@ -116,7 +116,7 @@ public class CommandLineInterface {
 	 * @throws IOException because it isn't handled at lower levels.
 	 */
 	public static Pet createPetSpecies() throws IOException{
-		Pet newPet = new Cat(); //default to pet TODO is this meant to be Pet newPet = new Pet()? --Ollie
+		Pet newPet = new Cat(); //default to a cat
 		String choice;
 		//Get pet species
 		System.out.println("1. Alpaca\n2. Cat\n3. Dog\n4. Goat\n5. Horse\n6. Polar bear");
