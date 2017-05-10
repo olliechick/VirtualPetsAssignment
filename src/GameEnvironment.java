@@ -329,16 +329,45 @@ public class GameEnvironment {
 		while (dayNumber<=numberOfDays){
 			CommandLineInterface.newDay(dayNumber);
 			for (Player player : playerList){
+				player.earn(dailyPetAllowance*player.getPetList().size());
 				CommandLineInterface.newPlayer(player);
 				for (Pet pet : player.getPetList()){
+					randomEvents(pet);
 					CommandLineInterface.interact(player, pet, foodPrototypes, toyPrototypes);
 				}
-				player.earn(dailyPetAllowance*player.getPetList().size());
 			}
 			dayNumber++;
 		}
 	}
 	
+	/**
+	 * This runs just before a user interacts with their pet,
+	 * and controls if the pet does random events, such as misbehaving, getting sick, and dying.
+	 * @param pet the pet the player is about to interact with.
+	 */
+	private void randomEvents(Pet pet) {
+		int randomNumber = randomNumGen.nextInt(100); //creates random number between 0 and 100
+		int happiness = pet.getHappiness();
+		if(happiness<25 && randomNumber<75 || happiness<50 && randomNumber<50 || happiness<75 && randomNumber<25){
+			//if the pet is unhappy enough or the random number is low enough
+			pet.misbehave();
+		}
+
+		randomNumber = randomNumGen.nextInt(100); //creates random number between 0 and 100
+		int health = pet.getHealth();
+		if(health<25 && randomNumber<75 || health<50 && randomNumber<50 || health<75 && randomNumber<25){
+			pet.beSick();
+		}
+
+		randomNumber = randomNumGen.nextInt(100); //creates random number between 0 and 100
+		if (pet.getIsSick() && happiness<50){
+			pet.die();
+		}
+		
+		
+	}
+
+
 	/**
 	 * Main entry point.
 	 * @param args Arguments - don't really have many of them
@@ -346,10 +375,6 @@ public class GameEnvironment {
 	 */
 	public static void main(String[] args) throws IOException{
 		GameEnvironment mainGame = new GameEnvironment();
-		
-		//Testing if setup works
-//		mainGame.testStore();
-		
 		
 		mainGame.initialiseNumGenerator(args);
 		mainGame.setup();

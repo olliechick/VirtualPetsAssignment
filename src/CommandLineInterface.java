@@ -244,15 +244,27 @@ public class CommandLineInterface {
 				visitStore(player, foodPrototypes, toyPrototypes);
 			break;
 			case("3"):
-				feedPet(player, pet);
-			numOfActions--;
+				try{
+					feedPet(player, pet);
+					numOfActions--;
+				}catch(Exception e){
+					if(e.getMessage().equals("no food to eat")){
+						System.out.println("Sorry, you don't have any food to feed your pet.");
+					}else{
+						throw e;
+					}
+				}
 			break;
 			case("4"):
 				try{
 					playWithPet(player, pet);
 					numOfActions--;
 				}catch(Exception e){
-					System.out.println("Sorry, you don't have any toys to play with.");
+					if(e.getMessage().equals("no toys to play with")){
+						System.out.println("Sorry, you don't have any toys to play with.");
+					}else{
+						throw e;
+					}
 				}
 			break;
 			case("5"):
@@ -264,21 +276,23 @@ public class CommandLineInterface {
 			numOfActions--;
 			break;
 			case("7"):
+				//done with this pet today
 				numOfActions = 0;
 			break;
 			default:
 				System.out.println("I'm sorry. That's not a valid option. Please try again.");
-				break;
 			}
 		}
 	}
 
 	private static void goToilet(Pet pet){
 		pet.goToilet();		
+		System.out.println("Your pet went to the toilet.");
 	}
 
 	private static void sleep(Pet pet){
 		pet.sleep();		
+		System.out.println("Your pet slept.");
 	}
 
 	private static void playWithPet(Player player, Pet pet) throws Exception{
@@ -288,9 +302,9 @@ public class CommandLineInterface {
 		if (player.getToyList().size() == 0){
 			throw new Exception("no toys to play with");
 		}
+		System.out.print("Hi! ");
 		do{
-
-			System.out.println("Hi! What toy would you like your pet to play with?");
+			System.out.println("What toy would you like your pet to play with?");
 			int i=1;
 			for(Toy playersToy : player.getToyList()){
 				System.out.println(i+". "+playersToy);
@@ -298,15 +312,22 @@ public class CommandLineInterface {
 			}
 			System.out.print(">>> ");
 			System.out.flush();
-
+			
 			choiceStr = inputReader.next();
-			choice = Integer.parseInt(choiceStr);
+			try{
+				choice = Integer.parseInt(choiceStr);
+			}catch(Exception e){
+				//not parsable as an Integer
+				choice = 0;
+			}
+			
 			if (choice<=0 || choice > i-1){
 				choiceStr = null;
+				System.out.println("Sorry, that's not a valid option.");
 			}else{
 				toy = player.getToyList().get(i-2);
 				try{
-				pet.play(toy);
+					pet.play(toy);
 				}catch(IllegalArgumentException e){
 					if (e.getMessage().equals("durability is zero or negative")){
 						//they've used the toy to the point of destruction
@@ -315,17 +336,45 @@ public class CommandLineInterface {
 						throw e;
 					}
 				}
-				
 			}
-
 		} while (choiceStr == null);
-
-
 	}
 
-	private static void feedPet(Player player, Pet pet){
-		// TODO Auto-generated method stub
-
+	private static void feedPet(Player player, Pet pet) throws Exception{
+		String choiceStr;
+		int choice;
+		Food food;
+		if (player.getFoodStock().size() == 0){
+			throw new Exception("no food to eat");
+		}
+		System.out.print("Hi! ");
+		do{
+			System.out.println("What food would you like to feed your pet?");
+			int i=1;
+			for(Food playersFood : player.getFoodStock()){
+				System.out.println(i+". "+playersFood);
+				i++;
+			}
+			System.out.print(">>> ");
+			System.out.flush();
+			
+			choiceStr = inputReader.next();
+			try{
+				choice = Integer.parseInt(choiceStr);
+			}catch(Exception e){
+				//not parsable as an Integer
+				choice = 0;
+			}
+			
+			if (choice<=0 || choice > i-1){
+				choiceStr = null;
+				System.out.println("Sorry, that's not a valid option.");
+			}else{
+				food = player.getFoodStock().get(i-2);
+				pet.feed(food);
+				player.getFoodStock().remove(i-2);
+				}
+		} while (choiceStr == null);
 	}
 
 	/**
@@ -365,14 +414,14 @@ public class CommandLineInterface {
 	private static void printItems(Player player) {
 		if (player.getToyList().size() == 0 && player.getFoodStock().size()==0){
 			System.out.println("You have no items.");
+		}else{
+			for (Toy toy : player.getToyList()){
+				System.out.println(toy);
+			}
+			for (Food food : player.getFoodStock()){
+				System.out.println(food);
+			}
 		}
-		for (Toy toy : player.getToyList()){
-			System.out.println(toy);
-		}
-		for (Food food : player.getFoodStock()){
-			System.out.println(food);
-		}
-		
 	}
 
 	/**
@@ -407,12 +456,10 @@ public class CommandLineInterface {
 				System.out.println("Sorry, that's not a valid option.");
 			}else{
 				i = Integer.parseInt(choice);
-				System.out.println(i);
 				if(i>=1 && i <= foodPrototypes.size()){
 					type = "food";
 					purchasedItemName = ordering[i-1];
 					purchasedFood = foodPrototypes.get(purchasedItemName);
-					System.out.println(purchasedToy);
 				}else if(i > foodPrototypes.size() && i < maxPossibleChoice){
 					type = "toy";
 					purchasedItemName = ordering[i-1];
