@@ -67,7 +67,8 @@ public class PlayerTest {
 	@Test
 	public void testCalculateAndGetScore() throws IOException {
 		player1.getPetList().add(new Cat());
-		double score = player1.calculateAndGetScore();
+		player1.calculateScore();
+		double score = player1.getScore();
 		assertEquals(604.0, score, 0.0001);
 		
 		Alpaca testPet = new Alpaca();
@@ -76,7 +77,8 @@ public class PlayerTest {
 		testPet.increaseFatigue(50);
 		testPet.increaseHappiness(-50);
 		
-		score = player1.calculateAndGetScore();
+		player1.calculateScore();
+		score = player1.getScore();
 		assertEquals(582.0, score, 0.0001);
 		
 		testPet.beSick();
@@ -84,8 +86,8 @@ public class PlayerTest {
 		testPet.increaseFatigue(50);
 		testPet.misbehave();
 		
-		score = player1.calculateAndGetScore();
-		
+		player1.calculateScore();
+		score = player1.getScore();
 		assertEquals(402.0, score, 0.0001);
 		
 	}

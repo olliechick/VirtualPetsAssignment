@@ -74,7 +74,7 @@ public class Player {
 	 * Calculate's the player's score and returns it
 	 * @return the player's score
 	 */
-	public double calculateAndGetScore(){
+	public void calculateScore(){
 		Double score = 0.0;
 		Double petScore;
 		
@@ -119,7 +119,7 @@ public class Player {
 			score += petScore;
 		}
 		
-		return score / petList.size();
+		this.score = score / petList.size();
 	}
 	
 	/**
