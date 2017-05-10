@@ -43,7 +43,7 @@ public class Player {
 	
 	/**
 	 * Takes away the amount spent from the balance.
-	 * @param amountSpent
+	 * @param amountSpent amount the user spends
 	 * @throws IllegalArgumentException if you try to spend a negative amount
 	 * @throws IllegalArgumentException if you try to spend more than you have
 	 */
@@ -60,7 +60,7 @@ public class Player {
 	
 	/**
 	 * Adds the amount earnt to the player's balance.
-	 * @param amountEarnt
+	 * @param amountEarnt amount the user earns
 	 * @throws IllegalArgumentException if you try to earn a negative amount
 	 */
 	public void earn(int amountEarnt){
