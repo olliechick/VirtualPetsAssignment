@@ -2,7 +2,6 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * Command line interface for Virtual Pets game.
@@ -210,6 +209,7 @@ public class CommandLineInterface {
 
 	/**
 	 * Initialises a day.
+	 * @param dayNumber the number of the current day.
 	 */
 	public static void newDay(int dayNumber){
 		System.out.println("=== Day "+dayNumber+" ===");
@@ -217,20 +217,33 @@ public class CommandLineInterface {
 
 	/**
 	 * Initialise a player's turn.
+	 * @param player the player whose turn it is.
 	 */
 	public static void newPlayer(Player player){
+		Boolean allDead = true;
 		System.out.println("--- "+player.getName()+"'s turn ---");
+		for (Pet pet : player.getPetList()){
+			if(!pet.getIsDead()){allDead = false;}
+		}
+		if (allDead){
+			System.out.println("Shame on you, "+player.getName()+", you killed all your pets.");
+		}
 	}
 
 	/**
 	 * Main game loop for one player to interact with one pet.
-	 * @param toyPrototypes 
-	 * @param foodPrototypes 
+	 * @param toyPrototypes HashMap of all toys.
+	 * @param foodPrototypes HashMap of all food.
+	 * @param player the player whose turn it is; this player is currently interacting with their pet.
+	 * @param pet the pet the player is interacting with.
 	 * @throws Exception if error in code
 	 */
 	public static void interact(Player player, Pet pet, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes) throws Exception{
 		int numOfActions = 2;
 		String choice;
+		if (pet.getIsDead()){
+			numOfActions = 0;
+		}
 		while (numOfActions > 0){
 			System.out.print("Hi "+player.getName()+"! You have "+numOfActions+" turns remaining today with "+pet.getName()
 			+". What would you like to do?\n1. View pet status\n2. Visit the store\n3. Feed your pet\n4. Play with your pet\n"
@@ -382,7 +395,7 @@ public class CommandLineInterface {
 	 * @param player Player entering the store.
 	 * @param foodPrototypes Hash map of the food item prototypes.
 	 * @param toyPrototypes Hash map of the toy item prototypes.
-	 * @throws Exception 
+	 * @throws Exception if there is an error in the game so what they're buying isn't a food or a toy
 	 */
 	private static void visitStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes) throws Exception{
 		Boolean userWantsToStay = true;
@@ -516,6 +529,90 @@ public class CommandLineInterface {
 		+"\nIs revivable: "+pet.getIsRevivable()
 		+"\nIs sick: "+pet.getIsSick());
 		System.out.println(divider);
+	}
+
+	/**
+	 * If the pet is about to misbehave, this gets run to see if the user wants to discipline
+	 * @return true if they choose to discipline
+	 */
+	public static Boolean petMisbehaves() {
+		String choiceStr;
+		Boolean choice = null;
+		
+		System.out.print("WARNING! YOUR PET IS MISBEHAVING! ");
+		do{
+			System.out.println("DO YOU WANT TO DISCIPLINE? (Y/N)");
+			choiceStr = inputReader.next();
+			if (choiceStr.toLowerCase().equals("y")){
+				choice = true;
+			}else if(choiceStr.toLowerCase().equals("n")){
+				choice = false;
+			}else{
+				choiceStr = null;
+				System.out.print("Sorry, that's not a valid option. ");
+			}
+		}while(choiceStr == null);
+		return choice;
+	}
+
+	/**
+	 * This gets run if the pet gets sick to see if the user wants to pay for treatment (if they can afford it).
+	 * @param balance the user's current balance
+	 * @return whether or not the user healed them
+	 */
+	public static Boolean petSicks(int balance) {
+		String choiceStr;
+		Boolean choice = null;
+		
+		System.out.print("WARNING! YOUR PET HAS BECOME SICK! ");
+		if(balance >= 50){
+			do{
+				System.out.println("DO YOU WANT TO PAY $50 FOR TREATMENT? YOU CURRENTLY HAVE $"+balance+". (Y/N)");
+				choiceStr = inputReader.next();
+				if (choiceStr.toLowerCase().equals("y")){
+					choice = true;
+				}else if(choiceStr.toLowerCase().equals("n")){
+					choice = false;
+				}else{
+					choiceStr = null;
+					System.out.print("Sorry, that's not a valid option. ");
+				}
+			}while(choiceStr == null);
+		}else{
+			System.out.println("UNFORTUNATELY, TREATMENT COSTS $50 BUT YOU ONLY HAVE$"+balance+".");
+			choice = false;
+		}
+		return choice;
+	}
+
+	/**
+	 * This gets run if the pet dies.
+	 * @param revivable if the pet is revivable.
+	 * @return whether or not the user revived them.
+	 */
+	public static Boolean petDies(Boolean revivable) {
+		String choiceStr;
+		Boolean choice = null;
+		
+		System.out.print("WARNING! YOUR PET HAS UNEXPECTEDLY DIED! ");
+		if(revivable){
+		do{
+			System.out.println("DO YOU WANT TO REVIVE THEM? (Y/N)");
+			choiceStr = inputReader.next();
+			if (choiceStr.toLowerCase().equals("y")){
+				choice = true;
+			}else if(choiceStr.toLowerCase().equals("n")){
+				choice = false;
+			}else{
+				choiceStr = null;
+				System.out.print("Sorry, that's not a valid option. ");
+			}
+		}while(choiceStr == null);
+		}else{
+			System.out.println("RIP.");
+			choice = false;
+		}
+		return choice;
 	}
 
 	/**

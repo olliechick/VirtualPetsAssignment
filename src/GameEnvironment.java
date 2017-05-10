@@ -326,16 +326,27 @@ public class GameEnvironment {
 	 */
 	private void gameLoop() throws Exception{
 		dailyPetAllowance = 10; //dollars
+		int numOfAlivePets = 0;
+		
 		while (dayNumber<=numberOfDays){
 			CommandLineInterface.newDay(dayNumber);
+			
 			for (Player player : playerList){
-				player.earn(dailyPetAllowance*player.getPetList().size());
 				CommandLineInterface.newPlayer(player);
-				for (Pet pet : player.getPetList()){
-					randomEvents(pet);
-					CommandLineInterface.interact(player, pet, foodPrototypes, toyPrototypes);
+				for (Pet pet : player.getPetList()){ //count up all the alive pets
+					if(!pet.getIsDead()){numOfAlivePets++;}
 				}
+				player.earn(dailyPetAllowance*numOfAlivePets);
+				
+				for (Pet pet : player.getPetList()){
+					if (!pet.getIsDead()){ //if the pet isn't dead
+						newDayPetActions(player, pet);
+						CommandLineInterface.interact(player, pet, foodPrototypes, toyPrototypes);
+					}
+				}
+				
 			}
+			
 			dayNumber++;
 		}
 	}
@@ -345,23 +356,47 @@ public class GameEnvironment {
 	 * and controls if the pet does random events, such as misbehaving, getting sick, and dying.
 	 * @param pet the pet the player is about to interact with.
 	 */
-	private void randomEvents(Pet pet) {
+	private void newDayPetActions(Player player, Pet pet) {
+		Boolean disciplined;
+		Boolean treated;
+		Boolean revived;
+		
+		pet.increaseFatigue(30);
+		pet.increaseHappiness(-10);
+		pet.increaseHunger(-30);
+		pet.increaseMischievousness(5);
+		
 		int randomNumber = randomNumGen.nextInt(100); //creates random number between 0 and 100
-		int happiness = pet.getHappiness();
-		if(happiness<25 && randomNumber<75 || happiness<50 && randomNumber<50 || happiness<75 && randomNumber<25){
-			//if the pet is unhappy enough or the random number is low enough
-			pet.misbehave();
+		int wellness = (pet.getHappiness()*3 + pet.getHealth() + (100-pet.getMischievousness())*5 + (100-pet.getHunger()))/10;
+		if(wellness<25 && randomNumber<75 || wellness<50 && randomNumber<50 || wellness<75 && randomNumber<25){
+			disciplined = CommandLineInterface.petMisbehaves();
+			if (disciplined){
+				pet.discipline();
+			}else{
+				pet.misbehave();
+			}
 		}
 
 		randomNumber = randomNumGen.nextInt(100); //creates random number between 0 and 100
 		int health = pet.getHealth();
 		if(health<25 && randomNumber<75 || health<50 && randomNumber<50 || health<75 && randomNumber<25){
-			pet.beSick();
+			treated = CommandLineInterface.petSicks(player.getBalance());
+			if (treated){
+				pet.treat();
+				player.spend(50);
+			}else{
+				pet.beSick();
+			}
 		}
 
 		randomNumber = randomNumGen.nextInt(100); //creates random number between 0 and 100
-		if (pet.getIsSick() && happiness<50){
-			pet.die();
+		if (pet.getIsSick() && pet.getHappiness()<50){
+			revived = CommandLineInterface.petDies(pet.getIsRevivable());
+			if (revived){
+				pet.revive();
+			}else{
+				pet.die();
+			}
 		}
 		
 		

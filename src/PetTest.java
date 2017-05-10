@@ -621,25 +621,87 @@ public class PetTest {
 	public void testMisbehave() {
 		//get initial values
 		int initialHappiness = myCat.getHappiness();
-		
+
 		myCat.misbehave();
+		myMinCat.misbehave();
 		
 		//check new happiness is lower
 		assertTrue(myCat.getHappiness() < initialHappiness);
 		//check for no change in min case
 		assertEquals(myMinCat.getHappiness(), 0);
+		//check cat is now misbehaving
+		assertTrue(myCat.getIsMisbehaving());
+	}
+	
+	@Test
+	public void testDiscipline() {
+		//get initial values
+		int initialHappiness = myCat.getHappiness();
+		
+		myCat.discipline();
+
+		//check new happiness is lower
+		assertTrue(myCat.getHappiness() < initialHappiness);
+		//check for no change in min case
+		assertEquals(myMinCat.getHappiness(), 0);
+		//check new mischievousness is 0
+		assertTrue(myMinCat.getMischievousness() == 0);
+		//check cat is no longer misbehaving
+		assertFalse(myCat.getIsMisbehaving());
 	}
 
 	@Test
 	public void testBeSick() {
+		//get initial values
+		int initialHappiness = myCat.getHappiness();
+		
 		myCat.beSick();
-		//nothing to test
+		myMinCat.beSick();
+
+		//check new happiness is lower
+		assertTrue(myCat.getHappiness() < initialHappiness);
+		//check for no change in min case
+		assertEquals(myMinCat.getHappiness(), 0);
+		//check cat is now sick
+		assertTrue(myCat.getIsSick());
+		
+	}
+	
+	@Test
+	public void testTreat(){
+		//get initial values
+		int initialHunger = myCat.getHunger();
+		int initialFatigue = myMaxCat.getFatigue();
+		int initialMischievousness = myCat.getMischievousness();
+		
+		myCat.treat();
+		myMinCat.treat();
+		myMaxCat.treat();
+
+		//check new hunger is lower
+		assertTrue(myCat.getHunger() < initialHunger);
+		//check for no change in min case
+		assertEquals(myMinCat.getHunger(), 0);
+		//check new fatigue is higher
+		assertTrue(myCat.getFatigue() > initialFatigue);
+		//check for no change in max case
+		assertEquals(myMaxCat.getFatigue(), 100);
+		//check new mischievousness is lower
+		assertTrue(myCat.getMischievousness() < initialMischievousness);
+		//check for no change in min case
+		assertEquals(myMinCat.getMischievousness(), 0);
+	}
+	
+	@Test
+	public void testRevive(){
+		myCat.revive();
+		assertFalse(myCat.getIsRevivable());
 	}
 
 	@Test
 	public void testDie() {
 		myCat.die();
-		assertFalse(myCat.getIsRevivable());
+		assertTrue(myCat.getIsDead());
 	}
 
 }

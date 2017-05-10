@@ -26,6 +26,7 @@ public class Pet {
 	private Boolean isSick;
 	private Boolean isRevivable;
 	private Boolean isMisbehaving;
+	private Boolean isDead;
 	
 	private double defaultWeight;
 	private int bladderSize;
@@ -44,6 +45,7 @@ public class Pet {
 		isSick = false;
 		isRevivable = true;
 		isMisbehaving = false;
+		isDead = false;
 		weight = Double.parseDouble(getDatumFromFile("petData.csv", "defaultWeight", species));
 		defaultWeight = weight;
 		bladderSize = Integer.parseInt(getDatumFromFile("petData.csv", "bladderSize", species));
@@ -65,6 +67,7 @@ public class Pet {
 	public Boolean getIsSick(){return isSick;}
 	public Boolean getIsRevivable(){return isRevivable;}
 	public Boolean getIsMisbehaving(){return isMisbehaving;}
+	public Boolean getIsDead(){return isDead;}
 
 	// Setters
 
@@ -179,21 +182,51 @@ public class Pet {
 		increaseHappiness(-10);
 		setIsMisbehaving(true);
 	}
+
+	/**
+	 * The pet is disciplined.
+	 */
+	public void discipline() {
+		isMisbehaving = false;
+		happiness -= 5;
+		mischievousness = 0;
+	}
 	
 	/**
 	 * The pet is sick.
 	 */
 	public void beSick(){
+		happiness -= 10;
 		isSick = true;
 	}
 	
 	/**
-	 * The pet dies.
+	 * The pet is treated.
+	 */
+	public void treat(){
+		isSick = false;
+		health = 100;
+		hunger -= 50;
+		fatigue += 10;
+		mischievousness -= 5;
+	}
+	
+	/**
+	 * The pet is revived.
 	 * They can no longer be revived.
 	 */
-	public void die(){
-		isRevivable = false; //TODO This may be a problem?
+	public void revive(){
+		isRevivable = false;
 	}
+	
+	/**
+	 * The pet dies.
+	 */
+	public void die(){
+		isDead = true;
+	}
+	
+	
 	
 	/**
 	 * @return String representation of the pet

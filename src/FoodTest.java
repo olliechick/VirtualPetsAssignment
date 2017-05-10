@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests for Food class implmentation
+ * Tests for Food class implementation
  * @author Samuel Pell
  *
  */
