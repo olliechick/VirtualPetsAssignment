@@ -671,7 +671,7 @@ public class PetTest {
 	public void testTreat(){
 		//get initial values
 		int initialHunger = myCat.getHunger();
-		int initialFatigue = myMaxCat.getFatigue();
+		int initialFatigue = myCat.getFatigue();
 		int initialMischievousness = myCat.getMischievousness();
 		
 		myCat.treat();

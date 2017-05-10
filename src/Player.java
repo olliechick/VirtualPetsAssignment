@@ -71,12 +71,11 @@ public class Player {
 	}
 	
 	/**
-	 * Calculate's the player's score and returns it
-	 * @return the player's score
+	 * Calculate's the player's score
 	 */
 	public void calculateScore(){
-		Double score = 0.0;
-		Double petScore;
+		int score = 0;
+		int petScore;
 		
 		int happiness;
 		int fatigue;
@@ -89,7 +88,7 @@ public class Player {
 		boolean sick;
 		
 		for(Pet currentPet: petList){
-			petScore = 0.0;
+			petScore = 0;
 			
 			happiness = currentPet.getHappiness();
 			fatigue = currentPet.getFatigue();
@@ -101,6 +100,7 @@ public class Player {
 			misbehaving = currentPet.getIsMisbehaving();
 			sick = currentPet.getIsSick();
 			
+			//make bad attributes the inverse of what they were
 			fatigue = 100 - fatigue;
 			mischeviousness = 100 - mischeviousness;
 			percentBladderFull = 100 - percentBladderFull;
@@ -119,7 +119,7 @@ public class Player {
 			score += petScore;
 		}
 		
-		this.score = score / petList.size();
+		this.score += score / petList.size();
 	}
 	
 	/**

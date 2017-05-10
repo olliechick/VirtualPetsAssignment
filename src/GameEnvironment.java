@@ -314,8 +314,9 @@ public class GameEnvironment {
 	
 	/**
 	 * After the game, tells the user the scores, etc.
+	 * @throws Exception if error in code
 	 */
-	private void postGame(){
+	private void postGame() throws Exception{
 		
 		CommandLineInterface.postGame(playerList);
 	}
@@ -344,7 +345,7 @@ public class GameEnvironment {
 						CommandLineInterface.interact(player, pet, foodPrototypes, toyPrototypes);
 					}
 				}
-				
+				player.calculateScore();
 			}
 			
 			dayNumber++;

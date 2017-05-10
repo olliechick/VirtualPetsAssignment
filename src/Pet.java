@@ -188,7 +188,7 @@ public class Pet {
 	 */
 	public void discipline() {
 		isMisbehaving = false;
-		happiness -= 5;
+		increaseHappiness(-5);
 		mischievousness = 0;
 	}
 	
@@ -196,7 +196,7 @@ public class Pet {
 	 * The pet is sick.
 	 */
 	public void beSick(){
-		happiness -= 10;
+		increaseHappiness(-10);
 		isSick = true;
 	}
 	
@@ -206,9 +206,9 @@ public class Pet {
 	public void treat(){
 		isSick = false;
 		health = 100;
-		hunger -= 50;
-		fatigue += 10;
-		mischievousness -= 5;
+		increaseHunger(-50);
+		increaseFatigue(10);
+		increaseMischievousness(-5);
 	}
 	
 	/**
