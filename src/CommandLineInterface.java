@@ -94,13 +94,16 @@ public class CommandLineInterface {
 	public static String getName(String query, ArrayList<String> nameList){
 		String name = null;
 
+		System.out.print(query);
 		do{
-			System.out.print(query);
 			System.out.flush();
 			name = inputReader.nextLine();
 			if (nameTaken(name, nameList)){ //if name is already taken
 				name = null;
 				System.out.println("Duplicate names are not allowed.");
+				System.out.print(query);
+			}else if(name.equals("") || name.equals("\n")){
+				name = null;
 			}
 		} while (name == null);
 
