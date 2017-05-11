@@ -64,6 +64,7 @@ public class Pet {
 	public int getPercentBladderFull(){return percentBladderFull;}
 	public int getFatigue(){return fatigue;}
 	public double getWeight(){return weight;}
+	public double getDefaultWeight(){return defaultWeight;}
 	public Boolean getIsSick(){return isSick;}
 	public Boolean getIsRevivable(){return isRevivable;}
 	public Boolean getIsMisbehaving(){return isMisbehaving;}
@@ -243,7 +244,7 @@ public class Pet {
 	 * @param row The name of the item
 	 * @return datum wanted
 	 */
-	public String getDatumFromFile(String fileName, String heading, String row){
+	private String getDatumFromFile(String fileName, String heading, String row){
 		String topDir = System.getProperty("user.dir");
 		if (topDir.endsWith("bin")){
 			fileName = "../src/" + fileName;

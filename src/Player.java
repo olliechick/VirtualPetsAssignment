@@ -83,9 +83,10 @@ public class Player implements Comparable<Player>{
 		int mischeviousness;
 		int hunger;
 		int percentBladderFull;
-		double weight;
+		double weightDifferential;
 		boolean misbehaving;
 		boolean sick;
+		boolean dead;
 		
 		for(Pet currentPet: petList){
 			petScore = 0;
@@ -96,17 +97,19 @@ public class Player implements Comparable<Player>{
 			mischeviousness = currentPet.getMischievousness();
 			hunger = currentPet.getHunger();
 			percentBladderFull = currentPet.getPercentBladderFull();
-			weight = currentPet.getWeight();
+			weightDifferential = Math.abs(currentPet.getWeight() - currentPet.getDefaultWeight());
 			misbehaving = currentPet.getIsMisbehaving();
 			sick = currentPet.getIsSick();
+			dead = currentPet.getIsDead();
 			
 			//make bad attributes the inverse of what they were
 			fatigue = 100 - fatigue;
 			mischeviousness = 100 - mischeviousness;
 			percentBladderFull = 100 - percentBladderFull;
 			hunger = 100 - hunger;
+			weightDifferential = 100 - weightDifferential; //penalise for fat and skinny animals
 			
-			petScore += (happiness + fatigue + mischeviousness + hunger + percentBladderFull + weight + health) ;
+			petScore += (happiness + fatigue + mischeviousness + hunger + percentBladderFull + weightDifferential + health) ;
 			
 			if (sick){
 				petScore -= 150; 
@@ -114,6 +117,10 @@ public class Player implements Comparable<Player>{
 			
 			if (misbehaving){
 				petScore -= 50;
+			}
+			
+			if(dead){ //if the pet is dead player doesn't get any points for it.
+				petScore = 0;
 			}
 			
 			score += petScore;
