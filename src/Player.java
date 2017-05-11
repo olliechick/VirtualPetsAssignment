@@ -126,7 +126,7 @@ public class Player implements Comparable<Player>{
 			score += petScore;
 		}
 		
-		this.score += score / petList.size();
+		this.score += (score / petList.size());
 	}
 	
 	/**
