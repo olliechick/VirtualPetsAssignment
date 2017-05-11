@@ -13,6 +13,13 @@ public class CommandLineInterface {
 
 	private static String divider = "----------/----------";
 	private static Scanner inputReader = new Scanner(System.in);
+	
+	/**
+	 * Prints out a game header at begining of the game
+	 */
+	public static void gameHeader(){
+		System.out.println("VirtualPets Assignment - O Chick & S Pell");
+	}
 
 	/**
 	 * Gets the number of days the game is to run for.

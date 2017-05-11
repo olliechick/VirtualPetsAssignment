@@ -261,6 +261,7 @@ public class GameEnvironment {
 	 * @throws IOException Pet creation side effect
 	 */
 	private void setup() throws IOException{
+		CommandLineInterface.gameHeader();
 		numberOfDays = CommandLineInterface.getNumberOfDays();
 		dayNumber = 1;
 		int numPlayers = CommandLineInterface.getNumberRequired("How many players? ");
