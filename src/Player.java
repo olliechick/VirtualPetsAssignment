@@ -143,8 +143,7 @@ public class Player implements Comparable<Player>{
 	 * Returns 1 if the other player has a higher score
 	 * Returns 0 if the other player has the same score
 	 * Returns -1 if the other player has a lower score
-	 * @param aPlayer a player
-	 * @param otherPlayer player to compare to aPlayer
+	 * @param otherPlayer player to compare to this player
 	 * @return whether the player has a higher or lower score
 	 */
 	public int compareTo(Player otherPlayer){
