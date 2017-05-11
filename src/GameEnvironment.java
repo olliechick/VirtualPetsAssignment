@@ -428,6 +428,7 @@ public class GameEnvironment {
 	
 	/**
 	 * Method purely for testing purposes.
+	 * Overwrites existing playerList with its own array of players.
 	 * @param playerArray Fully setup list of players.
 	 */
 	protected void addPlayers(Player[] playerArray){
@@ -436,8 +437,8 @@ public class GameEnvironment {
 
 	/**
 	 * Main entry point.
-	 * @param args Arguments - don't really have many of them
-	 * @throws IOException So it doesn't complain at me
+	 * @param args Arguments - don't really have many of them.
+	 * @throws IOException When a file has an issue.
 	 */
 	public static void main(String[] args) throws IOException{
 		GameEnvironment mainGame = new GameEnvironment();
