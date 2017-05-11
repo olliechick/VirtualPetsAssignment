@@ -107,9 +107,8 @@ public class CommandLineInterface {
 		nameList.add(name);
 		return name;
 	}
-
-
-	//TODO: Ask Ollie how to handle IOException from Pet class
+	
+	
 	/**
 	 * Creates a pet object based on user input.
 	 * @return pet of species desired by player.
