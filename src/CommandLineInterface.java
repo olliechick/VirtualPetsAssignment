@@ -666,12 +666,17 @@ public class CommandLineInterface {
 				Player loser = null;
 				boolean highTie = false;
 				boolean lowTie = false;
+				boolean threeWayTie = false;
 			
 				if (player1.getScore() == player2.getScore()){
 					winner = player1;
 					runnerUp = player2;
 					loser = player3;
-					highTie = true;
+					if(player2.getScore() == player3.getScore()){
+						threeWayTie = true;
+					}else{
+						highTie = true;
+					}
 				}else if(player2.getScore() == player3.getScore()){
 					winner = player1;
 					runnerUp = player3;
@@ -683,7 +688,13 @@ public class CommandLineInterface {
 					loser = playerList[2];
 				}
 				
-				if(lowTie){
+				if(threeWayTie){
+					System.out.println("Joint winner is "+winner.getName()+", with a score of "+winner.getScore());
+					System.out.println("Joint winner is "+runnerUp.getName()+", with a score of "+runnerUp.getScore());
+					System.out.println("Joint winner is "+loser.getName()+", with a score of "+loser.getScore());
+					
+				}
+				else if(lowTie){
 					//if players 2 and 3 tie
 					System.out.println("The winner is "+winner.getName()+", with a score of "+winner.getScore());
 					System.out.println("Joint second place is "+runnerUp.getName()+", with a score of "+runnerUp.getScore());
