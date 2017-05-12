@@ -1,5 +1,4 @@
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  * Main GUI class for VirtualPets
@@ -18,7 +17,7 @@ public class GUIMain implements Observer {
 	 * @param indentifier Identifier of the operation.
 	 * @param values Array of objects appropriate to the GUI call.
 	 */
-	public void getValues(String identifier, String[] values) {
+	public void getValues(String identifier, String[] values){
 		switch(identifier){
 			case "setup":
 				Integer numDays = Integer.parseInt(values[0]);
@@ -29,6 +28,9 @@ public class GUIMain implements Observer {
 				System.out.println(numDays + " days to play for");
 				System.out.println(playerNumber + " players set in GUI");
 				//DEBUG
+				break;
+			default:
+				System.out.println("Unknown GUI Element Identifier\nDropping data");
 		}
 	}
 	
@@ -57,11 +59,16 @@ public class GUIMain implements Observer {
 		this.self = self;
 	}
 	
+	public void createPlayers(){
+		//TODO: Add me
+	}
+	
 	public static void main(String[] args){
 		GUIMain main = new GUIMain();
 		main.setSelf(main);
 		main.initialise();
 		main.showSetup();
+		main.createPlayers();
 	}
 
 }
