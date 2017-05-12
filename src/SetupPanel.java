@@ -5,19 +5,28 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JRadioButton;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
+//import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.ButtonGroup;
+import java.util.ArrayList;
 
 
 /**
  * A JPanel to create setup dialogue.
- * @author Samuel
+ * @author Samuel Pell
  *
  */
-public class SetupPanel extends JPanel {
+public class SetupPanel extends JPanel implements Observable{
 	
-	private int[] outputValues = new int[2]; 
+	/**
+	 * Complained at me without serualVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	private String[] outputValues = new String[2]; 
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
+	public int width = 400;
+	public int height = 206;
 	
 	/**
 	 * Create the panel.
@@ -28,7 +37,7 @@ public class SetupPanel extends JPanel {
 		ButtonGroup radioButtonGroup = new ButtonGroup();
 		
 		JLabel lblNumDays = new JLabel("Number of days to play for:");
-		lblNumDays.setBounds(60, 34, 133, 14);
+		lblNumDays.setBounds(25, 34, 166, 14);
 		add(lblNumDays);
 		
 		JSpinner numberOfDaysSpinner = new JSpinner();
@@ -37,7 +46,7 @@ public class SetupPanel extends JPanel {
 		add(numberOfDaysSpinner);
 		
 		JLabel lblNumberOfPlayers = new JLabel("Number of Players:");
-		lblNumberOfPlayers.setBounds(101, 61, 92, 14);
+		lblNumberOfPlayers.setBounds(67, 61, 124, 14);
 		add(lblNumberOfPlayers);
 		
 		JRadioButton onePlayer = new JRadioButton("1", true);
@@ -60,35 +69,65 @@ public class SetupPanel extends JPanel {
 		btnNext.setBounds(199, 145, 70, 23);
 		btnNext.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
-				int numPlayers;
-				int numDays;
+				Integer numPlayers;
+				Integer numDays;
 				if(onePlayer.isSelected()){
-					System.out.println("One Player");
+					//System.out.println("One Player");
 					numPlayers = 1;
 				} else if(twoPlayers.isSelected()){
-					System.out.println("Two Players");
+					//System.out.println("Two Players");
 					numPlayers = 2;
 				}else{
-					System.out.println("Three Players");
+					//System.out.println("Three Players");
 					numPlayers = 3;
 				}
 				numDays = (Integer) numberOfDaysSpinner.getValue(); 
-				System.out.println("Play for " + numDays + " days");
+				//System.out.println("Play for " + numDays + " days");
 				
-				outputValues[0] = numPlayers;
-				outputValues[1] = numDays;
+				outputValues[0] = numPlayers.toString();
+				outputValues[1] = numDays.toString();
+				notifyObservers();
 			}
 		});
 		add(btnNext);
-
 	}
 	
+	/**
+	 * Notify all observers of a change in values.
+	 */
+	public void notifyObservers(){
+		for (Observer o: observers){
+			o.getValues("setup", outputValues);
+		}
+	}
+	
+	/**
+	 * Add a new observer to the object.
+	 * @param newObserver The observer to add.
+	 */
+	public void registerObserver(Observer newObserver){
+		observers.add(newObserver);
+	}
+	
+	/**
+	 * Testing functionality.
+	 * @param args Input arguments.
+	 */
 	public static void main(String[] args){
 		JFrame myFrame = new JFrame();
 		
+		myFrame.setBounds(0, 0, 400, 226);
+		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		myFrame.getContentPane().setLayout(null);
+		
 		JPanel myPanel = new SetupPanel();
+		
 		myFrame.getContentPane().add(myPanel);
 		myPanel.setVisible(true);
+		
+		myPanel.setSize(400, 226);
+		
 		myFrame.setVisible(true);
 	}
+	
 }

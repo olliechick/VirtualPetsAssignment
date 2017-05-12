@@ -435,6 +435,10 @@ public class GameEnvironment {
 	protected void addPlayers(Player[] playerArray){
 		playerList = playerArray;
 	}
+	
+	public void setNumDays(Integer numDays){
+		numberOfDays = (int) numDays;
+	}
 
 	/**
 	 * Main entry point.
