@@ -58,6 +58,9 @@ public class GUIMain implements Observer {
 		}
 	}
 	
+	/**
+	 * Move to a new day.
+	 */
 	private void newDay(){
 		System.out.println("Its a brand new day!!");
 	}
@@ -81,10 +84,18 @@ public class GUIMain implements Observer {
 		return found;
 	}
 	
+	/**
+	 * Get a list of all registered names.
+	 * @return List of names.
+	 */
 	public ArrayList<String> getRegisteredNames(){
 		return nameList;
 	}
 	
+	/**
+	 * Add a name to the list of names
+	 * @param name Name to add to the list
+	 */
 	public void registerName(String name){
 		nameList.add(name);
 	}
@@ -114,10 +125,10 @@ public class GUIMain implements Observer {
 		
 		mainFrame.setVisible(true);
 	}
-	
-	
-	
-	
+
+	/**
+	 * Display a player creation pane.
+	 */
 	private void createPlayer(){
 		mainFrame.setBounds(0, 0, 435, 425);
 		PlayerCreationPanel playerCreation = new PlayerCreationPanel(this);
