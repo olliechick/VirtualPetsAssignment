@@ -2,6 +2,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
@@ -19,11 +20,14 @@ public class PlayerCreationPanel extends JPanel implements Observable{
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	private JTextField playerNameField;
+	private String[] outputValues;
+	private GUIMain mainGUI;
 
 	/**
 	 * Create the panel.
 	 */
-	public PlayerCreationPanel() {
+	public PlayerCreationPanel(GUIMain parent) {
+		mainGUI = parent;
 		setLayout(null); //Absoloute layout
 		
 		//Player name text box and label
@@ -98,21 +102,138 @@ public class PlayerCreationPanel extends JPanel implements Observable{
 		
 		//Add button to move to next dialog.
 		JButton btnNext = new JButton("Next");
-		btnNext.addActionListener(new ActionListener(){
+		btnNext.addActionListener(new ActionListener(){ //TODO: Should this be broken out into a new file --Sam
+			/**
+			 * Listener that checks input, and if it is valid prepares it for output and
+			 * notifies the PlayerCreationPanel's observers.
+			 * @param event Action event passed in when event triggered.
+			 */
 			public void actionPerformed(ActionEvent event){
-				System.out.println("I was activated");
+				if (playerInputValid()){
+					formatOutput();
+					notifyObservers();
+				}
+			}
+			/**
+			 * Checks a players input into PlayerCreationPanel to see if it is valid. If not this method
+			 * displays an alert to let the player know and to reattempt input.
+			 * @return If the players input is valid.
+			 */
+			private boolean playerInputValid(){
+				ArrayList<String> nameList = mainGUI.getRegisteredNames();
+				@SuppressWarnings("unchecked") //Gets IDE to not complain at me - thinks that cast could fail.
+				ArrayList<String> nameListClone = (ArrayList<String>) nameList.clone();
+				
+				//Always check player name strings
+				String playerName = playerNameField.getText();
+				if (playerName.equals("")){
+					JOptionPane.showMessageDialog(null, "Please enter a player name and try again.");
+					return false;
+				}else if(mainGUI.nameTaken(playerName, nameListClone)){
+					JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Player)");
+					return false;
+				}
+				nameListClone.add(playerName); //add name to list so that duplicate names cannot occur within the form
+				
+				String petName;
+				//Check pet one if it is selected
+				if (petOneBox.isSelected()){
+					petName = petOnePanel.getPetName();
+					if (petName.equals("")){
+						JOptionPane.showMessageDialog(null, "Please enter a name for pet one and try again.");
+						return false;
+					}else if(mainGUI.nameTaken(petName, nameListClone)){
+						JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Pet 1)");
+						return false;
+					}
+					nameListClone.add(petName);
+				}
+				
+				
+				//Check pet two if it is selected
+				if (petTwoBox.isSelected()){
+					petName = petTwoPanel.getPetName();
+					if (petName.equals("")){
+						JOptionPane.showMessageDialog(null, "Please enter a name for pet two and try again.");
+						return false;
+					}else if(mainGUI.nameTaken(petName, nameListClone)){
+						JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Pet 2)");
+						return false;
+					}
+					nameListClone.add(petName);
+				}
+				
+				
+				//Check pet three if it is selected
+				if (petThreeBox.isSelected()){
+					petName = petThreePanel.getPetName();
+					
+					if (petName.equals("")){
+						JOptionPane.showMessageDialog(null, "Please enter a name for pet three and try again.");
+						return false;
+					}else if(mainGUI.nameTaken(petName, nameListClone)){
+						JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Pet 3)");
+						return false;
+					}
+					nameListClone.add(petName);
+				}
+				
+				
+				if (!(petOneBox.isSelected() || petTwoBox.isSelected() || petThreeBox.isSelected())){ //if no pets are selected
+					JOptionPane.showMessageDialog(null, "Each player must have at least one pet.");
+					return false;
+				}
+				
+				//if all input is valid (only option left).
+				return true;
+			}
+			
+			/**
+			 * Formats output for new function
+			 */
+			private void formatOutput(){
+				ArrayList<String> outputList = new ArrayList<String>();
+				outputList.add(playerNameField.getText());
+				mainGUI.registerName(playerNameField.getText());
+				
+				String petName;
+				String petSpecies;
+				if (petOneBox.isSelected()){
+					petName = petOnePanel.getPetName();
+					petSpecies = petOnePanel.getPetSpecies();
+					outputList.add(petName + "\n" + petSpecies);
+					mainGUI.registerName(petName);
+				}
+				
+				//Add pet two if it is selected
+				if (petTwoBox.isSelected()){
+					petName = petTwoPanel.getPetName();
+					petSpecies = petTwoPanel.getPetSpecies();
+					outputList.add(petName + "\n" + petSpecies);
+					mainGUI.registerName(petName);
+				}
+				
+				
+				//Add pet three if it is selected
+				if (petThreeBox.isSelected()){
+					petName = petThreePanel.getPetName();
+					petSpecies = petThreePanel.getPetSpecies();
+					outputList.add(petName + "\n" + petSpecies);
+					mainGUI.registerName(petName);
+				}
+				outputValues = outputList.toArray(new String[0]);
 			}
 		});
 		btnNext.setBounds(321, 346, 89, 23);
 		add(btnNext);
-
 	}
 	
 	/**
 	 * Notify all observers of a change in values.
 	 */
 	public void notifyObservers(){
-		//TODO: Finish me
+		for (Observer o: observers)
+			o.getValues("player creation", outputValues);
 	}
 	
 	/**
@@ -134,7 +255,10 @@ public class PlayerCreationPanel extends JPanel implements Observable{
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myFrame.getContentPane().setLayout(null);
 		
-		JPanel myPanel = new PlayerCreationPanel();
+		GUIMain mainGUI = new GUIMain();
+		mainGUI.registerName("Alan");
+		
+		JPanel myPanel = new PlayerCreationPanel(mainGUI);
 		
 		myFrame.getContentPane().add(myPanel);
 		myPanel.setVisible(true);
