@@ -1,3 +1,4 @@
+
 /**
  * An Observerable interface for the Observer design pattern
  * @author Samuel Pell

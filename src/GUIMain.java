@@ -10,7 +10,6 @@ public class GUIMain implements Observer {
 	private JFrame mainFrame;
 	private GameEnvironment mainGame;
 	int playerNumber;
-	private GUIMain self;
 	
 	/**
 	 * Part of the Observer pattern to get data from GUI to GameEnvironment.
@@ -45,7 +44,7 @@ public class GUIMain implements Observer {
 	
 	public void showSetup(){
 		SetupPanel myPanel = new SetupPanel();
-		myPanel.registerObserver(self);
+		myPanel.registerObserver(this);
 		
 		mainFrame.getContentPane().add(myPanel);
 		myPanel.setVisible(true);
@@ -55,17 +54,12 @@ public class GUIMain implements Observer {
 		mainFrame.setVisible(true);
 	}
 	
-	public void setSelf(GUIMain self){
-		this.self = self;
-	}
-	
 	public void createPlayers(){
 		//TODO: Add me
 	}
 	
 	public static void main(String[] args){
 		GUIMain main = new GUIMain();
-		main.setSelf(main);
 		main.initialise();
 		main.showSetup();
 		main.createPlayers();
