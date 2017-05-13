@@ -33,7 +33,7 @@ public class PlayerCreationPanel extends JPanel{
 		add(playerNameField);
 		playerNameField.setColumns(10);
 		
-		JLabel lblNumberOfPets = new JLabel("Number of Pets:");
+		JLabel lblNumberOfPets = new JLabel("Pet:");
 		lblNumberOfPets.setBounds(10, 46, 116, 14);
 		add(lblNumberOfPets);
 		
