@@ -4,13 +4,19 @@ import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Player creation panel
  * @author Samuel
  */
 public class PlayerCreationPanel extends JPanel{
-	private JTextField textField;
+	/**
+	 * Complained at me without it
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField playerNameField;
 
 	/**
 	 * Create the panel.
@@ -22,41 +28,75 @@ public class PlayerCreationPanel extends JPanel{
 		lblPlayerName.setBounds(10, 14, 89, 14);
 		add(lblPlayerName);
 		
-		textField = new JTextField();
-		textField.setBounds(88, 11, 123, 20);
-		add(textField);
-		textField.setColumns(10);
-		
-		JCheckBox checkBox = new JCheckBox("1");
-		checkBox.setBounds(56, 75, 43, 23);
-		add(checkBox);
-		
-		JCheckBox checkBox_1 = new JCheckBox("2");
-		checkBox_1.setBounds(194, 75, 43, 23);
-		add(checkBox_1);
-		
-		JCheckBox checkBox_2 = new JCheckBox("3");
-		checkBox_2.setBounds(339, 71, 43, 31);
-		add(checkBox_2);
+		playerNameField = new JTextField();
+		playerNameField.setBounds(88, 11, 123, 20);
+		add(playerNameField);
+		playerNameField.setColumns(10);
 		
 		JLabel lblNumberOfPets = new JLabel("Number of Pets:");
 		lblNumberOfPets.setBounds(10, 46, 116, 14);
 		add(lblNumberOfPets);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 105, 123, 202);
-		add(panel);
+		PetCreationPanel petOnePanel = new PetCreationPanel();
+		petOnePanel.setBounds(10, 105, 123, 225);
+		add(petOnePanel);
+		petOnePanel.enable();
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(143, 105, 141, 202);
-		add(panel_1);
+		PetCreationPanel petTwoPanel = new PetCreationPanel();
+		petTwoPanel.setBounds(148, 105, 123, 225);
+		add(petTwoPanel);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(294, 105, 116, 202);
-		add(panel_2);
+		PetCreationPanel petThreePanel = new PetCreationPanel();
+		petThreePanel.setBounds(287, 105, 123, 225);
+		add(petThreePanel);
+		
+		JCheckBox petOneBox = new JCheckBox("1", true);
+		petOneBox.setBounds(56, 75, 43, 23);
+		petOneBox.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if (petOneBox.isSelected()){
+					petOnePanel.enable();
+				} else{
+					petOnePanel.disable();
+				}
+			}
+		});
+		add(petOneBox);
+		
+		
+		JCheckBox petTwoBox = new JCheckBox("2");
+		petTwoBox.setBounds(194, 75, 43, 23);
+		petTwoBox.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if (petTwoBox.isSelected()){
+					petTwoPanel.enable();
+				} else{
+					petTwoPanel.disable();
+				}
+			}
+		});
+		add(petTwoBox);
+		
+		JCheckBox petThreeBox = new JCheckBox("3");
+		petThreeBox.setBounds(339, 71, 43, 31);
+		petThreeBox.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if (petThreeBox.isSelected()){
+					petThreePanel.enable();
+				} else{
+					petThreePanel.disable();
+				}
+			}
+		});
+		add(petThreeBox);
 		
 		JButton btnNext = new JButton("Next");
-		btnNext.setBounds(321, 316, 89, 23);
+		btnNext.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				System.out.println("I was activated");
+			}
+		});
+		btnNext.setBounds(321, 346, 89, 23);
 		add(btnNext);
 
 	}
@@ -68,7 +108,7 @@ public class PlayerCreationPanel extends JPanel{
 	public static void main(String[] args){
 		JFrame myFrame = new JFrame();
 		
-		myFrame.setBounds(0, 0, 450, 400);
+		myFrame.setBounds(0, 0, 435, 425);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myFrame.getContentPane().setLayout(null);
 		
@@ -77,7 +117,7 @@ public class PlayerCreationPanel extends JPanel{
 		myFrame.getContentPane().add(myPanel);
 		myPanel.setVisible(true);
 		
-		myPanel.setSize(420, 350);
+		myPanel.setSize(420, 370);
 		
 		myFrame.setVisible(true);
 	}
