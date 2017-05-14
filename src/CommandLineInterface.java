@@ -10,8 +10,14 @@ import java.util.HashMap;
  *
  */
 public class CommandLineInterface {
-
+	
+	/**
+	 * Divider used to divide text for readability
+	 */
 	private static String divider = "----------/----------";
+	/**
+	 * Scanner to read user input
+	 */
 	private static Scanner inputReader = new Scanner(System.in);
 	
 	/**
@@ -96,7 +102,7 @@ public class CommandLineInterface {
 	 * Get the name of a player or pet.
 	 * @param query Query to pose to user.
 	 * @param nameList ArrayList of taken names.
-	 * @return name of player or pet.
+	 * @return Name of player or pet.
 	 */
 	public static String getName(String query, ArrayList<String> nameList){
 		String name = null;
@@ -188,7 +194,13 @@ public class CommandLineInterface {
 
 		return newPet;
 	}
-
+	
+	/**
+	 * Lists all the food and item prototypes and returns an array of their ordering.
+	 * @param foodPrototypes List of food prototypes to list.
+	 * @param toyPrototypes List of toy prototypes to list.
+	 * @return Order in which prototypes are listed.
+	 */
 	public static String[] listPrototypes(HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes){
 		String[] foodNames = foodPrototypes.keySet().toArray(new String[0]);
 		String[] toyNames = toyPrototypes.keySet().toArray(new String[0]);
@@ -218,7 +230,7 @@ public class CommandLineInterface {
 
 	/**
 	 * Initialises a day.
-	 * @param dayNumber the number of the current day.
+	 * @param dayNumber The number of the current day.
 	 */
 	public static void newDay(int dayNumber){
 		System.out.println("=== Day "+dayNumber+" ===");
@@ -226,7 +238,7 @@ public class CommandLineInterface {
 
 	/**
 	 * Initialise a player's turn.
-	 * @param player the player whose turn it is.
+	 * @param player The player whose turn it is.
 	 */
 	public static void newPlayer(Player player){
 		Boolean allDead = true;
@@ -243,9 +255,9 @@ public class CommandLineInterface {
 	 * Main game loop for one player to interact with one pet.
 	 * @param toyPrototypes HashMap of all toys.
 	 * @param foodPrototypes HashMap of all food.
-	 * @param player the player whose turn it is; this player is currently interacting with their pet.
-	 * @param pet the pet the player is interacting with.
-	 * @throws Exception if error in code
+	 * @param player The player whose turn it is; this player is currently interacting with their pet.
+	 * @param pet The pet the player is interacting with.
+	 * @throws Exception If error in code.
 	 */
 	public static void interact(Player player, Pet pet, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes) throws Exception{
 		int numOfActions = 2;
@@ -323,6 +335,12 @@ public class CommandLineInterface {
 		System.out.println("Your pet slept.");
 	}
 
+	/**
+	 * Command line method for a player to play with their pet.
+	 * @param player Player who wishes to play with their pet.
+	 * @param pet Pet the player wants to play with.
+	 * @throws Exception If the player has no toys to let their pet play with.
+	 */
 	private static void playWithPet(Player player, Pet pet) throws Exception{
 		String choiceStr;
 		int choice;
@@ -368,6 +386,12 @@ public class CommandLineInterface {
 		} while (choiceStr == null);
 	}
 
+	/**
+	 * Command line interface to let a player feed their pet.
+	 * @param player Player who whishes to feed their pet.
+	 * @param pet Pet to be fed.
+	 * @throws Exception If the player has no food to feed their pet.
+	 */
 	private static void feedPet(Player player, Pet pet) throws Exception{
 		String choiceStr;
 		int choice;
@@ -410,7 +434,7 @@ public class CommandLineInterface {
 	 * @param player Player entering the store.
 	 * @param foodPrototypes Hash map of the food item prototypes.
 	 * @param toyPrototypes Hash map of the toy item prototypes.
-	 * @throws Exception if there is an error in the game so what they're buying isn't a food or a toy
+	 * @throws Exception If there is an error in the game so what they're buying isn't a food or a toy.
 	 */
 	private static void visitStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes) throws Exception{
 		Boolean userWantsToStay = true;
@@ -462,7 +486,7 @@ public class CommandLineInterface {
 	 * @param foodPrototypes HashMap of foods.
 	 * @param toyPrototypes HashMap of Toys.
 	 * @return A boolean based on whether the user wants to stay in the store.
-	 * @throws Exception if there is an error
+	 * @throws Exception If there is an error.
 	 */
 	private static Boolean buyFromStore(Player player, HashMap<String, Food> foodPrototypes, HashMap<String, Toy> toyPrototypes) throws Exception{
 		String choice;
@@ -533,6 +557,10 @@ public class CommandLineInterface {
 		}
 	}
 
+	/**
+	 * Prints the status of a pet.
+	 * @param pet Pet to show status for.
+	 */
 	private static void viewPetStatus(Pet pet){
 		System.out.println(divider);
 		System.out.println("Status of "+pet.getName()+":\nGender: "+pet.getGender()
@@ -576,8 +604,8 @@ public class CommandLineInterface {
 
 	/**
 	 * This gets run if the pet gets sick to see if the user wants to pay for treatment (if they can afford it).
-	 * @param balance the user's current balance
-	 * @return whether or not the user healed them
+	 * @param balance The user's current balance.
+	 * @return Whether or not the user healed them.
 	 */
 	public static Boolean petSicks(int balance) {
 		String choiceStr;
@@ -642,8 +670,8 @@ public class CommandLineInterface {
 	}
 
 	/**
-	 * Takes a ranked list of players and displays the appropriate results to the user
-	 * @param playerList A list of players ranked in decending order of score 
+	 * Takes a ranked list of players and displays the appropriate results to the user.
+	 * @param playerList A list of players ranked in decending order of score. 
 	 */
 	public static void postGame(Player[] playerList){
 		System.out.println("That's the end of the game. And the results are in:");

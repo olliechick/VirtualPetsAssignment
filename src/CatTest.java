@@ -10,7 +10,9 @@ import org.junit.Before;
  *
  */
 public class CatTest {
-
+	/**
+	 * Cat variable for testing if wrapper classes wok
+	 */
 	private Cat myCat;
 
 	@Before

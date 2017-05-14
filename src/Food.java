@@ -7,17 +7,23 @@ import java.util.HashMap;
  *
  */
 public class Food extends Item{
-	
+	/**
+	 * Mapping between species and the increase in health a pet species recieves when 
+	 * they eat the item.
+	 */
 	private HashMap<String, Integer> healthIncrease = new HashMap<String, Integer>();
+	/**
+	 * How large the item is.
+	 */
 	private int portionSize;
 	
 	/**
 	 * Constructor for Food item.
 	 * <b>Warning: You must still call Food.setHealthIncrease before using that functionality.</b>
-	 * @param name Name of food
-	 * @param description Food description
-	 * @param price Price of food
-	 * @param portionSize How large the food is
+	 * @param name Name of food.
+	 * @param description Food description.
+	 * @param price Price of food.
+	 * @param portionSize How large the food is.
 	 */
 	public Food(String name, String description, int price, int portionSize){
 		super();
@@ -30,9 +36,9 @@ public class Food extends Item{
 	/**
 	 * Gets how much eating each food changes the health
 	 * of the animal.
-	 * @param species Relevant species
-	 * @return Change in health for pet
-	 * @throws IllegalArgumentException Species not known
+	 * @param species Relevant species.
+	 * @return Change in health for pet.
+	 * @throws IllegalArgumentException Species not known.
 	 */
 	public int getHealthIncrease(String species) throws IllegalArgumentException{
 		if (this.healthIncrease.get(species) == null){
