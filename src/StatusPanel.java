@@ -1,21 +1,33 @@
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.JList;
-import javax.swing.ListSelectionModel;
-import javax.swing.AbstractListModel;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.ImageIcon;
 
+@SuppressWarnings("serial")
+/**
+ * Shows a pets status to the user.
+ * @author Samuel Pell
+ *
+ */
 public class StatusPanel extends JPanel {
+	
+	JLabel lblHapinessScore;
+	JLabel lblHungerScore;
+	JLabel lblIsRevivable;
+	JLabel lblFatigueScore;
+	JLabel lblHealthScore;
+	JLabel lblBladderPercentage;
+	JLabel lblWeightScore;
+	JLabel lblIsMisbehaving;
+	JLabel lblIsSick;
+	JLabel lblPetName;
+	JLabel lblPetGender;
+	JLabel lblPetSpecies;
 
 	/**
 	 * Create the panel.
@@ -23,9 +35,9 @@ public class StatusPanel extends JPanel {
 	public StatusPanel() {
 		setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Happiness");
-		lblNewLabel.setBounds(32, 53, 77, 14);
-		add(lblNewLabel);
+		JLabel lblHapiness = new JLabel("Happiness");
+		lblHapiness.setBounds(32, 53, 77, 14);
+		add(lblHapiness);
 		
 		JLabel lblHunger = new JLabel("Hunger");
 		lblHunger.setBounds(32, 78, 46, 14);
@@ -35,9 +47,9 @@ public class StatusPanel extends JPanel {
 		lblPlayfulness.setBounds(32, 103, 46, 14);
 		add(lblPlayfulness);
 		
-		JLabel lblNewLabel_1 = new JLabel("Health");
-		lblNewLabel_1.setBounds(32, 126, 46, 14);
-		add(lblNewLabel_1);
+		JLabel lblHealth = new JLabel("Health");
+		lblHealth.setBounds(32, 126, 46, 14);
+		add(lblHealth);
 		
 		JLabel lblBladderFullness = new JLabel("Bladder Full");
 		lblBladderFullness.setBounds(32, 150, 77, 14);
@@ -59,41 +71,41 @@ public class StatusPanel extends JPanel {
 		lblRevivable.setBounds(32, 250, 59, 14);
 		add(lblRevivable);
 		
-		JLabel lblHapinessscore = new JLabel("hapinessScore");
-		lblHapinessscore.setBounds(119, 53, 69, 14);
-		add(lblHapinessscore);
+		lblHapinessScore = new JLabel("hapinessScore");
+		lblHapinessScore.setBounds(119, 53, 69, 14);
+		add(lblHapinessScore);
 		
-		JLabel lblHunger_1 = new JLabel("hunger");
-		lblHunger_1.setBounds(119, 78, 46, 14);
-		add(lblHunger_1);
+		lblHungerScore = new JLabel("hunger");
+		lblHungerScore.setBounds(119, 78, 46, 14);
+		add(lblHungerScore);
 		
-		JLabel lblFatiguescore = new JLabel("fatigueScore");
-		lblFatiguescore.setBounds(119, 103, 46, 14);
-		add(lblFatiguescore);
+		lblFatigueScore = new JLabel("fatigueScore");
+		lblFatigueScore.setBounds(119, 103, 46, 14);
+		add(lblFatigueScore);
 		
-		JLabel lblHealthscore = new JLabel("healthScore");
-		lblHealthscore.setBounds(119, 126, 46, 14);
-		add(lblHealthscore);
+		lblHealthScore = new JLabel("healthScore");
+		lblHealthScore.setBounds(119, 126, 46, 14);
+		add(lblHealthScore);
 		
-		JLabel lblBladderpercentage = new JLabel("bladderPercentage");
-		lblBladderpercentage.setBounds(119, 150, 46, 14);
-		add(lblBladderpercentage);
+		lblBladderPercentage = new JLabel("bladderPercentage");
+		lblBladderPercentage.setBounds(119, 150, 46, 14);
+		add(lblBladderPercentage);
 		
-		JLabel lblWeightscore = new JLabel("weightScore");
-		lblWeightscore.setBounds(119, 175, 46, 14);
-		add(lblWeightscore);
+		lblWeightScore = new JLabel("weightScore");
+		lblWeightScore.setBounds(119, 175, 46, 14);
+		add(lblWeightScore);
 		
-		JLabel lblIsmisbehaving = new JLabel("isMisbehaving");
-		lblIsmisbehaving.setBounds(119, 200, 46, 14);
-		add(lblIsmisbehaving);
+		lblIsMisbehaving = new JLabel("isMisbehaving");
+		lblIsMisbehaving.setBounds(119, 200, 46, 14);
+		add(lblIsMisbehaving);
 		
-		JLabel lblIssick = new JLabel("isSick");
-		lblIssick.setBounds(119, 225, 46, 14);
-		add(lblIssick);
+		lblIsSick = new JLabel("isSick");
+		lblIsSick.setBounds(119, 225, 46, 14);
+		add(lblIsSick);
 		
-		JLabel lblIsrevivable = new JLabel("isRevivable");
-		lblIsrevivable.setBounds(119, 250, 46, 14);
-		add(lblIsrevivable);
+		lblIsRevivable = new JLabel("isRevivable");
+		lblIsRevivable.setBounds(119, 250, 46, 14);
+		add(lblIsRevivable);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -105,25 +117,25 @@ public class StatusPanel extends JPanel {
 		lblName.setBounds(212, 53, 46, 14);
 		add(lblName);
 		
-		JLabel lblPetname = new JLabel("petName");
-		lblPetname.setBounds(268, 53, 46, 14);
-		add(lblPetname);
+		lblPetName = new JLabel("petName");
+		lblPetName.setBounds(268, 53, 46, 14);
+		add(lblPetName);
 		
 		JLabel lblGender = new JLabel("Gender");
 		lblGender.setBounds(212, 78, 46, 14);
 		add(lblGender);
 		
-		JLabel lblPetgender = new JLabel("petGender");
-		lblPetgender.setBounds(268, 78, 46, 14);
-		add(lblPetgender);
+		lblPetGender = new JLabel("petGender");
+		lblPetGender.setBounds(268, 78, 46, 14);
+		add(lblPetGender);
 		
 		JLabel lblSpecies = new JLabel("Species");
 		lblSpecies.setBounds(212, 103, 46, 14);
 		add(lblSpecies);
 		
-		JLabel lblPetspecies = new JLabel("petSpecies");
-		lblPetspecies.setBounds(268, 103, 46, 14);
-		add(lblPetspecies);
+		lblPetSpecies = new JLabel("petSpecies");
+		lblPetSpecies.setBounds(268, 103, 46, 14);
+		add(lblPetSpecies);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(349, 53, 365, 275);
@@ -131,23 +143,70 @@ public class StatusPanel extends JPanel {
 		
 	}
 	
+	public void setPetStatus(Pet pet){
+		//Cast all ints to integers then use the toString method to get string representation
+		lblFatigueScore.setText(((Integer) pet.getFatigue()).toString());
+		lblHapinessScore.setText(((Integer) pet.getHappiness()).toString());
+		lblHealthScore.setText(((Integer) pet.getHealth()).toString());
+		lblHungerScore.setText(((Integer) pet.getHunger()).toString());
+		
+		String bladderLevel = ((Integer) pet.getPercentBladderFull()).toString();
+		lblBladderPercentage.setText(bladderLevel + " %");
+		
+		String weight = ((Double) pet.getWeight()).toString();
+		lblWeightScore.setText(weight + " kg");
+
+		lblPetGender.setText(pet.getGender());
+		lblPetName.setText(pet.getName());
+		lblPetSpecies.setText(pet.getSpecies());
+		
+		if(pet.getIsRevivable()){
+			lblIsRevivable.setText("Yes");
+		}else{
+			lblIsRevivable.setText("No");
+		}
+		
+		if(pet.getIsMisbehaving()){
+			lblIsMisbehaving.setText("Yes");
+		}else{
+			lblIsMisbehaving.setText("No");
+		}
+		
+		if(pet.getIsSick()){
+			lblIsSick.setText("Yes");
+		}else{
+			lblIsSick.setText("No");
+		}
+		
+	}
+	
 	public static void main(String[] args){
 		try{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}catch(Exception e){} //ignore all exceptions
+		
 		JFrame myFrame = new JFrame();
 		
-		myFrame.setBounds(0, 0, 815, 540);
+		myFrame.setBounds(0, 0, 785, 423);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myFrame.getContentPane().setLayout(null);
 		
-		JPanel myPanel = new StatusPanel();
+		Pet cat;
+		StatusPanel myPanel = new StatusPanel();
+		
+		try{
+			cat = new Pet("cat");
+			cat.setGender("male");
+			cat.setName("Snowy");
+			myPanel.setPetStatus(cat);
+		}catch (IOException e){
+			System.out.println("Problem in cat giving displaying default label values");
+		}
 		
 		myFrame.getContentPane().add(myPanel);
 		myPanel.setVisible(true);
 		
-		myPanel.setSize(800, 500);
-		
+		myPanel.setSize(770, 383);
 		myFrame.setVisible(true);
 	}
 }

@@ -4,32 +4,37 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
-
 /**
  * Home JPanel for VirtualPets Assignment
  * @author Samuel Pell
  *
  */
+@SuppressWarnings("serial")
 public class HomePanel extends JPanel {
-
-	/**
-	 * To stop IDE complaining at me
-	 */
-	private static final long serialVersionUID = 1L;
-
+	
+	StatusPanel statusTab;
+	String totalDays;
+	JLabel lblDayMarker;
+	JLabel lblCurrentPlayer;
+	JLabel lblPlayerBalance;
+	JLabel lblCurrentPet;
+	JLabel lblNumActions;
+	
 	/**
 	 * Create the panel.
 	 */
-	public HomePanel() {
+	public HomePanel(int days) {
+		totalDays = ((Integer) days).toString();
 		setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 36, 780, 419);
 		add(tabbedPane);
 		
-		JTabbedPane statusTab = new JTabbedPane(JTabbedPane.TOP);
+		statusTab = new StatusPanel();
 		tabbedPane.addTab("Status", null, statusTab, null);
 		
 		JTabbedPane storeTab = new JTabbedPane(JTabbedPane.TOP);
@@ -51,52 +56,82 @@ public class HomePanel extends JPanel {
 		lblPlayer.setBounds(10, 11, 46, 14);
 		add(lblPlayer);
 		
-		JLabel lblCurrentplayer = new JLabel("currentPlayer");
-		lblCurrentplayer.setBounds(51, 11, 91, 14);
-		add(lblCurrentplayer);
+		lblCurrentPlayer = new JLabel("currentPlayer");
+		lblCurrentPlayer.setBounds(51, 11, 91, 14);
+		add(lblCurrentPlayer);
 		
 		JLabel lblBalance = new JLabel("Balance:");
 		lblBalance.setBounds(135, 11, 59, 14);
 		add(lblBalance);
 		
-		JLabel lblPlayerbalance = new JLabel("playerBalance");
-		lblPlayerbalance.setBounds(184, 11, 91, 14);
-		add(lblPlayerbalance);
+		lblPlayerBalance = new JLabel("playerBalance");
+		lblPlayerBalance.setBounds(184, 11, 91, 14);
+		add(lblPlayerBalance);
 		
 		JLabel lblPet = new JLabel("Pet:");
 		lblPet.setBounds(285, 11, 46, 14);
 		add(lblPet);
 		
-		JLabel lblCurrentpet = new JLabel("currentPet");
-		lblCurrentpet.setBounds(310, 11, 66, 14);
-		add(lblCurrentpet);
+		lblCurrentPet = new JLabel("currentPet");
+		lblCurrentPet.setBounds(310, 11, 66, 14);
+		add(lblCurrentPet);
 		
 		JLabel lblActionsRemaining = new JLabel("Actions Remaining:");
 		lblActionsRemaining.setBounds(386, 11, 112, 14);
 		add(lblActionsRemaining);
 		
-		JLabel lblNumactions = new JLabel("numActions");
-		lblNumactions.setBounds(481, 11, 66, 14);
-		add(lblNumactions);
+		lblNumActions = new JLabel("numActions");
+		lblNumActions.setBounds(481, 11, 66, 14);
+		add(lblNumActions);
 		
-		JLabel lblDaymarker = new JLabel("dayMarker");
-		lblDaymarker.setBounds(731, 11, 59, 14);
-		add(lblDaymarker);
+		lblDayMarker = new JLabel("dayMarker");
+		lblDayMarker.setBounds(731, 11, 59, 14);
+		add(lblDayMarker);
 		
 		JLabel lblDay = new JLabel("Day:");
 		lblDay.setBounds(701, 11, 25, 14);
 		add(lblDay);
 		
-		JButton btnNewButton = new JButton("Next");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnNext = new JButton("Next");
+		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton.setBounds(701, 466, 89, 23);
-		add(btnNewButton);
+		btnNext.setBounds(701, 466, 89, 23);
+		add(btnNext);
 
 	}
 	
+	/**
+	 * Refreshes player balance, number of actions remaining, and the current player
+	 * displayed to the user
+	 * @param currentPlayer Player to display stats for
+	 * @param numActions Number of actions remaining
+	 */
+	public void refreshPlayerStats(Player currentPlayer, int numActions){
+		lblPlayerBalance.setText("$" + ((Integer) currentPlayer.getBalance()).toString());
+		lblCurrentPlayer.setText(currentPlayer.getName());
+		lblNumActions.setText(((Integer) numActions).toString());
+	}
+	
+	/**
+	 * Refreshes all statistics and tabs presented to user
+	 * @param currentPlayer Player to display stats for
+	 * @param currentPet Pet to display stats for
+	 * @param currentDay Current day number
+	 * @param numActions number of actions remaining
+	 */
+	public void refreshTabs(Player currentPlayer, Pet currentPet, int currentDay, int numActions){
+		statusTab.setPetStatus(currentPet);
+		refreshPlayerStats(currentPlayer, numActions);
+		lblCurrentPet.setText(currentPet.getName());
+		lblDayMarker.setText(currentDay + "/" + totalDays);
+	}
+	
+	/**
+	 * Main method for testing
+	 * @param args Arguments passed in
+	 */
 	public static void main(String[] args){
 		try{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -107,13 +142,27 @@ public class HomePanel extends JPanel {
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myFrame.getContentPane().setLayout(null);
 		
-		JPanel myPanel = new HomePanel();
-		
+		HomePanel myPanel = new HomePanel(12);
 		myFrame.getContentPane().add(myPanel);
 		myPanel.setVisible(true);
 		
 		myPanel.setSize(800, 500);
 		
 		myFrame.setVisible(true);
+		
+		Player testPlayer = new Player();
+		testPlayer.setName("Stewart Little");
+		Pet cat;
+		try{
+			cat = new Pet("cat");
+			cat.setGender("male");
+			cat.setName("Snowy");
+			testPlayer.getPetList().add(cat);
+			myPanel.refreshTabs(testPlayer, cat, 5, 1);
+		}catch (IOException e){
+			System.out.println("Problem in cat giving displaying default label values");
+		}
+		
+		
 	}
 }

@@ -11,11 +11,9 @@ import java.awt.Component;
  * Pet creation JPanel for VirtualPets Assignment
  * @author Samuel Pell
  */
+@SuppressWarnings("serial")
 public class PetCreationPanel extends JPanel {
-	/**
-	 * Complains at me with out it
-	 */
-	private static final long serialVersionUID = 1L;
+	
 	private JTextField petNameField;
 	private JRadioButton rdbtnCat;
 	private JRadioButton rdbtnDog;

@@ -14,11 +14,9 @@ import java.util.ArrayList;
  * Player creation panel
  * @author Samuel Pell
  */
+@SuppressWarnings("serial")
 public class PlayerCreationPanel extends JPanel implements Observable{
-	/**
-	 * Complained at me without it
-	 */
-	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	private JTextField playerNameField;
 	private String[] outputValues;

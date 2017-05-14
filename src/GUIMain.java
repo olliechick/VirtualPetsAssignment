@@ -25,9 +25,9 @@ public class GUIMain implements Observer {
 	public void getValues(String identifier, String[] values){
 		switch(identifier){
 			case "setup":
-				Integer numDays = Integer.parseInt(values[0]);
+				Integer numDays = Integer.parseInt(values[1]);
 				mainGame.setNumDays(numDays);
-				playerNumber = (int) Integer.parseInt(values[1]);
+				playerNumber = (int) Integer.parseInt(values[0]);
 				
 				//DEBUG
 				System.out.println(numDays + " days to play for");
@@ -36,10 +36,10 @@ public class GUIMain implements Observer {
 				
 				clearFrame();
 				createPlayer();
+				System.out.println("Creating player 1");
 				break;
 				
 			case "player creation":
-				
 				numPlayersCreated++;
 				
 				//DEBUG
@@ -49,8 +49,9 @@ public class GUIMain implements Observer {
 				//DEBUG
 				
 				clearFrame();
-				if (numPlayersCreated < (playerNumber - 1)){
+				if (numPlayersCreated < playerNumber){
 					createPlayer();
+					System.out.println("Creating player " + (numPlayersCreated + 1));
 				}else{
 					newDay();
 				}
@@ -70,7 +71,7 @@ public class GUIMain implements Observer {
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.getContentPane().setLayout(null);
 		
-		JPanel myPanel = new HomePanel();
+		JPanel myPanel = new HomePanel(15);
 		
 		mainFrame.getContentPane().add(myPanel);
 		myPanel.setVisible(true);

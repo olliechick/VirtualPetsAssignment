@@ -18,12 +18,9 @@ import java.util.ArrayList;
  * @author Samuel Pell
  *
  */
+@SuppressWarnings("serial")
 public class SetupPanel extends JPanel implements Observable{
 	
-	/**
-	 * Complained at me without serualVersionUID
-	 */
-	private static final long serialVersionUID = 1L;
 	private String[] outputValues = new String[2]; 
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	public int width = 400;
