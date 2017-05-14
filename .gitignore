@@ -4,3 +4,4 @@ runme.bat
 runme input.bat
 compile.bat
 checkstyle-7.7.jar
+.checkstyle
