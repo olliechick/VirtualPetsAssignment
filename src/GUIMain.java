@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 import java.util.ArrayList;
 
@@ -114,14 +115,14 @@ public class GUIMain implements Observer {
 	 * Shows the setup panel to the user.
 	 */
 	private void showSetup(){
-		mainFrame.setBounds(0, 0, 400, 226);
+		mainFrame.setBounds(0, 0, 300, 200);
 		SetupPanel setupPanel = new SetupPanel();
 		setupPanel.registerObserver(this);
 		
 		mainFrame.getContentPane().add(setupPanel);
 		setupPanel.setVisible(true);
 		
-		setupPanel.setSize(400, 226);
+		setupPanel.setSize(300, 165);
 		
 		mainFrame.setVisible(true);
 	}
@@ -130,14 +131,14 @@ public class GUIMain implements Observer {
 	 * Display a player creation pane.
 	 */
 	private void createPlayer(){
-		mainFrame.setBounds(0, 0, 435, 425);
+		mainFrame.setBounds(0, 0, 435, 392);
 		PlayerCreationPanel playerCreation = new PlayerCreationPanel(this);
 		playerCreation.registerObserver(this);
 			
 		mainFrame.getContentPane().add(playerCreation);
 		playerCreation.setVisible(true);
 			
-		playerCreation.setSize(420, 370);
+		playerCreation.setSize(420, 355);
 			
 		mainFrame.setVisible(true);
 	}
@@ -156,6 +157,9 @@ public class GUIMain implements Observer {
 	 * @param args Some arguments that probably won't get used.
 	 */
 	public static void main(String[] args){
+		try{
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}catch(Exception e){} //ignore all exceptions
 		GUIMain main = new GUIMain();
 		main.initialise();
 		main.showSetup();

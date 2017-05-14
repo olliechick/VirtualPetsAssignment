@@ -1,6 +1,7 @@
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
@@ -42,26 +43,26 @@ public class PlayerCreationPanel extends JPanel implements Observable{
 		
 		//Pet number selection label
 		JLabel lblNumberOfPets = new JLabel("Pet:");
-		lblNumberOfPets.setBounds(10, 46, 116, 14);
+		lblNumberOfPets.setBounds(10, 39, 116, 14);
 		add(lblNumberOfPets);
 		
 		//Pet creation panel creation
 		PetCreationPanel petOnePanel = new PetCreationPanel();
-		petOnePanel.setBounds(10, 105, 123, 225);
+		petOnePanel.setBounds(10, 87, 123, 225);
 		add(petOnePanel);
 		petOnePanel.enable();
 		
 		PetCreationPanel petTwoPanel = new PetCreationPanel();
-		petTwoPanel.setBounds(148, 105, 123, 225);
+		petTwoPanel.setBounds(148, 87, 123, 225);
 		add(petTwoPanel);
 		
 		PetCreationPanel petThreePanel = new PetCreationPanel();
-		petThreePanel.setBounds(287, 105, 123, 225);
+		petThreePanel.setBounds(287, 87, 123, 225);
 		add(petThreePanel);
 		
 		//Creating check boxes and adding enabling disabling behaivour
 		JCheckBox petOneBox = new JCheckBox("1", true); //default to 1 pet
-		petOneBox.setBounds(56, 75, 43, 23);
+		petOneBox.setBounds(56, 57, 43, 23);
 		petOneBox.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if (petOneBox.isSelected()){
@@ -75,7 +76,7 @@ public class PlayerCreationPanel extends JPanel implements Observable{
 		
 		
 		JCheckBox petTwoBox = new JCheckBox("2");
-		petTwoBox.setBounds(194, 75, 43, 23);
+		petTwoBox.setBounds(194, 57, 43, 23);
 		petTwoBox.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if (petTwoBox.isSelected()){
@@ -88,7 +89,7 @@ public class PlayerCreationPanel extends JPanel implements Observable{
 		add(petTwoBox);
 		
 		JCheckBox petThreeBox = new JCheckBox("3");
-		petThreeBox.setBounds(339, 71, 43, 31);
+		petThreeBox.setBounds(339, 53, 43, 31);
 		petThreeBox.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if (petThreeBox.isSelected()){
@@ -224,7 +225,7 @@ public class PlayerCreationPanel extends JPanel implements Observable{
 				outputValues = outputList.toArray(new String[0]);
 			}
 		});
-		btnNext.setBounds(321, 346, 89, 23);
+		btnNext.setBounds(321, 323, 89, 23);
 		add(btnNext);
 	}
 	
@@ -249,9 +250,12 @@ public class PlayerCreationPanel extends JPanel implements Observable{
 	 * @param args Input arguments.
 	 */
 	public static void main(String[] args){
+		try{
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}catch(Exception e){} //ignore all exceptions
 		JFrame myFrame = new JFrame();
 		
-		myFrame.setBounds(0, 0, 435, 425);
+		myFrame.setBounds(0, 0, 435, 39);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myFrame.getContentPane().setLayout(null);
 		
@@ -263,7 +267,7 @@ public class PlayerCreationPanel extends JPanel implements Observable{
 		myFrame.getContentPane().add(myPanel);
 		myPanel.setVisible(true);
 		
-		myPanel.setSize(420, 370);
+		myPanel.setSize(420, 355);
 		
 		myFrame.setVisible(true);
 	}

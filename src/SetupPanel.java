@@ -2,6 +2,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.UIManager;
 import javax.swing.JRadioButton;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
@@ -37,28 +38,28 @@ public class SetupPanel extends JPanel implements Observable{
 		ButtonGroup radioButtonGroup = new ButtonGroup();
 		
 		JLabel lblNumDays = new JLabel("Number of days to play for:");
-		lblNumDays.setBounds(25, 34, 166, 14);
+		lblNumDays.setBounds(25, 11, 146, 14);
 		add(lblNumDays);
 		
 		JSpinner numberOfDaysSpinner = new JSpinner();
 		numberOfDaysSpinner.setModel(new SpinnerNumberModel(1, 1, 365, 1));
-		numberOfDaysSpinner.setBounds(199, 31, 39, 20);
+		numberOfDaysSpinner.setBounds(167, 11, 39, 20);
 		add(numberOfDaysSpinner);
 		
 		JLabel lblNumberOfPlayers = new JLabel("Number of Players:");
-		lblNumberOfPlayers.setBounds(67, 61, 124, 14);
+		lblNumberOfPlayers.setBounds(67, 36, 94, 14);
 		add(lblNumberOfPlayers);
 		
 		JRadioButton onePlayer = new JRadioButton("1", true);
-		onePlayer.setBounds(199, 57, 60, 23);
+		onePlayer.setBounds(167, 37, 60, 23);
 		add(onePlayer);
 		
 		JRadioButton twoPlayers = new JRadioButton("2");
-		twoPlayers.setBounds(199, 86, 60, 23);
+		twoPlayers.setBounds(167, 66, 60, 23);
 		add(twoPlayers);
 		
 		JRadioButton threePlayers = new JRadioButton("3");
-		threePlayers.setBounds(199, 115, 60, 23);
+		threePlayers.setBounds(167, 95, 60, 23);
 		add(threePlayers);
 		
 		radioButtonGroup.add(onePlayer);
@@ -66,7 +67,7 @@ public class SetupPanel extends JPanel implements Observable{
 		radioButtonGroup.add(threePlayers);
 		
 		JButton btnNext = new JButton("Next");
-		btnNext.setBounds(199, 145, 70, 23);
+		btnNext.setBounds(167, 131, 70, 23);
 		btnNext.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				Integer numPlayers;
@@ -114,9 +115,12 @@ public class SetupPanel extends JPanel implements Observable{
 	 * @param args Input arguments.
 	 */
 	public static void main(String[] args){
+		try{
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}catch(Exception e){} //ignore all exceptions
 		JFrame myFrame = new JFrame();
 		
-		myFrame.setBounds(0, 0, 400, 226);
+		myFrame.setBounds(0, 0, 300, 200);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myFrame.getContentPane().setLayout(null);
 		
@@ -125,7 +129,7 @@ public class SetupPanel extends JPanel implements Observable{
 		myFrame.getContentPane().add(myPanel);
 		myPanel.setVisible(true);
 		
-		myPanel.setSize(400, 226);
+		myPanel.setSize(300, 165);
 		
 		myFrame.setVisible(true);
 	}
