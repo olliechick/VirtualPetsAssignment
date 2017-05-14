@@ -3,8 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- *
- * A class for pets 
+ * A class for pets.
  * @author Ollie Chick
  * @author Samuel Pell
  *
@@ -14,6 +13,8 @@ public class Pet {
 	private String name; 
 	private String gender; //either male or female
 	private String species; //either cat, dog, goat, horse, alpaca, or polar bear
+	private String favouriteFood;
+	private String favouriteToy;
 	
 	private int health; //out of 100
 	private int mischievousness; //out of 100
@@ -51,12 +52,16 @@ public class Pet {
 		bladderSize = Integer.parseInt(getDatumFromFile("petData.csv", "bladderSize", species));
 		fatigueIncrease = Integer.parseInt(getDatumFromFile("petData.csv", "fatigueIncrease", species));
 		harshness = Integer.parseInt(getDatumFromFile("petData.csv", "harshness", species));
+		favouriteFood = getDatumFromFile("petData.csv", "favouriteFood", species);
+		favouriteToy = getDatumFromFile("petData.csv", "favouriteToy", species);
 	}
 
 	// Getters
 	public String getName(){return name;}
 	public String getGender(){return gender;}
 	public String getSpecies(){return species;}
+	public String getFavouriteFood() {return favouriteFood;}
+	public String getFavouriteToy() {return favouriteToy;}
 	public int getHealth(){return health;}
 	public int getMischievousness(){return mischievousness;}
 	public int getHappiness(){return happiness;}
@@ -98,6 +103,8 @@ public class Pet {
 		}
 	}
 
+	public void setFavouriteFood(String favouriteFood) {this.favouriteFood = favouriteFood;}
+	public void setFavouriteToy(String favouriteToy) {this.favouriteToy = favouriteToy;}
 	public void setIsSick(Boolean isSick){this.isSick = isSick;}
 	public void setIsRevivable(Boolean isRevivable){this.isRevivable = isRevivable;}
 	public void setIsMisbehaving(Boolean isMisbehaving){this.isMisbehaving = isMisbehaving;}
