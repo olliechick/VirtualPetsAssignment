@@ -140,6 +140,7 @@ public class CommandLineInterface {
 			case "alpaca":
 			case "aplaca":
 			case "apalca":
+			case "al":
 				newPet = new Alpaca();
 				break;
 
@@ -182,7 +183,6 @@ public class CommandLineInterface {
 				System.out.println("\n"+choice + " is not a valid option. Please enter one of the below choices.");
 				System.out.println("1. Alpaca\n2. Cat\n3. Dog\n4. Goat\n5. Horse\n6. Polar bear");
 				choice = null;
-				break;
 			}
 		}while (choice == null);
 
@@ -214,6 +214,41 @@ public class CommandLineInterface {
 		}
 
 		return ordering;
+	}
+
+	/**
+	 * Asks the user if they want to go through the tutorial; if so, does it.
+	 */
+	public static void tutorial() {
+		String choiceStr;
+		Boolean wantsTutorial = false;
+		
+		do{
+			System.out.println("Do you want to go through the tutorial? (Y/N) ");
+			choiceStr = inputReader.nextLine();
+			if (choiceStr.toLowerCase().equals("y")){
+				wantsTutorial = true;
+			}else if(choiceStr.toLowerCase().equals("n")){
+				wantsTutorial = false;
+			}else{
+				choiceStr = null;
+				System.out.print("Sorry, that's not a valid option. ");
+			}
+		}while(choiceStr == null);
+		if (wantsTutorial){
+			System.out.println("\nWelcome to Virtual Pets!"
+					+"\nThis is a game for 1-3 players."
+					+"\nEach player has 1-3 pets, which can be cats, dogs, goats, alpacas, horses, or polar bears, or a mixture."
+					+"\nYou begin with $100 to buy food and toys for your pets. You will receive $10 per day per (live) pet."
+					+"\nEach day, each player can perform up to two actions per pet."
+					+"\nFeeding, playing, going toilet, and sleeping all count as one action each."
+					+"\nIf you neglect to keep your pet happy and healthy, they may begin to misbehave, get sick, and even die."
+					+"\nIf they misbehave, you can choose to discipline your pet, which will decrease their happiness but also decrease their mischievousness."
+					+"\nIf they get sick, you can choose to treat them (if you can afford it)."
+					+"\nIf you don't treat them, they may die. You can revive each pet once, but if they die again they will be dead for good."
+					+"\n");
+		}
+		
 	}
 
 	/**
@@ -537,6 +572,8 @@ public class CommandLineInterface {
 		System.out.println(divider);
 		System.out.println("Status of "+pet.getName()+":\nGender: "+pet.getGender()
 		+"\nSpecies: "+pet.getSpecies()
+		+"\nFavourite food: "+pet.getFavouriteFood()
+		+"\nFavourite toy: "+pet.getFavouriteToy()
 		+"\nFatigue: "+pet.getFatigue()
 		+"\nHappiness: "+pet.getHappiness()
 		+"\nHealth: "+pet.getHealth()
@@ -554,11 +591,11 @@ public class CommandLineInterface {
 	 * If the pet is about to misbehave, this gets run to see if the user wants to discipline
 	 * @return true if they choose to discipline
 	 */
-	public static Boolean petMisbehaves() {
+	public static Boolean petMisbehaves(Pet pet) {
 		String choiceStr;
 		Boolean choice = null;
 		
-		System.out.print("WARNING! YOUR PET IS MISBEHAVING! ");
+		System.out.print("WARNING! YOUR PET "+pet.getName()+" IS MISBEHAVING! ");
 		do{
 			System.out.println("DO YOU WANT TO DISCIPLINE? (Y/N)");
 			choiceStr = inputReader.nextLine();
@@ -579,11 +616,10 @@ public class CommandLineInterface {
 	 * @param balance the user's current balance
 	 * @return whether or not the user healed them
 	 */
-	public static Boolean petSicks(int balance) {
+	public static Boolean petSicks(Pet pet, int balance) {
 		String choiceStr;
 		Boolean choice = null;
-		
-		System.out.print("WARNING! YOUR PET HAS BECOME SICK! ");
+		System.out.print("WARNING! YOUR PET "+pet.getName()+" HAS BECOME SICK! ");
 		if(balance >= 50){
 			do{
 				System.out.println("DO YOU WANT TO PAY $50 FOR TREATMENT? YOU CURRENTLY HAVE $"+balance+". (Y/N)");
@@ -609,11 +645,11 @@ public class CommandLineInterface {
 	 * @param revivable if the pet is revivable.
 	 * @return whether or not the user revived them.
 	 */
-	public static Boolean petDies(Boolean revivable) {
+	public static Boolean petDies(Pet pet, Boolean revivable) {
 		String choiceStr;
 		Boolean choice = null;
 		
-		System.out.print("WARNING! YOUR PET HAS UNEXPECTEDLY DIED! ");
+		System.out.print("WARNING! YOUR PET "+pet.getName()+" HAS UNEXPECTEDLY DIED! ");
 		if(revivable){
 		do{
 			System.out.println("DO YOU WANT TO REVIVE THEM? (Y/N)");
