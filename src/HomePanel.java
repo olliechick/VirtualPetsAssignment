@@ -29,23 +29,23 @@ public class HomePanel extends JPanel {
 		tabbedPane.setBounds(10, 36, 780, 419);
 		add(tabbedPane);
 		
-		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Status", null, tabbedPane_1, null);
+		JTabbedPane statusTab = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addTab("Status", null, statusTab, null);
 		
-		JTabbedPane tabbedPane_2 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Store", null, tabbedPane_2, null);
+		JTabbedPane storeTab = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addTab("Store", null, storeTab, null);
 		
-		JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Feed", null, tabbedPane_3, null);
+		JTabbedPane feedTab = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addTab("Feed", null, feedTab, null);
 		
-		JTabbedPane tabbedPane_4 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Play", null, tabbedPane_4, null);
+		JTabbedPane playTab = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addTab("Play", null, playTab, null);
 		
-		JTabbedPane tabbedPane_5 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Sleep", null, tabbedPane_5, null);
+		JTabbedPane sleepTab = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addTab("Sleep", null, sleepTab, null);
 		
-		JTabbedPane tabbedPane_6 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Toilet", null, tabbedPane_6, null);
+		JTabbedPane toiletTab = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addTab("Toilet", null, toiletTab, null);
 		
 		JLabel lblPlayer = new JLabel("Player:");
 		lblPlayer.setBounds(10, 11, 46, 14);

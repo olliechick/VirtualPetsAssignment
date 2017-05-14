@@ -48,6 +48,7 @@ public class PetCreationPanel extends JPanel {
 		add(lblPetSpecies);
 		
 		rdbtnCat = new JRadioButton("Cat");
+		rdbtnCat.setToolTipText("Add me later");
 		rdbtnCat.setBounds(0, 91, 109, 23);
 		add(rdbtnCat);
 		
@@ -157,13 +158,13 @@ public class PetCreationPanel extends JPanel {
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myFrame.getContentPane().setLayout(null);
 		
-		JPanel myPanel = new PetCreationPanel();
+		PetCreationPanel myPanel = new PetCreationPanel();
 		
 		myFrame.getContentPane().add(myPanel);
 		myPanel.setVisible(true);
 		
 		myPanel.setSize(420, 350);
-		
+		myPanel.enable();
 		myFrame.setVisible(true);
 	}
 }
