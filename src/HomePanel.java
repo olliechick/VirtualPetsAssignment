@@ -7,6 +7,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 
+/**
+ * Home JPanel for VirtualPets Assignment
+ * @author Samuel Pell
+ *
+ */
 public class HomePanel extends JPanel {
 
 	/**

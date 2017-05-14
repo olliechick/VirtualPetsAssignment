@@ -308,7 +308,7 @@ public class CommandLineInterface {
 	}
 	
 	/**
-	 * @param pet
+	 * @param pet Pet going to the toilet
 	 */
 	private static void goToilet(Pet pet){
 		pet.goToilet();		
@@ -316,7 +316,7 @@ public class CommandLineInterface {
 	}
 	
 	/**
-	 * @param pet
+	 * @param pet Pet going to sleep
 	 */
 	private static void sleep(Pet pet){
 		pet.sleep();		
@@ -643,10 +643,9 @@ public class CommandLineInterface {
 
 	/**
 	 * Takes a ranked list of players and displays the appropriate results to the user
-	 * @param playerList A list of players ranked in decending order of score
-	 * @throws Exception
+	 * @param playerList A list of players ranked in decending order of score 
 	 */
-	public static void postGame(Player[] playerList) throws Exception{
+	public static void postGame(Player[] playerList){
 		System.out.println("That's the end of the game. And the results are in:");
 		
 		switch(playerList.length){

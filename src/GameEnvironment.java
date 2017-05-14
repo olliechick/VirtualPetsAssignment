@@ -358,6 +358,7 @@ public class GameEnvironment {
 	/**
 	 * This runs just before a user interacts with their pet,
 	 * and controls if the pet does random events, such as misbehaving, getting sick, and dying.
+	 * @param player Player pet belongs to.
 	 * @param pet the pet the player is about to interact with.
 	 */
 	private void newDayPetActions(Player player, Pet pet) {

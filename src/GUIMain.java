@@ -19,7 +19,7 @@ public class GUIMain implements Observer {
 	
 	/**
 	 * Part of the Observer pattern to get data from GUI to GameEnvironment.
-	 * @param indentifier Identifier of the operation.
+	 * @param identifier Identifier of the operation.
 	 * @param values Array of objects appropriate to the GUI call.
 	 */
 	public void getValues(String identifier, String[] values){

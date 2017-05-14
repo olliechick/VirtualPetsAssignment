@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * Player creation panel
- * @author Samuel
+ * @author Samuel Pell
  */
 public class PlayerCreationPanel extends JPanel implements Observable{
 	/**
@@ -26,6 +26,7 @@ public class PlayerCreationPanel extends JPanel implements Observable{
 
 	/**
 	 * Create the panel.
+	 * @param parent Parent controller.
 	 */
 	public PlayerCreationPanel(GUIMain parent) {
 		mainGUI = parent;

@@ -7,6 +7,10 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import java.awt.Component;
 
+/**
+ * Pet creation JPanel for VirtualPets Assignment
+ * @author Samuel Pell
+ */
 public class PetCreationPanel extends JPanel {
 	/**
 	 * Complains at me with out it
