@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import java.util.ArrayList;
@@ -64,6 +65,17 @@ public class GUIMain implements Observer {
 	 */
 	private void newDay(){
 		System.out.println("Its a brand new day!!");
+		clearFrame();
+		mainFrame.setBounds(0, 0, 815, 540);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.getContentPane().setLayout(null);
+		
+		JPanel myPanel = new HomePanel();
+		
+		mainFrame.getContentPane().add(myPanel);
+		myPanel.setVisible(true);
+		
+		myPanel.setSize(800, 500);
 	}
 	
 	/**
