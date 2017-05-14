@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 /**
@@ -140,6 +141,12 @@ public class StatusPanel extends JPanel {
 		JPanel panel = new JPanel();
 		panel.setBounds(349, 53, 365, 275);
 		add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(System.getProperty("user.dir") + "/img/AlpacaSmall.png"));
+		lblNewLabel.setBounds(0, 0, 365, 275);
+		panel.add(lblNewLabel);
 		
 	}
 	
