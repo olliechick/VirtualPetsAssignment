@@ -392,7 +392,7 @@ public class GameEnvironment {
 		//Check if sick
 		randomNumber = randomNumGen.nextInt(100); //creates random number between 0 and 100
 		int health = pet.getHealth();
-		if(health < 5 || health<25 && randomNumber<75 || health<50 && randomNumber<50 || health<75 && randomNumber<25){
+		if(pet.getIsSick() || health < 5 || health<25 && randomNumber<75 || health<50 && randomNumber<50 || health<75 && randomNumber<25){
 			treated = CommandLineInterface.petSicks(pet, player.getBalance());
 			if (treated){
 				pet.treat();
