@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class GameEnvironment {
 	
-	private Player[] playerList;
+	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private ArrayList<String> nameList = new ArrayList<String>();
 	private HashMap<String, Food> foodPrototypes;
 	private HashMap<String, Toy> toyPrototypes;
@@ -243,6 +243,64 @@ public class GameEnvironment {
 		return newPet;
 	}
 	
+	/**
+	 * Creates a new player and their pets
+	 * @param values String array of data to convert into pet objects. Array should be of form
+	 * {"player name", "pet one name\npet one species", "pet two name\npet two species",...}
+	 * @throws IOException Pet creation side effect.
+	 * @throws Exception For an unknown pet type.
+	 */
+	public void createPlayer(String[] values) throws IOException, Exception{
+	    Player newPlayer = new Player();
+	    newPlayer.setName(values[0]);
+	    String[] petData;
+	    for(int i = 1; i < values.length; i++){
+	        petData = values[i].split("\n");
+	        Pet newPet;
+	        switch (petData[1]){
+	            case "alpaca":
+	                newPet = (Pet) new Alpaca();
+	                break;
+	            case "cat":
+	                newPet = (Pet) new Cat();
+	                break;
+	            case "dog":
+	                newPet = (Pet) new Dog();
+	                break;
+	            case "goat":
+	                newPet = (Pet) new Goat();
+	                break;
+	            case "horse":
+	                newPet = (Pet) new Horse();
+	                break;
+	            case "polar bear":
+	                newPet = (Pet) new PolarBear();
+	                break;
+	            default:
+	                throw new Exception("Error: Unknown Pet" + petData[1]);
+	        }
+	        newPet.setName(petData[0]);
+	        newPlayer.getPetList().add(newPet);
+	        System.out.println(newPlayer);
+	    }
+	    playerList.add(newPlayer);
+	}
+	
+	/**
+	 * Returns the list of players.
+	 * @return list of players
+	 */
+	public ArrayList<Player> getPlayerList(){
+	    return playerList;
+	}
+	
+	/**
+	 * Sets the current player.
+	 * @param p Current player.
+	 */
+	public void setCurrentPlayer(Player p){
+	    currentPlayer = p;
+	}
 	
 	/**
 	 * Creates a new player
@@ -275,10 +333,10 @@ public class GameEnvironment {
 		numberOfDays = CommandLineInterface.getNumberOfDays();
 		dayNumber = 1;
 		int numPlayers = CommandLineInterface.getNumberRequired("How many players? ");
-		playerList = new Player[numPlayers];
+		playerList = new ArrayList<Player>();
 	
 		for (int i = 0; i < numPlayers; i++){
-			playerList[i] = createPlayer();
+			playerList.add(createPlayer());
 		}
 		
 		generateToyPrototypes();
@@ -327,8 +385,8 @@ public class GameEnvironment {
 	 * @throws Exception if error in code
 	 */
 	private void postGame() throws Exception{
-		for (int i = 0; i < playerList.length; i++){
-			playerList[i].calculateScore();
+		for (int i = 0; i < playerList.size(); i++){
+			playerList.get(i).calculateScore();
 		}
 		Player[] rankedPlayers = rankPlayers();
 		CommandLineInterface.postGame(rankedPlayers);
@@ -433,8 +491,8 @@ public class GameEnvironment {
 	public Player[] rankPlayers(){
 		//Add players to an ArrayList
 		ArrayList<Player> rankedList = new ArrayList<Player>();
-		for (int i = 0; i < playerList.length; i++){
-			rankedList.add(playerList[i]);
+		for (int i = 0; i < playerList.size(); i++){
+			rankedList.add(playerList.get(i));
 		}
 		
 		//Sort the players
@@ -452,7 +510,7 @@ public class GameEnvironment {
 	 * Overwrites existing playerList with its own array of players.
 	 * @param playerArray Fully setup list of players.
 	 */
-	protected void addPlayers(Player[] playerArray){
+	protected void addPlayers(ArrayList<Player> playerArray){
 		playerList = playerArray;
 	}
 	

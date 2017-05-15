@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GameEnvironmentTest {
 	
@@ -95,7 +96,11 @@ public class GameEnvironmentTest {
 		player2.calculateScore();
 		player3.calculateScore();
 		
-		myGame.addPlayers(new Player[] {player3, player2, player1});
+		ArrayList<Player> playerList = new ArrayList<Player>();
+		playerList.add(player1);
+		playerList.add(player2);
+		playerList.add(player3);
+		myGame.addPlayers(playerList);
 		
 		Player[] rankedArray = myGame.rankPlayers();
 		Player[] expectedRanking = new Player[] {player1, player3, player2};
@@ -104,7 +109,8 @@ public class GameEnvironmentTest {
 			assertEquals(rankedArray[i], expectedRanking[i]);
 		}
 		
-		myGame.addPlayers(new Player[] {player3, player2});
+		playerList.remove(0);
+		myGame.addPlayers(playerList);
 		
 		rankedArray = myGame.rankPlayers();
 		expectedRanking = new Player[] {player3, player2};
@@ -113,7 +119,8 @@ public class GameEnvironmentTest {
 			assertEquals(rankedArray[i], expectedRanking[i]);
 		}
 		
-		myGame.addPlayers(new Player[] {player3});
+		playerList.remove(0);
+		myGame.addPlayers(playerList);
 		
 		rankedArray = myGame.rankPlayers();
 		expectedRanking = new Player[] {player3};

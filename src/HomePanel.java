@@ -105,11 +105,11 @@ public class HomePanel extends JPanel {
         add(lblCurrentPet);
 
         JLabel lblActionsRemaining = new JLabel("Actions Remaining:");
-        lblActionsRemaining.setBounds(386, 11, 112, 14);
+        lblActionsRemaining.setBounds(386, 11, 122, 14);
         add(lblActionsRemaining);
 
         lblNumActions = new JLabel("numActions");
-        lblNumActions.setBounds(481, 11, 66, 14);
+        lblNumActions.setBounds(502, 11, 66, 14);
         add(lblNumActions);
 
         lblDayMarker = new JLabel("dayMarker");

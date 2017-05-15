@@ -13,12 +13,8 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.JScrollBar;
-
 /**
  * Store tab to allow user to buy items.
  * @author Samuel Pell
@@ -193,6 +189,24 @@ public class StorePanel extends JPanel implements Observable{
     }
     
     /**
+     * {@inheritDoc}
+     */
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void notifyObservers() {
+        for(Observer observer: observers){
+            String[] itemPurchased = new String[]{selectedItem.getName()};
+            observer.getValues("buy item", itemPurchased);
+        }
+        
+    }
+    
+    /**
      * Testing functionality of this panel.
      * @param args Arguments pased in from command line.
      */
@@ -221,19 +235,5 @@ public class StorePanel extends JPanel implements Observable{
         
         myPanel.setSize(770, 383);
         myFrame.setVisible(true);
-    }
-
-
-    public void registerObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-
-    public void notifyObservers() {
-        for(Observer observer: observers){
-            String[] itemPurchased = new String[]{selectedItem.getName()};
-            observer.getValues("buy item", itemPurchased);
-        }
-        
     }
 }

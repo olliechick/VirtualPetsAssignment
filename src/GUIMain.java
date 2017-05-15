@@ -3,9 +3,7 @@ import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
-import java.util.HashMap;
 
 
 
@@ -35,6 +33,18 @@ public class GUIMain implements Observer {
      * Number of players that have been created by the ViewController.
      */
     private int numPlayersCreated = 0;
+    /**
+     * Home panel to display all in game info.
+     */
+    private HomePanel homeScreen;
+    /**
+     * The current player.
+     */
+    private Player currentPlayer;
+    /**
+     * The current pet.
+     */
+    private Pet currentPet;
 
     /**
      * Part of the Observer pattern to get data from GUI to GameEnvironment.
@@ -47,11 +57,6 @@ public class GUIMain implements Observer {
                 Integer numDays = Integer.parseInt(values[1]);
                 mainGame.setNumDays(numDays);
                 playerNumber = (int) Integer.parseInt(values[0]);
-                //DEBUG
-                System.out.println(numDays + " days to play for");
-                System.out.println(playerNumber + " players set in GUI");
-                //DEBUG
-
                 clearFrame();
                 createPlayer();
                 System.out.println("Creating player 1");
@@ -59,76 +64,96 @@ public class GUIMain implements Observer {
 
             case "player creation":
                 numPlayersCreated++;
-
-                //DEBUG
-                for(String value: values){
-                    System.out.println(value);
+                try{
+                    mainGame.createPlayer(values);
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
-                //DEBUG
 
                 clearFrame();
                 if (numPlayersCreated < playerNumber){
                     createPlayer();
-                    System.out.println("Creating player " + (numPlayersCreated + 1));
                 }else{
                     newDay();
                 }
                 break;
                 
             case "buy item":
-                System.out.println("Item was bought");
-                Player currentPlayer = mainGame.getCurrentPlayer();
-                HashMap<String, Food> foodItems = mainGame.getFoodPrototypes();
-                HashMap<String, Toy> toyItems = mainGame.getToyPrototypes();
-                try{ //first try to see if item is a food.
-                    Food purchasedItem = foodItems.get(values[0]);
-                    if(purchasedItem.getPrice() <= currentPlayer.getBalance()){
-                        currentPlayer.spend(purchasedItem.getPrice());
-                        currentPlayer.getFoodStock().add(purchasedItem);
-                    }else{
-                        String message = "You do not have enough money to purchase " + purchasedItem.getName();
-                        JOptionPane.showMessageDialog(null, message);
-                    }
-                }catch(Exception e){
-                    //Ignore first type exception.
-                }
-                
-                try{ //then see if item is a toy
-                    Toy purchasedItem = toyItems.get(values[0]);
-                    if(purchasedItem.getPrice() <= currentPlayer.getBalance()){
-                        currentPlayer.spend(purchasedItem.getPrice());
-                        currentPlayer.getToyList().add(purchasedItem);
-                    }else{
-                        String message = "You do not have enough money to purchase " + purchasedItem.getName();
-                        JOptionPane.showMessageDialog(null, message);
-                    }
-                }catch(Exception e){
-                    //ignore second exception
-                }
+                attemptBuyItem(values[0]);
+                refreshScreen();
                 break;
+                
             default:
                 System.out.println("Unknown GUI Element Identifier\nDropping data");
                 System.out.println(identifier);
         }
     }
-
+    
+    /**
+     * Player attempts to buy an item
+     * @param itemBought Item player is trying to purchase
+     */
+    private void attemptBuyItem(String itemBought){
+        HashMap<String, Food> foodItems = mainGame.getFoodPrototypes();
+        HashMap<String, Toy> toyItems = mainGame.getToyPrototypes();
+        
+        try{ //first try to see if item is a food.
+            Food purchasedItem = foodItems.get(itemBought);
+            if(purchasedItem.getPrice() <= currentPlayer.getBalance()){
+                currentPlayer.spend(purchasedItem.getPrice());
+                currentPlayer.addFood(purchasedItem);
+            }else{
+                String message = "You do not have enough money to purchase " + purchasedItem.getName();
+                JOptionPane.showMessageDialog(null, message);
+            }
+        }catch(Exception e){
+            //Ignore first type exception.
+        }
+        
+        try{ //then see if item is a toy
+            Toy purchasedItem = toyItems.get(itemBought);
+            if(purchasedItem.getPrice() <= currentPlayer.getBalance()){
+                currentPlayer.spend(purchasedItem.getPrice());
+                currentPlayer.addToy(purchasedItem);
+            }else{
+                String message = "You do not have enough money to purchase " + purchasedItem.getName();
+                JOptionPane.showMessageDialog(null, message);
+            }
+        }catch(Exception e){
+            //ignore second exception
+        }
+    }
+    
+    /**
+     * Refresh screen to display change in data.
+     */
+    private void refreshScreen(){
+        homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2);
+    }
+    
     /**
      * Move to a new day.
      */
     private void newDay(){
         System.out.println("Its a brand new day!!");
+        
         clearFrame();
         mainFrame.setBounds(0, 0, 815, 540);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.getContentPane().setLayout(null);
 
-        HomePanel myPanel = new HomePanel(15, mainGame);
-        myPanel.getStoreTab().registerObserver(this);
+        homeScreen = new HomePanel(15, mainGame);
+        homeScreen.getStoreTab().registerObserver(this);
 
-        mainFrame.getContentPane().add(myPanel);
-        myPanel.setVisible(true);
+        mainFrame.getContentPane().add(homeScreen);
+        homeScreen.setVisible(true);
 
-        myPanel.setSize(800, 500);
+        homeScreen.setSize(800, 500);
+        
+        currentPlayer = mainGame.getPlayerList().get(0);
+        mainGame.setCurrentPlayer(currentPlayer);
+        currentPet = currentPlayer.getPetList().get(0);
+        homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2);
     }
 
     /**

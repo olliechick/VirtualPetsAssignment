@@ -5,7 +5,7 @@
  */
 public interface Observable {
     /**
-     * Adds an oberserver to the object.
+     * Adds an observer to the object.
      * @param observer Observer to add to the object.
      */
     public void registerObserver(Observer observer);

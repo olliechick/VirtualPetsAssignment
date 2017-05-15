@@ -35,28 +35,28 @@ public class SetupPanel extends JPanel implements Observable{
 		ButtonGroup radioButtonGroup = new ButtonGroup();
 		
 		JLabel lblNumDays = new JLabel("Number of days to play for:");
-		lblNumDays.setBounds(25, 11, 146, 14);
+		lblNumDays.setBounds(25, 11, 158, 14);
 		add(lblNumDays);
 		
 		JSpinner numberOfDaysSpinner = new JSpinner();
 		numberOfDaysSpinner.setModel(new SpinnerNumberModel(1, 1, 365, 1));
-		numberOfDaysSpinner.setBounds(167, 11, 39, 20);
+		numberOfDaysSpinner.setBounds(187, 11, 39, 20);
 		add(numberOfDaysSpinner);
 		
 		JLabel lblNumberOfPlayers = new JLabel("Number of Players:");
-		lblNumberOfPlayers.setBounds(67, 36, 94, 14);
+		lblNumberOfPlayers.setBounds(67, 36, 116, 14);
 		add(lblNumberOfPlayers);
 		
 		JRadioButton onePlayer = new JRadioButton("1", true);
-		onePlayer.setBounds(167, 37, 60, 23);
+		onePlayer.setBounds(187, 37, 60, 23);
 		add(onePlayer);
 		
 		JRadioButton twoPlayers = new JRadioButton("2");
-		twoPlayers.setBounds(167, 66, 60, 23);
+		twoPlayers.setBounds(187, 66, 60, 23);
 		add(twoPlayers);
 		
 		JRadioButton threePlayers = new JRadioButton("3");
-		threePlayers.setBounds(167, 95, 60, 23);
+		threePlayers.setBounds(187, 95, 60, 23);
 		add(threePlayers);
 		
 		radioButtonGroup.add(onePlayer);
@@ -64,7 +64,7 @@ public class SetupPanel extends JPanel implements Observable{
 		radioButtonGroup.add(threePlayers);
 		
 		JButton btnNext = new JButton("Next");
-		btnNext.setBounds(167, 131, 70, 23);
+		btnNext.setBounds(187, 131, 70, 23);
 		btnNext.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				Integer numPlayers;
