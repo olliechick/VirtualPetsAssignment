@@ -1,7 +1,6 @@
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.io.IOException;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
@@ -13,7 +12,6 @@ import javax.swing.ImageIcon;
 /**
  * Shows a pets status to the user.
  * @author Samuel Pell
- *
  */
 public class StatusPanel extends JPanel {
 	
@@ -144,6 +142,7 @@ public class StatusPanel extends JPanel {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");
+		//TODO: Make this work for different animals
 		lblNewLabel.setIcon(new ImageIcon(System.getProperty("user.dir") + "/img/AlpacaSmall.png"));
 		lblNewLabel.setBounds(0, 0, 365, 275);
 		panel.add(lblNewLabel);

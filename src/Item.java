@@ -86,8 +86,11 @@ public abstract class Item {
 		return integers;
 	}
 	
+	/**
+	 * String representation of the item
+	 */
 	public String toString(){
-		String s =  getName() + ": " + getDescription()+ ".";
+		String s =  getName();
 		return s;
 	}
 }

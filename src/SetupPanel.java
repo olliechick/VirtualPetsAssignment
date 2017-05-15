@@ -23,8 +23,8 @@ public class SetupPanel extends JPanel implements Observable{
 	
 	private String[] outputValues = new String[2]; 
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
-	public int width = 400;
-	public int height = 206;
+	public final int width = 400;
+	public final int height = 206;
 	
 	/**
 	 * Create the panel.
