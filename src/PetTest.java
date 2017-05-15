@@ -106,7 +106,7 @@ public class PetTest {
 			@SuppressWarnings("unused")
 			Pet myPet3 = new Pet(species3);
 			fail("Accepts bad species.");
-		} catch (IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			assertEquals(e.getMessage(), "Unknown species: "+species3);
 		}
 
@@ -114,7 +114,7 @@ public class PetTest {
 			@SuppressWarnings("unused")
 			Pet myPet3 = new Pet(species4);
 			fail("Accepts bad species.");
-		} catch (IllegalArgumentException e){}
+		} catch (IllegalArgumentException e) {}
 		
 		assertEquals(myCat.getHealth(), 50);
 		assertEquals(myCat.getMischievousness(), 50);
@@ -211,7 +211,7 @@ public class PetTest {
 		try {
 			myPet.setName(null);
 			fail("Accepts null name.");
-		} catch (IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			assertEquals(myPet.getName(), name);
 		}
 	}
@@ -228,7 +228,7 @@ public class PetTest {
 		try {
 			myPet.setGender(gender3);
 			fail("Accepts invalid gender.");
-		} catch (IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			assertEquals(myPet.getGender(), gender2);
 		}
 	}
@@ -400,7 +400,7 @@ public class PetTest {
 		try {
 			myPet.increaseWeight(-10);
 			fail("Accepts negative weight.");
-		} catch (IllegalArgumentException e){}
+		} catch (IllegalArgumentException e) {}
 		myPet.increaseWeight(5000);
 		assertEquals(myPet.getWeight(), 5008.01, delta);
 	}
@@ -418,10 +418,10 @@ public class PetTest {
 		//play with the toy
 		myCat.play(myToy);
 		myMaxCat.play(myToy);
-		try{
+		try {
 			myMinCat.play(myToy);
 			fail("Does nothing if you play with a toy until it is destroyed.");
-		} catch (IllegalArgumentException exception){
+		} catch (IllegalArgumentException exception) {
 			assertEquals(exception.getMessage(), "durability is zero or negative");
 		}
 
@@ -454,7 +454,7 @@ public class PetTest {
 		try {
 			myCat.play(myToy);
 			fail("Lets pets play with worn out toys.");
-		} catch (IllegalArgumentException e){}
+		} catch (IllegalArgumentException e) {}
 		
 		
 	}
@@ -471,10 +471,10 @@ public class PetTest {
 		//play with the bad toy
 		myCat.play(myBadToy);
 		myMaxCat.play(myBadToy);
-		try{
+		try {
 			myMinCat.play(myBadToy);
 			fail("Does nothing if you play with a toy until it is destroyed.");
-		} catch (IllegalArgumentException exception){
+		} catch (IllegalArgumentException exception) {
 			assertEquals(exception.getMessage(), "durability is zero or negative");
 		}
 		
@@ -668,7 +668,7 @@ public class PetTest {
 	}
 	
 	@Test
-	public void testTreat(){
+	public void testTreat() {
 		//get initial values
 		int initialHunger = myCat.getHunger();
 		int initialFatigue = myCat.getFatigue();
@@ -693,7 +693,7 @@ public class PetTest {
 	}
 	
 	@Test
-	public void testRevive(){
+	public void testRevive() {
 		myCat.revive();
 		assertFalse(myCat.getIsRevivable());
 	}

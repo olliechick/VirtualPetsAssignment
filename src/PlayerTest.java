@@ -26,10 +26,10 @@ public class PlayerTest {
 	@Test
 	public void testSetName() {
 		player1.setName(name1);
-		try{
+		try {
 			player2.setName(null);
 			fail("Allows null names.");
-		}catch(IllegalArgumentException e){}
+		} catch (IllegalArgumentException e) {}
 	}
 
 	@Test
@@ -38,16 +38,16 @@ public class PlayerTest {
 		player1.spend(currentBalance-1);
 		assertEquals(player1.getBalance(), 1);
 		
-		try{
+		try {
 			player1.spend(-1);
 			fail("Allows negative spending");
-		}catch(IllegalArgumentException e){}
+		} catch (IllegalArgumentException e) {}
 		assertEquals(player1.getBalance(), 1);
 		
-		try{
+		try {
 			player1.spend(currentBalance+1);
 			fail("Allows overspending");
-		}catch(IllegalArgumentException e){}
+		} catch (IllegalArgumentException e) {}
 		assertEquals(player1.getBalance(), 1);
 		
 	}
@@ -58,10 +58,10 @@ public class PlayerTest {
 		player1.earn(10);
 		assertEquals(player1.getBalance(), currentBalance+10);
 		
-		try{
+		try {
 			player1.earn(-1);
 			fail("Allows negative earning");
-		}catch(IllegalArgumentException e){}
+		} catch (IllegalArgumentException e) {}
 		assertEquals(player1.getBalance(), currentBalance+10);
 	}
 

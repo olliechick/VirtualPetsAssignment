@@ -34,14 +34,14 @@ public class ToyTest {
 
 	@Test
 	public void testGetHappinessIncrease() {
-		for (int i = 0; i < species.length; i++){
+		for (int i = 0; i < species.length; i++) {
 			assertEquals(myToy.getHappinessIncrease(species[i]), Integer.parseInt(myToyValues[i]));
 			assertEquals(myOtherToy.getHappinessIncrease(species[i]), Integer.parseInt(myOtherToyValues[i]));
 		}
 		try {
 			myToy.getHappinessIncrease("Alien");
 			fail("Found a species which doesn't exits");
-		} catch (IllegalArgumentException exception){}
+		} catch (IllegalArgumentException exception) {}
 	}
 
 	@Test
@@ -49,10 +49,10 @@ public class ToyTest {
 		//Standard use case - eventual decrement to 0
 		//when durability gets to 0 (after decrement) raise exception
 		myOtherToy.decrementDurability(1);
-		try{
+		try {
 			myOtherToy.decrementDurability(1);
 			fail("Let durability = 0");
-		}catch(IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			assertEquals(myOtherToy.getDurability(), 0);
 		}
 		
@@ -60,7 +60,7 @@ public class ToyTest {
 		try {
 			myToy.decrementDurability(-5);
 			fail("Allows a negative durability change");
-		} catch (IllegalArgumentException exception){
+		} catch (IllegalArgumentException exception) {
 			assertEquals(exception.getMessage().substring(0, 24), "durability must decrease");	
 		}
 		
@@ -68,7 +68,7 @@ public class ToyTest {
 		try {
 			myToy.decrementDurability(0);
 			fail("Allows a 0 durability change");
-		} catch (IllegalArgumentException exception){
+		} catch (IllegalArgumentException exception) {
 			assertEquals(exception.getMessage().substring(0, 24), "durability must decrease");	
 		}
 		
@@ -76,7 +76,7 @@ public class ToyTest {
 		try {
 			myToy.decrementDurability(15);
 			fail("Allows a 0 durability");
-		} catch (IllegalArgumentException exception){
+		} catch (IllegalArgumentException exception) {
 			assertEquals(exception.getMessage(), "durability is zero or negative");
 		}
 		
@@ -84,14 +84,14 @@ public class ToyTest {
 		try {
 			myThirdToy.decrementDurability(16);
 			fail("Allows a 0 durability");
-		} catch (IllegalArgumentException exception){
+		} catch (IllegalArgumentException exception) {
 			assertEquals(exception.getMessage(), "durability is zero or negative");
 		}
 	}
 
 	@Test
 	public void testSetHappinessIncrease() {
-		for (int i = 0; i < species.length; i++){
+		for (int i = 0; i < species.length; i++) {
 			assertEquals(myToy.getHappinessIncrease(species[i]), Integer.parseInt(myToyValues[i]));
 			assertEquals(myOtherToy.getHappinessIncrease(species[i]), Integer.parseInt(myOtherToyValues[i]));
 		}
