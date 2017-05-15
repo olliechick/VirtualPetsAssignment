@@ -11,6 +11,9 @@ import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -22,19 +25,47 @@ import javax.swing.JScrollBar;
  *
  */
 @SuppressWarnings("serial")
-public class StorePanel extends JPanel {
-    
+public class StorePanel extends JPanel implements Observable{
+    /**
+     * Component that displays store inventory.
+     */
     private JList<Item> storeInventory;
-    JLabel lblName;
-    JLabel lblDescription;
-    JLabel lblPriceField;
+    /**
+     * Label which displays object's name.
+     */
+    private JLabel lblName;
+    /**
+     * Label which displays object's description
+     */
+    private JLabel lblDescription;
+    /**
+     * Label which displays the object's price
+     */
+    private JLabel lblPriceField;
+    /**
+     * Panel which displays the players inventory.
+     */
+    private InventoryPanel playerInventory;
+    /**
+     * Currently selected item.
+     */
+    private Item selectedItem;
+    /**
+     * List of objects currently observing this element.
+     */
+    private ArrayList<Observer> observers = new ArrayList<Observer>();
+    private GameEnvironment parent;
     
     /**
      * Create the panel.
+     * @param toyPrototypes Hashmap of toy prototypes.
+     * @param foodPrototypes Hashmap of food prototypes.
      */
     public StorePanel(HashMap<String, Toy> toyPrototypes, 
-                      HashMap<String, Food> foodPrototypes) {
+                      HashMap<String, Food> foodPrototypes,
+                      GameEnvironment mainGame) {
         setLayout(null);
+        parent = mainGame;
         
         ArrayList<Item> storeItems = generateStoreInventory(toyPrototypes, foodPrototypes);
         Item[] storeItemArray = storeItems.toArray(new Item[0]);
@@ -86,22 +117,46 @@ public class StorePanel extends JPanel {
         lblInventory.setBounds(550, 14, 70, 14);
         add(lblInventory);
         
-        JSeparator separator_1 = new JSeparator();
-        separator_1.setForeground(Color.BLACK);
-        separator_1.setOrientation(SwingConstants.VERTICAL);
-        separator_1.setBounds(523, 39, 14, 333);
-        add(separator_1);
+        JSeparator separator2 = new JSeparator();
+        separator2.setForeground(Color.BLACK);
+        separator2.setOrientation(SwingConstants.VERTICAL);
+        separator2.setBounds(560, 39, 14, 333);
+        add(separator2);
         
         JButton btnBuyItem = new JButton("Buy Item");
         btnBuyItem.setBounds(235, 349, 89, 23);
+        btnBuyItem.addActionListener(new ActionListener(){
+
+            public void actionPerformed(ActionEvent arg0) {
+                selectedItem = storeInventory.getSelectedValue();
+                notifyObservers();
+                updatePlayerInventory();
+            }
+        });
         add(btnBuyItem);
         
         storeInventory.setSelectedIndex(0);
         
-        
-        
+        playerInventory = new InventoryPanel();
+        playerInventory.setBounds(571, 39, 189, 333);
+        add(playerInventory);
     }
     
+    private void updatePlayerInventory(){
+        Player currentPlayer = parent.getCurrentPlayer();
+        ArrayList<Toy> toyList = currentPlayer.getToyList();
+        ArrayList<Food> foodStock = currentPlayer.getFoodStock();
+        
+        ArrayList<Item> itemList = new ArrayList<Item>();
+        for(Toy toyItem: toyList){
+            itemList.add((Item) toyItem);
+        }
+        for(Food foodItem: foodStock){
+            itemList.add((Item) foodItem);
+        }
+        Item[] itemArray = itemList.toArray(new Item[0]);
+        playerInventory.displayInventory(itemArray);
+    }
     
     /**
      * Display the selected item's stats to the player.
@@ -137,6 +192,10 @@ public class StorePanel extends JPanel {
         return itemList;
     }
     
+    /**
+     * Testing functionality of this panel.
+     * @param args Arguments pased in from command line.
+     */
     public static void main(String[] args){
         try{
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -153,7 +212,8 @@ public class StorePanel extends JPanel {
         testGame.generateToyPrototypes();
         StorePanel myPanel = new StorePanel(
                 testGame.getToyPrototypes(), 
-                testGame.getFoodPrototypes());
+                testGame.getFoodPrototypes(),
+                testGame);
         
         
         myFrame.getContentPane().add(myPanel);
@@ -161,5 +221,19 @@ public class StorePanel extends JPanel {
         
         myPanel.setSize(770, 383);
         myFrame.setVisible(true);
+    }
+
+
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+
+    public void notifyObservers() {
+        for(Observer observer: observers){
+            String[] itemPurchased = new String[]{selectedItem.getName()};
+            observer.getValues("buy item", itemPurchased);
+        }
+        
     }
 }

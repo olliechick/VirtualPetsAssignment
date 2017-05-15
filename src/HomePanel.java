@@ -43,11 +43,16 @@ public class HomePanel extends JPanel {
      * Element to display the number of action the player has remainging.
      */
     private JLabel lblNumActions;
+    
+    /**
+     * Internal panel to handle store stuff.
+     */
+    private StorePanel storeTab;
 
     /**
      * Create the panel.
      */
-    public HomePanel(int days) {
+    public HomePanel(int days, GameEnvironment mainGame) {
         totalDays = ((Integer) days).toString();
         setLayout(null);
 
@@ -58,7 +63,9 @@ public class HomePanel extends JPanel {
         statusTab = new StatusPanel();
         tabbedPane.addTab("Status", null, statusTab, null);
 
-        JTabbedPane storeTab = new JTabbedPane(JTabbedPane.TOP);
+        storeTab = new StorePanel(mainGame.getToyPrototypes(), 
+                                  mainGame.getFoodPrototypes(),
+                                  mainGame);
         tabbedPane.addTab("Store", null, storeTab, null);
 
         JTabbedPane feedTab = new JTabbedPane(JTabbedPane.TOP);
@@ -151,6 +158,14 @@ public class HomePanel extends JPanel {
     }
 
     /**
+     * Get the store tab to add observer to it
+     * @return storeTab
+     */
+    public StorePanel getStoreTab(){
+        return storeTab;
+    }
+    
+    /**
      * Main method for testing.
      * @param args Arguments passed in
      */
@@ -167,7 +182,11 @@ public class HomePanel extends JPanel {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.getContentPane().setLayout(null);
 
-        HomePanel myPanel = new HomePanel(12);
+        
+        GameEnvironment mainGame = new GameEnvironment();
+        mainGame.generateFoodPrototypes();
+        mainGame.generateToyPrototypes();
+        HomePanel myPanel = new HomePanel(12, mainGame);
         myFrame.getContentPane().add(myPanel);
         myPanel.setVisible(true);
 

@@ -1,7 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import java.util.HashMap;
 
 
 
@@ -70,8 +74,41 @@ public class GUIMain implements Observer {
                     newDay();
                 }
                 break;
+                
+            case "buy item":
+                System.out.println("Item was bought");
+                Player currentPlayer = mainGame.getCurrentPlayer();
+                HashMap<String, Food> foodItems = mainGame.getFoodPrototypes();
+                HashMap<String, Toy> toyItems = mainGame.getToyPrototypes();
+                try{ //first try to see if item is a food.
+                    Food purchasedItem = foodItems.get(values[0]);
+                    if(purchasedItem.getPrice() <= currentPlayer.getBalance()){
+                        currentPlayer.spend(purchasedItem.getPrice());
+                        currentPlayer.getFoodStock().add(purchasedItem);
+                    }else{
+                        String message = "You do not have enough money to purchase " + purchasedItem.getName();
+                        JOptionPane.showMessageDialog(null, message);
+                    }
+                }catch(Exception e){
+                    //Ignore first type exception.
+                }
+                
+                try{ //then see if item is a toy
+                    Toy purchasedItem = toyItems.get(values[0]);
+                    if(purchasedItem.getPrice() <= currentPlayer.getBalance()){
+                        currentPlayer.spend(purchasedItem.getPrice());
+                        currentPlayer.getToyList().add(purchasedItem);
+                    }else{
+                        String message = "You do not have enough money to purchase " + purchasedItem.getName();
+                        JOptionPane.showMessageDialog(null, message);
+                    }
+                }catch(Exception e){
+                    //ignore second exception
+                }
+                break;
             default:
                 System.out.println("Unknown GUI Element Identifier\nDropping data");
+                System.out.println(identifier);
         }
     }
 
@@ -85,7 +122,8 @@ public class GUIMain implements Observer {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.getContentPane().setLayout(null);
 
-        JPanel myPanel = new HomePanel(15);
+        HomePanel myPanel = new HomePanel(15, mainGame);
+        myPanel.getStoreTab().registerObserver(this);
 
         mainFrame.getContentPane().add(myPanel);
         myPanel.setVisible(true);
@@ -134,6 +172,8 @@ public class GUIMain implements Observer {
      */
     private void initialise(){
         mainGame = new GameEnvironment();
+        mainGame.generateFoodPrototypes();
+        mainGame.generateToyPrototypes();
         mainFrame = new JFrame();
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.getContentPane().setLayout(null);

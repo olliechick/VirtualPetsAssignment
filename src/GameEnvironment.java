@@ -22,6 +22,15 @@ public class GameEnvironment {
 	private int numberOfDays;
 	private int dailyPetAllowance;
 	private Random randomNumGen;
+	private Player currentPlayer;
+	
+	/**
+	 * Get the player who's turn it currently is.
+	 * @return current player.
+	 */
+	public Player getCurrentPlayer(){
+	    return currentPlayer;
+	}
 	
 	
 	/**
