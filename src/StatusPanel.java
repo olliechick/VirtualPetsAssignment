@@ -143,7 +143,14 @@ public class StatusPanel extends JPanel {
 		
 		JLabel lblNewLabel = new JLabel("");
 		//TODO: Make this work for different animals
-		lblNewLabel.setIcon(new ImageIcon(System.getProperty("user.dir") + "/img/AlpacaSmall.png"));
+		String topDir = System.getProperty("user.dir");
+		String fileName = "AlpacaSmall.png";
+        if (topDir.endsWith("bin")){
+            fileName = "../img/" + fileName;
+        }else{
+            fileName = System.getProperty("user.dir")  + "/img/" + fileName;
+        }
+		lblNewLabel.setIcon(new ImageIcon(fileName));
 		lblNewLabel.setBounds(0, 0, 365, 275);
 		panel.add(lblNewLabel);
 		
