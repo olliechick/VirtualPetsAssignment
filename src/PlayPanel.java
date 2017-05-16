@@ -73,16 +73,22 @@ public class PlayPanel extends JPanel {
      * @param selected Item to display information for.
      */
     private void showItemStats(Item selected){
-        Toy selectedToy = (Toy) selected;
-        lblName.setText(selected.getName());
-        //Format description string
-        String description = selected.getDescription() + ".";
-        Character firstChar = description.charAt(0);
-        firstChar = Character.toUpperCase(firstChar);
-        description = firstChar + description.substring(1);
-        lblDescription.setText(description);
-        Integer durability = (Integer) selectedToy.getDurability();
-        lblDurabilityScore.setText(durability.toString());
+        if (selected != null){
+            Toy selectedToy = (Toy) selected;
+            lblName.setText(selected.getName());
+            //Format description string
+            String description = selected.getDescription() + ".";
+            Character firstChar = description.charAt(0);
+            firstChar = Character.toUpperCase(firstChar);
+            description = firstChar + description.substring(1);
+            lblDescription.setText(description);
+            Integer durability = (Integer) selectedToy.getDurability();
+            lblDurabilityScore.setText(durability.toString());
+        }else{
+            lblName.setText("");
+            lblDescription.setText("");
+            lblDurabilityScore.setText("");
+        }
     }
     
     /**
