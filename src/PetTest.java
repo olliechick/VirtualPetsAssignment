@@ -141,68 +141,6 @@ public class PetTest {
 	}
 
 	@Test
-	public void testGetName() {
-		myPet.setName(name);
-		assertEquals(myPet.getName(), name);
-	}
-
-	@Test
-	public void testGetGender() {
-		myPet.setGender(gender);
-		assertEquals(myPet.getGender(), gender);
-	}
-
-	@Test
-	public void testGetSpecies() {
-		assertEquals(myPet.getSpecies(), species);
-	}
-
-	@Test
-	public void testGetMischievousness() {
-		assertEquals(myPet.getMischievousness(), 0);
-	}
-
-	@Test
-	public void testGetHappiness() {
-		assertEquals(myPet.getHappiness(), 100);
-	}
-
-	@Test
-	public void testGetHunger() {
-		assertEquals(myPet.getHunger(), 0);
-	}
-
-	@Test
-	public void testGetPercentBladderFull() {
-		assertEquals(myPet.getPercentBladderFull(), 0);
-	}
-
-	@Test
-	public void testGetFatigue() {
-		assertEquals(myPet.getFatigue(), 0);
-	}
-
-	@Test
-	public void testGetWeight() {
-		assertEquals(myPet.getWeight(), 4, delta);
-	}
-
-	@Test
-	public void testGetIsSick() {
-		assertEquals(myPet.getIsSick(), false);
-	}
-
-	@Test
-	public void testGetIsRevivable() {
-		assertEquals(myPet.getIsRevivable(), true);
-	}
-
-	@Test
-	public void testGetIsMisbehaving() {
-		assertEquals(myPet.getIsMisbehaving(), false);
-	}
-
-	@Test
 	public void testSetName() {
 
 		myPet.setName(name);
@@ -231,36 +169,6 @@ public class PetTest {
 		} catch (IllegalArgumentException e) {
 			assertEquals(myPet.getGender(), gender2);
 		}
-	}
-
-	@Test
-	public void testSetIsSick() {	
-
-		myPet.setIsSick(true);
-		assertEquals(myPet.getIsSick(), true);
-
-		myPet.setIsSick(false);
-		assertEquals(myPet.getIsSick(), false);
-	}
-
-	@Test
-	public void testSetIsRevivable() {
-
-		myPet.setIsRevivable(true);
-		assertEquals(myPet.getIsRevivable(), true);
-
-		myPet.setIsRevivable(false);
-		assertEquals(myPet.getIsRevivable(), false);
-	}
-
-	@Test
-	public void testSetIsMisbehaving() {
-
-		myPet.setIsMisbehaving(true);
-		assertEquals(myPet.getIsMisbehaving(), true);
-
-		myPet.setIsMisbehaving(false);
-		assertEquals(myPet.getIsMisbehaving(), false);	
 	}
 
 	@Test
