@@ -2,6 +2,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class SleepPanel extends JPanel {
     //TODO: Add functionality
     /**

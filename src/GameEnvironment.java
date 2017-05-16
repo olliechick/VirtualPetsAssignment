@@ -4,6 +4,7 @@ import java.util.Random;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 /**
@@ -62,14 +63,15 @@ public class GameEnvironment {
 	private ArrayList<String> getDataFromFile(String fileName){
 		String topDir = System.getProperty("user.dir");
 		if (topDir.endsWith("bin")){
-			fileName = "../src/" + fileName;
+			fileName = "../config/" + fileName;
 		}else{
-			fileName = System.getProperty("user.dir")  + "/src/" + fileName;
+			fileName = "config/" + fileName;
 		}
 		String line;
 		ArrayList<String> data = new ArrayList<String>();
 		
 		try{
+		    //InputStreamReader inputFile = new InputStreamReader(this.getClass().getResourceAsStream(fileName));
 			FileReader inputFile = new FileReader(fileName);
 			BufferedReader bufferReader = new BufferedReader(inputFile);
 			

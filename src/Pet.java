@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * A class for pets.
@@ -254,9 +255,9 @@ public class Pet {
 	private String getDatumFromFile(String fileName, String heading, String row){
 		String topDir = System.getProperty("user.dir");
 		if (topDir.endsWith("bin")){
-			fileName = "../src/" + fileName;
+			fileName = "../config/" + fileName;
 		}else{
-			fileName = System.getProperty("user.dir")  + "/src/" + fileName;
+		    fileName = "config/" + fileName;
 		}
 		String datum = null;
 		int col = 0;
@@ -264,7 +265,7 @@ public class Pet {
 		String typeOfItem = null;
 		
 		try{
-			FileReader inputFile = new FileReader(fileName);
+		    FileReader inputFile = new FileReader(fileName);
 			BufferedReader bufferReader = new BufferedReader(inputFile);
 
 			String line;
