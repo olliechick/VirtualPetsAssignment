@@ -13,7 +13,7 @@ public class ToiletPanel extends JPanel {
         setLayout(null);
         
         JLabel lblNewLabel = new JLabel("New label");
-        lblNewLabel.setBounds(362, 90, 46, 14);
+        lblNewLabel.setBounds(362, 184, 46, 14);
         add(lblNewLabel);
         
         JButton btnGoToilet = new JButton("Go Toilet");

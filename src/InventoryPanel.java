@@ -1,6 +1,7 @@
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -28,8 +29,8 @@ public class InventoryPanel extends JPanel {
         setLayout(null);
         listModel = new DefaultListModel<Item>();
         
-        JList<Item> list_1 = new JList<Item>(listModel);
-        JScrollPane pane = new JScrollPane(list_1);
+        itemList = new JList<Item>(listModel);
+        JScrollPane pane = new JScrollPane(itemList);
         pane.setBounds(0, 0, 189, 333);
         add(pane);
     }
@@ -43,6 +44,10 @@ public class InventoryPanel extends JPanel {
         for(int i = 0; i < itemList.length; i++){
             listModel.add(i, itemList[i]); 
         }
+    }
+    
+    public void addEventListener(ListSelectionListener newListener){
+        itemList.addListSelectionListener(newListener);
     }
     
     /**

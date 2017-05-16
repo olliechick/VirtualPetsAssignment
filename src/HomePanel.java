@@ -48,6 +48,10 @@ public class HomePanel extends JPanel {
      * Internal panel to handle store stuff.
      */
     private StorePanel storeTab;
+    /**
+     * Internal panel to handle player playing with their pet.
+     */
+    private PlayPanel playTab;
 
     /**
      * Create the panel.
@@ -64,20 +68,19 @@ public class HomePanel extends JPanel {
         tabbedPane.addTab("Status", null, statusTab, null);
 
         storeTab = new StorePanel(mainGame.getToyPrototypes(), 
-                                  mainGame.getFoodPrototypes(),
-                                  mainGame);
+                                  mainGame.getFoodPrototypes());
         tabbedPane.addTab("Store", null, storeTab, null);
 
         JTabbedPane feedTab = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.addTab("Feed", null, feedTab, null);
 
-        JTabbedPane playTab = new JTabbedPane(JTabbedPane.TOP);
+        playTab = new PlayPanel();
         tabbedPane.addTab("Play", null, playTab, null);
 
-        JTabbedPane sleepTab = new JTabbedPane(JTabbedPane.TOP);
+        SleepPanel sleepTab = new SleepPanel();
         tabbedPane.addTab("Sleep", null, sleepTab, null);
 
-        JTabbedPane toiletTab = new JTabbedPane(JTabbedPane.TOP);
+        ToiletPanel toiletTab = new ToiletPanel();
         tabbedPane.addTab("Toilet", null, toiletTab, null);
 
         JLabel lblPlayer = new JLabel("Player:");
@@ -105,7 +108,7 @@ public class HomePanel extends JPanel {
         add(lblCurrentPet);
 
         JLabel lblActionsRemaining = new JLabel("Actions Remaining:");
-        lblActionsRemaining.setBounds(386, 11, 122, 14);
+        lblActionsRemaining.setBounds(387, 7, 122, 23);
         add(lblActionsRemaining);
 
         lblNumActions = new JLabel("numActions");
@@ -152,6 +155,8 @@ public class HomePanel extends JPanel {
      */
     public void refreshTabs(Player currentPlayer, Pet currentPet, int currentDay, int numActions){
         statusTab.setPetStatus(currentPet);
+        storeTab.updatePlayerInventory(currentPlayer);
+        playTab.listPlayerToys(currentPlayer.getToyList());
         refreshPlayerStats(currentPlayer, numActions);
         lblCurrentPet.setText(currentPet.getName());
         lblDayMarker.setText(currentDay + "/" + totalDays);

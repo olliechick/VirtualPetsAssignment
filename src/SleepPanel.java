@@ -11,7 +11,7 @@ public class SleepPanel extends JPanel {
         setLayout(null);
         
         JLabel lblNewLabel = new JLabel("ImageLabel");
-        lblNewLabel.setBounds(362, 110, 46, 14);
+        lblNewLabel.setBounds(362, 184, 46, 14);
         add(lblNewLabel);
         
         JButton btnSleep = new JButton("Sleep");

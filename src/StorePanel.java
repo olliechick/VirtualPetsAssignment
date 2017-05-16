@@ -50,7 +50,6 @@ public class StorePanel extends JPanel implements Observable{
      * List of objects currently observing this element.
      */
     private ArrayList<Observer> observers = new ArrayList<Observer>();
-    private GameEnvironment parent;
     
     /**
      * Create the panel.
@@ -58,10 +57,8 @@ public class StorePanel extends JPanel implements Observable{
      * @param foodPrototypes Hashmap of food prototypes.
      */
     public StorePanel(HashMap<String, Toy> toyPrototypes, 
-                      HashMap<String, Food> foodPrototypes,
-                      GameEnvironment mainGame) {
+                      HashMap<String, Food> foodPrototypes) {
         setLayout(null);
-        parent = mainGame;
         
         ArrayList<Item> storeItems = generateStoreInventory(toyPrototypes, foodPrototypes);
         Item[] storeItemArray = storeItems.toArray(new Item[0]);
@@ -126,7 +123,6 @@ public class StorePanel extends JPanel implements Observable{
             public void actionPerformed(ActionEvent arg0) {
                 selectedItem = storeInventory.getSelectedValue();
                 notifyObservers();
-                updatePlayerInventory();
             }
         });
         add(btnBuyItem);
@@ -138,8 +134,7 @@ public class StorePanel extends JPanel implements Observable{
         add(playerInventory);
     }
     
-    private void updatePlayerInventory(){
-        Player currentPlayer = parent.getCurrentPlayer();
+    public void updatePlayerInventory(Player currentPlayer){
         ArrayList<Toy> toyList = currentPlayer.getToyList();
         ArrayList<Food> foodStock = currentPlayer.getFoodStock();
         
@@ -226,8 +221,7 @@ public class StorePanel extends JPanel implements Observable{
         testGame.generateToyPrototypes();
         StorePanel myPanel = new StorePanel(
                 testGame.getToyPrototypes(), 
-                testGame.getFoodPrototypes(),
-                testGame);
+                testGame.getFoodPrototypes());
         
         
         myFrame.getContentPane().add(myPanel);

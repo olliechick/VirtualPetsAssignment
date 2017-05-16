@@ -25,6 +25,14 @@ public class GameEnvironment {
 	private Player currentPlayer;
 	
 	/**
+	 * Get the number of days the game will go on for.
+	 * @return number of days game will run for.
+	 */
+	public int getNumDays(){
+	    return numberOfDays;
+	}
+	
+	/**
 	 * Get the player who's turn it currently is.
 	 * @return current player.
 	 */

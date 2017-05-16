@@ -141,8 +141,8 @@ public class GUIMain implements Observer {
         mainFrame.setBounds(0, 0, 815, 540);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.getContentPane().setLayout(null);
-
-        homeScreen = new HomePanel(15, mainGame);
+        int numDays = mainGame.getNumDays();
+        homeScreen = new HomePanel(numDays, mainGame);
         homeScreen.getStoreTab().registerObserver(this);
 
         mainFrame.getContentPane().add(homeScreen);
