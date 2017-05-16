@@ -291,7 +291,13 @@ public class GameEnvironment {
 	        }
 	        newPet.setName(petData[0]);
 	        newPlayer.getPetList().add(newPet);
-	        System.out.println(newPlayer);
+	        Boolean genderDecider = randomNumGen.nextBoolean();
+	        if (genderDecider){ //gender decided by randomNumGen
+	            newPet.setGender("female");
+	        } else{
+	            newPet.setGender("male");
+	        }
+	        System.out.println(newPet.getGender());
 	    }
 	    playerList.add(newPlayer);
 	}

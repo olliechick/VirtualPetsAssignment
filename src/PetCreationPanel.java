@@ -104,7 +104,7 @@ public class PetCreationPanel extends JPanel {
     /**
      * Enables all components in the panel. Wrapper function for setEnable.
      */
-    public void enable(){
+    public void enable() {
         setEnable(true);
     }
 
@@ -112,7 +112,7 @@ public class PetCreationPanel extends JPanel {
     /**
      * Disables all components in the panel. Wapper function for setEnable.
      */
-    public void disable(){
+    public void disable() {
         setEnable(false);
     }
 
@@ -121,7 +121,7 @@ public class PetCreationPanel extends JPanel {
      * Workhorse function to disable or enable all components in the panel.
      * @param enabled Boolean to enable or disable
      */
-    private void setEnable(Boolean enabled){
+    private void setEnable(Boolean enabled) {
         rdbtnCat.setEnabled(enabled);
         rdbtnDog.setEnabled(enabled);
         rdbtnGoat.setEnabled(enabled);
@@ -137,7 +137,7 @@ public class PetCreationPanel extends JPanel {
      * Get pet name from input box.
      * @return pet name
      */
-    public String getPetName(){
+    public String getPetName() {
         return petNameField.getText();
     }
 
@@ -146,19 +146,19 @@ public class PetCreationPanel extends JPanel {
      * Get species selected as a string.
      * @return speces selected
      */
-    public String getPetSpecies(){
+    public String getPetSpecies() {
         String species;
-        if(rdbtnAlpaca.isSelected()){
+        if (rdbtnAlpaca.isSelected()) {
             species = "alpaca";
-        }else if(rdbtnCat.isSelected()){
+        } else if (rdbtnCat.isSelected()) {
             species = "cat";
-        }else if(rdbtnDog.isSelected()){
+        } else if (rdbtnDog.isSelected()) {
             species = "dog";
-        }else if(rdbtnGoat.isSelected()){
+        } else if (rdbtnGoat.isSelected()) {
             species = "goat";
-        }else if(rdbtnHorse.isSelected()){
+        } else if (rdbtnHorse.isSelected()) {
             species = "horse";
-        }else{ //final case polar bear is selected
+        } else { //final case polar bear is selected
             species = "polar bear";
         }
         return species;

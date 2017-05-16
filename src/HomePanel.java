@@ -43,7 +43,6 @@ public class HomePanel extends JPanel {
      * Element to display the number of action the player has remainging.
      */
     private JLabel lblNumActions;
-    
     /**
      * Internal panel to handle store stuff.
      */
@@ -52,6 +51,10 @@ public class HomePanel extends JPanel {
      * Internal panel to handle player playing with their pet.
      */
     private PlayPanel playTab;
+    /**
+     * Internal panel to handle player feeding with their pet.
+     */
+    private FeedPanel feedTab;
 
     /**
      * Create the panel.
@@ -67,11 +70,11 @@ public class HomePanel extends JPanel {
         statusTab = new StatusPanel();
         tabbedPane.addTab("Status", null, statusTab, null);
 
-        storeTab = new StorePanel(mainGame.getToyPrototypes(), 
+        storeTab = new StorePanel(mainGame.getToyPrototypes(),
                                   mainGame.getFoodPrototypes());
         tabbedPane.addTab("Store", null, storeTab, null);
 
-        JTabbedPane feedTab = new JTabbedPane(JTabbedPane.TOP);
+        feedTab = new FeedPanel();
         tabbedPane.addTab("Feed", null, feedTab, null);
 
         playTab = new PlayPanel();
@@ -126,6 +129,7 @@ public class HomePanel extends JPanel {
         JButton btnNext = new JButton("Next");
         btnNext.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                //TODO: Add functionality.
             }
         });
         btnNext.setBounds(701, 466, 89, 23);
@@ -139,7 +143,7 @@ public class HomePanel extends JPanel {
      * @param currentPlayer Player to display stats for
      * @param numActions Number of actions remaining
      */
-    public void refreshPlayerStats(Player currentPlayer, int numActions){
+    public void refreshPlayerStats(Player currentPlayer, int numActions) {
         Integer balance = (Integer) currentPlayer.getBalance();
         lblPlayerBalance.setText("$" + balance.toString());
         lblCurrentPlayer.setText(currentPlayer.getName());
@@ -153,32 +157,34 @@ public class HomePanel extends JPanel {
      * @param currentDay Current day number
      * @param numActions number of actions remaining
      */
-    public void refreshTabs(Player currentPlayer, Pet currentPet, int currentDay, int numActions){
+    public void refreshTabs(Player currentPlayer, Pet currentPet,
+                            int currentDay, int numActions) {
         statusTab.setPetStatus(currentPet);
         storeTab.updatePlayerInventory(currentPlayer);
         playTab.listPlayerToys(currentPlayer.getToyList());
+        feedTab.listPlayerFood(currentPlayer.getFoodStock());
         refreshPlayerStats(currentPlayer, numActions);
         lblCurrentPet.setText(currentPet.getName());
         lblDayMarker.setText(currentDay + "/" + totalDays);
     }
 
     /**
-     * Get the store tab to add observer to it
+     * Get the store tab to add observer to it.
      * @return storeTab
      */
-    public StorePanel getStoreTab(){
+    public StorePanel getStoreTab() {
         return storeTab;
     }
-    
+
     /**
      * Main method for testing.
      * @param args Arguments passed in
      */
-    public static void main(String[] args){
-        try{
+    public static void main(String[] args) {
+        try {
             String systemLook = UIManager.getSystemLookAndFeelClassName();
             UIManager.setLookAndFeel(systemLook);
-        }catch(Exception e){
+        } catch (Exception e) {
           //ignore all exceptions
         }
         JFrame myFrame = new JFrame();
@@ -187,7 +193,6 @@ public class HomePanel extends JPanel {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.getContentPane().setLayout(null);
 
-        
         GameEnvironment mainGame = new GameEnvironment();
         mainGame.generateFoodPrototypes();
         mainGame.generateToyPrototypes();
@@ -202,13 +207,13 @@ public class HomePanel extends JPanel {
         Player testPlayer = new Player();
         testPlayer.setName("Stewart Little");
         Pet cat;
-        try{
+        try {
             cat = new Pet("cat");
             cat.setGender("male");
             cat.setName("Snowy");
             testPlayer.getPetList().add(cat);
             myPanel.refreshTabs(testPlayer, cat, 5, 1);
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Problem in cat giving displaying default label values");
         }
     }

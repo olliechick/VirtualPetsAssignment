@@ -1,16 +1,13 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 
-
 /**
  * Main GUI class for VirtualPets sort of a ViewController.
  * @author Samuel Pell
- *
  */
 public class GUIMain implements Observer {
      /**
@@ -51,8 +48,8 @@ public class GUIMain implements Observer {
      * @param identifier Identifier of the operation.
      * @param values Array of objects appropriate to the GUI call.
      */
-    public void getValues(String identifier, String[] values){
-        switch(identifier){
+    public void getValues(String identifier, String[] values) {
+        switch(identifier) {
             case "setup":
                 Integer numDays = Integer.parseInt(values[1]);
                 mainGame.setNumDays(numDays);
@@ -64,79 +61,79 @@ public class GUIMain implements Observer {
 
             case "player creation":
                 numPlayersCreated++;
-                try{
+                try {
                     mainGame.createPlayer(values);
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
                 clearFrame();
-                if (numPlayersCreated < playerNumber){
+                if (numPlayersCreated < playerNumber) {
                     createPlayer();
-                }else{
+                } else {
                     newDay();
                 }
                 break;
-                
+
             case "buy item":
                 attemptBuyItem(values[0]);
                 refreshScreen();
                 break;
-                
+
             default:
                 System.out.println("Unknown GUI Element Identifier\nDropping data");
                 System.out.println(identifier);
         }
     }
-    
+
     /**
-     * Player attempts to buy an item
+     * Player attempts to buy an item.
      * @param itemBought Item player is trying to purchase
      */
-    private void attemptBuyItem(String itemBought){
+    private void attemptBuyItem(String itemBought) {
         HashMap<String, Food> foodItems = mainGame.getFoodPrototypes();
         HashMap<String, Toy> toyItems = mainGame.getToyPrototypes();
-        
-        try{ //first try to see if item is a food.
+
+        try { //first try to see if item is a food.
             Food purchasedItem = foodItems.get(itemBought);
-            if(purchasedItem.getPrice() <= currentPlayer.getBalance()){
+            if (purchasedItem.getPrice() <= currentPlayer.getBalance()) {
                 currentPlayer.spend(purchasedItem.getPrice());
                 currentPlayer.addFood(purchasedItem);
-            }else{
+            } else {
                 String message = "You do not have enough money to purchase " + purchasedItem.getName();
                 JOptionPane.showMessageDialog(null, message);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             //Ignore first type exception.
         }
-        
-        try{ //then see if item is a toy
+
+        try { //then see if item is a toy
             Toy purchasedItem = toyItems.get(itemBought);
-            if(purchasedItem.getPrice() <= currentPlayer.getBalance()){
+            if (purchasedItem.getPrice() <= currentPlayer.getBalance()) {
                 currentPlayer.spend(purchasedItem.getPrice());
                 currentPlayer.addToy(purchasedItem);
-            }else{
+            } else {
                 String message = "You do not have enough money to purchase " + purchasedItem.getName();
                 JOptionPane.showMessageDialog(null, message);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             //ignore second exception
         }
     }
-    
+
     /**
      * Refresh screen to display change in data.
      */
-    private void refreshScreen(){
+    private void refreshScreen() {
         homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2);
     }
-    
+
     /**
      * Move to a new day.
      */
     private void newDay(){
         System.out.println("Its a brand new day!!");
-        
+
         clearFrame();
         mainFrame.setBounds(0, 0, 815, 540);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -149,7 +146,7 @@ public class GUIMain implements Observer {
         homeScreen.setVisible(true);
 
         homeScreen.setSize(800, 500);
-        
+
         currentPlayer = mainGame.getPlayerList().get(0);
         mainGame.setCurrentPlayer(currentPlayer);
         currentPet = currentPlayer.getPetList().get(0);
@@ -162,12 +159,12 @@ public class GUIMain implements Observer {
      * @param nameList List of names to check against
      * @return If the name is a duplicate.
      */
-    public boolean nameTaken(String name, ArrayList<String> nameList){
+    public boolean nameTaken(String name, ArrayList<String> nameList) {
         boolean found = false;
         int i = 0;
 
-        while (!found && (i < nameList.size())){
-            if (nameList.get(i).equals(name)){
+        while (!found && (i < nameList.size())) {
+            if (nameList.get(i).equals(name)) {
                 found = true;
             }
             i++;
@@ -188,17 +185,18 @@ public class GUIMain implements Observer {
      * Add a name to the list of names.
      * @param name Name to add to the list
      */
-    public void registerName(String name){
+    public void registerName(String name) {
         nameList.add(name);
     }
 
     /**
      * Sets up the main window and game environment.
      */
-    private void initialise(){
+    private void initialise() {
         mainGame = new GameEnvironment();
         mainGame.generateFoodPrototypes();
         mainGame.generateToyPrototypes();
+        mainGame.initialiseNumGenerator(new String[0]);
         mainFrame = new JFrame();
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.getContentPane().setLayout(null);
@@ -207,7 +205,7 @@ public class GUIMain implements Observer {
     /**
      * Shows the setup panel to the user.
      */
-    private void showSetup(){
+    private void showSetup() {
         mainFrame.setBounds(0, 0, 300, 200);
         SetupPanel setupPanel = new SetupPanel();
         setupPanel.registerObserver(this);
@@ -223,7 +221,7 @@ public class GUIMain implements Observer {
     /**
      * Display a player creation pane.
      */
-    private void createPlayer(){
+    private void createPlayer() {
         mainFrame.setBounds(0, 0, 435, 392);
         PlayerCreationPanel playerCreation = new PlayerCreationPanel(this);
         playerCreation.registerObserver(this);
@@ -239,7 +237,7 @@ public class GUIMain implements Observer {
     /**
      * Clears the frames of all components.
      */
-    private void clearFrame(){
+    private void clearFrame() {
         mainFrame.getContentPane().setVisible(false);
         mainFrame.getContentPane().removeAll();
         mainFrame.getContentPane().setVisible(true);
@@ -249,10 +247,10 @@ public class GUIMain implements Observer {
      * Main method to kick everything off.
      * @param args Some arguments that probably won't get used.
      */
-    public static void main(String[] args){
-        try{
+    public static void main(String[] args) {
+        try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }catch(Exception e){
+        } catch(Exception e) {
             //ignore all exceptions
         }
         GUIMain main = new GUIMain();
