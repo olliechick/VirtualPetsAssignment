@@ -168,7 +168,7 @@ public class StatusPanel extends JPanel {
         add(lblSpecies);
 
         lblPetSpecies = new JLabel("petSpecies");
-        lblPetSpecies.setBounds(268, 103, 46, 14);
+        lblPetSpecies.setBounds(268, 103, 71, 14);
         add(lblPetSpecies);
 
         JPanel panel = new JPanel();
