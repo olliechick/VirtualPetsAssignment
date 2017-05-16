@@ -1,7 +1,11 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 //import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 /**
  * A class for pets.
@@ -245,70 +249,78 @@ public class Pet {
 	}
 
 	//other methods
-	/**
-	 * Read the file from the path inputed and selects the data necessary.
-	 * @param fileName File to read from
-	 * @param heading Name of the column in the data file
-	 * @param row The name of the item
-	 * @return datum wanted
-	 */
-	private String getDatumFromFile(String fileName, String heading, String row){
-		String topDir = System.getProperty("user.dir");
-		if (topDir.endsWith("bin")){
-			fileName = "../config/" + fileName;
-		}else{
-		    fileName = "config/" + fileName;
-		}
-		String datum = null;
-		int col = 0;
-		Boolean found = false;
-		String typeOfItem = null;
-		
-		try{
-		    FileReader inputFile = new FileReader(fileName);
-			BufferedReader bufferReader = new BufferedReader(inputFile);
+    /**
+     * Read the file from the path inputed and selects the data necessary.
+     * @param fileName File to read from
+     * @param heading Name of the column in the data file
+     * @param row The name of the item
+     * @return datum wanted
+     */
+    private String getDatumFromFile(String fileName, String heading, String row){
+        String datum = null;
+        int col = 0;
+        Boolean found = false;
+        String typeOfItem = null;
+        
+        try{
+            Reader inputFile;
+            try { //Runs if running class directly
+                String topDir = System.getProperty("user.dir");
+                if (topDir.endsWith("bin")){ //from cmdln
+                    fileName = "../config/" + fileName;
+                }else{ //from eclipse
+                    fileName = "config/" + fileName;
+                }
+                inputFile = new FileReader(fileName);
+            } catch (FileNotFoundException e) { //if running from jar file.
+                InputStream stream = this.getClass().getResourceAsStream(fileName);
+                inputFile = new InputStreamReader(stream);
+            }
+            
+            BufferedReader bufferReader = new BufferedReader(inputFile);
 
-			String line;
-			int i = 0;
-			
-			while ((line = bufferReader.readLine()) != null){
-				switch(i){
-					case 0: break; //description line
-					case 1: 
-						int j = 0;
-						typeOfItem = line.split(",")[0];
-						for(String piece : line.split(",")){
-							if (piece.equals(heading)){
-								col = j;
-								found = true;
-							}
-							j++;
-						}
-						if (!found){
-							throw new IllegalArgumentException("No such heading");
-						}
-						break;
-					default:
-						if(line.split(",")[0].equals(row)){ //if the right row
-							datum = line.split(",")[col];
-						}
-				}
-				i++;
-			}
-			
-			//when done close both reader and file
-			bufferReader.close();
-			inputFile.close();
-			
-		}catch(Exception e){
-			System.err.println("Error while reading file line by line: " + e.getMessage());
-		}
-		
-		if (datum == null)
-			throw new IllegalArgumentException("Unknown " + typeOfItem + ": " + row);
-		else
-			return datum;
-	}
+            String line;
+            int i = 0;
+            
+            while ((line = bufferReader.readLine()) != null){
+                switch(i){
+                    case 0: break; //description line
+                    case 1: 
+                        int j = 0;
+                        typeOfItem = line.split(",")[0];
+                        for(String piece : line.split(",")){
+                            if (piece.equals(heading)){
+                                col = j;
+                                found = true;
+                            }
+                            j++;
+                        }
+                        if (!found){
+                            throw new IllegalArgumentException("No such heading");
+                        }
+                        break;
+                    default:
+                        if(line.split(",")[0].equals(row)){ //if the right row
+                            datum = line.split(",")[col];
+                        }
+                }
+                i++;
+            }
+
+            //when done close both reader and file
+            bufferReader.close();
+            inputFile.close();
+
+        } catch(Exception e) {
+            System.err.println("Error while reading file line by line: " + e.getMessage());
+        }
+
+        if (datum == null){
+            throw new IllegalArgumentException("Unknown " + typeOfItem + ": " + row);
+        } else {
+            return datum;
+        }
+    }
 	
 	/**
 	 * This is a private function called by the increasers to make sure they stay within 0-100

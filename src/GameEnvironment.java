@@ -2,9 +2,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-//import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 
 /**
@@ -61,34 +64,38 @@ public class GameEnvironment {
 	 * @return ArrayList of each line as a string.
 	 */
 	private ArrayList<String> getDataFromFile(String fileName){
-		String topDir = System.getProperty("user.dir");
-		if (topDir.endsWith("bin")){
-			fileName = "../config/" + fileName;
-		}else{
-			fileName = "config/" + fileName;
-		}
-		String line;
-		ArrayList<String> data = new ArrayList<String>();
-		
-		try{
-		    //InputStreamReader inputFile = new InputStreamReader(this.getClass().getResourceAsStream(fileName));
-			FileReader inputFile = new FileReader(fileName);
+	    ArrayList<String> data = new ArrayList<String>();
+	    String line;
+		try {
+		    Reader inputFile;
+		    try { //Runs if running class directly
+		        String topDir = System.getProperty("user.dir");
+		        if (topDir.endsWith("bin")){ //from cmdln
+		            fileName = "../config/" + fileName;
+		        }else{ //from eclipse
+		            fileName = "config/" + fileName;
+		        }
+		        inputFile = new FileReader(fileName);
+		    } catch (FileNotFoundException e) { //if running from jar file.
+		        InputStream stream = this.getClass().getResourceAsStream(fileName);
+		        inputFile = new InputStreamReader(stream);
+		    }
+
 			BufferedReader bufferReader = new BufferedReader(inputFile);
-			
 			bufferReader.readLine(); //ignore first line
-			
+
 			while ((line = bufferReader.readLine()) != null){
 				data.add(line);
 			}
-			
+
 			bufferReader.close(); //tidy up after reading file
 			inputFile.close();
-		}catch (IOException e){ 
+		} catch (IOException e) { 
 			//If there is an IO error here just give up.
 			System.err.println("Error while reading file line by line: " + e.getMessage());
 			System.exit(0);
 		}
-		
+
 		return data;
 	}
 	
