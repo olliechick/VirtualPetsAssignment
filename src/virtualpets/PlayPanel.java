@@ -6,6 +6,8 @@ import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,7 +18,7 @@ import javax.swing.JButton;
  * @author Samuel Pell
  */
 @SuppressWarnings("serial")
-public class PlayPanel extends JPanel {
+public class PlayPanel extends JPanel implements Observable {
     /**
      * Element that displays players toys.
      */
@@ -33,6 +35,10 @@ public class PlayPanel extends JPanel {
      * Label to show the durability of the toy.
      */
     private JLabel lblDurabilityScore;
+    /**
+     * List of observers currently observing this object.
+     */
+    private ArrayList<Observer> observers = new ArrayList<Observer>();
 
     /**
      * Create the panel.
@@ -77,6 +83,14 @@ public class PlayPanel extends JPanel {
 
         JButton btnPlayWithToy = new JButton("Play with Toy");
         btnPlayWithToy.setBounds(656, 349, 104, 23);
+        btnPlayWithToy.addActionListener(new ActionListener() {
+            /**
+             * When button pressed notify observers.
+             */
+            public void actionPerformed(ActionEvent arg0) {
+                notifyObservers();
+            }
+        });
         add(btnPlayWithToy);
 
         lblDurabilityScore = new JLabel("");
@@ -98,7 +112,7 @@ public class PlayPanel extends JPanel {
             firstChar = Character.toUpperCase(firstChar);
             description = firstChar + description.substring(1);
             lblDescription.setText(description);
-            Integer durability = (Integer) selectedToy.getDurability();
+            Integer durability = selectedToy.getDurability();
             lblDurabilityScore.setText(durability.toString());
         } else {
             lblName.setText("");
@@ -114,6 +128,24 @@ public class PlayPanel extends JPanel {
     public void listPlayerToys(ArrayList<Toy> toyList) {
         Item[] itemList = toyList.toArray(new Item[0]);
         itemListPanel.displayInventory(itemList);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    /**
+     * Notifies observers with identifier "play" and a string array
+     * {Item name}.
+     */
+    public void notifyObservers() {
+        for (Observer o: observers) {
+            Item selected = itemListPanel.getSelectedItem();
+            o.getValues("play", new String[] {selected.getName()});
+        }
     }
 
     /**

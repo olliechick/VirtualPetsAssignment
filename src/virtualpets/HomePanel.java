@@ -203,7 +203,13 @@ public class HomePanel extends JPanel {
         return toiletTab;
     }
 
-    //TODO getOtherTabs(){}
+    /**
+     * Get the play tab.
+     * @return play tab
+     */
+    public PlayPanel getPlayTab(){
+        return playTab;
+    }
 
     /**
      * Get the sleep tab to add observer to it.

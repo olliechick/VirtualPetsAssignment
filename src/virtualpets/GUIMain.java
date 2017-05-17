@@ -100,6 +100,12 @@ public class GUIMain implements Observer {
                 refreshScreen();
                 break;
 
+            case "play":
+                Toy toy = mainGame.getToyPrototypes().get(values[0]);
+                currentPet.play(toy);
+                refreshScreen();
+                break;
+
             default:
                 System.out.println("Unknown GUI Element Identifier");
                 System.out.println("Dropping data");
@@ -166,6 +172,7 @@ public class GUIMain implements Observer {
         homeScreen.getFeedingTab().registerObserver(this);
         homeScreen.getSleepTab().registerObserver(this);
         homeScreen.getToiletTab().registerObserver(this);
+        homeScreen.getPlayTab().registerObserver(this);
 
         mainFrame.getContentPane().add(homeScreen);
         homeScreen.setVisible(true);
