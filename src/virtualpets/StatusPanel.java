@@ -252,6 +252,7 @@ public class StatusPanel extends JPanel {
         Pet cat;
         StatusPanel myPanel = new StatusPanel();
 
+        //TODO is this more tests?
         try {
             cat = new Pet("cat");
             cat.setGender("male");

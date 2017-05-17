@@ -11,6 +11,7 @@ import javax.swing.JButton;
 /**
  * Panel to allow the player to put their pet to sleep.
  * @author Samuel Pell
+ * @author Ollie Chick
  */
 @SuppressWarnings("serial")
 public class SleepPanel extends JPanel implements Observable{
@@ -35,9 +36,7 @@ public class SleepPanel extends JPanel implements Observable{
         btnSleep.setBounds(340, 349, 89, 23);
         btnSleep.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //do stuff
                 notifyObservers();
-                //do stuff
             }
         });
         add(btnSleep);
