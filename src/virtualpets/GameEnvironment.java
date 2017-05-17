@@ -483,7 +483,7 @@ public class GameEnvironment {
      *
      * @param playerArray Fully setup list of players.
      */
-    protected void addPlayers(ArrayList<Player> playerArray) {
+    public void addPlayers(ArrayList<Player> playerArray) {
         playerList = playerArray;
     }
 

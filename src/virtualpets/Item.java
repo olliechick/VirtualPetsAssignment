@@ -86,7 +86,7 @@ public abstract class Item {
      * @param strings Array of strings to be converted.
      * @return Converted array.
      */
-    protected Integer[] convertStringsToInts(String[] strings) {
+    public Integer[] convertStringsToInts(String[] strings) {
         Integer[] integers = new Integer[strings.length];
         for (int i = 0; i < strings.length; i++) {
             integers[i] = Integer.parseInt(strings[i]);

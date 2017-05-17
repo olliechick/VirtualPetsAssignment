@@ -252,15 +252,10 @@ public class StatusPanel extends JPanel {
         Pet cat;
         StatusPanel myPanel = new StatusPanel();
 
-        //TODO is this more tests?
-        try {
-            cat = new Pet("cat");
-            cat.setGender("male");
-            cat.setName("Snowy");
-            myPanel.setPetStatus(cat);
-        } catch (IOException e) {
-            System.out.println("Problem in cat giving displaying default label values");
-        }
+        cat = new Pet("cat");
+        cat.setGender("male");
+        cat.setName("Snowy");
+        myPanel.setPetStatus(cat);
 
         myFrame.getContentPane().add(myPanel);
         myPanel.setVisible(true);
