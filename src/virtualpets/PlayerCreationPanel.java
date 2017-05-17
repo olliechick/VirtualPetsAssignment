@@ -41,7 +41,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
      */
     public PlayerCreationPanel(GUIMain parent) {
         mainGUI = parent;
-        setLayout(null); //Absoloute layout
+        setLayout(null); //Absolute layout
 
         //Player name text box and label
         JLabel lblPlayerName = new JLabel("Player Name:");
@@ -72,7 +72,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         petThreePanel.setBounds(287, 87, 123, 225);
         add(petThreePanel);
 
-        //Creating check boxes and adding enabling disabling behaivour
+        //Creating check boxes and adding enabling disabling behavior
         JCheckBox petOneBox = new JCheckBox("1", true); //default to 1 pet
         petOneBox.setBounds(56, 57, 43, 23);
         petOneBox.addActionListener(new ActionListener() {
@@ -118,7 +118,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
             //TODO: Should this be broken out into a new file --Sam
             /**
              * Listener that checks input, and if it is valid prepares it for
-             * output and notifies the onjects observers.
+             * output and notifies the object's observers.
              * @param event Action event passed in when event triggered.
              */
             public void actionPerformed(ActionEvent event) {

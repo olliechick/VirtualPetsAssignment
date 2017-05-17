@@ -9,11 +9,15 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
@@ -27,7 +31,7 @@ public class StorePanel extends JPanel implements Observable {
     /**
      * Component that displays store inventory.
      */
-    private JList<Item> storeInventory;
+    private JTable storeInventory;
     /**
      * Label which displays object's name.
      */
@@ -53,6 +57,24 @@ public class StorePanel extends JPanel implements Observable {
      */
     private ArrayList<Observer> observers = new ArrayList<Observer>();
 
+    public static Item[][] transposeMatrix(Item[][] matrix)
+    {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        Item[][] trasposedMatrix = new Item[n][m];
+
+        for(int x = 0; x < n; x++)
+        {
+            for(int y = 0; y < m; y++)
+            {
+                trasposedMatrix[x][y] = matrix[y][x];
+            }
+        }
+
+        return trasposedMatrix;
+    }
+
     /**
      * Create the panel.
      * @param toyPrototypes Hashmap of toy prototypes.
@@ -62,46 +84,43 @@ public class StorePanel extends JPanel implements Observable {
                       HashMap<String, Food> foodPrototypes) {
         setLayout(null);
 
-        ArrayList<Item> storeItems = generateStoreInventory(toyPrototypes, foodPrototypes);
-        Item[] storeItemArray = storeItems.toArray(new Item[0]);
+        ArrayList<Item> toyItems = generateToyInventory(toyPrototypes);
+        Item[] toyItemArray = toyItems.toArray(new Item[0]);
+        ArrayList<Item> foodItems = generateFoodInventory(foodPrototypes);
+        Item[] foodItemArray = foodItems.toArray(new Item[0]);
+        Item[][] m = {toyItemArray, foodItemArray};
+        Item[][] storeArray = transposeMatrix(m);
+        String[] typesOfItem = {"Toys", "Food"};
 
-        storeInventory = new JList<Item>(storeItemArray); //create JList with store items at core
+        storeInventory = new JTable(storeArray, typesOfItem); //create JTable with store items at core
         storeInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Set it so that one item can be selected at a time
-        storeInventory.addListSelectionListener(new ListSelectionListener() {
+        storeInventory.setCellSelectionEnabled(true);
+        storeInventory.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             /**
              * When selection changes display new items stats.
              */
             public void valueChanged(ListSelectionEvent arg0) {
-               Item selected = storeInventory.getSelectedValue();
-               showItemStats(selected);
-            }
+            	int row = storeInventory.getSelectedRow();
+            	int col = storeInventory.getSelectedColumn();
+            	Item selected = (Item) storeInventory.getValueAt(row, col);
+                showItemStats(selected);
+			}
         });
-        JScrollPane scrollBar = new JScrollPane(storeInventory); //Add a scroll bar to the JList so that the user can scroll
-        scrollBar.setBounds(22, 39, 179, 333); //put scrollbar in the right place.
+        JScrollPane scrollBar = new JScrollPane(storeInventory); //Add a scroll bar to the JTable so that the user can scroll
+        scrollBar.setBounds(22, 39, 250, 333); //put scrollbar in the right place.
         add(scrollBar);
 
 
-        lblName = new JLabel("name");
-        lblName.setBounds(235, 40, 247, 14);
+        lblName = new JLabel("");
+        lblName.setBounds(295, 40, 247, 14);
         add(lblName);
 
-        JSeparator separator = new JSeparator(); //break up the screen to make it look better.
-        separator.setForeground(Color.BLACK);
-        separator.setOrientation(SwingConstants.VERTICAL);
-        separator.setBounds(211, 39, 14, 333);
-        add(separator);
-
-        lblDescription = new JLabel("description");
-        lblDescription.setBounds(235, 65, 247, 14);
+        lblDescription = new JLabel("");
+        lblDescription.setBounds(295, 65, 247, 14);
         add(lblDescription);
 
-        JLabel lblPrice = new JLabel("Price:");
-        lblPrice.setBounds(235, 90, 46, 14);
-        add(lblPrice);
-
-
-        lblPriceField = new JLabel("priceLabel");
-        lblPriceField.setBounds(303, 90, 70, 14);
+        lblPriceField = new JLabel("");
+        lblPriceField.setBounds(295, 90, 70, 14);
         add(lblPriceField);
 
         JLabel lblStore = new JLabel("Store");
@@ -112,27 +131,19 @@ public class StorePanel extends JPanel implements Observable {
         lblInventory.setBounds(550, 14, 70, 14);
         add(lblInventory);
 
-        JSeparator separator2 = new JSeparator(); //break up the screen to make it look better.
-        separator2.setForeground(Color.BLACK);
-        separator2.setOrientation(SwingConstants.VERTICAL);
-        separator2.setBounds(560, 39, 14, 333);
-        add(separator2);
-
         JButton btnBuyItem = new JButton("Buy Item");
-        btnBuyItem.setBounds(235, 349, 89, 23);
+        btnBuyItem.setBounds(295, 349, 89, 23);
         btnBuyItem.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
-                selectedItem = storeInventory.getSelectedValue();
+                selectedItem = (Item) storeInventory.getValueAt(storeInventory.getSelectedRow(), storeInventory.getSelectedColumn()) ;
                 notifyObservers();
             }
         });
         add(btnBuyItem);
 
-        storeInventory.setSelectedIndex(0);
-
         playerInventory = new InventoryPanel();
-        playerInventory.setBounds(571, 39, 189, 333);
+        playerInventory.setBounds(550, 39, 189, 333);
         add(playerInventory);
     }
 
@@ -146,10 +157,10 @@ public class StorePanel extends JPanel implements Observable {
 
         ArrayList<Item> itemList = new ArrayList<Item>();
         for (Toy toyItem: toyList) {
-            itemList.add((Item) toyItem);
+            itemList.add(toyItem);
         }
         for (Food foodItem: foodStock) {
-            itemList.add((Item) foodItem);
+            itemList.add(foodItem);
         }
         Item[] itemArray = itemList.toArray(new Item[0]);
         playerInventory.displayInventory(itemArray);
@@ -157,7 +168,7 @@ public class StorePanel extends JPanel implements Observable {
 
     /**
      * Display the selected item's stats to the player.
-     * @param selected Item current selected in store inventory
+     * @param selected Item currently selected in store inventory
      */
     private void showItemStats(Item selected) {
         lblName.setText(selected.getName());
@@ -167,24 +178,34 @@ public class StorePanel extends JPanel implements Observable {
         firstChar = Character.toUpperCase(firstChar);
         description = firstChar + description.substring(1);
         lblDescription.setText(description);
-        Integer price = (Integer) selected.getPrice();
-        lblPriceField.setText("$" + price.toString());
+        Integer price = selected.getPrice();
+        lblPriceField.setText("Price: $" + price.toString());
     }
 
     /**
-     * Merges toy prototypes and food prototypes for display.
+     * Generates food prototypes for display.
      * @param toyPrototypes Hashmap of toy prototypes.
      * @param foodPrototypes Hashmap of food prototypes.
      * @return Merged list of items.
      */
-    private ArrayList<Item> generateStoreInventory(HashMap<String, Toy> toyPrototypes,
-                                                   HashMap<String, Food> foodPrototypes) {
+    private ArrayList<Item> generateFoodInventory(HashMap<String, Food> foodPrototypes) {
+        ArrayList<Item> itemList = new ArrayList<Item>();
+        for (String key: foodPrototypes.keySet().toArray(new String[0])) {
+            itemList.add(foodPrototypes.get(key));
+        }
+        return itemList;
+    }
+
+    /**
+     * Generates toy prototypes for display.
+     * @param toyPrototypes Hashmap of toy prototypes.
+     * @param foodPrototypes Hashmap of food prototypes.
+     * @return Merged list of items.
+     */
+    private ArrayList<Item> generateToyInventory(HashMap<String, Toy> toyPrototypes) {
         ArrayList<Item> itemList = new ArrayList<Item>();
         for (String key: toyPrototypes.keySet().toArray(new String[0])) {
-            itemList.add((Item) toyPrototypes.get(key));
-        }
-        for (String key: foodPrototypes.keySet().toArray(new String[0])) {
-            itemList.add((Item) foodPrototypes.get(key));
+            itemList.add(toyPrototypes.get(key));
         }
         return itemList;
     }

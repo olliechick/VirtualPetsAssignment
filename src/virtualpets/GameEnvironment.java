@@ -268,13 +268,9 @@ public class GameEnvironment {
 
     /**
      * Performs all setup for the game.
-     *
      * Creates players, their pets, and a prototype of each Toy and Food.
-     *
-     * @throws IOException
-     *             Pet creation side effect
      */
-    private void setup() throws IOException {
+    private void setup() {
         CommandLineInterface.gameHeader();
         CommandLineInterface.tutorial();
         numberOfDays = CommandLineInterface.getNumberOfDays();
@@ -299,8 +295,7 @@ public class GameEnvironment {
     /**
      * Sets up random number generator for testing.
      *
-     * @param args
-     *            Only argument is a seed of type long for the generator.
+     * @param args Only argument is a seed of type long for the generator.
      */
     public void initialiseNumGenerator(String[] args) {
         if (args.length == 1) {
@@ -380,10 +375,8 @@ public class GameEnvironment {
      * very tired, it decreases its health. 3. Controls if the pet does random
      * events, such as misbehaving, getting sick, and dying.
      *
-     * @param player
-     *            the player who is interacting with their pet.
-     * @param pet
-     *            the pet the player is about to interact with.
+     * @param player  the player who is interacting with their pet.
+     * @param pet the pet the player is about to interact with.
      */
     private void newDayPetActions(Player player, Pet pet) {
         Boolean disciplined;
@@ -488,8 +481,7 @@ public class GameEnvironment {
      * Method purely for testing purposes. Overwrites existing playerList with
      * its own array of players.
      *
-     * @param playerArray
-     *            Fully setup list of players.
+     * @param playerArray Fully setup list of players.
      */
     protected void addPlayers(ArrayList<Player> playerArray) {
         playerList = playerArray;
@@ -498,10 +490,8 @@ public class GameEnvironment {
     /**
      * Main entry point.
      *
-     * @param args
-     *            Arguments - don't really have many of them.
-     * @throws IOException
-     *             When a file has an issue.
+     * @param args Arguments - don't really have many of them.
+     * @throws IOException When a file has an issue.
      */
     public static void main(String[] args) throws IOException {
         GameEnvironment mainGame = new GameEnvironment();
@@ -577,7 +567,7 @@ public class GameEnvironment {
 	}
 
 	/**
-	 * Creates a new player and their pets
+	 * Creates a new player and their pets.
 	 * @param values String array of data to convert into pet objects. Array should be of form
 	 * {"player name", "pet one name\npet one species", "pet two name\npet two species",...}
 	 * @throws IOException Pet creation side effect.

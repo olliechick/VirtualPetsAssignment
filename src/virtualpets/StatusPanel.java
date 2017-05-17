@@ -13,13 +13,14 @@ import javax.swing.ImageIcon;
 /**
  * Shows a pets status to the user.
  * @author Samuel Pell
+ * @author Ollie Chick
  */
 @SuppressWarnings("serial")
 public class StatusPanel extends JPanel {
     /**
      * Label to display pet's happiness.
      */
-    private JLabel lblHapinessScore;
+    private JLabel lblHappinessScore;
     /**
      * Label to display how hungry the pet is.
      */
@@ -29,7 +30,7 @@ public class StatusPanel extends JPanel {
      */
     private JLabel lblIsRevivable;
     /**
-     * Label to display if the pet is revivable.
+     * Label to display pet's fatigue.
      */
     private JLabel lblFatigueScore;
     /**
@@ -71,9 +72,9 @@ public class StatusPanel extends JPanel {
     public StatusPanel() {
         setLayout(null);
 
-        JLabel lblHapiness = new JLabel("Happiness");
-        lblHapiness.setBounds(32, 53, 77, 14);
-        add(lblHapiness);
+        JLabel lblHappiness = new JLabel("Happiness");
+        lblHappiness.setBounds(32, 53, 77, 14);
+        add(lblHappiness);
 
         JLabel lblHunger = new JLabel("Hunger");
         lblHunger.setBounds(32, 78, 46, 14);
@@ -107,9 +108,9 @@ public class StatusPanel extends JPanel {
         lblRevivable.setBounds(32, 250, 59, 14);
         add(lblRevivable);
 
-        lblHapinessScore = new JLabel("hapinessScore");
-        lblHapinessScore.setBounds(119, 53, 69, 14);
-        add(lblHapinessScore);
+        lblHappinessScore = new JLabel("hapinessScore");
+        lblHappinessScore.setBounds(119, 53, 69, 14);
+        add(lblHappinessScore);
 
         lblHungerScore = new JLabel("hunger");
         lblHungerScore.setBounds(119, 78, 46, 14);
@@ -197,11 +198,11 @@ public class StatusPanel extends JPanel {
     public void setPetStatus(Pet pet) {
         //Cast all ints to integers then use the toString method to get string representation
         lblFatigueScore.setText(((Integer) pet.getFatigue()).toString());
-        lblHapinessScore.setText(((Integer) pet.getHappiness()).toString());
+        lblHappinessScore.setText(((Integer) pet.getHappiness()).toString());
         lblHealthScore.setText(((Integer) pet.getHealth()).toString());
         lblHungerScore.setText(((Integer) pet.getHunger()).toString());
 
-        Integer bladderLevelInt = (Integer) pet.getPercentBladderFull();
+        Integer bladderLevelInt = pet.getPercentBladderFull();
         String bladderLevel = bladderLevelInt.toString();
         lblBladderPercentage.setText(bladderLevel + " %");
 
@@ -251,6 +252,7 @@ public class StatusPanel extends JPanel {
         Pet cat;
         StatusPanel myPanel = new StatusPanel();
 
+        //TODO is this more tests?
         try {
             cat = new Pet("cat");
             cat.setGender("male");

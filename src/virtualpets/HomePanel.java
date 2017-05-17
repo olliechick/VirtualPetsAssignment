@@ -57,6 +57,10 @@ public class HomePanel extends JPanel {
      * Internal panel to handle player feeding with their pet.
      */
     private FeedPanel feedTab;
+    /**
+     * Internal panel to handle player sleeping with their pet.
+     */
+    private SleepPanel sleepTab;
 
     /**
      * Create the panel.
@@ -84,7 +88,7 @@ public class HomePanel extends JPanel {
         playTab = new PlayPanel();
         tabbedPane.addTab("Play", null, playTab, null);
 
-        SleepPanel sleepTab = new SleepPanel();
+        sleepTab = new SleepPanel();
         tabbedPane.addTab("Sleep", null, sleepTab, null);
 
         ToiletPanel toiletTab = new ToiletPanel();
@@ -180,6 +184,16 @@ public class HomePanel extends JPanel {
         return storeTab;
     }
 
+    //TODO getOtherTabs(){}
+
+    /**
+     * Get the sleep tab to add observer to it.
+     * @return storeTab
+     */
+    public SleepPanel getSleepTab() {
+        return sleepTab;
+    }
+
     /**
      * Main method for testing.
      * @param args Arguments passed in
@@ -208,6 +222,7 @@ public class HomePanel extends JPanel {
 
         myFrame.setVisible(true);
 
+        //TODO why are there tests in here?
         Player testPlayer = new Player();
         testPlayer.setName("Stewart Little");
         Pet cat = new Pet("cat");

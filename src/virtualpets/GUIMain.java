@@ -9,6 +9,7 @@ import javax.swing.UIManager;
 /**
  * Main GUI class for VirtualPets sort of a ViewController.
  * @author Samuel Pell
+ * @author Ollie Chick
  */
 public class GUIMain implements Observer {
      /**
@@ -47,14 +48,14 @@ public class GUIMain implements Observer {
     /**
      * Part of the Observer pattern to get data from GUI to GameEnvironment.
      * @param identifier Identifier of the operation.
-     * @param values Array of objects appropriate to the GUI call.
+     * @param values Array of strings appropriate to the GUI call.
      */
     public void getValues(String identifier, String[] values) {
         switch (identifier) {
             case "setup":
                 Integer numDays = Integer.parseInt(values[1]);
                 mainGame.setNumDays(numDays);
-                playerNumber = (int) Integer.parseInt(values[0]);
+                playerNumber = Integer.parseInt(values[0]);
                 clearFrame();
                 createPlayer();
                 System.out.println("Creating player 1");
@@ -83,9 +84,13 @@ public class GUIMain implements Observer {
 
             case "sleep":
                 currentPet.sleep();
+                System.out.println("Sleeping");
+                break;
 
             case "toilet":
                 currentPet.goToilet();
+                System.out.println("Going toilet");
+                break;
 
             default:
                 System.out.println("Unknown GUI Element Identifier");
@@ -151,6 +156,9 @@ public class GUIMain implements Observer {
         int numDays = mainGame.getNumDays();
         homeScreen = new HomePanel(numDays, mainGame);
         homeScreen.getStoreTab().registerObserver(this);
+        //TODO register observer in other tabs
+        homeScreen.getSleepTab().registerObserver(this);
+        //TODO why does this happen each day?
 
         mainFrame.getContentPane().add(homeScreen);
         homeScreen.setVisible(true);
@@ -262,6 +270,7 @@ public class GUIMain implements Observer {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             //ignore all exceptions
+        	//TODO all these ignoring all exceptions seems like a bad idea?
         }
         GUIMain main = new GUIMain();
         main.initialise();
