@@ -148,7 +148,7 @@ public class HomePanel extends JPanel {
      * @param numActions Number of actions remaining
      */
     public void refreshPlayerStats(Player currentPlayer, int numActions) {
-        Integer balance = (Integer) currentPlayer.getBalance();
+        Integer balance = currentPlayer.getBalance();
         lblPlayerBalance.setText("$" + balance.toString());
         lblCurrentPlayer.setText(currentPlayer.getName());
         lblNumActions.setText(((Integer) numActions).toString());
@@ -210,15 +210,10 @@ public class HomePanel extends JPanel {
 
         Player testPlayer = new Player();
         testPlayer.setName("Stewart Little");
-        Pet cat;
-        try {
-            cat = new Pet("cat");
-            cat.setGender("male");
-            cat.setName("Snowy");
-            testPlayer.getPetList().add(cat);
-            myPanel.refreshTabs(testPlayer, cat, 5, 1);
-        } catch (IOException e) {
-            System.out.println("Problem in cat giving displaying default label values");
-        }
+        Pet cat = new Pet("cat");
+        cat.setGender("male");
+        cat.setName("Snowy");
+        testPlayer.getPetList().add(cat);
+        myPanel.refreshTabs(testPlayer, cat, 5, 1);
     }
 }
