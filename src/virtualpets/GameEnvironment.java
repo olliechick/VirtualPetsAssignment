@@ -208,6 +208,41 @@ public class GameEnvironment {
     }
 
     /**
+     * Creates a new player.
+     *
+     * @return A fully created player
+     */
+    private Player createPlayer() {
+        Player newPlayer = new Player();
+        setPlayerName(newPlayer);
+        int numPets = CommandLineInterface.getNumberRequired("Hi "
+                + newPlayer.getName()
+                + "! How many pets do you want? ");
+
+        ArrayList<Pet> playerPetList = newPlayer.getPetList();
+        Pet newPet;
+        for (int i = 0; i < numPets; i++) {
+            newPet = createPet();
+            playerPetList.add(newPet);
+        }
+        return newPlayer;
+    }
+
+    /**
+     * Sets the name for a new player.
+     *
+     * @param newPlayer
+     *            Player object to set name for.
+     */
+    private void setPlayerName(Player newPlayer) {
+        try {
+            newPlayer.setName(CommandLineInterface.getName("Player name: ", nameList));
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Unknown error. Please try again.");
+        }
+    }
+
+    /**
      * Creates a pet for a player.
      *
      * @return Pet player has made.
@@ -604,5 +639,9 @@ public class GameEnvironment {
 	 */
 	public void setCurrentPlayer(Player p){
 	    currentPlayer = p;
+	}
+
+	public void setNumDays(int days){
+	    numberOfDays = days;
 	}
 }
