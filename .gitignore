@@ -3,10 +3,6 @@
 runme.bat
 runme input.bat
 compile.bat
-<<<<<<< HEAD
-.checkstyle
-=======
 checkstyle-7.7.jar
 .checkstyle
 output.txt
->>>>>>> 9baffa4a13e106ed33a47f2a01d52968b2c7151d

@@ -1,24 +1,15 @@
-<<<<<<< HEAD:src/GameEnvironment.java
-=======
 package virtualpets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
->>>>>>> 9baffa4a13e106ed33a47f2a01d52968b2c7151d:src/virtualpets/GameEnvironment.java
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-<<<<<<< HEAD:src/GameEnvironment.java
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-=======
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
->>>>>>> 9baffa4a13e106ed33a47f2a01d52968b2c7151d:src/virtualpets/GameEnvironment.java
 
 /**
  * Launching off point for Virtual Pets game.
@@ -65,8 +56,66 @@ public class GameEnvironment {
      * include misbehaving, being sick, and dying.
      */
     private Random randomNumGen;
+	
+	/**
+	 * Get the number of days the game will go on for.
+	 * @return number of days game will run for.
+	 */
+	public int getNumDays(){
+	    return numberOfDays;
+	}
+	
+	/**
+	 * Get the player who's turn it currently is.
+	 * @return current player.
+	 */
+	public Player getCurrentPlayer(){
+	    return currentPlayer;
+	} 
+	
+	/**
+	 * Gets lines 2 onwards from a data file specified.
+	 * @param fileName File to get data from.
+	 * @return ArrayList of each line as a string.
+	 */
+	private ArrayList<String> getDataFromFile(String fileName){
+	    ArrayList<String> data = new ArrayList<String>();
+	    String line;
+		try {
+		    Reader inputFile;
+		    try { //Runs if running class directly
+		        String topDir = System.getProperty("user.dir");
+		        if (topDir.endsWith("bin")){ //from cmdln
+		            fileName = "../config/" + fileName;
+		        }else{ //from eclipse
+		            fileName = "config/" + fileName;
+		        }
+		        inputFile = new FileReader(fileName);
+		    } catch (FileNotFoundException e) { //if running from jar file.
+		        InputStream stream = this.getClass().getResourceAsStream(fileName);
+		        inputFile = new InputStreamReader(stream);
+		    }
 
-    /**
+			BufferedReader bufferReader = new BufferedReader(inputFile);
+			bufferReader.readLine(); //ignore first line
+
+			while ((line = bufferReader.readLine()) != null){
+				data.add(line);
+			}
+
+			bufferReader.close(); //tidy up after reading file
+			inputFile.close();
+		} catch (IOException e) { 
+			//If there is an IO error here just give up.
+			System.err.println("Error while reading file line by line: " + e.getMessage());
+			System.exit(0);
+		}
+
+		return data;
+	}
+
+    
+	/**
      * Sets the name for a new player.
      *
      * @param newPlayer
