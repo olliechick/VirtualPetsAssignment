@@ -50,7 +50,7 @@ public class GUIMain implements Observer {
      * @param values Array of objects appropriate to the GUI call.
      */
     public void getValues(String identifier, String[] values) {
-        switch(identifier) {
+        switch (identifier) {
             case "setup":
                 Integer numDays = Integer.parseInt(values[1]);
                 mainGame.setNumDays(numDays);
@@ -82,7 +82,8 @@ public class GUIMain implements Observer {
                 break;
 
             default:
-                System.out.println("Unknown GUI Element Identifier\nDropping data");
+                System.out.println("Unknown GUI Element Identifier");
+                System.out.println("Dropping data");
                 System.out.println(identifier);
         }
     }
@@ -101,7 +102,8 @@ public class GUIMain implements Observer {
                 currentPlayer.spend(purchasedItem.getPrice());
                 currentPlayer.addFood(purchasedItem);
             } else {
-                String message = "You do not have enough money to purchase " + purchasedItem.getName();
+                String message = "You do not have enough money to purchase ";
+                message += purchasedItem.getName();
                 JOptionPane.showMessageDialog(null, message);
             }
         } catch (Exception e) {
@@ -114,7 +116,8 @@ public class GUIMain implements Observer {
                 currentPlayer.spend(purchasedItem.getPrice());
                 currentPlayer.addToy(purchasedItem);
             } else {
-                String message = "You do not have enough money to purchase " + purchasedItem.getName();
+                String message = "You do not have enough money to purchase ";
+                message += purchasedItem.getName();
                 JOptionPane.showMessageDialog(null, message);
             }
         } catch (Exception e) {
@@ -130,9 +133,9 @@ public class GUIMain implements Observer {
     }
 
     /**
-     * Move to a new day.
+     * Move to a new day. Currently doesn't do this...
      */
-    private void newDay(){
+    private void newDay() {
         System.out.println("Its a brand new day!!");
 
         clearFrame();
@@ -251,7 +254,7 @@ public class GUIMain implements Observer {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch(Exception e) {
+        } catch (Exception e) {
             //ignore all exceptions
         }
         GUIMain main = new GUIMain();

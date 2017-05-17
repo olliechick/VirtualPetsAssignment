@@ -170,10 +170,10 @@ public class PetCreationPanel extends JPanel {
      * Testing functionality.
      * @param args Input arguments.
      */
-    public static void main(String[] args){
-        try{
+    public static void main(String[] args) {
+        try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }catch(Exception e){
+        } catch (Exception e) {
             //ignore all exceptions
         }
         JFrame myFrame = new JFrame();

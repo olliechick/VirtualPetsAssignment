@@ -10,7 +10,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 
 /**
- * Home JPanel for VirtualPets Assignment.
+ * Home JPanel for VirtualPets Assignment. Acts as a controller
+ * for the panels beneath it.
  * @author Samuel Pell
  *
  */
@@ -59,6 +60,8 @@ public class HomePanel extends JPanel {
 
     /**
      * Create the panel.
+     * @param days Number of days the game will run for.
+     * @param mainGame Reference to the game environment.
      */
     public HomePanel(int days, GameEnvironment mainGame) {
         totalDays = ((Integer) days).toString();

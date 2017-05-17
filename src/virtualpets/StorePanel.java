@@ -23,7 +23,7 @@ import javax.swing.JScrollPane;
  *
  */
 @SuppressWarnings("serial")
-public class StorePanel extends JPanel implements Observable{
+public class StorePanel extends JPanel implements Observable {
     /**
      * Component that displays store inventory.
      */
@@ -67,7 +67,7 @@ public class StorePanel extends JPanel implements Observable{
 
         storeInventory = new JList<Item>(storeItemArray); //create JList with store items at core
         storeInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Set it so that one item can be selected at a time
-        storeInventory.addListSelectionListener(new ListSelectionListener(){
+        storeInventory.addListSelectionListener(new ListSelectionListener() {
             /**
              * When selection changes display new items stats.
              */
@@ -136,6 +136,10 @@ public class StorePanel extends JPanel implements Observable{
         add(playerInventory);
     }
 
+    /**
+     * Update the players inventory.
+     * @param currentPlayer Player currently in store.
+     */
     public void updatePlayerInventory(Player currentPlayer) {
         ArrayList<Toy> toyList = currentPlayer.getToyList();
         ArrayList<Food> foodStock = currentPlayer.getFoodStock();
@@ -210,7 +214,7 @@ public class StorePanel extends JPanel implements Observable{
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
-            //ignore all exceptions   
+            //ignore all exceptions
         }
 
         JFrame myFrame = new JFrame();

@@ -114,14 +114,15 @@ public class PlayerCreationPanel extends JPanel implements Observable {
 
         //Add button to move to next dialog.
         JButton btnNext = new JButton("Next");
-        btnNext.addActionListener(new ActionListener() { //TODO: Should this be broken out into a new file --Sam
+        btnNext.addActionListener(new ActionListener() {
+            //TODO: Should this be broken out into a new file --Sam
             /**
              * Listener that checks input, and if it is valid prepares it for
              * output and notifies the onjects observers.
              * @param event Action event passed in when event triggered.
              */
             public void actionPerformed(ActionEvent event) {
-                if (playerInputValid()){
+                if (playerInputValid()) {
                     formatOutput();
                     notifyObservers();
                 }
@@ -134,6 +135,8 @@ public class PlayerCreationPanel extends JPanel implements Observable {
              */
             private boolean playerInputValid() {
                 ArrayList<String> nameList = mainGUI.getRegisteredNames();
+                //Clone name list so that the names entered in the form aren't
+                //duplicates and so that any unconfirmed names aren't registered
                 @SuppressWarnings("unchecked") //Gets IDE to not complain at me - thinks that cast could fail.
                 ArrayList<String> nameListClone = (ArrayList<String>) nameList.clone();
 
@@ -146,7 +149,9 @@ public class PlayerCreationPanel extends JPanel implements Observable {
                     JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Player)");
                     return false;
                 }
-                nameListClone.add(playerName); //add name to list so that duplicate names cannot occur within the form
+                //add name to list so that duplicate names cannot occur within the form
+                //not added to the full list as the names aren't confirmed yet.
+                nameListClone.add(playerName);
 
                 String petName;
                 //Check pet one if it is selected
