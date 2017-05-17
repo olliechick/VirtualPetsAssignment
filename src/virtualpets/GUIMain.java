@@ -81,6 +81,12 @@ public class GUIMain implements Observer {
                 refreshScreen();
                 break;
 
+            case "sleep":
+                currentPet.sleep();
+
+            case "toilet":
+                currentPet.goToilet();
+
             default:
                 System.out.println("Unknown GUI Element Identifier");
                 System.out.println("Dropping data");

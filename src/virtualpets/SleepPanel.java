@@ -1,6 +1,11 @@
 package virtualpets;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 
 /**
@@ -8,7 +13,13 @@ import javax.swing.JButton;
  * @author Samuel Pell
  */
 @SuppressWarnings("serial")
-public class SleepPanel extends JPanel {
+public class SleepPanel extends JPanel implements Observable{
+
+    /**
+     * List of objects currently observing this element.
+     */
+    private ArrayList<Observer> observers = new ArrayList<>();
+
     //TODO: Add functionality
     /**
      * Create the panel.
@@ -22,7 +33,26 @@ public class SleepPanel extends JPanel {
 
         JButton btnSleep = new JButton("Sleep");
         btnSleep.setBounds(340, 349, 89, 23);
+        btnSleep.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //do stuff
+                notifyObservers();
+                //do stuff
+            }
+        });
         add(btnSleep);
 
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer: observers) {
+            observer.getValues("sleep", new String[0]);
+        }
     }
 }
