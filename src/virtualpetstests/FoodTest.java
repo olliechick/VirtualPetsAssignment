@@ -19,7 +19,7 @@ public class FoodTest {
 	private String[] values = {"3", "5", "-10"};
 	
 	@Before
-	public void setup() throws Exception{
+	public void setup() throws Exception {
 		this.myFood = new Food("Meatloaf", "A delicious meaty loaf", new Integer(20), new Integer(2));
 		myFood.setHealthIncrease(species, values);
 	}
@@ -27,14 +27,14 @@ public class FoodTest {
 	@Test
 	public void testGetHealthIncrease() {
 		//Test that all health increases are set correctly
-		for (int i = 0; i < species.length; i++){
+		for (int i = 0; i < species.length; i++) {
 			assertEquals(myFood.getHealthIncrease(species[i]), Integer.parseInt(values[i]));
 		}
 		//Test that an unknown species throws an error
 		try {
 			myFood.getHealthIncrease("Alien");
 			fail("Found a species which doesn't exits");
-		} catch (IllegalArgumentException exception){}
+		} catch (IllegalArgumentException exception) {}
 	}
 
 	@Test
@@ -52,7 +52,7 @@ public class FoodTest {
 		}
 		
 		//Test that portion size cannot be 0
-		try{
+		try {
 			myFood.setPortionSize(0);
 			fail("Allowed an illegal portion size to be entered" );
 		} catch (IllegalArgumentException exception) {
@@ -81,7 +81,7 @@ public class FoodTest {
 		}
 		
 		//Test if name can be set to null
-		try{
+		try {
 			myFood.setName(nullString);
 			fail("Allowed an illegal item name to be entered" );
 		} catch (IllegalArgumentException exception) {
@@ -104,7 +104,7 @@ public class FoodTest {
 		}
 		
 		//Test if price can be set to -ve values (shouldn't be possible)
-		try{
+		try {
 			myFood.setPrice(-10);
 			fail("Allowed an illegal item name to be entered" );
 		} catch (IllegalArgumentException exception) {
@@ -127,7 +127,7 @@ public class FoodTest {
 		}
 		
 		//Test if food desciption can be set to null
-		try{
+		try {
 			myFood.setName(nullString);
 			fail("Allowed an illegal item name to be entered" );
 		} catch (IllegalArgumentException exception) {
@@ -136,13 +136,13 @@ public class FoodTest {
 	}
 	
 	@Test
-	public void testConvertStringsToInts(){
+	public void testConvertStringsToInts() {
 		String[] testArray = {"0", "-30", "5000", "-1", "-500000", "99999"};
 		Integer[] results = myFood.convertStringsToInts(testArray);
 		
 		Integer expectedResult;
 		
-		for(int i = 0; i < testArray.length; i++){
+		for (int i = 0; i < testArray.length; i++) {
 			expectedResult = Integer.parseInt(testArray[i]);
 			assertEquals(results[i], expectedResult);
 		}

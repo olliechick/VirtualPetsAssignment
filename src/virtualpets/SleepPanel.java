@@ -11,7 +11,6 @@ import javax.swing.JButton;
 /**
  * Panel to allow the player to put their pet to sleep.
  * @author Samuel Pell
- *
  */
 @SuppressWarnings("serial")
 public class SleepPanel extends JPanel implements Observable{

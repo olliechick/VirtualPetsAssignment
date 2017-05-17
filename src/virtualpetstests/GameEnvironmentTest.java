@@ -55,8 +55,8 @@ public class GameEnvironmentTest {
 		assertEquals(testFood.getPrice(), referenceFood.getPrice());
 		assertEquals(testFood.getPortionSize(), referenceFood.getPortionSize());
 		
-		for(String currentSpecies: species){
-			if (testFood.getHealthIncrease(currentSpecies) != referenceFood.getHealthIncrease(currentSpecies)){
+		for (String currentSpecies: species) {
+			if (testFood.getHealthIncrease(currentSpecies) != referenceFood.getHealthIncrease(currentSpecies)) {
 				fail("healthIncrease not the same for :" + currentSpecies + " <" + testFood.getHealthIncrease(currentSpecies) + "> vs <" + referenceFood.getHealthIncrease(currentSpecies) + ">");
 			}
 		}
@@ -71,17 +71,17 @@ public class GameEnvironmentTest {
 		assertEquals(testToy.getPrice(), referenceToy.getPrice());
 		assertEquals(testToy.getDurability(), referenceToy.getDurability());
 		
-		for(String currentSpecies: species){
+		for (String currentSpecies: species) {
 			referenceToy.getHappinessIncrease(currentSpecies);
 			testToy.getHappinessIncrease(currentSpecies);
-			if (testToy.getHappinessIncrease(currentSpecies) != referenceToy.getHappinessIncrease(currentSpecies)){
+			if (testToy.getHappinessIncrease(currentSpecies) != referenceToy.getHappinessIncrease(currentSpecies)) {
 				fail("happinessIncrease not the same for :" + currentSpecies + " <" + testToy.getHappinessIncrease(currentSpecies) + "> vs <" + referenceToy.getHappinessIncrease(currentSpecies) + ">");
 			}
 		}
 	}
 	
 	@Test
-	public void testRankPlayers() throws IOException{
+	public void testRankPlayers() throws IOException {
 		
 		player1.getPetList().add(new Cat());
 		
@@ -114,7 +114,7 @@ public class GameEnvironmentTest {
 		Player[] rankedArray = myGame.rankPlayers();
 		Player[] expectedRanking = new Player[] {player1, player3, player2};
 		
-		for (int i = 0; i < rankedArray.length; i++){
+		for (int i = 0; i < rankedArray.length; i++) {
 			assertEquals(rankedArray[i], expectedRanking[i]);
 		}
 		
@@ -124,7 +124,7 @@ public class GameEnvironmentTest {
 		rankedArray = myGame.rankPlayers();
 		expectedRanking = new Player[] {player3, player2};
 		
-		for (int i = 0; i < rankedArray.length; i++){
+		for (int i = 0; i < rankedArray.length; i++) {
 			assertEquals(rankedArray[i], expectedRanking[i]);
 		}
 		
@@ -134,7 +134,7 @@ public class GameEnvironmentTest {
 		rankedArray = myGame.rankPlayers();
 		expectedRanking = new Player[] {player3};
 		
-		for (int i = 0; i < rankedArray.length; i++){
+		for (int i = 0; i < rankedArray.length; i++) {
 			assertEquals(rankedArray[i], expectedRanking[i]);
 		}
 	}
