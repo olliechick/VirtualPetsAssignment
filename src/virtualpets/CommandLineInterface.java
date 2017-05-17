@@ -1,6 +1,5 @@
 package virtualpets;
 import java.util.Scanner;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,7 +10,6 @@ import java.util.HashMap;
  *
  */
 public class CommandLineInterface {
-<<<<<<< HEAD:src/CommandLineInterface.java
 
     /**
      * Divider used for splitting up walls of text.

@@ -1,4 +1,7 @@
 package virtualpets;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -514,7 +517,7 @@ public class Pet {
         int col = 0;
         Boolean found = false;
         String typeOfItem = null;
-        
+
         try{
             Reader inputFile;
             try { //Runs if running class directly
@@ -529,16 +532,16 @@ public class Pet {
                 InputStream stream = this.getClass().getResourceAsStream(fileName);
                 inputFile = new InputStreamReader(stream);
             }
-            
+
             BufferedReader bufferReader = new BufferedReader(inputFile);
 
             String line;
             int i = 0;
-            
+
             while ((line = bufferReader.readLine()) != null){
                 switch(i){
                     case 0: break; //description line
-                    case 1: 
+                    case 1:
                         int j = 0;
                         typeOfItem = line.split(",")[0];
                         for(String piece : line.split(",")){
