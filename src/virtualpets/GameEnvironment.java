@@ -245,10 +245,9 @@ public class GameEnvironment {
         numberOfDays = CommandLineInterface.getNumberOfDays();
         dayNumber = 1;
         int numPlayers = CommandLineInterface.getNumberRequired("How many players? ");
-        playerList = new Player[numPlayers];
 
         for (int i = 0; i < numPlayers; i++) {
-            playerList[i] = createPlayer();
+            playerList.add(createPlayer());
         }
 
         generateToyPrototypes();
@@ -298,8 +297,8 @@ public class GameEnvironment {
      * @throws Exception if error in code
      */
     private void postGame() throws Exception {
-        for (int i = 0; i < playerList.length; i++) {
-            playerList[i].calculateScore();
+        for (int i = 0; i < playerList.size(); i++) {
+            playerList.get(i).calculateScore();
         }
         Player[] rankedPlayers = rankPlayers();
         CommandLineInterface.postGame(rankedPlayers);
@@ -436,8 +435,8 @@ public class GameEnvironment {
     public Player[] rankPlayers() {
         // Add players to an ArrayList
         ArrayList<Player> rankedList = new ArrayList<Player>();
-        for (int i = 0; i < playerList.length; i++) {
-            rankedList.add(playerList[i]);
+        for (int i = 0; i < playerList.size(); i++) {
+            rankedList.add(playerList.get(i));
         }
 
         // Sort the players
@@ -457,7 +456,7 @@ public class GameEnvironment {
      * @param playerArray
      *            Fully setup list of players.
      */
-    protected void addPlayers(Player[] playerArray) {
+    protected void addPlayers(ArrayList<Player> playerArray) {
         playerList = playerArray;
     }
 
