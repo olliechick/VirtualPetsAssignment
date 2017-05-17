@@ -244,6 +244,10 @@ public class StorePanel extends JPanel implements Observable {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.getContentPane().setLayout(null);
 
+        /*
+         * TESTS
+         */
+
         GameEnvironment testGame = new GameEnvironment();
         testGame.generateFoodPrototypes();
         testGame.generateToyPrototypes();
@@ -257,5 +261,9 @@ public class StorePanel extends JPanel implements Observable {
 
         myPanel.setSize(770, 383);
         myFrame.setVisible(true);
+
+        /*
+         * END OF TESTS
+         */
     }
 }

@@ -57,7 +57,7 @@ public class HomePanel extends JPanel {
      */
     private FeedPanel feedTab;
     /**
-     * Internal panel to handle player sleeping with their pet. //TODO: Remove option for beastiallity
+     * Internal panel to handle player putting their pet to sleep.
      */
     private SleepPanel sleepTab;
     /**
@@ -247,6 +247,10 @@ public class HomePanel extends JPanel {
 
         myFrame.setVisible(true);
 
+        /*
+         * TESTS
+         */
+
         Player testPlayer = new Player();
         testPlayer.setName("Stewart Little");
         Pet cat = new Pet("cat");
@@ -254,5 +258,9 @@ public class HomePanel extends JPanel {
         cat.setName("Snowy");
         testPlayer.getPetList().add(cat);
         myPanel.refreshTabs(testPlayer, cat, 5, 1);
+
+        /*
+         * END OF TESTS
+         */
     }
 }
