@@ -185,10 +185,9 @@ public class StorePanel extends JPanel implements Observable {
     }
 
     /**
-     * Generates food prototypes for display.
-     * @param toyPrototypes Hashmap of toy prototypes.
+     * Generates food prototypes for display..
      * @param foodPrototypes Hashmap of food prototypes.
-     * @return Merged list of items.
+     * @return food prototypes turned into a list of items.
      */
     private ArrayList<Item> generateFoodInventory(HashMap<String, Food> foodPrototypes) {
         ArrayList<Item> itemList = new ArrayList<Item>();
@@ -201,8 +200,7 @@ public class StorePanel extends JPanel implements Observable {
     /**
      * Generates toy prototypes for display.
      * @param toyPrototypes Hashmap of toy prototypes.
-     * @param foodPrototypes Hashmap of food prototypes.
-     * @return Merged list of items.
+     * @return toy prototypes turned into a list of items.
      */
     private ArrayList<Item> generateToyInventory(HashMap<String, Toy> toyPrototypes) {
         ArrayList<Item> itemList = new ArrayList<Item>();
