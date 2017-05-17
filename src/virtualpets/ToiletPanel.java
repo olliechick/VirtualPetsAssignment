@@ -3,6 +3,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 /**
@@ -10,8 +11,12 @@ import java.awt.event.ActionEvent;
  * @author Samuel Pell
  */
 @SuppressWarnings("serial")
-public class ToiletPanel extends JPanel {
-    //TODO: Add functionality
+public class ToiletPanel extends JPanel implements Observable {
+    /**
+     * List of observers currently observing this object.
+     */
+    private ArrayList<Observer> observers = new ArrayList<Observer>();
+
     /**
      * Create the panel.
      */
@@ -25,10 +30,27 @@ public class ToiletPanel extends JPanel {
         JButton btnGoToilet = new JButton("Go Toilet");
         btnGoToilet.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                notifyObservers();
             }
         });
         btnGoToilet.setBounds(340, 349, 89, 23);
         add(btnGoToilet);
 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    /**
+     * Notifies observers with identifier "toilet".
+     */
+    public void notifyObservers() {
+        for (Observer o: observers) {
+            o.getValues("toilet", new String[0]);
+        }
     }
 }

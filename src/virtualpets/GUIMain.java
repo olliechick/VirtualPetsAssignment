@@ -73,7 +73,7 @@ public class GUIMain implements Observer {
                 if (numPlayersCreated < playerNumber) {
                     createPlayer();
                 } else {
-                    newDay();
+                    displayHome();
                 }
                 break;
 
@@ -85,11 +85,19 @@ public class GUIMain implements Observer {
             case "sleep":
                 currentPet.sleep();
                 System.out.println("Sleeping");
+                refreshScreen();
                 break;
 
             case "toilet":
                 currentPet.goToilet();
                 System.out.println("Going toilet");
+                refreshScreen();
+                break;
+
+            case "feed":
+                Food food = mainGame.getFoodPrototypes().get(values[0]);
+                currentPet.feed(food);
+                refreshScreen();
                 break;
 
             default:
@@ -144,27 +152,33 @@ public class GUIMain implements Observer {
     }
 
     /**
-     * Move to a new day. Currently doesn't do this...
+     * Displays home screen to the user and moves onto the first day.
      */
-    private void newDay() {
-        System.out.println("Its a brand new day!!");
-
+    private void displayHome(){
         clearFrame();
         mainFrame.setBounds(0, 0, 815, 540);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.getContentPane().setLayout(null);
+
         int numDays = mainGame.getNumDays();
         homeScreen = new HomePanel(numDays, mainGame);
-        homeScreen.getStoreTab().registerObserver(this);
+
         //TODO register observer in other tabs
+        homeScreen.getStoreTab().registerObserver(this);
+        homeScreen.getFeedingTab().registerObserver(this);
         homeScreen.getSleepTab().registerObserver(this);
-        //TODO why does this happen each day?
+        homeScreen.getToiletTab().registerObserver(this);
 
         mainFrame.getContentPane().add(homeScreen);
         homeScreen.setVisible(true);
 
         homeScreen.setSize(800, 500);
 
+        newDay();
+    }
+    /**
+     * Move to a new day. Currently doesn't do this...
+     */
+    private void newDay() {
+        System.out.println("Its a brand new day!!");
         currentPlayer = mainGame.getPlayerList().get(0);
         mainGame.setCurrentPlayer(currentPlayer);
         currentPet = currentPlayer.getPetList().get(0);

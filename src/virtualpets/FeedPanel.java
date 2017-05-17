@@ -6,6 +6,8 @@ import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,7 +18,7 @@ import javax.swing.JButton;
  * @author Samuel Pell
  */
 @SuppressWarnings("serial")
-public class FeedPanel extends JPanel {
+public class FeedPanel extends JPanel implements Observable {
     /**
      * Panel which displays food the player has.
      */
@@ -33,6 +35,10 @@ public class FeedPanel extends JPanel {
      * Label to show the user the food's portion size.
      */
     private JLabel lblPortionScore;
+    /**
+     * List of observervers currently observing this object.
+     */
+    private ArrayList<Observer> observers = new ArrayList<Observer>();
 
     /**
      * Create the panel.
@@ -75,9 +81,17 @@ public class FeedPanel extends JPanel {
         lblDurability.setBounds(235, 101, 85, 14);
         add(lblDurability);
 
-        JButton btnPlayWithToy = new JButton("Feed");
-        btnPlayWithToy.setBounds(656, 349, 104, 23);
-        add(btnPlayWithToy);
+        JButton btnEatFood = new JButton("Feed");
+        btnEatFood.setBounds(656, 349, 104, 23);
+        btnEatFood.addActionListener(new ActionListener() {
+            /**
+             * When button pressed
+             */
+            public void actionPerformed(ActionEvent arg0) {
+                notifyObservers();
+            }
+        });
+        add(btnEatFood);
 
         lblPortionScore = new JLabel("");
         lblPortionScore.setBounds(300, 101, 189, 14);
@@ -100,7 +114,7 @@ public class FeedPanel extends JPanel {
             description = firstChar + description.substring(1);
             lblDescription.setText(description);
 
-            Integer portionSize = (Integer) selectedToy.getPortionSize();
+            Integer portionSize = selectedToy.getPortionSize();
             lblPortionScore.setText(portionSize.toString());
         } else {  //if item selected is null - this happens when itemListPanel is refreshed.
             lblName.setText("");
@@ -119,6 +133,25 @@ public class FeedPanel extends JPanel {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    /**
+     * Notifies observers with identifier "feed" with string array
+     * {item name}.
+     */
+    public void notifyObservers() {
+        System.out.println("Eating Food");
+        Item selected = itemListPanel.getSelectedItem();
+        for (Observer o: observers) {
+            o.getValues("feed", new String[]{selected.getName()});
+        }
+    }
+
+    /**
      * Testing functionality of this panel.
      * @param args Arguments pased in from command line.
      */
@@ -126,7 +159,7 @@ public class FeedPanel extends JPanel {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
-            //ignore all exceptions 
+            //ignore all exceptions
         }
 
         ArrayList<Food> foodList = new ArrayList<Food>();

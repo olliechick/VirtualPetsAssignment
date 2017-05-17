@@ -5,7 +5,6 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 
@@ -13,7 +12,7 @@ import javax.swing.UIManager;
  * Home JPanel for VirtualPets Assignment. Acts as a controller
  * for the panels beneath it.
  * @author Samuel Pell
- *
+ * @author Ollie Chick
  */
 @SuppressWarnings("serial")
 public class HomePanel extends JPanel {
@@ -58,9 +57,13 @@ public class HomePanel extends JPanel {
      */
     private FeedPanel feedTab;
     /**
-     * Internal panel to handle player sleeping with their pet.
+     * Internal panel to handle player sleeping with their pet. //TODO: Remove option for beastiallity
      */
     private SleepPanel sleepTab;
+    /**
+     * Internal panel to handle player toileting their pet.
+     */
+    private ToiletPanel toiletTab;
 
     /**
      * Create the panel.
@@ -91,7 +94,7 @@ public class HomePanel extends JPanel {
         sleepTab = new SleepPanel();
         tabbedPane.addTab("Sleep", null, sleepTab, null);
 
-        ToiletPanel toiletTab = new ToiletPanel();
+        toiletTab = new ToiletPanel();
         tabbedPane.addTab("Toilet", null, toiletTab, null);
 
         JLabel lblPlayer = new JLabel("Player:");
@@ -178,10 +181,26 @@ public class HomePanel extends JPanel {
 
     /**
      * Get the store tab to add observer to it.
-     * @return storeTab
+     * @return store tab
      */
     public StorePanel getStoreTab() {
         return storeTab;
+    }
+
+    /**
+     * Get the feeding tab.
+     * @return feeding tab
+     */
+    public FeedPanel getFeedingTab() {
+        return feedTab;
+    }
+
+    /**
+     * Get the toilet tab.
+     * @return toilet tab
+     */
+    public ToiletPanel getToiletTab(){
+        return toiletTab;
     }
 
     //TODO getOtherTabs(){}
@@ -222,7 +241,6 @@ public class HomePanel extends JPanel {
 
         myFrame.setVisible(true);
 
-        //TODO why are there tests in here?
         Player testPlayer = new Player();
         testPlayer.setName("Stewart Little");
         Pet cat = new Pet("cat");

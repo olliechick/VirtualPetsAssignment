@@ -6,24 +6,18 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.JList;
 import javax.swing.JLabel;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
 /**
  * Store tab to allow user to buy items.
  * @author Samuel Pell
+ * @author Ollie Chick
  *
  */
 @SuppressWarnings("serial")
@@ -57,6 +51,11 @@ public class StorePanel extends JPanel implements Observable {
      */
     private ArrayList<Observer> observers = new ArrayList<Observer>();
 
+    /**
+     * Method to transpose a matrix of items.
+     * @param matrix Matrix to transpose
+     * @return A transposed matrix.
+     */
     public static Item[][] transposeMatrix(Item[][] matrix)
     {
         int m = matrix.length;
@@ -89,7 +88,7 @@ public class StorePanel extends JPanel implements Observable {
         ArrayList<Item> foodItems = generateFoodInventory(foodPrototypes);
         Item[] foodItemArray = foodItems.toArray(new Item[0]);
         Item[][] m = {toyItemArray, foodItemArray};
-        Item[][] storeArray = transposeMatrix(m);
+        Item[][] storeArray = transposeMatrix(m); //TODO: Why are you transposing the items?
         String[] typesOfItem = {"Toys", "Food"};
 
         storeInventory = new JTable(storeArray, typesOfItem); //create JTable with store items at core
@@ -106,6 +105,7 @@ public class StorePanel extends JPanel implements Observable {
                 showItemStats(selected);
 			}
         });
+        //TODO: Do we need a scroll bar with two columns?
         JScrollPane scrollBar = new JScrollPane(storeInventory); //Add a scroll bar to the JTable so that the user can scroll
         scrollBar.setBounds(22, 39, 250, 333); //put scrollbar in the right place.
         add(scrollBar);
@@ -136,7 +136,9 @@ public class StorePanel extends JPanel implements Observable {
         btnBuyItem.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
-                selectedItem = (Item) storeInventory.getValueAt(storeInventory.getSelectedRow(), storeInventory.getSelectedColumn()) ;
+                int row = storeInventory.getSelectedRow();
+                int col = storeInventory.getSelectedColumn();
+                selectedItem = (Item) storeInventory.getValueAt(row, col) ;
                 notifyObservers();
             }
         });
