@@ -51,7 +51,7 @@ public class SleepPanel extends JPanel implements Observable{
     }
 
     /**
-     * {@inheritDoc}
+     * Notifies observers with identifier "sleep".
      */
     public void notifyObservers() {
         for (Observer observer: observers) {

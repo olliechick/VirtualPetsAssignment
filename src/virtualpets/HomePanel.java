@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 
@@ -15,7 +16,7 @@ import javax.swing.UIManager;
  * @author Ollie Chick
  */
 @SuppressWarnings("serial")
-public class HomePanel extends JPanel {
+public class HomePanel extends JPanel implements Observable {
     /**
      * Internal panel to show status screen.
      */
@@ -64,6 +65,10 @@ public class HomePanel extends JPanel {
      * Internal panel to handle player toileting their pet.
      */
     private ToiletPanel toiletTab;
+    /**
+     * List of observers of this object.
+     */
+    private ArrayList<Observer> observers = new ArrayList<Observer>();
 
     /**
      * Create the panel.
@@ -140,7 +145,7 @@ public class HomePanel extends JPanel {
         JButton btnNext = new JButton("Next");
         btnNext.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                //TODO: Add functionality.
+                notifyObservers();
             }
         });
         btnNext.setBounds(701, 466, 89, 23);
@@ -220,6 +225,22 @@ public class HomePanel extends JPanel {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    /**
+     * Notifies observers with identifier "next".
+     */
+    public void notifyObservers() {
+        for (Observer o: observers) {
+            o.getValues("next", new String[0]);
+        }
+    }
+
+    /**
      * Main method for testing.
      * @param args Arguments passed in
      */
@@ -247,10 +268,6 @@ public class HomePanel extends JPanel {
 
         myFrame.setVisible(true);
 
-        /*
-         * TESTS
-         */
-
         Player testPlayer = new Player();
         testPlayer.setName("Stewart Little");
         Pet cat = new Pet("cat");
@@ -258,9 +275,5 @@ public class HomePanel extends JPanel {
         cat.setName("Snowy");
         testPlayer.getPetList().add(cat);
         myPanel.refreshTabs(testPlayer, cat, 5, 1);
-
-        /*
-         * END OF TESTS
-         */
     }
 }

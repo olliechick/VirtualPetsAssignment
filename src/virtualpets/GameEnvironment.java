@@ -461,15 +461,17 @@ public class GameEnvironment {
      * @param values String array of data to convert into pet objects. Array should be of form
      * {"player name", "pet one name\npet one species", "pet two name\npet two species",...}
      * @throws IOException Pet creation side effect.
-     * @throws Exception For an unknown pet type.
+     * @throws IllegalArgumentException For an unknown pet type.
      */
-    public void createPlayer(String[] values) throws IOException, Exception{
+    public void createPlayer(String[] values) throws IOException, IllegalArgumentException{
         Player newPlayer = new Player();
         newPlayer.setName(values[0]);
         String[] petData;
+
         for(int i = 1; i < values.length; i++){
             petData = values[i].split("\n");
             Pet newPet;
+
             switch (petData[1]){
                 case "alpaca":
                     newPet = new Alpaca();
@@ -490,10 +492,12 @@ public class GameEnvironment {
                     newPet = new PolarBear();
                     break;
                 default:
-                    throw new Exception("Error: Unknown Pet" + petData[1]);
+                    throw new IllegalArgumentException("Error: Unknown Pet" + petData[1]);
             }
+
             newPet.setName(petData[0]);
             newPlayer.getPetList().add(newPet);
+
             Boolean genderDecider = randomNumGen.nextBoolean();
             if (genderDecider) { //gender decided by randomNumGen
                 newPet.setGender("female");
@@ -502,6 +506,7 @@ public class GameEnvironment {
             }
             System.out.println(newPet.getGender());
         }
+
         playerList.add(newPlayer);
     }
 

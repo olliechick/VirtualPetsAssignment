@@ -190,6 +190,7 @@ public class StatusPanel extends JPanel {
         lblNewLabel.setBounds(0, 0, 365, 275);
         panel.add(lblNewLabel);
     }
+
     /**
      * Refresh the pet status.
      * @param pet Pet to display status for.

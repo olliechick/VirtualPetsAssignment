@@ -1,4 +1,5 @@
 package virtualpets;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JFrame;
@@ -44,10 +45,23 @@ public class GUIMain implements Observer {
      * The current pet.
      */
     private Pet currentPet;
+    /**
+     * Index of the current pet in the current players pet list.
+     */
     private int currentPetIndex;
+    /**
+     * Current day in game.
+     */
     private int currentDay;
+    /**
+     * Number of actions remaining for the current pet.
+     */
     private int numActions = 2;
+    /**
+     * Value of the stipend player earns daily per pet.
+     */
     private int dailyPetAllowance = 10;
+    //TODO: Could you not use an array? --Sam
 	int numOfPetsP1;
 	int numOfPetsP2 = -1; //init to -1 so currentPetIndex !< numOfPetsP2 if P2 does not exist
 	int numOfPetsP3 = -1; //init to -1 so currentPetIndex !< numOfPetsP3 if P3 does not exist
@@ -72,8 +86,14 @@ public class GUIMain implements Observer {
                 numPlayersCreated++;
                 try {
                     mainGame.createPlayer(values);
-                } catch (Exception e) {
+                } catch (IllegalArgumentException e) {
+                    //Just give up something has gone really wrong
                     e.printStackTrace();
+                    System.exit(0);
+                } catch (IOException e) {
+                    //Just give up something has gone really wrong
+                    e.printStackTrace();
+                    System.exit(0);
                 }
 
                 clearFrame();
@@ -105,16 +125,25 @@ public class GUIMain implements Observer {
 
             case "feed":
                 Food food = mainGame.getFoodPrototypes().get(values[0]);
+                System.out.println("Feeding "  + currentPet.getName() + " : "
+                                    + food.getName());
                 currentPet.feed(food);
+                currentPlayer.getFoodStock().remove(food);
                 numActions--;
                 refreshScreen();
                 break;
 
             case "play":
                 Toy toy = mainGame.getToyPrototypes().get(values[0]);
+                String debug = "Playing "  + currentPet.getName() + " : " + toy.getName();
+                System.out.println(debug);
                 play(toy);
                 numActions--;
                 refreshScreen();
+                break;
+
+            case "next":
+                nextPet();
                 break;
 
             default:
@@ -122,11 +151,11 @@ public class GUIMain implements Observer {
                 System.out.println("Dropping data");
                 System.out.println(identifier);
         }
+
         if (numActions == 0) {
         	//finished interacting with this pet today
         	nextPet();
             refreshScreen();
-
         }
     }
 
@@ -150,8 +179,6 @@ public class GUIMain implements Observer {
                 throw e;
             }
         }
-
-
     }
 
     /**
@@ -213,6 +240,7 @@ public class GUIMain implements Observer {
         homeScreen.getSleepTab().registerObserver(this);
         homeScreen.getToiletTab().registerObserver(this);
         homeScreen.getPlayTab().registerObserver(this);
+        homeScreen.registerObserver(this);
 
         mainFrame.getContentPane().add(homeScreen);
         homeScreen.setVisible(true);
@@ -298,7 +326,7 @@ public class GUIMain implements Observer {
 	}
 
 	/**
-     * Move to a new day. Currently doesn't do this...
+     * Move to a new day.
      */
     private void nextDay() {
     	currentDay++;
@@ -315,11 +343,10 @@ public class GUIMain implements Observer {
      */
     private void gameLoop(){
     	numOfPetsP1 = mainGame.getPlayerList().get(0).getPetList().size();
-        int dayNumber = 0; //TODO why is this not 1?
+        int dayNumber = 0; //TODO why is this not 1? //TODO: You asked for it to be set to 0? --Sam
         currentPlayer = mainGame.getPlayerList().get(0);
         currentPet = currentPlayer.getPetList().get(0);
 		initialisePlayer();
-        mainGame.setCurrentPlayer(currentPlayer); //TODO what is the point of this???
         refreshScreen();
     }
 
