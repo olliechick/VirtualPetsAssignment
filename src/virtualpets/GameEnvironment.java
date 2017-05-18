@@ -269,7 +269,6 @@ public class GameEnvironment {
      * increases its hunger, and increases its mischievousness.
      * 2. If the pet is very tired, it decreases its health.
      *
-     * @param player The player who is interacting with their pet.
      * @param pet The pet the player is about to interact with.
      * @return
      */
@@ -298,8 +297,9 @@ public class GameEnvironment {
      * The pet will misbehave based on its wellness, which is a weighted
      * combination of the pet's happiness, health, mischievousness, and hunger.
      * @param pet The pet who might be misbehaving.
+     * @return Whether the pet is misbehaving.
      */
-    public Boolean checkIfMisbehaving(Pet pet){
+    public Boolean checkIfMisbehaving(Pet pet) {
         // create random number between 0 and 99
         int randomNumber = randomNumGen.nextInt(100);
         int wellness = (pet.getHappiness() * 3
@@ -325,8 +325,9 @@ public class GameEnvironment {
      * the pet has health below 50%, it has a 50% chance of becoming sick
      * the pet has health below 75%, it has a 25% chance of becoming sick
      * @param pet The pet who might be sick.
+     * @return Whether the pet is sick.
      */
-    public Boolean checkIfSick(Pet pet){
+    public Boolean checkIfSick(Pet pet) {
         // create random number between 0 and 99
         int randomNumber = randomNumGen.nextInt(100);
         int health = pet.getHealth();
@@ -336,7 +337,7 @@ public class GameEnvironment {
                 || health < 50 && randomNumber < 50
                 || health < 75 && randomNumber < 25) {
             return true;
-        } else{
+        } else {
             return false;
         }
     }
@@ -347,10 +348,10 @@ public class GameEnvironment {
      * the pet is sick and has happiness less than 50%
      * its health is less than 5%
      * 2% chance of random death
-     * @param pet
-     * @return
+     * @param pet The pet who might be dead.
+     * @return Whether the pet is dead.
      */
-    public Boolean checkIfDead(Pet pet){
+    public Boolean checkIfDead(Pet pet) {
 
         /*
          * Check if dead
@@ -399,150 +400,132 @@ public class GameEnvironment {
     }
 
     /**
-     * Main entry point.
-     *
-     * @param args Arguments - don't really have many of them.
-     * @throws IOException When a file has an issue.
+     * Get the number of days the game will go on for.
+     * @return number of days game will run for.
      */
-    public static void main(String[] args) throws IOException {
-        GameEnvironment mainGame = new GameEnvironment();
-
-        mainGame.initialiseNumGenerator(args);
-        mainGame.setup();
-        try {
-            mainGame.gameLoop();
-            mainGame.postGame();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        mainGame.tearDown();
-
+    public int getNumDays(){
+        return numberOfDays;
     }
 
-	/**
-	 * Get the number of days the game will go on for.
-	 * @return number of days game will run for.
-	 */
-	public int getNumDays(){
-	    return numberOfDays;
-	}
+    /**
+     * Get the player who's turn it currently is.
+     * @return current player.
+     */
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
 
-	/**
-	 * Get the player who's turn it currently is.
-	 * @return current player.
-	 */
-	public Player getCurrentPlayer(){
-	    return currentPlayer;
-	}
+    /**
+     * Gets lines 2 onwards from a data file specified.
+     * @param fileName File to get data from.
+     * @return ArrayList of each line as a string.
+     */
+    private ArrayList<String> getDataFromFile(String fileName) {
+        ArrayList<String> data = new ArrayList<String>();
+        String line;
+        try {
+            Reader inputFile;
+            try { //Runs if running class directly
+                String topDir = System.getProperty("user.dir");
+                if (topDir.endsWith("bin")) { //from cmdln
+                    fileName = "../config/" + fileName;
+                } else { //from eclipse
+                    fileName = "config/" + fileName;
+                }
+                inputFile = new FileReader(fileName);
+            } catch (FileNotFoundException e) { //if running from jar file.
+                InputStream stream = this.getClass().getResourceAsStream(fileName);
+                inputFile = new InputStreamReader(stream);
+            }
 
-	/**
-	 * Gets lines 2 onwards from a data file specified.
-	 * @param fileName File to get data from.
-	 * @return ArrayList of each line as a string.
-	 */
-	private ArrayList<String> getDataFromFile(String fileName){
-	    ArrayList<String> data = new ArrayList<String>();
-	    String line;
-		try {
-		    Reader inputFile;
-		    try { //Runs if running class directly
-		        String topDir = System.getProperty("user.dir");
-		        if (topDir.endsWith("bin")){ //from cmdln
-		            fileName = "../config/" + fileName;
-		        }else{ //from eclipse
-		            fileName = "config/" + fileName;
-		        }
-		        inputFile = new FileReader(fileName);
-		    } catch (FileNotFoundException e) { //if running from jar file.
-		        InputStream stream = this.getClass().getResourceAsStream(fileName);
-		        inputFile = new InputStreamReader(stream);
-		    }
+            BufferedReader bufferReader = new BufferedReader(inputFile);
+            bufferReader.readLine(); //ignore first line
 
-			BufferedReader bufferReader = new BufferedReader(inputFile);
-			bufferReader.readLine(); //ignore first line
+            while ((line = bufferReader.readLine()) != null) {
+                data.add(line);
+            }
 
-			while ((line = bufferReader.readLine()) != null){
-				data.add(line);
-			}
+            bufferReader.close(); //tidy up after reading file
+            inputFile.close();
+        } catch (IOException e) {
+            //If there is an IO error here just give up.
+            System.err.println("Error while reading file line by line: " + e.getMessage());
+            System.exit(0);
+        }
 
-			bufferReader.close(); //tidy up after reading file
-			inputFile.close();
-		} catch (IOException e) {
-			//If there is an IO error here just give up.
-			System.err.println("Error while reading file line by line: " + e.getMessage());
-			System.exit(0);
-		}
+        return data;
+    }
 
-		return data;
-	}
+    /**
+     * Creates a new player and their pets.
+     * @param values String array of data to convert into pet objects. Array should be of form
+     * {"player name", "pet one name\npet one species", "pet two name\npet two species",...}
+     * @throws IOException Pet creation side effect.
+     * @throws Exception For an unknown pet type.
+     */
+    public void createPlayer(String[] values) throws IOException, Exception{
+        Player newPlayer = new Player();
+        newPlayer.setName(values[0]);
+        String[] petData;
+        for(int i = 1; i < values.length; i++){
+            petData = values[i].split("\n");
+            Pet newPet;
+            switch (petData[1]){
+                case "alpaca":
+                    newPet = new Alpaca();
+                    break;
+                case "cat":
+                    newPet = new Cat();
+                    break;
+                case "dog":
+                    newPet = new Dog();
+                    break;
+                case "goat":
+                    newPet = new Goat();
+                    break;
+                case "horse":
+                    newPet = new Horse();
+                    break;
+                case "polar bear":
+                    newPet = new PolarBear();
+                    break;
+                default:
+                    throw new Exception("Error: Unknown Pet" + petData[1]);
+            }
+            newPet.setName(petData[0]);
+            newPlayer.getPetList().add(newPet);
+            Boolean genderDecider = randomNumGen.nextBoolean();
+            if (genderDecider) { //gender decided by randomNumGen
+                newPet.setGender("female");
+            } else {
+                newPet.setGender("male");
+            }
+            System.out.println(newPet.getGender());
+        }
+        playerList.add(newPlayer);
+    }
 
-	/**
-	 * Creates a new player and their pets.
-	 * @param values String array of data to convert into pet objects. Array should be of form
-	 * {"player name", "pet one name\npet one species", "pet two name\npet two species",...}
-	 * @throws IOException Pet creation side effect.
-	 * @throws Exception For an unknown pet type.
-	 */
-	public void createPlayer(String[] values) throws IOException, Exception{
-	    Player newPlayer = new Player();
-	    newPlayer.setName(values[0]);
-	    String[] petData;
-	    for(int i = 1; i < values.length; i++){
-	        petData = values[i].split("\n");
-	        Pet newPet;
-	        switch (petData[1]){
-	            case "alpaca":
-	                newPet = new Alpaca();
-	                break;
-	            case "cat":
-	                newPet = new Cat();
-	                break;
-	            case "dog":
-	                newPet = new Dog();
-	                break;
-	            case "goat":
-	                newPet = new Goat();
-	                break;
-	            case "horse":
-	                newPet = new Horse();
-	                break;
-	            case "polar bear":
-	                newPet = new PolarBear();
-	                break;
-	            default:
-	                throw new Exception("Error: Unknown Pet" + petData[1]);
-	        }
-	        newPet.setName(petData[0]);
-	        newPlayer.getPetList().add(newPet);
-	        Boolean genderDecider = randomNumGen.nextBoolean();
-	        if (genderDecider){ //gender decided by randomNumGen
-	            newPet.setGender("female");
-	        } else{
-	            newPet.setGender("male");
-	        }
-	        System.out.println(newPet.getGender());
-	    }
-	    playerList.add(newPlayer);
-	}
+    /**
+     * Returns the list of players.
+     * @return list of players
+     */
+    public ArrayList<Player> getPlayerList() {
+        return playerList;
+    }
 
-	/**
-	 * Returns the list of players.
-	 * @return list of players
-	 */
-	public ArrayList<Player> getPlayerList(){
-	    return playerList;
-	}
+    /**
+     * Sets the current player.
+     * @param p Current player.
+     */
+    public void setCurrentPlayer(Player p) {
+        currentPlayer = p;
+    }
 
-	/**
-	 * Sets the current player.
-	 * @param p Current player.
-	 */
-	public void setCurrentPlayer(Player p){
-	    currentPlayer = p;
-	}
-
-	public void setNumDays(int days){
-	    numberOfDays = days;
-	}
+    /**
+     * Sets the number of days.
+     * @param days Number of days.
+     */
+    public void setNumDays(int days) {
+        numberOfDays = days;
+    }
 }

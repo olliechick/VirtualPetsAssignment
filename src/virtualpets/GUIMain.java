@@ -21,9 +21,9 @@ public class GUIMain implements Observer {
      */
     private GameEnvironment mainGame;
     /**
-     * Number of players to create.
+     * Number of players playing.
      */
-    private int playerNumber;
+    private int numberOfPlayers;
     /**
      * List of names to check for duplicates against.
      */
@@ -44,8 +44,13 @@ public class GUIMain implements Observer {
      * The current pet.
      */
     private Pet currentPet;
+    private int currentPetIndex;
     private int currentDay;
-    private int numActions;
+    private int numActions = 2;
+    private int dailyPetAllowance = 10;
+	int numOfPetsP1;
+	int numOfPetsP2 = -1; //init to -1 so currentPetIndex !< numOfPetsP2 if P2 does not exist
+	int numOfPetsP3 = -1; //init to -1 so currentPetIndex !< numOfPetsP3 if P3 does not exist
 
     /**
      * Part of the Observer pattern to get data from GUI to GameEnvironment.
@@ -57,7 +62,7 @@ public class GUIMain implements Observer {
             case "setup":
                 Integer numDays = Integer.parseInt(values[1]);
                 mainGame.setNumDays(numDays);
-                playerNumber = Integer.parseInt(values[0]);
+                numberOfPlayers = Integer.parseInt(values[0]);
                 clearFrame();
                 createPlayer();
                 System.out.println("Creating player 1");
@@ -72,7 +77,7 @@ public class GUIMain implements Observer {
                 }
 
                 clearFrame();
-                if (numPlayersCreated < playerNumber) {
+                if (numPlayersCreated < numberOfPlayers) {
                     createPlayer();
                 } else {
                     displayHome();
@@ -87,24 +92,28 @@ public class GUIMain implements Observer {
             case "sleep":
                 currentPet.sleep();
                 System.out.println("Sleeping");
+                numActions--;
                 refreshScreen();
                 break;
 
             case "toilet":
                 currentPet.goToilet();
                 System.out.println("Going toilet");
+                numActions--;
                 refreshScreen();
                 break;
 
             case "feed":
                 Food food = mainGame.getFoodPrototypes().get(values[0]);
                 currentPet.feed(food);
+                numActions--;
                 refreshScreen();
                 break;
 
             case "play":
                 Toy toy = mainGame.getToyPrototypes().get(values[0]);
                 play(toy);
+                numActions--;
                 refreshScreen();
                 break;
 
@@ -113,8 +122,19 @@ public class GUIMain implements Observer {
                 System.out.println("Dropping data");
                 System.out.println(identifier);
         }
+        if (numActions == 0) {
+        	//finished interacting with this pet today
+        	nextPet();
+            refreshScreen();
+
+        }
     }
 
+    /**
+     * The pet plays with the toy. If if breaks it, the user will be notified,
+     * and the toy will be removed from the player's inventory.
+     * @param toy The toy the pet is playing with.
+     */
     private void play(Toy toy) {
         try {
             currentPet.play(toy);
@@ -181,7 +201,7 @@ public class GUIMain implements Observer {
     /**
      * Displays home screen to the user and moves onto the first day.
      */
-    private void displayHome(){
+    private void displayHome() {
         clearFrame();
         mainFrame.setBounds(0, 0, 815, 540);
 
@@ -202,14 +222,91 @@ public class GUIMain implements Observer {
         gameLoop();
     }
 
-    /**
+    private void nextPet() {
+    	System.out.println("currentPetIndex = "+currentPetIndex+" other stuff: "+numOfPetsP1+numOfPetsP2);
+    	currentPetIndex++;
+
+    	// First find out which is the next pet, and set that to currentPet
+    	if (currentPetIndex == 0) {
+        	System.out.println("a");
+    	}
+    	else if (currentPetIndex < numOfPetsP1) {
+        	System.out.println("b");
+    		// still on Player 1
+    		currentPet = currentPlayer.getPetList().get(currentPetIndex);
+
+    	} else if (numberOfPlayers >= 2 && currentPetIndex == numOfPetsP1) {
+        	System.out.println("c");
+    		currentPlayer.calculateScore(); //Player 1 has finished, calculate its score
+    		// Player 2 exists, so we're moving on to Player 2
+
+    		currentPlayer = mainGame.getPlayerList().get(1);
+    		initialisePlayer();
+    		numOfPetsP2 = mainGame.getPlayerList().get(1).getPetList().size();
+    		currentPet = currentPlayer.getPetList().get(0); //get the player's first pet
+
+    	} else if (currentPetIndex < numOfPetsP1 + numOfPetsP2) {
+    		// still on Player 2
+        	System.out.println("d");
+    		currentPet = currentPlayer.getPetList().get(currentPetIndex - numOfPetsP1);
+
+    	} else if (numberOfPlayers >= 3 && currentPetIndex == numOfPetsP2) {
+        	System.out.println("e");
+    		currentPlayer.calculateScore(); //Player 2 has finished, calculate its score
+    		// Player 3 exists, so we're moving on to Player 3
+    		currentPlayer = mainGame.getPlayerList().get(2);
+    		initialisePlayer();
+    		numOfPetsP3 = mainGame.getPlayerList().get(2).getPetList().size();
+    		currentPet = currentPlayer.getPetList().get(0); //get the player's first pet
+
+    	} else if (currentPetIndex < numOfPetsP1 + numOfPetsP2 + numOfPetsP3) {
+        	System.out.println("f");
+    		// still on Player 3
+    		currentPet = currentPlayer.getPetList().get(currentPetIndex - numOfPetsP1 - numOfPetsP2);
+
+    	} else {
+        	System.out.println("g");
+    		if (numberOfPlayers == 3) { //if there are 3 players, then:
+    			currentPlayer.calculateScore(); //Player 3 has finished, calculate its score
+    		}
+    		// All players finished, time to move on to the next day.
+    		nextDay();
+    	}
+
+		System.out.println("Moving on to " + currentPet.getName());
+
+		if (currentPet.getIsDead()) {
+			System.out.println("Actually they're dead.");
+			nextPet();
+		} else {
+			//they're alive!
+	        numActions = 2;
+	        newDayPetActions();
+		}
+        refreshScreen();
+    }
+
+    private void initialisePlayer() {
+        int numOfAlivePets = 0;
+        for (Pet pet : currentPlayer.getPetList()) { // count up all the alive pets
+            if (!pet.getIsDead()) {
+                numOfAlivePets++;
+            }
+        }
+        //Give them an allowance per alive pet
+        currentPlayer.earn(dailyPetAllowance * numOfAlivePets);
+	}
+
+	/**
      * Move to a new day. Currently doesn't do this...
      */
-    private void newDay() {
-        System.out.println("Its a brand new day!!");
-        currentPlayer = mainGame.getPlayerList().get(0);
-        mainGame.setCurrentPlayer(currentPlayer);
-        currentPet = currentPlayer.getPetList().get(0);
+    private void nextDay() {
+    	currentDay++;
+    	currentPetIndex = 0;
+    	currentPlayer = mainGame.getPlayerList().get(0);
+    	currentPet = currentPlayer.getPetList().get(0);
+		initialisePlayer();
+        System.out.println("========== New day ==============");
         homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2);
     }
 
@@ -217,37 +314,22 @@ public class GUIMain implements Observer {
      * This is where the magic happens.
      */
     private void gameLoop(){
-        int dailyPetAllowance = 10;
-        int dayNumber = 0;
-
-        while (dayNumber <= mainGame.getNumDays()) {
-            for (Player player : mainGame.getPlayerList()) {
-
-                currentPlayer = player;
-                int numOfAlivePets = 0;
-                for (Pet pet : currentPlayer.getPetList()) { // count up all the alive pets
-                    if (!pet.getIsDead()) {
-                        numOfAlivePets++;
-                    }
-                }
-                currentPlayer.earn(dailyPetAllowance * numOfAlivePets);
-
-                for (Pet pet : currentPlayer.getPetList()) {
-                    if (!pet.getIsDead()) { // if the pet isn't dead
-                        numActions = 2;
-                        currentPet = pet;
-                        refreshScreen();
-                        newDayPetActions();
-//                        CommandLineInterface.interact(player, pet, foodPrototypes, toyPrototypes);
-                    }
-                }
-                currentPlayer.calculateScore();
-            }
-
-            dayNumber++;
-        }
+    	numOfPetsP1 = mainGame.getPlayerList().get(0).getPetList().size();
+        int dayNumber = 0; //TODO why is this not 1?
+        currentPlayer = mainGame.getPlayerList().get(0);
+        currentPet = currentPlayer.getPetList().get(0);
+		initialisePlayer();
+        mainGame.setCurrentPlayer(currentPlayer); //TODO what is the point of this???
+        refreshScreen();
     }
 
+    /**
+     * Perform daily actions for a pet.
+     * This includes increasing fatigue, hunger, etc.,
+     * as well as prompting the user if the pet is misbehaving, sick, or dead.
+     * If so, they have the option to discipline, treat, or revive,
+     * depending on what happened.
+     */
     private void newDayPetActions() {
         Boolean misbehaving;
         Boolean sick;
