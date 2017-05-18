@@ -142,6 +142,7 @@ public class HomePanel extends JPanel implements Observable {
         lblDay.setBounds(701, 11, 25, 14);
         add(lblDay);
 
+        //TODO: Make text on button change so that user knows what they are doing.
         JButton btnNext = new JButton("Next");
         btnNext.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
