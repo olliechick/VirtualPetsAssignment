@@ -133,6 +133,7 @@ public class Player implements Comparable<Player> {
 
     /**
      * Calculate's the player's score.
+     * This is based on each pet the player has, so should be run each day.
      */
     public void calculateScore() {
         int score = 0;

@@ -68,6 +68,10 @@ public class PetCreationPanel extends JPanel {
 
         rdbtnCat = new JRadioButton("Cat");
         rdbtnCat.setToolTipText("Add me later");
+        //TODO These tooltips should, to quote the spec, allow the user to have some way
+        //of viewing attributes of each pet, so that the players can compare pets
+        //and make an informed decision about the characteristics of each species.
+        //Maybe include instructions on how to view these in the tutorial?
         rdbtnCat.setBounds(0, 91, 109, 23);
         add(rdbtnCat);
 
