@@ -208,27 +208,6 @@ public class GameEnvironment {
     }
 
     /**
-     * Creates a new player.
-     *
-     * @return A fully created player
-     */
-    private Player createPlayer() {
-        Player newPlayer = new Player();
-        setPlayerName(newPlayer);
-        int numPets = CommandLineInterface.getNumberRequired("Hi "
-                + newPlayer.getName()
-                + "! How many pets do you want? ");
-
-        ArrayList<Pet> playerPetList = newPlayer.getPetList();
-        Pet newPet;
-        for (int i = 0; i < numPets; i++) {
-            newPet = createPet();
-            playerPetList.add(newPet);
-        }
-        return newPlayer;
-    }
-
-    /**
      * Sets the name for a new player.
      *
      * @param newPlayer
@@ -240,56 +219,6 @@ public class GameEnvironment {
         } catch (IllegalArgumentException exception) {
             System.out.println("Unknown error. Please try again.");
         }
-    }
-
-    /**
-     * Creates a pet for a player.
-     *
-     * @return Pet player has made.
-     */
-    private Pet createPet() {
-        Pet newPet = CommandLineInterface.createPetSpecies();
-
-        try {
-            newPet.setName(CommandLineInterface.getName("Pet name: ", nameList));
-        } catch (IllegalArgumentException exception) {
-            System.out.println("Unknown error. Please try again.");
-        }
-
-        Boolean genderDecider = randomNumGen.nextBoolean();
-        if (genderDecider) { // gender decided by randomNumGen
-            newPet.setGender("female");
-        } else {
-            newPet.setGender("male");
-        }
-
-        return newPet;
-    }
-
-    /**
-     * Performs all setup for the game.
-     * Creates players, their pets, and a prototype of each Toy and Food.
-     */
-    private void setup() {
-        CommandLineInterface.gameHeader();
-        CommandLineInterface.tutorial();
-        numberOfDays = CommandLineInterface.getNumberOfDays();
-        dayNumber = 1;
-        int numPlayers = CommandLineInterface.getNumberRequired("How many players? ");
-
-        for (int i = 0; i < numPlayers; i++) {
-            playerList.add(createPlayer());
-        }
-
-        generateToyPrototypes();
-        generateFoodPrototypes();
-    }
-
-    /**
-     * Tears down the game.
-     */
-    private void tearDown() {
-        CommandLineInterface.tearDown();
     }
 
     /**
@@ -307,7 +236,6 @@ public class GameEnvironment {
 
     /**
      * Method to return a list of food prototypes - for testing purposes.
-     *
      * @return HashMap of food prototypes mapping from food name to food prototype.
      */
     public HashMap<String, Food> getFoodPrototypes() {
@@ -335,53 +263,18 @@ public class GameEnvironment {
     }
 
     /**
-     * Main game loop.
-     * @throws Exception if error in code
-     */
-    private void gameLoop() throws Exception {
-        dailyPetAllowance = 10;
-
-        while (dayNumber <= numberOfDays) {
-            CommandLineInterface.newDay(dayNumber);
-
-            for (Player player : playerList) {
-                CommandLineInterface.newPlayer(player);
-                int numOfAlivePets = 0;
-                for (Pet pet : player.getPetList()) { // count up all the alive
-                    // pets
-                    if (!pet.getIsDead()) {
-                        numOfAlivePets++;
-                    }
-                }
-                player.earn(dailyPetAllowance * numOfAlivePets);
-
-                for (Pet pet : player.getPetList()) {
-                    if (!pet.getIsDead()) { // if the pet isn't dead
-                        newDayPetActions(player, pet);
-                        CommandLineInterface.interact(player, pet, foodPrototypes, toyPrototypes);
-                    }
-                }
-                player.calculateScore();
-            }
-
-            dayNumber++;
-        }
-    }
-
-    /**
-     * This runs just before a user interacts with their pet. It does three
-     * things: 1. Increases the pet's fatigue, decreases its happiness,
-     * increases its hunger, and increases its mischievousness. 2. If the pet is
-     * very tired, it decreases its health. 3. Controls if the pet does random
-     * events, such as misbehaving, getting sick, and dying.
+     * This runs just before a user interacts with their pet. It does two
+     * things:
+     * 1. Increases the pet's fatigue, decreases its happiness,
+     * increases its hunger, and increases its mischievousness.
+     * 2. If the pet is very tired, it decreases its health.
      *
-     * @param player  the player who is interacting with their pet.
-     * @param pet the pet the player is about to interact with.
+     * @param player The player who is interacting with their pet.
+     * @param pet The pet the player is about to interact with.
+     * @return
      */
-    private void newDayPetActions(Player player, Pet pet) {
-        Boolean disciplined;
-        Boolean treated;
-        Boolean revived;
+    public void newDayPetActions(Pet pet) {
+
 
         pet.increaseFatigue(30);
         pet.increaseHappiness(-10);
@@ -398,9 +291,15 @@ public class GameEnvironment {
             pet.increaseHealth(-50);
         }
 
-        /*
-         * Check if misbehaving
-         */
+    }
+
+    /**
+     * Checks if the pet is misbehaving.
+     * The pet will misbehave based on its wellness, which is a weighted
+     * combination of the pet's happiness, health, mischievousness, and hunger.
+     * @param pet The pet who might be misbehaving.
+     */
+    public Boolean checkIfMisbehaving(Pet pet){
         // create random number between 0 and 99
         int randomNumber = randomNumGen.nextInt(100);
         int wellness = (pet.getHappiness() * 3
@@ -410,47 +309,59 @@ public class GameEnvironment {
         if (wellness < 25 && randomNumber < 75
                 || wellness < 50 && randomNumber < 50
                 || wellness < 75 && randomNumber < 25) {
-            disciplined = CommandLineInterface.petMisbehaves(pet);
-            if (disciplined) {
-                pet.discipline();
-            } else {
-                pet.misbehave();
-            }
+            return true;
+        } else {
+            return false;
         }
+    }
 
-        /*
-         * Check if sick
-         */
+    /**
+     * Checks if the pet is sick.
+     * The pet will be sick if:
+     * the pet was already sick
+     * the pet has health below 5%.
+     * It could also become sick randomly, if:
+     * the pet has health below 25%, it has a 75% chance of becoming sick
+     * the pet has health below 50%, it has a 50% chance of becoming sick
+     * the pet has health below 75%, it has a 25% chance of becoming sick
+     * @param pet The pet who might be sick.
+     */
+    public Boolean checkIfSick(Pet pet){
         // create random number between 0 and 99
-        randomNumber = randomNumGen.nextInt(100);
+        int randomNumber = randomNumGen.nextInt(100);
         int health = pet.getHealth();
         if (pet.getIsSick()
                 || health < 5
                 || health < 25 && randomNumber < 75
                 || health < 50 && randomNumber < 50
                 || health < 75 && randomNumber < 25) {
-            treated = CommandLineInterface.petSicks(pet, player.getBalance());
-            if (treated) {
-                pet.treat();
-                player.spend(50);
-            } else {
-                pet.beSick();
-            }
+            return true;
+        } else{
+            return false;
         }
+    }
+
+    /**
+     * Checks it the pet has died.
+     * The pet will die if:
+     * the pet is sick and has happiness less than 50%
+     * its health is less than 5%
+     * 2% chance of random death
+     * @param pet
+     * @return
+     */
+    public Boolean checkIfDead(Pet pet){
 
         /*
          * Check if dead
          */
         // create random number between 0 and 99
-        randomNumber = randomNumGen.nextInt(100);
-        if (pet.getIsSick() && pet.getHappiness() < 50 || health < 5 || randomNumber < 2) {
-            revived = CommandLineInterface.petDies(pet, pet.getIsRevivable());
-            if (revived) {
-                pet.revive();
-            } else {
-                pet.die();
-            }
+        int randomNumber = randomNumGen.nextInt(100);
+        if (pet.getIsSick() && pet.getHappiness() < 50 || pet.getHealth() < 5 || randomNumber < 2) {
+            return true;
         }
+
+        return false;
 
     }
 

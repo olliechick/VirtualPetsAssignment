@@ -44,6 +44,8 @@ public class GUIMain implements Observer {
      * The current pet.
      */
     private Pet currentPet;
+    private int currentDay;
+    private int numActions;
 
     /**
      * Part of the Observer pattern to get data from GUI to GameEnvironment.
@@ -173,7 +175,7 @@ public class GUIMain implements Observer {
      * Refresh screen to display change in data.
      */
     private void refreshScreen() {
-        homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2);
+        homeScreen.refreshTabs(currentPlayer, currentPet, currentDay, numActions);
     }
 
     /**
@@ -186,7 +188,6 @@ public class GUIMain implements Observer {
         int numDays = mainGame.getNumDays();
         homeScreen = new HomePanel(numDays, mainGame);
 
-        //TODO register observer in other tabs
         homeScreen.getStoreTab().registerObserver(this);
         homeScreen.getFeedingTab().registerObserver(this);
         homeScreen.getSleepTab().registerObserver(this);
@@ -198,8 +199,9 @@ public class GUIMain implements Observer {
 
         homeScreen.setSize(800, 500);
 
-        newDay();
+        gameLoop();
     }
+
     /**
      * Move to a new day. Currently doesn't do this...
      */
@@ -209,6 +211,91 @@ public class GUIMain implements Observer {
         mainGame.setCurrentPlayer(currentPlayer);
         currentPet = currentPlayer.getPetList().get(0);
         homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2);
+    }
+
+    /**
+     * This is where the magic happens.
+     */
+    private void gameLoop(){
+        int dailyPetAllowance = 10;
+        int dayNumber = 0;
+
+        while (dayNumber <= mainGame.getNumDays()) {
+            for (Player player : mainGame.getPlayerList()) {
+
+                currentPlayer = player;
+                int numOfAlivePets = 0;
+                for (Pet pet : currentPlayer.getPetList()) { // count up all the alive pets
+                    if (!pet.getIsDead()) {
+                        numOfAlivePets++;
+                    }
+                }
+                currentPlayer.earn(dailyPetAllowance * numOfAlivePets);
+
+                for (Pet pet : currentPlayer.getPetList()) {
+                    if (!pet.getIsDead()) { // if the pet isn't dead
+                        numActions = 2;
+                        currentPet = pet;
+                        refreshScreen();
+                        newDayPetActions();
+//                        CommandLineInterface.interact(player, pet, foodPrototypes, toyPrototypes);
+                    }
+                }
+                currentPlayer.calculateScore();
+            }
+
+            dayNumber++;
+        }
+    }
+
+    private void newDayPetActions() {
+        Boolean misbehaving;
+        Boolean sick;
+        Boolean dead;
+
+        Boolean disciplined;
+        Boolean treated;
+        Boolean revived;
+
+
+        mainGame.newDayPetActions(currentPet);
+        misbehaving = mainGame.checkIfMisbehaving(currentPet);
+        if (misbehaving) {
+            //TODO popup to discipline or not
+            disciplined = true; //for the meantime
+            if (disciplined) {
+                currentPet.discipline();
+            } else {
+                currentPet.misbehave();
+            }
+            refreshScreen();
+        }
+
+        sick = mainGame.checkIfSick(currentPet);
+        if (sick) {
+            //TODO popup to discipline or not
+            treated = true; //for the meantime
+            if (treated) {
+                currentPet.treat();
+                currentPlayer.spend(50);
+            } else {
+                currentPet.beSick();
+            }
+            refreshScreen();
+        }
+
+        dead = mainGame.checkIfDead(currentPet);
+        if (dead) {
+            //TODO popup to revive or not OR popup to say you're a bad person, based on currentPet.getRevivable()
+            revived = true; //for the meantime
+
+            if (revived) {
+                currentPet.revive();
+            } else {
+                currentPet.die();
+            }
+            refreshScreen();
+        }
     }
 
     /**
