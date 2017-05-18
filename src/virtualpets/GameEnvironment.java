@@ -22,7 +22,7 @@ public class GameEnvironment {
     /**
      * The current player.
      */
-    private Player currentPlayer;
+    private Player currentPlayer; //TODO why does GameEnvinronment need this?
     /**
      * The list of players.
      */

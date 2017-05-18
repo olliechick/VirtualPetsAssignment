@@ -46,7 +46,10 @@ public class GUIMain implements Observer {
      */
     private Pet currentPet;
     /**
-     * Index of the current pet in the current players pet list.
+     * Index of the current pet.
+     * This is the index of an imaginary array made by
+     * concatenating the petLists of all the players, in order
+     * given by mainGame.getPlayerList().
      */
     private int currentPetIndex;
     /**
@@ -58,7 +61,7 @@ public class GUIMain implements Observer {
      */
     private int numActions = 2;
     /**
-     * Value of the stipend player earns daily per pet.
+     * Value of the stipend each player earns daily per (alive) pet, in dollars ($).
      */
     private int dailyPetAllowance = 10;
     //TODO: Could you not use an array? --Sam
@@ -343,7 +346,7 @@ public class GUIMain implements Observer {
      */
     private void gameLoop(){
     	numOfPetsP1 = mainGame.getPlayerList().get(0).getPetList().size();
-        int dayNumber = 0; //TODO why is this not 1? //TODO: You asked for it to be set to 0? --Sam
+        int dayNumber = 1; //TODO use this somewhere
         currentPlayer = mainGame.getPlayerList().get(0);
         currentPet = currentPlayer.getPetList().get(0);
 		initialisePlayer();
