@@ -89,7 +89,6 @@ public class StorePanel extends JPanel implements Observable {
         String[] typesOfItem = {"Toys", "Food"};
 
         storeInventory = new JTable(storeArray, typesOfItem){
-
             public boolean isCellEditable(int row, int column) {
                     return false;
             };
@@ -107,6 +106,7 @@ public class StorePanel extends JPanel implements Observable {
                 showItemStats(selected);
 			}
         });
+        storeInventory.setBounds(22, 39, 250, 333);
         add(storeInventory);
 
 

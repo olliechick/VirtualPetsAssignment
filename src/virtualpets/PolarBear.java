@@ -1,5 +1,4 @@
 package virtualpets;
-import java.io.IOException;
 
 /**
  * Polar bear, a type of pet.
