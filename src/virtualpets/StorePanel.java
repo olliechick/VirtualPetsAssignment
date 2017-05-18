@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -93,6 +94,7 @@ public class StorePanel extends JPanel implements Observable {
                     return false;
             };
         }; //create JTable with store items at core
+        storeInventory.setDefaultEditor(Object.class, null);
         storeInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Set it so that one item can be selected at a time
         storeInventory.setCellSelectionEnabled(true);
         storeInventory.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -106,8 +108,14 @@ public class StorePanel extends JPanel implements Observable {
                 showItemStats(selected);
 			}
         });
-        storeInventory.setBounds(22, 39, 250, 333);
-        add(storeInventory);
+        //TODO: Fix UI look
+        storeInventory.getTableHeader().setReorderingAllowed(false); //prevent header changing
+        storeInventory.getTableHeader().setResizingAllowed(false); //prevent resizing columns
+        JScrollPane scrollBar = new JScrollPane(storeInventory); //Add a scroll bar to the JTable so that the user can scroll
+        scrollBar.setBounds(22, 39, 250, 203); //put scrollbar in the right place.
+        add(scrollBar);
+        //storeInventory.setBounds(22, 39, 250, 236);
+        //add(storeInventory);
 
 
         lblName = new JLabel("");
