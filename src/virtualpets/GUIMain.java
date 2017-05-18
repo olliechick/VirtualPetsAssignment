@@ -450,6 +450,7 @@ public class GUIMain implements Observer {
      * Sets up the main window and game environment.
      */
     private void initialise() {
+        //TODO: Fix size of mainFrame
         mainGame = new GameEnvironment();
         mainGame.generateFoodPrototypes();
         mainGame.generateToyPrototypes();
