@@ -184,7 +184,7 @@ public class StorePanel extends JPanel implements Observable {
     }
 
     /**
-     * Generates food prototypes for display..
+     * Generates food prototypes for display.
      * @param foodPrototypes Hashmap of food prototypes.
      * @return food prototypes turned into a list of items.
      */
