@@ -88,7 +88,9 @@ public class FeedPanel extends JPanel implements Observable {
              * When button pressed
              */
             public void actionPerformed(ActionEvent arg0) {
-                notifyObservers();
+                if (itemListPanel.getSelectedItem() != null) {
+                    notifyObservers();
+                }
             }
         });
         add(btnEatFood);
