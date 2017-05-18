@@ -21,7 +21,6 @@ public class SleepPanel extends JPanel implements Observable{
      */
     private ArrayList<Observer> observers = new ArrayList<>();
 
-    //TODO: Add functionality
     //TODO: start with normal image, switch to sleeping image when they click sleep
     /**
      * Create the panel.
@@ -44,12 +43,16 @@ public class SleepPanel extends JPanel implements Observable{
 
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public void registerObserver(Observer observer) {
         observers.add(observer);
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public void notifyObservers() {
         for (Observer observer: observers) {
             observer.getValues("sleep", new String[0]);
