@@ -53,7 +53,7 @@ public class SetupPanel extends JPanel implements Observable {
         numberOfDaysSpinner.setBounds(187, 11, 39, 20);
         add(numberOfDaysSpinner);
 
-        JLabel lblNumberOfPlayers = new JLabel("Number of Players:");
+        JLabel lblNumberOfPlayers = new JLabel("Number of players:");
         lblNumberOfPlayers.setBounds(67, 36, 116, 14);
         add(lblNumberOfPlayers);
 
