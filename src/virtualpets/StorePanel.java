@@ -56,17 +56,14 @@ public class StorePanel extends JPanel implements Observable {
      * @param matrix Matrix to transpose
      * @return A transposed matrix.
      */
-    public static Item[][] transposeMatrix(Item[][] matrix)
-    {
+    public static Item[][] transposeMatrix(Item[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
 
         Item[][] trasposedMatrix = new Item[n][m];
 
-        for(int x = 0; x < n; x++)
-        {
-            for(int y = 0; y < m; y++)
-            {
+        for (int x = 0; x < n; x++) {
+            for (int y = 0; y < m; y++) {
                 trasposedMatrix[x][y] = matrix[y][x];
             }
         }
@@ -87,11 +84,17 @@ public class StorePanel extends JPanel implements Observable {
         Item[] toyItemArray = toyItems.toArray(new Item[0]);
         ArrayList<Item> foodItems = generateFoodInventory(foodPrototypes);
         Item[] foodItemArray = foodItems.toArray(new Item[0]);
-        Item[][] m = {toyItemArray, foodItemArray};
-        Item[][] storeArray = transposeMatrix(m); //TODO: Why are you transposing the items?
+        Item[][] storeArray = {toyItemArray, foodItemArray};
+        //Transposing storeArray so there are two columns, toy and food
+        storeArray = transposeMatrix(storeArray);
         String[] typesOfItem = {"Toys", "Food"};
 
-        storeInventory = new JTable(storeArray, typesOfItem); //create JTable with store items at core
+        storeInventory = new JTable(storeArray, typesOfItem){
+
+            public boolean isCellEditable(int row, int column) {
+                    return false;
+            };
+        }; //create JTable with store items at core
         storeInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Set it so that one item can be selected at a time
         storeInventory.setCellSelectionEnabled(true);
         storeInventory.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -105,10 +108,7 @@ public class StorePanel extends JPanel implements Observable {
                 showItemStats(selected);
 			}
         });
-        //TODO: Do we need a scroll bar with two columns?
-        JScrollPane scrollBar = new JScrollPane(storeInventory); //Add a scroll bar to the JTable so that the user can scroll
-        scrollBar.setBounds(22, 39, 250, 333); //put scrollbar in the right place.
-        add(scrollBar);
+        add(storeInventory);
 
 
         lblName = new JLabel("");

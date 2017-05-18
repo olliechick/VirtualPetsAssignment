@@ -102,7 +102,7 @@ public class GUIMain implements Observer {
 
             case "play":
                 Toy toy = mainGame.getToyPrototypes().get(values[0]);
-                currentPet.play(toy);
+                play(toy);
                 refreshScreen();
                 break;
 
@@ -111,6 +111,25 @@ public class GUIMain implements Observer {
                 System.out.println("Dropping data");
                 System.out.println(identifier);
         }
+    }
+
+    private void play(Toy toy) {
+        try {
+            currentPet.play(toy);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().equals("durability is zero or negative")) {
+                //they've used the toy to the point of destruction
+                JOptionPane.showMessageDialog(null, currentPet.getName()
+                        + " broke the "
+                        + toy.getName());
+                currentPlayer.getToyList().remove(toy);
+            } else {
+                //unknown error
+                throw e;
+            }
+        }
+
+
     }
 
     /**
