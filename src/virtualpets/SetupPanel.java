@@ -36,7 +36,7 @@ public class SetupPanel extends JPanel implements Observable {
      * Height of the object on screen.
      */
     public final int height = 165;
-    private String helpText = "Welcome to Virtual Pets!"
+    private String helpText = "Welcome to Virtual Pets!" //TODO: Should this be read from file?
             + "\nThis is a game for 1-3 players. "
             + "Each player has 1-3 pets, which can be cats, dogs, goats, "
                 + "alpacas, horses, or polar bears, or a mixture. "

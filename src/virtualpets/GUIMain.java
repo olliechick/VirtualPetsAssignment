@@ -1,4 +1,5 @@
 package virtualpets;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -236,7 +237,6 @@ public class GUIMain implements Observer {
      */
     private void displayHome() {
         clearFrame();
-        mainFrame.setBounds(0, 0, 815, 540);
 
         int numDays = mainGame.getNumDays();
         homeScreen = new HomePanel(numDays, mainGame);
@@ -253,6 +253,7 @@ public class GUIMain implements Observer {
         homeScreen.setVisible(true);
 
         homeScreen.setSize(800, 500);
+        mainFrame.setMinimumSize(new Dimension(815, 535));
 
         gameLoop();
     }
@@ -467,7 +468,6 @@ public class GUIMain implements Observer {
      * Sets up the main window and game environment.
      */
     private void initialise() {
-        //TODO: Fix size of mainFrame
         mainGame = new GameEnvironment();
         mainGame.generateFoodPrototypes();
         mainGame.generateToyPrototypes();
@@ -482,6 +482,7 @@ public class GUIMain implements Observer {
      */
     private void showSetup() {
         mainFrame.setBounds(0, 0, 300, 200);
+        mainFrame.setMinimumSize(new Dimension(300, 200));
         SetupPanel setupPanel = new SetupPanel();
         setupPanel.registerObserver(this);
 
@@ -498,6 +499,7 @@ public class GUIMain implements Observer {
      */
     private void createPlayer() {
         mainFrame.setBounds(0, 0, 435, 392);
+        mainFrame.setMinimumSize(new Dimension(435, 392));
         PlayerCreationPanel playerCreation = new PlayerCreationPanel(this);
         playerCreation.registerObserver(this);
 
