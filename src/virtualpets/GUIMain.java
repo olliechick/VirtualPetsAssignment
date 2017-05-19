@@ -146,7 +146,7 @@ public class GUIMain implements Observer {
                 break;
 
             case "next":
-                nextPet();
+                numActions = 0;
                 break;
 
             default:
@@ -258,16 +258,11 @@ public class GUIMain implements Observer {
     	currentPetIndex++;
 
     	// First find out which is the next pet, and set that to currentPet
-    	if (currentPetIndex == 0) {
-        	System.out.println("a");
-    	}
-    	else if (currentPetIndex < numOfPetsP1) {
-        	System.out.println("b");
+    	if (currentPetIndex < numOfPetsP1) {
     		// still on Player 1
     		currentPet = currentPlayer.getPetList().get(currentPetIndex);
 
     	} else if (numberOfPlayers >= 2 && currentPetIndex == numOfPetsP1) {
-        	System.out.println("c");
     		currentPlayer.calculateScore(); //Player 1 has finished, calculate its score
     		// Player 2 exists, so we're moving on to Player 2
 
@@ -278,11 +273,9 @@ public class GUIMain implements Observer {
 
     	} else if (currentPetIndex < numOfPetsP1 + numOfPetsP2) {
     		// still on Player 2
-        	System.out.println("d");
     		currentPet = currentPlayer.getPetList().get(currentPetIndex - numOfPetsP1);
 
     	} else if (numberOfPlayers >= 3 && currentPetIndex == numOfPetsP2) {
-        	System.out.println("e");
     		currentPlayer.calculateScore(); //Player 2 has finished, calculate its score
     		// Player 3 exists, so we're moving on to Player 3
     		currentPlayer = mainGame.getPlayerList().get(2);
@@ -291,12 +284,10 @@ public class GUIMain implements Observer {
     		currentPet = currentPlayer.getPetList().get(0); //get the player's first pet
 
     	} else if (currentPetIndex < numOfPetsP1 + numOfPetsP2 + numOfPetsP3) {
-        	System.out.println("f");
     		// still on Player 3
     		currentPet = currentPlayer.getPetList().get(currentPetIndex - numOfPetsP1 - numOfPetsP2);
 
     	} else {
-        	System.out.println("g");
     		if (numberOfPlayers == 3) { //if there are 3 players, then:
     			currentPlayer.calculateScore(); //Player 3 has finished, calculate its score
     		}
@@ -333,12 +324,25 @@ public class GUIMain implements Observer {
      */
     private void nextDay() {
     	currentDay++;
-    	currentPetIndex = 0;
-    	currentPlayer = mainGame.getPlayerList().get(0);
-    	currentPet = currentPlayer.getPetList().get(0);
-		initialisePlayer();
-        System.out.println("========== New day ==============");
-        homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2);
+    	if (currentDay <= mainGame.getNumDays()) {
+    	    currentPetIndex = 0;
+    	    currentPlayer = mainGame.getPlayerList().get(0);
+    	    currentPet = currentPlayer.getPetList().get(0);
+    	    initialisePlayer();
+    	    System.out.println("========== New day ==============");
+    	    homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2);
+    	} else {
+    	    postGame();
+    	}
+    }
+
+    private void postGame() {
+        // TODO gui
+        Player[] players;
+        players = mainGame.rankPlayers();
+        for (Player player : players){
+            System.out.println(player.getName() + ": "+ player.getScore());
+        }
     }
 
     /**
@@ -346,7 +350,7 @@ public class GUIMain implements Observer {
      */
     private void gameLoop(){
     	numOfPetsP1 = mainGame.getPlayerList().get(0).getPetList().size();
-        int dayNumber = 1; //TODO use this somewhere
+        currentDay = 1;
         currentPlayer = mainGame.getPlayerList().get(0);
         currentPet = currentPlayer.getPetList().get(0);
 		initialisePlayer();
@@ -385,7 +389,7 @@ public class GUIMain implements Observer {
 
         sick = mainGame.checkIfSick(currentPet);
         if (sick) {
-            //TODO popup to discipline or not
+            //TODO popup to treat or not
             treated = true; //for the meantime
             if (treated) {
                 currentPet.treat();
@@ -509,8 +513,7 @@ public class GUIMain implements Observer {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
-            //ignore all exceptions
-        	//TODO all these ignoring all exceptions seems like a bad idea?
+            e.printStackTrace();
         }
         GUIMain main = new GUIMain();
         main.initialise();

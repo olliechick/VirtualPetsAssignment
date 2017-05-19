@@ -44,7 +44,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         setLayout(null); //Absolute layout
 
         //Player name text box and label
-        JLabel lblPlayerName = new JLabel("Player Name:");
+        JLabel lblPlayerName = new JLabel("Player name:");
         lblPlayerName.setBounds(10, 14, 89, 14);
         add(lblPlayerName);
 
@@ -54,7 +54,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         playerNameField.setColumns(10);
 
         //Pet number selection label
-        JLabel lblNumberOfPets = new JLabel("Pet:");
+        JLabel lblNumberOfPets = new JLabel("Pets:");
         lblNumberOfPets.setBounds(10, 39, 116, 14);
         add(lblNumberOfPets);
 
@@ -270,7 +270,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         }
         JFrame myFrame = new JFrame();
 
-        myFrame.setBounds(0, 0, 435, 39);
+        myFrame.setBounds(0, 0, 435, 359);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.getContentPane().setLayout(null);
 

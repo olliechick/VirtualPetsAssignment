@@ -57,12 +57,12 @@ public class PetCreationPanel extends JPanel {
         add(petNameField);
         petNameField.setColumns(10);
 
-        JLabel lblPetName = new JLabel("Pet Name");
+        JLabel lblPetName = new JLabel("Pet name:");
         lblPetName.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblPetName.setBounds(31, 11, 61, 14);
         add(lblPetName);
 
-        JLabel lblPetSpecies = new JLabel("Pet Species");
+        JLabel lblPetSpecies = new JLabel("Pet species:");
         lblPetSpecies.setBounds(27, 48, 69, 14);
         add(lblPetSpecies);
 
@@ -71,7 +71,7 @@ public class PetCreationPanel extends JPanel {
         //TODO These tooltips should, to quote the spec, allow the user to have some way
         //of viewing attributes of each pet, so that the players can compare pets
         //and make an informed decision about the characteristics of each species.
-        //Maybe include instructions on how to view these in the tutorial?
+        //Display all characteristics that are retrieved from file (see Pet.java, lines 123+ for these)
         rdbtnCat.setBounds(0, 91, 109, 23);
         add(rdbtnCat);
 
@@ -91,7 +91,7 @@ public class PetCreationPanel extends JPanel {
         rdbtnAlpaca.setBounds(0, 65, 109, 23);
         add(rdbtnAlpaca);
 
-        rdbtnPolarBear = new JRadioButton("Polar Bear");
+        rdbtnPolarBear = new JRadioButton("Polar bear");
         rdbtnPolarBear.setBounds(0, 195, 109, 23);
         add(rdbtnPolarBear);
 

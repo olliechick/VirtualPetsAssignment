@@ -126,7 +126,7 @@ public class HomePanel extends JPanel implements Observable {
         lblCurrentPet.setBounds(310, 11, 66, 14);
         add(lblCurrentPet);
 
-        JLabel lblActionsRemaining = new JLabel("Actions Remaining:");
+        JLabel lblActionsRemaining = new JLabel("Actions remaining:");
         lblActionsRemaining.setBounds(387, 7, 122, 23);
         add(lblActionsRemaining);
 

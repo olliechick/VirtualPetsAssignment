@@ -17,6 +17,7 @@ public class ToiletPanel extends JPanel implements Observable {
      */
     private ArrayList<Observer> observers = new ArrayList<Observer>();
 
+    //TODO: start with normal image, switch to toilet image when they click go toilet
     /**
      * Create the panel.
      */
@@ -27,7 +28,7 @@ public class ToiletPanel extends JPanel implements Observable {
         lblNewLabel.setBounds(362, 184, 46, 14);
         add(lblNewLabel);
 
-        JButton btnGoToilet = new JButton("Go Toilet");
+        JButton btnGoToilet = new JButton("Go toilet");
         btnGoToilet.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 notifyObservers();
