@@ -114,8 +114,6 @@ public class StorePanel extends JPanel implements Observable {
         JScrollPane scrollBar = new JScrollPane(storeInventory); //Add a scroll bar to the JTable so that the user can scroll
         scrollBar.setBounds(22, 39, 250, 203); //put scrollbar in the right place.
         add(scrollBar);
-        //storeInventory.setBounds(22, 39, 250, 236);
-        //add(storeInventory);
 
 
         lblName = new JLabel("");

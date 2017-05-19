@@ -17,7 +17,6 @@ import javax.swing.UIManager;
  */
 @SuppressWarnings("serial")
 public class HomePanel extends JPanel implements Observable {
-    //TODO Give pet/player names more room (i don't know where the status bar code is)
     /**
      * Internal panel to show status screen.
      */
@@ -108,31 +107,31 @@ public class HomePanel extends JPanel implements Observable {
         add(lblPlayer);
 
         lblCurrentPlayer = new JLabel("currentPlayer");
-        lblCurrentPlayer.setBounds(51, 11, 91, 14);
+        lblCurrentPlayer.setBounds(51, 11, 159, 14);
         add(lblCurrentPlayer);
 
         JLabel lblBalance = new JLabel("Balance:");
-        lblBalance.setBounds(135, 11, 59, 14);
+        lblBalance.setBounds(211, 11, 59, 14);
         add(lblBalance);
 
         lblPlayerBalance = new JLabel("playerBalance");
-        lblPlayerBalance.setBounds(184, 11, 91, 14);
+        lblPlayerBalance.setBounds(260, 11, 75, 14);
         add(lblPlayerBalance);
 
         JLabel lblPet = new JLabel("Pet:");
-        lblPet.setBounds(285, 11, 46, 14);
+        lblPet.setBounds(320, 11, 46, 14);
         add(lblPet);
 
         lblCurrentPet = new JLabel("currentPet");
-        lblCurrentPet.setBounds(310, 11, 66, 14);
+        lblCurrentPet.setBounds(345, 11, 117, 14);
         add(lblCurrentPet);
 
         JLabel lblActionsRemaining = new JLabel("Actions remaining:");
-        lblActionsRemaining.setBounds(387, 7, 122, 23);
+        lblActionsRemaining.setBounds(472, 7, 122, 23);
         add(lblActionsRemaining);
 
         lblNumActions = new JLabel("numActions");
-        lblNumActions.setBounds(502, 11, 66, 14);
+        lblNumActions.setBounds(565, 11, 66, 14);
         add(lblNumActions);
 
         lblDayMarker = new JLabel("dayMarker");

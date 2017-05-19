@@ -34,6 +34,12 @@ public class PlayerCreationPanel extends JPanel implements Observable {
      * Parent controller.
      */
     private GUIMain mainGUI;
+    private PetCreationPanel petOnePanel;
+    private PetCreationPanel petTwoPanel;
+    private PetCreationPanel petThreePanel;
+    private JCheckBox petOneBox;
+    private JCheckBox petTwoBox;
+    private JCheckBox petThreeBox;
 
     /**
      * Create the panel.
@@ -59,21 +65,21 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         add(lblNumberOfPets);
 
         //Pet creation panel creation
-        PetCreationPanel petOnePanel = new PetCreationPanel();
+        petOnePanel = new PetCreationPanel();
         petOnePanel.setBounds(10, 87, 123, 225);
         add(petOnePanel);
         petOnePanel.enable();
 
-        PetCreationPanel petTwoPanel = new PetCreationPanel();
+        petTwoPanel = new PetCreationPanel();
         petTwoPanel.setBounds(148, 87, 123, 225);
         add(petTwoPanel);
 
-        PetCreationPanel petThreePanel = new PetCreationPanel();
+        petThreePanel = new PetCreationPanel();
         petThreePanel.setBounds(287, 87, 123, 225);
         add(petThreePanel);
 
         //Creating check boxes and adding enabling disabling behavior
-        JCheckBox petOneBox = new JCheckBox("1", true); //default to 1 pet
+        petOneBox = new JCheckBox("1", true); //default to 1 pet
         petOneBox.setBounds(56, 57, 43, 23);
         petOneBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -86,7 +92,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         });
         add(petOneBox);
 
-        JCheckBox petTwoBox = new JCheckBox("2");
+        petTwoBox = new JCheckBox("2");
         petTwoBox.setBounds(194, 57, 43, 23);
         petTwoBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -99,7 +105,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         });
         add(petTwoBox);
 
-        JCheckBox petThreeBox = new JCheckBox("3");
+        petThreeBox = new JCheckBox("3");
         petThreeBox.setBounds(339, 53, 43, 31);
         petThreeBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -114,8 +120,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
 
         //Add button to move to next dialog.
         JButton btnNext = new JButton("Next");
-        btnNext.addActionListener(new ActionListener() {
-            //TODO: Should this be broken out into a new file --Sam
+        btnNext.addActionListener(new ActionListener(){
             /**
              * Listener that checks input, and if it is valid prepares it for
              * output and notifies the object's observers.
@@ -127,118 +132,121 @@ public class PlayerCreationPanel extends JPanel implements Observable {
                     notifyObservers();
                 }
             }
-            /**
-             * Checks a players input into PlayerCreationPanel to see if it is
-             * valid. If not this method displays an alert to let the player
-             * know and to reattempt input.
-             * @return If the players input is valid.
-             */
-            private boolean playerInputValid() {
-                ArrayList<String> nameList = mainGUI.getRegisteredNames();
-                //Clone name list so that the names entered in the form aren't
-                //duplicates and so that any unconfirmed names aren't registered
-                @SuppressWarnings("unchecked") //Gets IDE to not complain at me - thinks that cast could fail.
-                ArrayList<String> nameListClone = (ArrayList<String>) nameList.clone();
-
-                //Always check player name strings
-                String playerName = playerNameField.getText();
-                if (playerName.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Please enter a player name and try again.");
-                    return false;
-                } else if (mainGUI.nameTaken(playerName, nameListClone)) {
-                    JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Player)");
-                    return false;
-                }
-                //add name to list so that duplicate names cannot occur within the form
-                //not added to the full list as the names aren't confirmed yet.
-                nameListClone.add(playerName);
-
-                String petName;
-                //Check pet one if it is selected
-                if (petOneBox.isSelected()) {
-                    petName = petOnePanel.getPetName();
-                    if (petName.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Please enter a name for pet one and try again.");
-                        return false;
-                    } else if (mainGUI.nameTaken(petName, nameListClone)) {
-                        JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Pet 1)");
-                        return false;
-                    }
-                    nameListClone.add(petName);
-                }
-
-                //Check pet two if it is selected
-                if (petTwoBox.isSelected()) {
-                    petName = petTwoPanel.getPetName();
-                    if (petName.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Please enter a name for pet two and try again.");
-                        return false;
-                    } else if (mainGUI.nameTaken(petName, nameListClone)) {
-                        JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Pet 2)");
-                        return false;
-                    }
-                    nameListClone.add(petName);
-                }
-
-                //Check pet three if it is selected
-                if (petThreeBox.isSelected()) {
-                    petName = petThreePanel.getPetName();
-                    if (petName.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Please enter a name for pet three and try again.");
-                        return false;
-                    } else if (mainGUI.nameTaken(petName, nameListClone)) {
-                        JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Pet 3)");
-                        return false;
-                    }
-                    nameListClone.add(petName);
-                }
-
-                if (!(petOneBox.isSelected() || petTwoBox.isSelected() || petThreeBox.isSelected())) { //if no pets are selected
-                    JOptionPane.showMessageDialog(null, "Each player must have at least one pet.");
-                    return false;
-                }
-
-                //if all input is valid (only option left - that or everything has gone horrendously wrong)
-                return true;
-            }
-
-            /**
-             * Formats output for new function
-             */
-            private void formatOutput() {
-                ArrayList<String> outputList = new ArrayList<String>();
-                outputList.add(playerNameField.getText());
-                mainGUI.registerName(playerNameField.getText());
-
-                String petName;
-                String petSpecies;
-                if (petOneBox.isSelected()) {
-                    petName = petOnePanel.getPetName();
-                    petSpecies = petOnePanel.getPetSpecies();
-                    outputList.add(petName + "\n" + petSpecies);
-                    mainGUI.registerName(petName);
-                }
-
-                //Add pet two if it is selected
-                if (petTwoBox.isSelected()) {
-                    petName = petTwoPanel.getPetName();
-                    petSpecies = petTwoPanel.getPetSpecies();
-                    outputList.add(petName + "\n" + petSpecies);
-                    mainGUI.registerName(petName);
-                }
-
-                //Add pet three if it is selected
-                if (petThreeBox.isSelected()) {
-                    petName = petThreePanel.getPetName();
-                    petSpecies = petThreePanel.getPetSpecies();
-                    outputList.add(petName + "\n" + petSpecies);
-                    mainGUI.registerName(petName);
-                }
-                outputValues = outputList.toArray(new String[0]);
-            }
         });
         btnNext.setBounds(321, 323, 89, 23);
         add(btnNext);
+    }
+
+
+    /**
+     * Checks a players input into PlayerCreationPanel to see if it is
+     * valid. If not this method displays an alert to let the player
+     * know and to reattempt input.
+     * @return If the players input is valid.
+     */
+    private boolean playerInputValid() {
+        ArrayList<String> nameList = mainGUI.getRegisteredNames();
+        //Clone name list so that the names entered in the form aren't
+        //duplicates and so that any unconfirmed names aren't registered
+        @SuppressWarnings("unchecked") //Gets IDE to not complain at me - thinks that cast could fail.
+        ArrayList<String> nameListClone = (ArrayList<String>) nameList.clone();
+
+        //Always check player name strings
+        String playerName = playerNameField.getText();
+        if (playerName.equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter a player name and try again.");
+            return false;
+        } else if (mainGUI.nameTaken(playerName, nameListClone)) {
+            JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Player)");
+            return false;
+        }
+        //add name to list so that duplicate names cannot occur within the form
+        //not added to the full list as the names aren't confirmed yet.
+        nameListClone.add(playerName);
+
+        String petName;
+        //Check pet one if it is selected
+        if (petOneBox.isSelected()) {
+            petName = petOnePanel.getPetName();
+            if (petName.equals("")) {
+                JOptionPane.showMessageDialog(null, "Please enter a name for pet one and try again.");
+                return false;
+            } else if (mainGUI.nameTaken(petName, nameListClone)) {
+                JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Pet 1)");
+                return false;
+            }
+            nameListClone.add(petName);
+            System.out.println(petName);
+        }
+
+        //Check pet two if it is selected
+        if (petTwoBox.isSelected()) {
+            petName = petTwoPanel.getPetName();
+            if (petName.equals("")) {
+                JOptionPane.showMessageDialog(null, "Please enter a name for pet two and try again.");
+                return false;
+            } else if (mainGUI.nameTaken(petName, nameListClone)) {
+                JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Pet 2)");
+                return false;
+            }
+            nameListClone.add(petName);
+        }
+
+        //Check pet three if it is selected
+        if (petThreeBox.isSelected()) {
+            petName = petThreePanel.getPetName();
+            if (petName.equals("")) {
+                JOptionPane.showMessageDialog(null, "Please enter a name for pet three and try again.");
+                return false;
+            } else if (mainGUI.nameTaken(petName, nameListClone)) {
+                JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Pet 3)");
+                return false;
+            }
+            nameListClone.add(petName);
+        }
+
+        if (!(petOneBox.isSelected() || petTwoBox.isSelected() || petThreeBox.isSelected())) { //if no pets are selected
+            JOptionPane.showMessageDialog(null, "Each player must have at least one pet.");
+            return false;
+        }
+
+        //if all input is valid (only option left - that or everything has gone horrendously wrong)
+        return true;
+    }
+
+    /**
+     * Formats output for new function.
+     */
+    private void formatOutput() {
+        ArrayList<String> outputList = new ArrayList<String>();
+        outputList.add(playerNameField.getText());
+        mainGUI.registerName(playerNameField.getText());
+
+        String petName;
+        String petSpecies;
+        if (petOneBox.isSelected()) {
+            petName = petOnePanel.getPetName();
+            petSpecies = petOnePanel.getPetSpecies();
+            outputList.add(petName + "\n" + petSpecies);
+            mainGUI.registerName(petName);
+        }
+
+        //Add pet two if it is selected
+        if (petTwoBox.isSelected()) {
+            petName = petTwoPanel.getPetName();
+            petSpecies = petTwoPanel.getPetSpecies();
+            outputList.add(petName + "\n" + petSpecies);
+            mainGUI.registerName(petName);
+        }
+
+        //Add pet three if it is selected
+        if (petThreeBox.isSelected()) {
+            petName = petThreePanel.getPetName();
+            petSpecies = petThreePanel.getPetSpecies();
+            outputList.add(petName + "\n" + petSpecies);
+            mainGUI.registerName(petName);
+        }
+        outputValues = outputList.toArray(new String[0]);
     }
 
     /**
@@ -270,7 +278,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         }
         JFrame myFrame = new JFrame();
 
-        myFrame.setBounds(0, 0, 435, 359);
+        myFrame.setBounds(0, 0, 435, 395);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.getContentPane().setLayout(null);
 
