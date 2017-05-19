@@ -16,6 +16,7 @@ import java.util.ArrayList;
 /**
  * A JPanel to create setup dialogue.
  * @author Samuel Pell
+ * @author Ollie Chick
  */
 @SuppressWarnings("serial")
 public class SetupPanel extends JPanel implements Observable {
@@ -35,6 +36,24 @@ public class SetupPanel extends JPanel implements Observable {
      * Height of the object on screen.
      */
     public final int height = 165;
+    private String helpText = "\nWelcome to Virtual Pets!"
+            + "\nThis is a game for 1-3 players."
+            + "\nEach player has 1-3 pets, which can be cats, dogs, goats, "
+                + "alpacas, horses, or polar bears, or a mixture."
+            + "\nWhen you choose your pets, you can hover over their species "
+                + "to see their characteristics."
+            + "\nYou begin with $100 to buy food and toys for your pets. "
+                + "You will receive $10 per day per (live) pet."
+            + "\nEach day, each player can perform up to two actions per pet."
+            + "\nFeeding, playing, going toilet, and sleeping all count as one action each."
+            + "\nIf you neglect to keep your pet happy and healthy, "
+                + "they may begin to misbehave, get sick, and even die."
+            + "\nIf they misbehave, you can choose to discipline your pet, which "
+                + "will decrease their happiness but also decrease their mischievousness."
+            + "\nIf they get sick, you can choose to treat them (if you can afford it)."
+            + "\nIf you don't treat them, they may die. You can revive each pet once, "
+                + "but if they die again they will be dead for good."
+            + "\n";
 
     /**
      * Create the panel.
@@ -68,6 +87,19 @@ public class SetupPanel extends JPanel implements Observable {
         JRadioButton threePlayers = new JRadioButton("3");
         threePlayers.setBounds(187, 95, 60, 23);
         add(threePlayers);
+
+        JButton helpButton = new JButton("<help img>");
+        helpButton.setBounds(40, 131, 70, 23);
+        helpButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                //popup
+
+            }
+
+        });
+        add(helpButton);
 
         radioButtonGroup.add(onePlayer);
         radioButtonGroup.add(twoPlayers);
