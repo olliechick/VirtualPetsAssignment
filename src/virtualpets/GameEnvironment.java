@@ -410,12 +410,13 @@ public class GameEnvironment {
             try { //Runs if running class directly
                 String topDir = System.getProperty("user.dir");
                 if (topDir.endsWith("bin")) { //from cmdln
-                    fileName = "../config/" + fileName;
+                    fileName = "../../config/" + fileName;
                 } else { //from eclipse
                     fileName = "config/" + fileName;
                 }
                 inputFile = new FileReader(fileName);
             } catch (FileNotFoundException e) { //if running from jar file.
+                fileName = "/" + fileName;
                 InputStream stream = this.getClass().getResourceAsStream(fileName);
                 inputFile = new InputStreamReader(stream);
             }

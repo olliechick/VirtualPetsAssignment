@@ -528,6 +528,7 @@ public class Pet {
                 }
                 inputFile = new FileReader(fileName);
             } catch (FileNotFoundException e) { //if running from jar file.
+                fileName = "/" + fileName;
                 InputStream stream = this.getClass().getResourceAsStream(fileName);
                 inputFile = new InputStreamReader(stream);
             }

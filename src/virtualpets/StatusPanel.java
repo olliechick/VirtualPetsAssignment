@@ -3,6 +3,13 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+
 import javax.swing.ImageIcon;
 
 
@@ -171,13 +178,28 @@ public class StatusPanel extends JPanel {
 
         JLabel lblNewLabel = new JLabel("");
         //TODO: Make this work for different animals
-        String topDir = System.getProperty("user.dir");
         String fileName = "AlpacaSmall.png";
+        String topDir = System.getProperty("user.dir");
         if (topDir.endsWith("bin")) {
             fileName = "../img/" + fileName;
         } else {
             fileName = System.getProperty("user.dir")  + "/img/" + fileName;
         }
+        /*try{
+            Reader inputFile;
+            try { //Runs if running class directly
+                String topDir = System.getProperty("user.dir");
+                if (topDir.endsWith("bin")) {
+                    fileName = "../img/" + fileName;
+                } else {
+                    fileName = System.getProperty("user.dir")  + "/img/" + fileName;
+                }
+                inputFile = new FileReader(fileName);
+            } catch (FileNotFoundException e) { //if running from jar file.
+                InputStream stream = this.getClass().getResourceAsStream(fileName);
+                inputFile = new InputStreamReader(stream);
+            }*/
+
         lblNewLabel.setIcon(new ImageIcon(fileName));
         lblNewLabel.setBounds(37, 0, 365, 275);
         panel.add(lblNewLabel);
