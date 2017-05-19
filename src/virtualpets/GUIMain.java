@@ -173,9 +173,10 @@ public class GUIMain implements Observer {
         } catch (IllegalArgumentException e) {
             if (e.getMessage().equals("durability is zero or negative")) {
                 //they've used the toy to the point of destruction
-                JOptionPane.showMessageDialog(null, currentPet.getName()
-                        + " broke the "
-                        + toy.getName());
+                String message = currentPet.getName() + " broke the ";
+                message += toy.getName();
+                JOptionPane.showMessageDialog(mainFrame, message, null,
+                                              JOptionPane.INFORMATION_MESSAGE);
                 currentPlayer.getToyList().remove(toy);
             } else {
                 //unknown error
@@ -200,7 +201,8 @@ public class GUIMain implements Observer {
             } else {
                 String message = "You do not have enough money to purchase ";
                 message += purchasedItem.getName();
-                JOptionPane.showMessageDialog(null, message);
+                JOptionPane.showMessageDialog(mainFrame, message, null,
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
             //Ignore first type exception.
@@ -214,7 +216,8 @@ public class GUIMain implements Observer {
             } else {
                 String message = "You do not have enough money to purchase ";
                 message += purchasedItem.getName();
-                JOptionPane.showMessageDialog(null, message);
+                JOptionPane.showMessageDialog(mainFrame, message, null,
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
             //ignore second exception
@@ -238,6 +241,7 @@ public class GUIMain implements Observer {
         int numDays = mainGame.getNumDays();
         homeScreen = new HomePanel(numDays, mainGame);
 
+        //register observers with view components
         homeScreen.getStoreTab().registerObserver(this);
         homeScreen.getFeedingTab().registerObserver(this);
         homeScreen.getSleepTab().registerObserver(this);
@@ -313,7 +317,11 @@ public class GUIMain implements Observer {
         }
         //Give them an allowance per alive pet
         currentPlayer.earn(dailyPetAllowance * numOfAlivePets);
-        //TODO popup - It is now playerName's turn. This should only display if there are 2 or more players.
+
+        if (numberOfPlayers > 1) {
+            String message = "It is now " + currentPlayer.getName() + "'s turn.";
+            JOptionPane.showMessageDialog(mainFrame, message, null, JOptionPane.INFORMATION_MESSAGE);
+        }
 	}
 
 	/**
@@ -358,8 +366,8 @@ public class GUIMain implements Observer {
         currentDay = 1;
         currentPlayer = mainGame.getPlayerList().get(0);
         currentPet = currentPlayer.getPetList().get(0);
-		initialisePlayer();
         refreshScreen();
+		initialisePlayer();
     }
 
     /**
