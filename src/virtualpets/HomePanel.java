@@ -247,6 +247,13 @@ public class HomePanel extends JPanel implements Observable {
     }
 
     /**
+     * Return to status screen.
+     */
+    public void returnToStatus() {
+        tabbedPane.setSelectedComponent(statusTab);
+    }
+
+    /**
      * Main method for testing.
      * @param args Arguments passed in
      */
@@ -281,12 +288,5 @@ public class HomePanel extends JPanel implements Observable {
         cat.setName("Snowy");
         testPlayer.getPetList().add(cat);
         myPanel.refreshTabs(testPlayer, cat, 5, 1);
-    }
-
-    /**
-     * Return to status screen.
-     */
-    public void returnToStatus() {
-        tabbedPane.setSelectedComponent(statusTab);
     }
 }
