@@ -165,6 +165,7 @@ public class StatusPanel extends JPanel {
         add(lblPetGender);
 
         JLabel lblSpecies = new JLabel("Species");
+        //TODO semicolons
         lblSpecies.setBounds(212, 103, 46, 14);
         add(lblSpecies);
 

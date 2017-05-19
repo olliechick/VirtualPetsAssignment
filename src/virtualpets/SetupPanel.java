@@ -36,24 +36,30 @@ public class SetupPanel extends JPanel implements Observable {
      * Height of the object on screen.
      */
     public final int height = 165;
-    private String helpText = "\nWelcome to Virtual Pets!"
-            + "\nThis is a game for 1-3 players."
-            + "\nEach player has 1-3 pets, which can be cats, dogs, goats, "
-                + "alpacas, horses, or polar bears, or a mixture."
-            + "\nWhen you choose your pets, you can hover over their species "
-                + "to see their characteristics."
-            + "\nYou begin with $100 to buy food and toys for your pets. "
-                + "You will receive $10 per day per (live) pet."
-            + "\nEach day, each player can perform up to two actions per pet."
-            + "\nFeeding, playing, going toilet, and sleeping all count as one action each."
-            + "\nIf you neglect to keep your pet happy and healthy, "
-                + "they may begin to misbehave, get sick, and even die."
-            + "\nIf they misbehave, you can choose to discipline your pet, which "
-                + "will decrease their happiness but also decrease their mischievousness."
-            + "\nIf they get sick, you can choose to treat them (if you can afford it)."
-            + "\nIf you don't treat them, they may die. You can revive each pet once, "
+    private String helpText = "Welcome to Virtual Pets!"
+            + "\nThis is a game for 1-3 players. "
+            + "Each player has 1-3 pets, which can be cats, dogs, goats, "
+                + "alpacas, horses, or polar bears, or a mixture. "
+            + "When you choose your pets, you can hover over their species "
+                + "to see their characteristics. "
+            + "You begin with $100 to buy food and toys for your pets. "
+                + "You will receive $10 per day per (live) pet. "
+            + "Each day, each player can perform up to two actions per pet. "
+            + "Feeding, playing, going toilet, and sleeping all count as one action each. "
+            + "If you neglect to keep your pet happy and healthy, "
+                + "they may begin to misbehave, get sick, and even die. "
+            + "If they misbehave, you can choose to discipline your pet, which  "
+                + "will decrease their happiness but also decrease their mischievousness. "
+            + "If they get sick, you can choose to treat them (if you can afford it). "
+            + "If you don't treat them, or you're very unlucky, they may die. You can revive each pet once, "
                 + "but if they die again they will be dead for good."
-            + "\n";
+            + "\n"
+            + "\nStrategy:"
+            + "\nCheck your pet's status before you start interacting with each pet."
+            + "Then make an informed decision of what to use your money and two daily actions for."
+            + "Keeping your pet well will decrease its chance of misbhaving and getting sick."
+            + "Attributes that are of concern will be highlighted in orange; those highlighted in red are urgent."; //TODO implement this highlighting
+            //Highlighting rules: orange if in bottom 40%, red if in bottom 15%.
 
     /**
      * Create the panel.

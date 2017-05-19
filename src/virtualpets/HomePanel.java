@@ -17,6 +17,7 @@ import javax.swing.UIManager;
  */
 @SuppressWarnings("serial")
 public class HomePanel extends JPanel implements Observable {
+    //TODO Give pet/player names more room (i don't know where the status bar code is)
     /**
      * Internal panel to show status screen.
      */

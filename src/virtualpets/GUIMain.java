@@ -63,7 +63,7 @@ public class GUIMain implements Observer {
     /**
      * Value of the stipend each player earns daily per (alive) pet, in dollars ($).
      */
-    private int dailyPetAllowance = 10;
+    private int dailyPetAllowance = 15;
     //TODO: Could you not use an array? --Sam
 	int numOfPetsP1;
 	int numOfPetsP2 = -1; //init to -1 so currentPetIndex !< numOfPetsP2 if P2 does not exist
@@ -254,7 +254,7 @@ public class GUIMain implements Observer {
     }
 
     private void nextPet() {
-    	System.out.println("currentPetIndex = "+currentPetIndex+" other stuff: "+numOfPetsP1+numOfPetsP2);
+        //TODO switch to status tab
     	currentPetIndex++;
 
     	// First find out which is the next pet, and set that to currentPet
@@ -263,7 +263,6 @@ public class GUIMain implements Observer {
     		currentPet = currentPlayer.getPetList().get(currentPetIndex);
 
     	} else if (numberOfPlayers >= 2 && currentPetIndex == numOfPetsP1) {
-    		currentPlayer.calculateScore(); //Player 1 has finished, calculate its score
     		// Player 2 exists, so we're moving on to Player 2
 
     		currentPlayer = mainGame.getPlayerList().get(1);
@@ -276,7 +275,6 @@ public class GUIMain implements Observer {
     		currentPet = currentPlayer.getPetList().get(currentPetIndex - numOfPetsP1);
 
     	} else if (numberOfPlayers >= 3 && currentPetIndex == numOfPetsP2) {
-    		currentPlayer.calculateScore(); //Player 2 has finished, calculate its score
     		// Player 3 exists, so we're moving on to Player 3
     		currentPlayer = mainGame.getPlayerList().get(2);
     		initialisePlayer();
@@ -288,10 +286,12 @@ public class GUIMain implements Observer {
     		currentPet = currentPlayer.getPetList().get(currentPetIndex - numOfPetsP1 - numOfPetsP2);
 
     	} else {
-    		if (numberOfPlayers == 3) { //if there are 3 players, then:
-    			currentPlayer.calculateScore(); //Player 3 has finished, calculate its score
+    		// All players finished
+    		// Calculate all the scores for today
+    		for (Player player : mainGame.getPlayerList()){
+    		    player.calculateScore();
     		}
-    		// All players finished, time to move on to the next day.
+    		//Time to move on to the next day.
     		nextDay();
     	}
 
@@ -317,6 +317,7 @@ public class GUIMain implements Observer {
         }
         //Give them an allowance per alive pet
         currentPlayer.earn(dailyPetAllowance * numOfAlivePets);
+        //TODO popup - It is now playerName's turn. This should only display if there are 2 or more players.
 	}
 
 	/**
@@ -332,12 +333,13 @@ public class GUIMain implements Observer {
     	    System.out.println("========== New day ==============");
     	    homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2);
     	} else {
+    	    clearFrame();
     	    postGame();
     	}
     }
 
     private void postGame() {
-        // TODO gui
+        // TODO format frame, provide score
         Player[] players;
         players = mainGame.rankPlayers();
         for (Player player : players){
@@ -389,7 +391,7 @@ public class GUIMain implements Observer {
 
         sick = mainGame.checkIfSick(currentPet);
         if (sick) {
-            //TODO popup to treat or not
+            //TODO popup to treat or not - OR if you don't have enough money, no option to treat
             treated = true; //for the meantime
             if (treated) {
                 currentPet.treat();
