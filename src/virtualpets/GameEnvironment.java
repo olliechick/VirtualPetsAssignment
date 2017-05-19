@@ -1,4 +1,5 @@
 package virtualpets;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -9,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-
 
 /**
  * Launching off point for Virtual Pets game.
@@ -28,10 +28,6 @@ public class GameEnvironment {
      */
     private ArrayList<Player> playerList = new ArrayList<Player>();
     /**
-     * The list of names used so far. This is used to avoid duplicate names.
-     */
-    private ArrayList<String> nameList = new ArrayList<String>();
-    /**
      * HashMap of all foods. It maps the name of the food to an instance of the
      * food.
      */
@@ -44,7 +40,7 @@ public class GameEnvironment {
     /**
      * The current day number.
      */
-    private int dayNumber;
+    private int dayNumber; //TODO: Remove me?
     /**
      * The total number of days the game will run for.
      */
@@ -52,7 +48,7 @@ public class GameEnvironment {
     /**
      * How much each player gets per pet per day, in dollars.
      */
-    private int dailyPetAllowance;
+    private int dailyPetAllowance; //TODO: Remove me?
     /**
      * The random number generated, used for random events. Random events
      * include misbehaving, being sick, and dying.
@@ -208,20 +204,6 @@ public class GameEnvironment {
     }
 
     /**
-     * Sets the name for a new player.
-     *
-     * @param newPlayer
-     *            Player object to set name for.
-     */
-    private void setPlayerName(Player newPlayer) {
-        try {
-            newPlayer.setName(CommandLineInterface.getName("Player name: ", nameList));
-        } catch (IllegalArgumentException exception) {
-            System.out.println("Unknown error. Please try again.");
-        }
-    }
-
-    /**
      * Sets up random number generator for testing.
      *
      * @param args Only argument is a seed of type long for the generator.
@@ -254,7 +236,7 @@ public class GameEnvironment {
      * After the game, tells the user the scores, etc.
      * @throws Exception if error in code
      */
-    private void postGame() throws Exception {
+    private void postGame() throws Exception { //TODO: Remove me?
         for (int i = 0; i < playerList.size(); i++) {
             playerList.get(i).calculateScore();
         }

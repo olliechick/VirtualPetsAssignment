@@ -254,7 +254,7 @@ public class GUIMain implements Observer {
     }
 
     private void nextPet() {
-        //TODO switch to status tab
+        homeScreen.returnToStatus(); //Returns player to status screen on new pet
     	currentPetIndex++;
 
     	// First find out which is the next pet, and set that to currentPet

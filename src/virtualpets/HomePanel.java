@@ -17,6 +17,11 @@ import javax.swing.UIManager;
  */
 @SuppressWarnings("serial")
 public class HomePanel extends JPanel implements Observable {
+
+    /**
+     * Internal tabbed pane to hold tabs.
+     */
+    private JTabbedPane tabbedPane;
     /**
      * Internal panel to show status screen.
      */
@@ -79,7 +84,7 @@ public class HomePanel extends JPanel implements Observable {
         totalDays = ((Integer) days).toString();
         setLayout(null);
 
-        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.setBounds(10, 36, 780, 419);
         add(tabbedPane);
 
@@ -276,5 +281,12 @@ public class HomePanel extends JPanel implements Observable {
         cat.setName("Snowy");
         testPlayer.getPetList().add(cat);
         myPanel.refreshTabs(testPlayer, cat, 5, 1);
+    }
+
+    /**
+     * Return to status screen.
+     */
+    public void returnToStatus() {
+        tabbedPane.setSelectedComponent(statusTab);
     }
 }
