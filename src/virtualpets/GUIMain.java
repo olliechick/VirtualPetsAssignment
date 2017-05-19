@@ -287,11 +287,7 @@ public class GUIMain implements Observer {
 
     	} else {
     		// All players finished
-    		// Calculate all the scores for today
-    		for (Player player : mainGame.getPlayerList()){
-    		    player.calculateScore();
-    		}
-    		//Time to move on to the next day.
+    	    // Time to move on to the next day.
     		nextDay();
     	}
 
@@ -325,6 +321,13 @@ public class GUIMain implements Observer {
      */
     private void nextDay() {
     	currentDay++;
+
+        // Calculate all the scores for today (well, technically yesterday now)
+        for (Player player : mainGame.getPlayerList()){
+            player.calculateScore();
+        }
+
+        //init day if all days haven't finished
     	if (currentDay <= mainGame.getNumDays()) {
     	    currentPetIndex = 0;
     	    currentPlayer = mainGame.getPlayerList().get(0);
