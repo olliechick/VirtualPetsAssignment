@@ -34,11 +34,29 @@ public class PlayerCreationPanel extends JPanel implements Observable {
      * Parent controller.
      */
     private GUIMain mainGUI;
+    /**
+     * Panel where pet one is created.
+     */
     private PetCreationPanel petOnePanel;
+    /**
+     * Panel where pet two is created.
+     */
     private PetCreationPanel petTwoPanel;
+    /**
+     * Panel where pet three is created.
+     */
     private PetCreationPanel petThreePanel;
+    /**
+     * Check box to select pet slot one.
+     */
     private JCheckBox petOneBox;
+    /**
+     * Check box to select pet slot two.
+     */
     private JCheckBox petTwoBox;
+    /**
+     * Check box to select pet slot three.
+     */
     private JCheckBox petThreeBox;
 
     /**
