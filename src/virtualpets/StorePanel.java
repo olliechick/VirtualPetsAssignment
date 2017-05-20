@@ -108,7 +108,6 @@ public class StorePanel extends JPanel implements Observable {
                 showItemStats(selected);
 			}
         });
-        //TODO: Fix UI look
         storeInventory.getTableHeader().setReorderingAllowed(false); //prevent header changing
         storeInventory.getTableHeader().setResizingAllowed(false); //prevent resizing columns
         JScrollPane scrollBar = new JScrollPane(storeInventory); //Add a scroll bar to the JTable so that the user can scroll

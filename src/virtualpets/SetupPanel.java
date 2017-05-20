@@ -58,8 +58,7 @@ public class SetupPanel extends JPanel implements Observable {
             + "\nCheck your pet's status before you start interacting with each pet."
             + "Then make an informed decision of what to use your money and two daily actions for."
             + "Keeping your pet well will decrease its chance of misbhaving and getting sick."
-            + "Attributes that are of concern will be highlighted in orange; those highlighted in red are urgent."; //TODO implement this highlighting
-            //Highlighting rules: orange if in bottom 40%, red if in bottom 15%.
+            + "Attributes that are of concern will be highlighted in orange; those highlighted in red are urgent.";
 
     /**
      * Create the panel.

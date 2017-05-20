@@ -48,7 +48,7 @@ public class GameEnvironment {
     /**
      * How much each player gets per pet per day, in dollars.
      */
-    private int dailyPetAllowance; //TODO: Remove me?
+    private int dailyPetAllowance;
     /**
      * The random number generated, used for random events. Random events
      * include misbehaving, being sick, and dying.
