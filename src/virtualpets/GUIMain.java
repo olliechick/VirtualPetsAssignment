@@ -490,7 +490,7 @@ public class GUIMain implements Observer {
      */
     private boolean askToRevive() {
         if (currentPet.getIsRevivable()) {
-            String message = currentPet.getName() + " had died, would you "
+            String message = currentPet.getName() + " has died, would you "
                              + "like to revive them?";
             int option = JOptionPane.showConfirmDialog(mainFrame, message, null,
                                                        JOptionPane.YES_NO_OPTION,
