@@ -3,6 +3,9 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
+
+import java.awt.Color;
+
 import javax.swing.ImageIcon;
 
 
@@ -239,17 +242,94 @@ public class StatusPanel extends JPanel {
 
         if (pet.getIsMisbehaving()) {
             lblIsMisbehaving.setText("Yes");
+            lblIsMisbehaving.setForeground(Color.RED);
         } else {
             lblIsMisbehaving.setText("No");
+            lblIsMisbehaving.setForeground(Color.BLACK);
         }
 
         if (pet.getIsSick()) {
             lblIsSick.setText("Yes");
+            lblIsSick.setForeground(Color.RED);
         } else {
             lblIsSick.setText("No");
+            lblIsSick.setForeground(Color.BLACK);
         }
 
         setImage(pet);
+        highlightWarnings(pet);
+    }
+
+    /**
+     * Highlight labels to warn player. Also sets tool tips to alert user of
+     * level of concern.
+     * Highlighting rules: orange if in bottom 40%, red if in bottom 15%.
+     * @param pet Pet currently being displayed.
+     */
+    private void highlightWarnings(Pet pet) {
+        int fatigue = pet.getFatigue();
+        int happiness = pet.getHappiness();
+        int health = pet.getHealth();
+        int hunger = pet.getHunger();
+        int bladderLevel = pet.getPercentBladderFull();
+
+        if (fatigue >= 60 && fatigue < 85) {
+            lblFatigueScore.setForeground(Color.ORANGE);
+            lblFatigueScore.setToolTipText("Warning");
+        } else if (fatigue >= 85) {
+            lblFatigueScore.setForeground(Color.RED);
+            lblFatigueScore.setToolTipText("Urgent");
+        }
+
+        if (happiness <= 40 && happiness > 15) {
+            lblHappinessScore.setForeground(Color.ORANGE);
+            lblHappinessScore.setToolTipText("Warning");
+        } else if (happiness <= 15) {
+            lblHappinessScore.setForeground(Color.RED);
+            lblHappinessScore.setToolTipText("Urgent");
+        }
+
+        if (health <= 40 && health > 15) {
+            lblHealthScore.setForeground(Color.ORANGE);
+            lblHealthScore.setToolTipText("Warning");
+        } else if (health <= 15) {
+            lblHealthScore.setForeground(Color.RED);
+            lblHealthScore.setToolTipText("Urgent");
+        }
+
+        if (hunger >= 60 && hunger < 85) {
+            lblHungerScore.setForeground(Color.ORANGE);
+            lblHungerScore.setToolTipText("Warning");
+        } else if (hunger >= 85) {
+            lblHungerScore.setForeground(Color.RED);
+            lblHungerScore.setToolTipText("Urgent");
+        }
+
+        if (bladderLevel >= 60 && bladderLevel < 85) {
+            lblBladderPercentage.setForeground(Color.ORANGE);
+            lblBladderPercentage.setToolTipText("Warning");
+        } else if (bladderLevel >= 85) {
+            lblBladderPercentage.setForeground(Color.RED);
+            lblBladderPercentage.setToolTipText("Urgent");
+        }
+
+        if (pet.getIsMisbehaving()) {
+            lblIsMisbehaving.setForeground(Color.RED);
+        } else {
+            lblIsMisbehaving.setForeground(Color.BLACK);
+        }
+
+        if (pet.getIsSick()) {
+            lblIsSick.setForeground(Color.RED);
+        } else {
+            lblIsSick.setForeground(Color.BLACK);
+        }
+
+        if (!pet.getIsRevivable()) {
+            lblIsRevivable.setForeground(Color.RED);
+        } else {
+            lblIsRevivable.setForeground(Color.BLACK);
+        }
     }
 
     /**

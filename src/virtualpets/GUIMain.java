@@ -66,6 +66,7 @@ public class GUIMain implements Observer {
      */
     private int dailyPetAllowance = 15;
     //TODO: Could you not use an array? --Sam
+    //TODO: Should these be private? --Sam
 	int numOfPetsP1;
 	int numOfPetsP2 = -1; //init to -1 so currentPetIndex !< numOfPetsP2 if P2 does not exist
 	int numOfPetsP3 = -1; //init to -1 so currentPetIndex !< numOfPetsP3 if P3 does not exist
@@ -258,7 +259,11 @@ public class GUIMain implements Observer {
         gameLoop();
     }
 
+    //TODO: JAVADOC THE THINGS YOU WRITE OLLIE --Sam
     private void nextPet() {
+        //TODO: Ollie - Add logic to determine if next day or next pet for the Next button
+        //      I don't know how this function works. --Sam
+        //TODO: End game if everyones pets are dead.
         homeScreen.returnToStatus(); //Returns player to status screen on new pet
     	currentPetIndex++;
 
@@ -350,6 +355,7 @@ public class GUIMain implements Observer {
     	}
     }
 
+    //TODO: JAVADOC THE THINGS YOU WRITE OLLIE --Sam
     private void postGame() {
         // TODO format frame, provide score
         Player[] players;
@@ -392,7 +398,7 @@ public class GUIMain implements Observer {
         misbehaving = mainGame.checkIfMisbehaving(currentPet);
         if (misbehaving) {
             //TODO popup to discipline or not
-            disciplined = true; //for the meantime
+            disciplined = false; //for the meantime
             if (disciplined) {
                 currentPet.discipline();
             } else {
@@ -404,7 +410,7 @@ public class GUIMain implements Observer {
         sick = mainGame.checkIfSick(currentPet);
         if (sick) {
             //TODO popup to treat or not - OR if you don't have enough money, no option to treat
-            treated = true; //for the meantime
+            treated = false; //for the meantime
             if (treated) {
                 currentPet.treat();
                 currentPlayer.spend(50);

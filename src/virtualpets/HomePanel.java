@@ -74,6 +74,10 @@ public class HomePanel extends JPanel implements Observable {
      * List of observers of this object.
      */
     private ArrayList<Observer> observers = new ArrayList<Observer>();
+    /**
+     * Button to advance onwards in the game.
+     */
+    private JButton btnNext;
 
     /**
      * Create the panel.
@@ -128,15 +132,15 @@ public class HomePanel extends JPanel implements Observable {
         add(lblPet);
 
         lblCurrentPet = new JLabel("currentPet");
-        lblCurrentPet.setBounds(345, 11, 117, 14);
+        lblCurrentPet.setBounds(345, 11, 176, 14);
         add(lblCurrentPet);
 
         JLabel lblActionsRemaining = new JLabel("Actions remaining:");
-        lblActionsRemaining.setBounds(472, 7, 122, 23);
+        lblActionsRemaining.setBounds(531, 7, 122, 23);
         add(lblActionsRemaining);
 
         lblNumActions = new JLabel("numActions");
-        lblNumActions.setBounds(565, 11, 66, 14);
+        lblNumActions.setBounds(625, 11, 66, 14);
         add(lblNumActions);
 
         lblDayMarker = new JLabel("dayMarker");
@@ -148,7 +152,7 @@ public class HomePanel extends JPanel implements Observable {
         add(lblDay);
 
         //TODO: Make text on button change so that user knows what they are doing.
-        JButton btnNext = new JButton("Next");
+        btnNext = new JButton("Next");
         btnNext.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 notifyObservers();
@@ -244,6 +248,14 @@ public class HomePanel extends JPanel implements Observable {
         for (Observer o: observers) {
             o.getValues("next", new String[0]);
         }
+    }
+
+    /**
+     * Set the text on the button which moves player onto the next step.
+     * @param text New button text
+     */
+    public void setNextButtonText(String text){
+        btnNext.setText(text);
     }
 
     /**
