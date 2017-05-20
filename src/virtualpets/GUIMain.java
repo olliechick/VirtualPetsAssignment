@@ -64,7 +64,7 @@ public class GUIMain implements Observer {
     /**
      * Value of the stipend each player earns daily per (alive) pet, in dollars ($).
      */
-    private int dailyPetAllowance = 15;
+    private int dailyPetAllowance = 15; //Why am I not used?
     /**
      * Number of pets each player has.
      * This is initialised to 0 so currentPetIndex !< numOfPets[i] if Player i does not exist.
@@ -206,8 +206,9 @@ public class GUIMain implements Observer {
                 JOptionPane.showMessageDialog(mainFrame, message, null,
                         JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (Exception e) {
-            //Ignore first type exception.
+        } catch (NullPointerException e) {
+            //Ignore null pointer exceptions. Occurs when foodItems doesn't
+            //contain the item.
         }
 
         try { //then see if item is a toy
@@ -221,8 +222,9 @@ public class GUIMain implements Observer {
                 JOptionPane.showMessageDialog(mainFrame, message, null,
                         JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (Exception e) {
-            //ignore second exception
+        } catch (NullPointerException e) {
+            //Ignore null pointer exceptions. Occurs when toyItems doesn't
+            //contain the item.
         }
     }
 
@@ -343,7 +345,7 @@ public class GUIMain implements Observer {
 
     /**
      * Initialises a player's turn.
-     * It gives the player their daily allowance.
+     * It gives the player their daily allowance. TODO: No it doesn't... --Sam
      * If there are multiple players, it pops up a window to say who's turn it is.
      */
     private void initialisePlayer() {
@@ -411,7 +413,6 @@ public class GUIMain implements Observer {
 
         sick = mainGame.checkIfSick(currentPet);
         if (sick) {
-            //TODO popup to treat or not - OR if you don't have enough money, no option to treat
             treated = askToTreat();
             if (treated) {
                 currentPlayer.spend(50);
@@ -424,7 +425,6 @@ public class GUIMain implements Observer {
 
         dead = mainGame.checkIfDead(currentPet);
         if (dead) {
-            //TODO popup to revive or not OR popup to say you're a bad person, based on currentPet.getRevivable()
             revived = askToRevive();
             if (revived) {
                 currentPet.revive();
@@ -468,10 +468,11 @@ public class GUIMain implements Observer {
             } else {
                 return true;
             }
-        } else {
+        } else { //if they can't afford treatment
             String message = currentPet.getName() + " is sick. You currently "
                              + "cannot afford treatment.";
-            JOptionPane.showMessageDialog(mainFrame, message, null, JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(mainFrame, message, null,
+                                          JOptionPane.WARNING_MESSAGE);
             return false;
         }
     }
@@ -493,10 +494,12 @@ public class GUIMain implements Observer {
             } else {
                 return true;
             }
-        } else {
+        } else { //if the pet has already been revived once.
             String message = currentPet.getName() + " has died. You cannot "
-                             + "revive them.\nYou're a bad person (or just unlucky).";
-            JOptionPane.showMessageDialog(mainFrame, message, null, JOptionPane.WARNING_MESSAGE);
+                             + "revive them.\nYou're a bad person "
+                             + "(or just unlucky).";
+            JOptionPane.showMessageDialog(mainFrame, message, null,
+                                          JOptionPane.WARNING_MESSAGE);
             return false;
         }
     }
