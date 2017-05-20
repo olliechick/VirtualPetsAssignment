@@ -174,8 +174,8 @@ public class GUIMain implements Observer {
         } catch (IllegalArgumentException e) {
             if (e.getMessage().equals("durability is zero or negative")) {
                 //they've used the toy to the point of destruction
-                String message = currentPet.getName() + " broke the ";
-                message += toy.getName();
+                String message = currentPet.getName() + " broke the "
+                                 + toy.getName();
                 JOptionPane.showMessageDialog(mainFrame, message, null,
                                               JOptionPane.INFORMATION_MESSAGE);
                 currentPlayer.getToyList().remove(toy);
