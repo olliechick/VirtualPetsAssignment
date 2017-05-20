@@ -40,7 +40,7 @@ public class GameEnvironment {
     /**
      * The current day number.
      */
-    private int dayNumber; //TODO: Remove me?
+    private int currentDay;
     /**
      * The total number of days the game will run for.
      */
@@ -233,18 +233,6 @@ public class GameEnvironment {
     }
 
     /**
-     * After the game, tells the user the scores, etc.
-     * @throws Exception if error in code
-     */
-    private void postGame() throws Exception { //TODO: Remove me?
-        for (int i = 0; i < playerList.size(); i++) {
-            playerList.get(i).calculateScore();
-        }
-        Player[] rankedPlayers = rankPlayers();
-        CommandLineInterface.postGame(rankedPlayers);
-    }
-
-    /**
      * This runs just before a user interacts with their pet. It does two
      * things:
      * 1. Increases the pet's fatigue, decreases its happiness,
@@ -398,6 +386,14 @@ public class GameEnvironment {
     }
 
     /**
+     * Get the current day number.
+     * @return current day.
+     */
+    public int getCurrentDay() {
+        return currentDay;
+    }
+
+    /**
      * Gets lines 2 onwards from a data file specified.
      * @param fileName File to get data from.
      * @return ArrayList of each line as a string.
@@ -516,4 +512,29 @@ public class GameEnvironment {
     public void setNumDays(int days) {
         numberOfDays = days;
     }
+
+    /**
+     * Moves on to the next day.
+     */
+    public void nextDay() {
+    	currentDay++;
+    }
+
+    /**
+     * Initialises a player's turn.
+     * It gives the player their daily allowance.
+     * @param Player getting initialised.
+     */
+	public void initialisePlayer(Player currentPlayer) {
+
+        int numOfAlivePets = 0;
+        for (Pet pet : currentPlayer.getPetList()) { // count up all the alive pets
+            if (!pet.getIsDead()) {
+                numOfAlivePets++;
+            }
+        }
+        //Give them an allowance per alive pet
+        currentPlayer.earn(dailyPetAllowance * numOfAlivePets);
+
+	}
 }
