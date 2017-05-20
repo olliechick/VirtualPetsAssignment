@@ -174,13 +174,15 @@ public class StatusPanel extends JPanel {
         panel.setLayout(null);
 
         lblSpeciesIcon = new JLabel("");
-        //TODO: Make this work for different animals
-        setImage(new Pet("alpaca"));
         lblSpeciesIcon.setBounds(37, 0, 365, 275);
         panel.add(lblSpeciesIcon);
 
     }
 
+    /**
+     * Set the image associated with the pet.
+     * @param pet Pet the image is associated with.
+     */
     private void setImage(Pet pet) {
         //String topDir = System.getProperty("user.dir");
         String fileName = "img/";
