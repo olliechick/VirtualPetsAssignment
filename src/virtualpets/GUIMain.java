@@ -263,7 +263,8 @@ public class GUIMain implements Observer {
     private void nextPet() {
         //TODO: Ollie - Add logic to determine if next day or next pet for the Next button
         //      I don't know how this function works. --Sam
-        //TODO: End game if everyones pets are dead.
+        //TODO: End game if everyones pets are dead. Currently just throws a massive hissy
+        //      fit of stack overflow errors if you set number of days high enough. --Sam
         homeScreen.returnToStatus(); //Returns player to status screen on new pet
     	currentPetIndex++;
 
@@ -399,8 +400,7 @@ public class GUIMain implements Observer {
         mainGame.newDayPetActions(currentPet);
         misbehaving = mainGame.checkIfMisbehaving(currentPet);
         if (misbehaving) {
-            //TODO popup to discipline or not
-            disciplined = false; //for the meantime
+            disciplined = askToDiscipline();
             if (disciplined) {
                 currentPet.discipline();
             } else {
@@ -412,7 +412,7 @@ public class GUIMain implements Observer {
         sick = mainGame.checkIfSick(currentPet);
         if (sick) {
             //TODO popup to treat or not - OR if you don't have enough money, no option to treat
-            treated = false; //for the meantime
+            treated = askToTreat();
             if (treated) {
                 currentPlayer.spend(50);
                 currentPet.treat();
@@ -425,14 +425,79 @@ public class GUIMain implements Observer {
         dead = mainGame.checkIfDead(currentPet);
         if (dead) {
             //TODO popup to revive or not OR popup to say you're a bad person, based on currentPet.getRevivable()
-            revived = true; //for the meantime
-
+            revived = askToRevive();
             if (revived) {
                 currentPet.revive();
             } else {
                 currentPet.die();
             }
             refreshScreen();
+        }
+    }
+
+    /**
+     * Asks the player to discipline their pet.
+     * @return if the player disciplines their pet.
+     */
+    private boolean askToDiscipline() {
+        String message = currentPet.getName() + " is misbehaving, would you "
+                         + "like to discipline them?";
+        int option = JOptionPane.showConfirmDialog(mainFrame, message, null,
+                                                   JOptionPane.YES_NO_OPTION,
+                                                   JOptionPane.QUESTION_MESSAGE);
+        if (option == 1) { // if they select no
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Asks the player if they want to treat their sick pet.
+     * @return if the player treats their pet.
+     */
+    private boolean askToTreat() {
+        if (currentPlayer.getBalance() >= 50) {
+            String message = currentPet.getName() + " is sick, would you "
+                             + "like to treat them for $50?";
+            int option = JOptionPane.showConfirmDialog(mainFrame, message, null,
+                                                       JOptionPane.YES_NO_OPTION,
+                                                       JOptionPane.QUESTION_MESSAGE);
+            if (option == 1) { // if they select no
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            String message = currentPet.getName() + " is sick. You currently "
+                             + "cannot afford treatment.";
+            JOptionPane.showMessageDialog(mainFrame, message, null, JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+    }
+
+    /**
+     * Asks the player if the want to revive their pet. If the pet is not
+     * revivable it tells them they are a bad person.
+     * @return if the player revives their pet.
+     */
+    private boolean askToRevive() {
+        if (currentPet.getIsRevivable()) {
+            String message = currentPet.getName() + " had died, would you "
+                             + "like to revive them?";
+            int option = JOptionPane.showConfirmDialog(mainFrame, message, null,
+                                                       JOptionPane.YES_NO_OPTION,
+                                                       JOptionPane.QUESTION_MESSAGE);
+            if (option == 1) { // if they select no
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            String message = currentPet.getName() + " has died. You cannot "
+                             + "revive them.\nYou're a bad person (or just unlucky).";
+            JOptionPane.showMessageDialog(mainFrame, message, null, JOptionPane.WARNING_MESSAGE);
+            return false;
         }
     }
 
