@@ -61,6 +61,10 @@ public class StatusPanel extends JPanel {
      * Label to display the pet's species.
      */
     private JLabel lblPetSpecies;
+    /**
+     * Image to quickly communicate pet species.
+     */
+    private JLabel lblSpeciesIcon;
 
     /**
      * Create the panel.
@@ -169,19 +173,38 @@ public class StatusPanel extends JPanel {
         add(panel);
         panel.setLayout(null);
 
-        JLabel lblNewLabel = new JLabel("");
+        lblSpeciesIcon = new JLabel("");
         //TODO: Make this work for different animals
-        String fileName  = setImage();
-        lblNewLabel.setIcon(new ImageIcon(fileName));
-        lblNewLabel.setBounds(37, 0, 365, 275);
-        panel.add(lblNewLabel);
+        setImage(new Pet("alpaca"));
+        lblSpeciesIcon.setBounds(37, 0, 365, 275);
+        panel.add(lblSpeciesIcon);
 
     }
 
-    private String setImage() {
-        String topDir = System.getProperty("user.dir");
-        String fileName = topDir + "/img/";
-        return fileName + "AlpacaSmall.png";
+    private void setImage(Pet pet) {
+        //String topDir = System.getProperty("user.dir");
+        String fileName = "img/";
+        switch (pet.getSpecies()) {
+            case "alpaca":
+                fileName += "AlpacaSmall.png";
+                break;
+            case "cat":
+                fileName += "CatSmall.png";
+                break;
+            case "dog":
+                fileName += "DogSmall.png";
+                break;
+            case "goat":
+                fileName += "GoatSmall.png";
+                break;
+            case "horse":
+                fileName += "HorseSmall.png";
+                break;
+            case "polar bear":
+                fileName += "PolarBearSmall.png";
+                break;
+        }
+        lblSpeciesIcon.setIcon(new ImageIcon(fileName));
     }
 
     /**
@@ -223,6 +246,8 @@ public class StatusPanel extends JPanel {
         } else {
             lblIsSick.setText("No");
         }
+
+        setImage(pet);
     }
 
     /**
