@@ -187,7 +187,8 @@ public class StatusPanel extends JPanel {
     }
 
     private String setImage() {
-        String fileName = "/img/";
+        String topDir = System.getProperty("user.dir");
+        String fileName = topDir + "/img/";
         return fileName + "AlpacaSmall.png";
     }
 
