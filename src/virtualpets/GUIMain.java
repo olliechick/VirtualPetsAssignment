@@ -267,6 +267,7 @@ public class GUIMain implements Observer {
         //      I don't know how this function works. --Sam
         //TODO: End game if everyones pets are dead. Currently just throws a massive hissy
         //      fit of stack overflow errors if you set number of days high enough. --Sam
+        //      Actually it just does it whever the game ends... --Sam
         homeScreen.returnToStatus(); //Returns player to status screen on new pet
     	currentPetIndex++;
 
@@ -320,7 +321,7 @@ public class GUIMain implements Observer {
 	/**
      * Move to a new day.
      */
-    private void nextDay() {
+    private void nextDay() { //TODO: Day counting is sporadic and game plays for six days instead of 5 when 5 selected
     	mainGame.nextDay();
     	currentDay = mainGame.getCurrentDay();
 
@@ -439,6 +440,7 @@ public class GUIMain implements Observer {
             }
             refreshScreen();
         }
+        //TODO: Move onto next pet afterwards
     }
 
     /**
