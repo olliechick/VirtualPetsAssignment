@@ -242,18 +242,15 @@ public class StatusPanel extends JPanel {
 
         if (pet.getIsMisbehaving()) {
             lblIsMisbehaving.setText("Yes");
-            lblIsMisbehaving.setForeground(Color.RED);
         } else {
             lblIsMisbehaving.setText("No");
-            lblIsMisbehaving.setForeground(Color.BLACK);
         }
 
         if (pet.getIsSick()) {
             lblIsSick.setText("Yes");
-            lblIsSick.setForeground(Color.RED);
         } else {
             lblIsSick.setText("No");
-            lblIsSick.setForeground(Color.BLACK);
+
         }
 
         setImage(pet);
@@ -279,6 +276,9 @@ public class StatusPanel extends JPanel {
         } else if (fatigue >= 85) {
             lblFatigueScore.setForeground(Color.RED);
             lblFatigueScore.setToolTipText("Urgent");
+        } else { //everything is normal
+            lblFatigueScore.setForeground(Color.BLACK);
+            lblFatigueScore.setToolTipText(null);
         }
 
         if (happiness <= 40 && happiness > 15) {
@@ -287,7 +287,11 @@ public class StatusPanel extends JPanel {
         } else if (happiness <= 15) {
             lblHappinessScore.setForeground(Color.RED);
             lblHappinessScore.setToolTipText("Urgent");
+        }  else { //everything is normal
+            lblHappinessScore.setForeground(Color.BLACK);
+            lblHappinessScore.setToolTipText(null);
         }
+
 
         if (health <= 40 && health > 15) {
             lblHealthScore.setForeground(Color.ORANGE);
@@ -295,7 +299,11 @@ public class StatusPanel extends JPanel {
         } else if (health <= 15) {
             lblHealthScore.setForeground(Color.RED);
             lblHealthScore.setToolTipText("Urgent");
+        } else { //everything is normal
+            lblHealthScore.setForeground(Color.BLACK);
+            lblHealthScore.setToolTipText(null);
         }
+
 
         if (hunger >= 60 && hunger < 85) {
             lblHungerScore.setForeground(Color.ORANGE);
@@ -303,7 +311,11 @@ public class StatusPanel extends JPanel {
         } else if (hunger >= 85) {
             lblHungerScore.setForeground(Color.RED);
             lblHungerScore.setToolTipText("Urgent");
+        } else { //everything is normal
+            lblHungerScore.setForeground(Color.BLACK);
+            lblHungerScore.setToolTipText(null);
         }
+
 
         if (bladderLevel >= 60 && bladderLevel < 85) {
             lblBladderPercentage.setForeground(Color.ORANGE);
@@ -311,6 +323,9 @@ public class StatusPanel extends JPanel {
         } else if (bladderLevel >= 85) {
             lblBladderPercentage.setForeground(Color.RED);
             lblBladderPercentage.setToolTipText("Urgent");
+        } else { //everything is normal
+            lblBladderPercentage.setForeground(Color.BLACK);
+            lblBladderPercentage.setToolTipText(null);
         }
 
         if (pet.getIsMisbehaving()) {
@@ -318,6 +333,7 @@ public class StatusPanel extends JPanel {
         } else {
             lblIsMisbehaving.setForeground(Color.BLACK);
         }
+
 
         if (pet.getIsSick()) {
             lblIsSick.setForeground(Color.RED);

@@ -358,16 +358,22 @@ public class GUIMain implements Observer {
 	}
 
 	/**
-	 * Ranks the players and prints out their score.
-	 * This is temporary, eventually, this will be GUI.
-	 */ //TODO GUI-ify
+	 * Ranks the players show them their scores
+	 */
     private void postGame() {
-        // TODO format frame, provide score
+        clearFrame();
+        ScoreboardPanel scorePanel = new ScoreboardPanel();
+
+        mainFrame.getContentPane().add(scorePanel);
+        scorePanel.setVisible(true);
+
+        scorePanel.setSize(450, 200);
+        mainFrame.setSize(465, 225);
+
         Player[] players;
         players = mainGame.rankPlayers();
-        for (Player player : players){
-            System.out.println(player.getName() + ": "+ player.getScore());
-        }
+
+        scorePanel.showRanking(players);
     }
 
     /**
