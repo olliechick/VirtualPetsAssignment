@@ -64,7 +64,7 @@ public class GUIMain implements Observer {
     /**
      * Value of the stipend each player earns daily per (alive) pet, in dollars ($).
      */
-    private int dailyPetAllowance = 15; //Why am I not used?
+    private int dailyPetAllowance = 15; //TODO: Why am I not used?
     /**
      * Number of pets each player has.
      * This is initialised to 0 so currentPetIndex !< numOfPets[i] if Player i does not exist.

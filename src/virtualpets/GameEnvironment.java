@@ -486,14 +486,6 @@ public class GameEnvironment {
     }
 
     /**
-     * Sets the current player.
-     * @param p Current player.
-     */
-    public void setCurrentPlayer(Player p) {
-        currentPlayer = p;
-    }
-
-    /**
      * Sets the number of days.
      * @param days Number of days.
      */
