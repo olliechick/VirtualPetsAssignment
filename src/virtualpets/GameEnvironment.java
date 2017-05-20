@@ -20,10 +20,6 @@ import java.io.Reader;
  */
 public class GameEnvironment {
     /**
-     * The current player.
-     */
-    private Player currentPlayer; //TODO why does GameEnvinronment need this?
-    /**
      * The list of players.
      */
     private ArrayList<Player> playerList = new ArrayList<Player>();
@@ -375,14 +371,6 @@ public class GameEnvironment {
      */
     public int getNumDays(){
         return numberOfDays;
-    }
-
-    /**
-     * Get the player who's turn it currently is.
-     * @return current player.
-     */
-    public Player getCurrentPlayer() {
-        return currentPlayer;
     }
 
     /**
