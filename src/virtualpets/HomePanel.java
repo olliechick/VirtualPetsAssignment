@@ -31,7 +31,7 @@ public class HomePanel extends JPanel implements Observable {
      */
     private String totalDays;
     /**
-     * Element to display current (in-game) day.
+     * Element to display current ingame day.
      */
     private JLabel lblDayMarker;
     /**
@@ -47,7 +47,7 @@ public class HomePanel extends JPanel implements Observable {
      */
     private JLabel lblCurrentPet;
     /**
-     * Element to display the number of action the player has remaining.
+     * Element to display the number of action the player has remainging.
      */
     private JLabel lblNumActions;
     /**
