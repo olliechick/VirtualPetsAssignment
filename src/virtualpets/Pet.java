@@ -499,7 +499,7 @@ public class Pet {
      * @return String representation of the pet
      */
     public String toString() {
-        return "A " + gender + " " + species + " named " + name + " with " + health + "HP.";
+        return "A " + gender + " " + species + " named " + name + " with " + health + "HP";
     }
 
     //other methods

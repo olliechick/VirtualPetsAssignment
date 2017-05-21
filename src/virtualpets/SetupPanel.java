@@ -39,7 +39,7 @@ public class SetupPanel extends JPanel implements Observable {
     /**
      * Text that is displayed as the tutorial.
      */
-    private String helpText = "Welcome to Virtual Pets!" //TODO: Should this be read from file?
+    private String helpText = "Welcome to Virtual Pets!"
             + "\nThis is a game for 1-3 players. "
             + "Each player has 1-3 pets, which can be cats, dogs, goats, "
                 + "alpacas, horses, or polar bears, or a mixture. "
@@ -51,16 +51,16 @@ public class SetupPanel extends JPanel implements Observable {
             + "Feeding, playing, going toilet, and sleeping all count as one action each. "
             + "If you neglect to keep your pet happy and healthy, "
                 + "they may begin to misbehave, get sick, and even die. "
-            + "If they misbehave, you can choose to discipline your pet, which  "
+            + "If they misbehave, you can choose to discipline your pet, which "
                 + "will decrease their happiness but also decrease their mischievousness. "
             + "If they get sick, you can choose to treat them (if you can afford it). "
             + "If you don't treat them, or you're very unlucky, they may die. You can revive each pet once, "
                 + "but if they die again they will be dead for good."
             + "\n"
             + "\nStrategy:"
-            + "\nCheck your pet's status before you start interacting with each pet."
-            + "Then make an informed decision of what to use your money and two daily actions for."
-            + "Keeping your pet well will decrease its chance of misbhaving and getting sick." //TODO: Well what?
+            + "\nCheck your pet's status before you start interacting with each pet. "
+            + "Then make an informed decision of what to use your money and two daily actions for. "
+            + "Keeping your pet well will decrease its chance of misbhaving and getting sick. " //TODO: Well what? -- Sam. Well = !sick. --Ollie
             + "Attributes that are of concern will be highlighted in orange; those highlighted in red are urgent.";
 
     /**
@@ -96,14 +96,14 @@ public class SetupPanel extends JPanel implements Observable {
         threePlayers.setBounds(187, 95, 60, 23);
         add(threePlayers);
 
-        JButton helpButton = new JButton("<help img>");
-        helpButton.setBounds(40, 131, 70, 23);
+        JButton helpButton = new JButton("?");
+        helpButton.setBounds(10, 131, 23, 23);
         helpButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                //popup
-
+                //TODO popup with helptext
+            	System.out.println(helpText);
             }
 
         });
