@@ -389,6 +389,9 @@ public class GUIMain implements Observer {
     	}
     	System.out.println("finished init");
     	refreshScreen();
+		if (currentPet.getIsDead()) { // if the pet was killed during newDayPetActions()
+			nextPet(); // set the number of actions to 0 so it will move on to next pet
+		}
     }
 
     /**
@@ -463,20 +466,17 @@ public class GUIMain implements Observer {
 		totalNumOfPets = IntStream.of(numOfPets).sum();
 
 		//Now create the combined list of pets.
-		try{
-			switch(numPlayersCreated){
-			case(3):
-				System.out.println("3");
-				combinedPetList.addAll(mainGame.getPlayerList().get(2).getPetList());
-			case(2):
-				System.out.println("2");
-				combinedPetList.addAll(mainGame.getPlayerList().get(1).getPetList());
-			case(1):
-				System.out.println("1");
-				combinedPetList.addAll(mainGame.getPlayerList().get(0).getPetList());
-			}
-		}catch(Exception e)
-		{System.out.println("error :(");e.printStackTrace();} //TODO remove try catch
+		switch(numPlayersCreated){
+		case(3):
+			System.out.println("3");
+			combinedPetList.addAll(mainGame.getPlayerList().get(2).getPetList());
+		case(2):
+			System.out.println("2");
+			combinedPetList.addAll(mainGame.getPlayerList().get(1).getPetList());
+		case(1):
+			System.out.println("1");
+			combinedPetList.addAll(mainGame.getPlayerList().get(0).getPetList());
+		}
     }
 
     /**
@@ -533,7 +533,6 @@ public class GUIMain implements Observer {
                 currentPet.revive();
             } else {
                 currentPet.die();
-                nextPet(); //TODO WARNING RECURSION!!!
             }
             refreshScreen();
         }

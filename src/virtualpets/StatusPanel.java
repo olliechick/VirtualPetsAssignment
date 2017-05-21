@@ -253,7 +253,6 @@ public class StatusPanel extends JPanel {
             lblIsSick.setText("Yes");
         } else {
             lblIsSick.setText("No");
-
         }
 
         setImage(pet);
@@ -276,7 +275,7 @@ public class StatusPanel extends JPanel {
     	} else { //str.length() >= 2
     		return str.substring(0, 1).toUpperCase() + str.substring(1);
     	}
-	}
+    }
 
 	/**
      * Highlight labels to warn player. Also sets tool tips to alert user of

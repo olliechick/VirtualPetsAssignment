@@ -476,6 +476,7 @@ public class Pet {
         increaseHunger(-50);
         increaseFatigue(10);
         increaseMischievousness(-5);
+        increaseHappiness(40);
     }
 
     /**

@@ -319,7 +319,13 @@ public class GameEnvironment {
     public Boolean checkIfDead(Pet pet) {
         // create random number between 0 and 99
         int randomNumber = randomNumGen.nextInt(100);
-        if (pet.getIsSick() && pet.getHappiness() < 50 || pet.getHealth() < 5 || randomNumber == 0) {
+        if (pet.getIsSick() && pet.getHappiness() < 50
+        		|| pet.getHealth() < 5
+        		|| pet.getPercentBladderFull() > 75 && randomNumber < 50
+        		|| pet.getFatigue() > 75 && randomNumber < 15
+        		|| pet.getPercentBladderFull() == 100
+        		|| pet.getFatigue() == 100
+        		|| randomNumber == 0) {
         	if (randomNumber == 0) {
         		System.out.println("That was very unlucky");
         	}
