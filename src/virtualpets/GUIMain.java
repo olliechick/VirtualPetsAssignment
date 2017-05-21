@@ -503,7 +503,7 @@ public class GUIMain implements Observer {
             }
             refreshScreen();
         }
-        //TODO: Move onto next pet afterwards -- Sam
+        //TODO: Move onto next pet afterwards if pet isnt revived--Sam
         //TODO what? --ollie
     }
 
