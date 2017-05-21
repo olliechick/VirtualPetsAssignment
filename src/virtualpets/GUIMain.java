@@ -278,7 +278,7 @@ public class GUIMain implements Observer {
     private void nextPet() {
         homeScreen.returnToStatus(); //Returns player to status screen on new pet
     	currentPetIndex++;
-    	Boolean nextDay = false; //Boolean to decide if currentPet should be initialised.
+    	Boolean endOfGame = false; //Boolean to decide if currentPet should be initialised.
     	Boolean everyPetIsDead = true; //Boolean to decide if we should just end it all.
 
     	for (Pet pet : combinedPetList){ //work out if there are any live pets left
@@ -324,12 +324,14 @@ public class GUIMain implements Observer {
     			// All players finished
     			// Time to move on to the next day.
     			nextDay();
-    			nextDay = true;
+    			if (mainGame.getCurrentDay() == mainGame.getNumDays()){
+    				endOfGame = true;
+    			}
     		}
 
     	}
 
-    	if (!nextDay){
+    	if (!endOfGame){
 
     		System.out.println("Moving on to " + currentPet.getName());
 
