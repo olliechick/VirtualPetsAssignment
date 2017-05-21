@@ -181,7 +181,7 @@ public class HomePanel extends JPanel implements Observable {
      * @param currentPet Pet to display stats for
      * @param currentDay Current day number
      * @param numActions number of actions remaining
-     * @param currenlySleeping Is the current pet sleeping?
+     * @param currentlySleeping Is the current pet sleeping?
      * @param currentlyOnToilet Is the current pet on the toilet?
      */
     public void refreshTabs(Player currentPlayer, Pet currentPet,
