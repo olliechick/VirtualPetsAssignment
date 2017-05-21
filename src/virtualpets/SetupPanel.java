@@ -74,7 +74,7 @@ public class SetupPanel extends JPanel implements Observable {
 
         ButtonGroup radioButtonGroup = new ButtonGroup();
 
-        JLabel lblNumDays = new JLabel("<html><u>Number of days to play for:</u>");
+        JLabel lblNumDays = new JLabel("<html><u>Number of days to play for:</u></html>");
         //This label is underlined to let the user know they can hover over it.
         lblNumDays.setBounds(25, 15, 158, 14);
         lblNumDays.setToolTipText("The number of days must be an integer "

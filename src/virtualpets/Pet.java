@@ -226,6 +226,25 @@ public class Pet {
         return defaultWeight;
     }
     /**
+     */
+    public int getBladderSize() {
+        return bladderSize;
+    }
+    /**
+     * Gets the fatigue increase of the pet.
+     * @return Pet's fatigue increase.
+     */
+    public int getFatigueIncrease() {
+        return fatigueIncrease;
+    }
+    /**
+     * Gets the harshness of the pet.
+     * @return Pet's harshness.
+     */
+    public int getHarshness() {
+        return harshness;
+    }
+    /**
      * Gets whether the pet is sick.
      * @return Whether the pet is sick.
      */
