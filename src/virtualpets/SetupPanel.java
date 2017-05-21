@@ -1,6 +1,7 @@
 package virtualpets;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
@@ -41,7 +42,7 @@ public class SetupPanel extends JPanel implements Observable {
     /**
      * Text that is displayed as the tutorial.
      */
-    private String helpText = "Welcome to Virtual Pets!" //TODO: Implement the tutorial
+    private String helpText = "Welcome to Virtual Pets!" //TODO: Increase number of lines in tutorial. --Sam
             + "\nThis is a game for 1-3 players. "
             + "Each player has 1-3 pets, which can be cats, dogs, goats, "
                 + "alpacas, horses, or polar bears, or a mixture. "
@@ -107,12 +108,12 @@ public class SetupPanel extends JPanel implements Observable {
         btnHelp.setIcon(new ImageIcon("img/helpIcon.png"));
         btnHelp.setHorizontalTextPosition(JButton.CENTER);
         btnHelp.setVerticalTextPosition(JButton.CENTER);
-
+        btnHelp.setContentAreaFilled(false);
 
         btnHelp.setBounds(10, 131, 23, 23);
         btnHelp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                //TODO popup with helptext
+                JOptionPane.showMessageDialog(null, helpText);
             	System.out.println(helpText);
             }
         });
