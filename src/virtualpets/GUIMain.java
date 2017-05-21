@@ -109,7 +109,7 @@ public class GUIMain implements Observer {
                     createPlayer();
                 } else {
                     displayHome();
-                    if (mainGame.getPlayerList().size() == 1 || mainGame.getPlayerList().get(0).getPetList().size() == 0) {
+                    if (mainGame.getPlayerList().size() == 1 && mainGame.getPlayerList().get(0).getPetList().size() == 0) {
                     	//if there is only one pet
                     	homeScreen.setNextButtonText("Next day");
                     } else { // more than one pet
@@ -285,19 +285,21 @@ public class GUIMain implements Observer {
     private void nextPet() {
         homeScreen.returnToStatus(); //Returns player to status screen on new pet
     	currentPetIndex++;
-    	Boolean endOfGame = false; //Boolean to decide if currentPet should be initialised.
+    	Boolean initialiseThisPet = true; //Boolean to decide if currentPet should be initialised.
     	Boolean everyPetIsDead = true; //Boolean to decide if we should just end it all.
 
-    	for (Pet pet : combinedPetList){ //work out if there are any live pets left
+    	//Work out if there are any live pets left
+    	for (Pet pet : combinedPetList){
     		if (!pet.getIsDead()){
     			everyPetIsDead = false;
     		}
     	}
 
+    	//If there are any alive pets, work out which is the new currentPet
     	if (everyPetIsDead) {
     		//TODO maybe a popup of some kind saying how how bad the player(s) are
     		postGame();
-    		endOfGame = true;
+    		initialiseThisPet = false;
     	} else {
 
     		// Find out which is the next pet, and set that to currentPet
@@ -332,65 +334,67 @@ public class GUIMain implements Observer {
     			// All players finished
     			// Time to move on to the next day.
     			nextDay();
-    			if (mainGame.getCurrentDay() == mainGame.getNumDays()){
-    				endOfGame = true;
+    			if (mainGame.getCurrentDay() > mainGame.getNumDays()){
+    				initialiseThisPet = false;
+    				System.out.println("End of the game");
     			}
     		}
 
     	}
 
-    	if (!endOfGame){
+		//Check if they're alive
+    	if (initialiseThisPet) {
+    		if (currentPet.getIsDead()) {
+    			System.out.println("Moving on to " + currentPet.getName() + ". Actually they're dead.");
+    			initialiseThisPet = false;
+    		}
+    	}
 
+    	if (initialiseThisPet) {
     		System.out.println("Moving on to " + currentPet.getName());
 
-    		//Check if they're alive
-    		if (currentPet.getIsDead()) {
-    			System.out.println("Actually they're dead.");
-    			nextPet();
-    		} else { //they're alive!
-    			System.out.println("alive");
-    			numActions = 2;
-    			newDayPetActions();
-    			System.out.println("ndpa done");
+    		System.out.println("alive");
+    		numActions = 2;
+    		refreshScreen();
+    		newDayPetActions();
+    		System.out.println("ndpa done");
 
-    			//Set the next button to say Next pet or Next day as appropriate.
-    			if (currentPetIndex == totalNumOfPets) { //this is the last pet today
-    				if (mainGame.getCurrentDay() == mainGame.getNumDays()) { //this is the last day
-    				    homeScreen.setNextButtonText("Finish");
-    				} else {
-    				    homeScreen.setNextButtonText("Next day");
-    				}
+    		//Set the next button to say Next pet or Next day as appropriate.
+    		if (currentPetIndex == totalNumOfPets) { //this is the last pet today
+    			if (mainGame.getCurrentDay() == mainGame.getNumDays()) { //this is the last day
+    				homeScreen.setNextButtonText("Finish");
     			} else {
-    				int cpi = currentPetIndex;
-    				Boolean alivePetToGo = false; //assume there are no alive pets to go today unless proved wrong
-    				while(!alivePetToGo && cpi < totalNumOfPets-1){
-    					if (combinedPetList.get(cpi + 1).getIsDead()) { //the next pet is dead
-    						cpi++;
-    					} else { //the next pet is alive
-    						alivePetToGo = true;
-    					}
+    				homeScreen.setNextButtonText("Next day");
+    			}
+    		} else {
+    			int cpi = currentPetIndex;
+    			Boolean alivePetToGo = false; //assume there are no alive pets to go today unless proved wrong
+    			while(!alivePetToGo && cpi < totalNumOfPets-1){
+    				if (combinedPetList.get(cpi + 1).getIsDead()) { //the next pet is dead
+    					cpi++;
+    				} else { //the next pet is alive
+    					alivePetToGo = true;
     				}
-    				if (alivePetToGo) {
-    				    homeScreen.setNextButtonText("Next pet");
-    				} else { // the rest of the pets today are dead
-    					if (mainGame.getCurrentDay() == mainGame.getNumDays()) { //this is the last day
-    					    homeScreen.setNextButtonText("Finish");
-    					} else {
-    					    homeScreen.setNextButtonText("Next day");
-    					}
+    			}
+    			if (alivePetToGo) {
+    				homeScreen.setNextButtonText("Next pet");
+    			} else { // the rest of the pets today are dead
+    				if (mainGame.getCurrentDay() == mainGame.getNumDays()) { //this is the last day
+    					homeScreen.setNextButtonText("Finish");
+    				} else {
+    					homeScreen.setNextButtonText("Next day");
     				}
     			}
     		}
-    		System.out.println("finished init");
-    		refreshScreen();
     	}
+    	System.out.println("finished init");
+    	refreshScreen();
     }
 
     /**
      * Move to a new day.
      */
-    private void nextDay() { //TODO: Day counting is sporadic and game plays for six days instead of 5 when 5 selected
-    	                     //TODO: I've moved currentDay entirely into GE, hopefully it works now.
+    private void nextDay() {
     	mainGame.nextDay();
 
         // Calculate all the scores for today (well, technically yesterday now)
@@ -404,7 +408,7 @@ public class GUIMain implements Observer {
     	    currentPlayer = mainGame.getPlayerList().get(0);
     	    currentPet = currentPlayer.getPetList().get(0);
     	    initialisePlayer();
-    	    System.out.println("========== New day ==============");
+    	    System.out.println("========== New day " + mainGame.getCurrentDay() + "==============");
     	    homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2);
     	} else { // game is over
     	    clearFrame();

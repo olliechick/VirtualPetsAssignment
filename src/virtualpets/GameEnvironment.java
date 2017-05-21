@@ -44,7 +44,7 @@ public class GameEnvironment {
     /**
      * How much each player gets per pet per day, in dollars.
      */
-    private int dailyPetAllowance;
+    private int dailyPetAllowance = 15;
     /**
      * The random number generated, used for random events. Random events
      * include misbehaving, being sick, and dying.
@@ -317,13 +317,12 @@ public class GameEnvironment {
      * @return Whether the pet is dead.
      */
     public Boolean checkIfDead(Pet pet) {
-
-        /*
-         * Check if dead
-         */
         // create random number between 0 and 99
         int randomNumber = randomNumGen.nextInt(100);
-        if (pet.getIsSick() && pet.getHappiness() < 50 || pet.getHealth() < 5 || randomNumber < 2) {
+        if (pet.getIsSick() && pet.getHappiness() < 50 || pet.getHealth() < 5 || randomNumber == 0) {
+        	if (randomNumber == 0) {
+        		System.out.println("That was very unlucky");
+        	}
             return true;
         }
 
@@ -514,6 +513,8 @@ public class GameEnvironment {
         }
         //Give them an allowance per alive pet
         currentPlayer.earn(dailyPetAllowance * numOfAlivePets);
+        System.out.println(currentPlayer.getName() + " is rOlling in the moneys!!! $"+currentPlayer.getBalance()
+        +" deets: "+dailyPetAllowance + " * "+numOfAlivePets);
 
 	}
 }

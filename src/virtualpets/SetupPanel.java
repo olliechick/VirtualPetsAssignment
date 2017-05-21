@@ -42,7 +42,7 @@ public class SetupPanel extends JPanel implements Observable {
     /**
      * Text that is displayed as the tutorial.
      */
-    private String helpText = "Welcome to Virtual Pets!" //TODO: Increase number of lines in tutorial. --Sam
+    private String helpText = "Welcome to Virtual Pets!"
             + "\nThis is a game for 1-3 players. "
             + "\nEach player has 1-3 pets, which can be cats, dogs, goats, "
                 + "alpacas, horses, or polar bears, or a mixture. "
@@ -114,7 +114,6 @@ public class SetupPanel extends JPanel implements Observable {
         btnHelp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 JOptionPane.showMessageDialog(null, helpText);
-            	System.out.println(helpText);
             }
         });
         add(btnHelp);

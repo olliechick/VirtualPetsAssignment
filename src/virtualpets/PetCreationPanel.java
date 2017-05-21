@@ -66,8 +66,24 @@ public class PetCreationPanel extends JPanel {
         lblPetSpecies.setBounds(27, 48, 69, 14);
         add(lblPetSpecies);
 
+        //Create the tooltips
+        Cat cat = new Cat();
+        Dog dog = new Dog();
+        Horse horse = new Horse();
+        Goat goat = new Goat();
+        Alpaca alpaca = new Alpaca();
+        PolarBear polarBear = new PolarBear();
+
+        String attributes = "Weight: %f"
+        				  + "\nBladder size: %d"
+        		          + "\nPropensity to exhaustion: %d"//TODO better way to say this?
+        		          + "\nHarshness (with toys): %d"
+        		          + "\nFavourite food: %s"
+        		          + "\nFavourite toy: %s"; //TODO work out new lines in tooltip
+
         rdbtnCat = new JRadioButton("Cat");
-        rdbtnCat.setToolTipText("Add me later");
+        rdbtnCat.setToolTipText(String.format(attributes, cat.getDefaultWeight(), 42, 43, 44, cat.getFavouriteFood(), cat.getFavouriteToy()));
+        //TODO make getters for this in Pet.java
         //TODO These tooltips should, to quote the spec, allow the user to have some way
         //of viewing attributes of each pet, so that the players can compare pets
         //and make an informed decision about the characteristics of each species.

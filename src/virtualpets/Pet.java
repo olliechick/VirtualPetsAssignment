@@ -40,31 +40,31 @@ public class Pet {
     /**
      * The pet's health, on a scale of 0-100.
      */
-    private int health; //out of 100
+    private int health;
     /**
      * The pet's mischievousness, on a scale of 0-100.
      */
-    private int mischievousness; //out of 100
+    private int mischievousness;
     /**
      * The pet's happiness, on a scale of 0-100.
      */
-    private int happiness; //out of 100
+    private int happiness;
     /**
      * The pet's hunger, on a scale of 0-100.
      */
-    private int hunger; //out of 100
+    private int hunger;
     /**
      * How full the pet's bladder is, on a scale of 0-100.
      */
-    private int percentBladderFull; //out of 100
+    private int percentBladderFull;
     /**
      * The pet's fatigue, on a scale of 0-100.
      */
-    private int fatigue; //out of 100
+    private int fatigue;
     /**
-     * The pet's weight.
+     * The pet's weight, in kilograms.
      */
-    private double weight; // in kg
+    private double weight;
 
     /**
      * Whether or not the pet is sick.
@@ -84,7 +84,7 @@ public class Pet {
     private Boolean isDead;
 
     /**
-     * The pet's default weight.
+     * The pet's default weight, in kilograms.
      * The pet will be initialised to this weight,
      * and return to this weight when it goes toilet.
      */
