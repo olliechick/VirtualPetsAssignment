@@ -343,9 +343,9 @@ public class GUIMain implements Observer {
     			//Set the next button to say Next pet or Next day as appropriate.
     			if (currentPetIndex == totalNumOfPets) { //this is the last pet today
     				if (mainGame.getCurrentDay() == mainGame.getNumDays()) { //this is the last day
-    					//TODO nextButton.setText("Finish")
+    				    homeScreen.setNextButtonText("Finish");
     				} else {
-    					//TODO nextButton.setText("Next day")
+    				    homeScreen.setNextButtonText("Next day");
     				}
     			} else {
     				int cpi = currentPetIndex;
@@ -358,12 +358,12 @@ public class GUIMain implements Observer {
     					}
     				}
     				if (alivePetToGo) {
-    					//TODO nextButton.setText("Next pet")
+    				    homeScreen.setNextButtonText("Next pet");
     				} else { // the rest of the pets today are dead
     					if (mainGame.getCurrentDay() == mainGame.getNumDays()) { //this is the last day
-    						//TODO nextButton.setText("Finish")
+    					    homeScreen.setNextButtonText("Finish");
     					} else {
-    						//TODO nextButton.setText("Next day")
+    					    homeScreen.setNextButtonText("Next day");
     					}
     				}
     			}
@@ -446,6 +446,8 @@ public class GUIMain implements Observer {
 		totalNumOfPets = IntStream.of(numOfPets).sum();
 
 		//Now create the combined list of pets.
+		//TODO: Check this code, I get an exception. --Sam
+		//TODO: I think this has broken everything --Sam
 		combinedPetList = new Pet[totalNumOfPets];
 		System.arraycopy(mainGame.getPlayerList().get(0), 0, combinedPetList, 0, numOfPets[0]);
 		System.arraycopy(mainGame.getPlayerList().get(1), 0, combinedPetList, numOfPets[0], numOfPets[0] + numOfPets[1]);
