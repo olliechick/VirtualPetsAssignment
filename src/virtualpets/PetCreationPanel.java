@@ -76,74 +76,74 @@ public class PetCreationPanel extends JPanel {
 
         String attributes = "<html>Weight: %.0f kg"
         				  + "<br />Bladder size: %d"
-        		          + "<br />Propensity to exhaustion: %d"//TODO better way to say this?
+        		          + "<br />Propensity to exhaustion: %d"//TODO better way to say this? - Fatigue rate?
         		          + "<br />Harshness (with toys): %d"
         		          + "<br />Favourite food: %s"
         		          + "<br />Favourite toy: %s</html>";
 
         rdbtnCat = new JRadioButton("<html><u>Cat</u></html>");
-        rdbtnCat.setToolTipText(String.format( attributes,
-        		cat.getDefaultWeight(),
-        		cat.getBladderSize(),
-        		cat.getFatigueIncrease(),
-        		cat.getHarshness(),
-        		cat.getFavouriteFood(),
-        		cat.getFavouriteToy() ));
+        rdbtnCat.setToolTipText(String.format(attributes,
+        		                              cat.getDefaultWeight(),
+        		                              cat.getBladderSize(),
+        		                              cat.getFatigueIncrease(),
+        		                              cat.getHarshness(),
+        		                              cat.getFavouriteFood(),
+        		                              cat.getFavouriteToy()));
         rdbtnCat.setBounds(0, 91, 109, 23);
         add(rdbtnCat);
 
         rdbtnDog = new JRadioButton("<html><u>Dog</u></html>");
-        rdbtnDog.setToolTipText(String.format( attributes,
-        		dog.getDefaultWeight(),
-        		dog.getBladderSize(),
-        		dog.getFatigueIncrease(),
-        		dog.getHarshness(),
-        		dog.getFavouriteFood(),
-        		dog.getFavouriteToy() ));
+        rdbtnDog.setToolTipText(String.format(attributes,
+        		                              dog.getDefaultWeight(),
+        		                              dog.getBladderSize(),
+        		                              dog.getFatigueIncrease(),
+        		                              dog.getHarshness(),
+        		                              dog.getFavouriteFood(),
+        		                              dog.getFavouriteToy()));
         rdbtnDog.setBounds(0, 117, 109, 23);
         add(rdbtnDog);
 
         rdbtnHorse = new JRadioButton("<html><u>Horse</u></html>");
-        rdbtnHorse.setToolTipText(String.format( attributes,
-        		horse.getDefaultWeight(),
-        		horse.getBladderSize(),
-        		horse.getFatigueIncrease(),
-        		horse.getHarshness(),
-        		horse.getFavouriteFood(),
-        		horse.getFavouriteToy() ));
+        rdbtnHorse.setToolTipText(String.format(attributes,
+        		                                horse.getDefaultWeight(),
+        		                                horse.getBladderSize(),
+        		                                horse.getFatigueIncrease(),
+        		                                horse.getHarshness(),
+        		                                horse.getFavouriteFood(),
+        		                                horse.getFavouriteToy()));
         rdbtnHorse.setBounds(0, 169, 109, 23);
         add(rdbtnHorse);
 
         rdbtnGoat = new JRadioButton("<html><u>Goat</u></html>");
-        rdbtnGoat.setToolTipText(String.format( attributes,
-        		goat.getDefaultWeight(),
-        		goat.getBladderSize(),
-        		goat.getFatigueIncrease(),
-        		goat.getHarshness(),
-        		goat.getFavouriteFood(),
-        		goat.getFavouriteToy() ));
+        rdbtnGoat.setToolTipText(String.format(attributes,
+        		                               goat.getDefaultWeight(),
+        		                               goat.getBladderSize(),
+        		                               goat.getFatigueIncrease(),
+        		                               goat.getHarshness(),
+        		                               goat.getFavouriteFood(),
+        		                               goat.getFavouriteToy()));
         rdbtnGoat.setBounds(0, 143, 109, 23);
         add(rdbtnGoat);
 
         rdbtnAlpaca = new JRadioButton("<html><u>Alpaca</u></html>", true); //default to alpaca
-        rdbtnAlpaca.setToolTipText(String.format( attributes,
-        		alpaca.getDefaultWeight(),
-        		alpaca.getBladderSize(),
-        		alpaca.getFatigueIncrease(),
-        		alpaca.getHarshness(),
-        		alpaca.getFavouriteFood(),
-        		alpaca.getFavouriteToy() ));
+        rdbtnAlpaca.setToolTipText(String.format(attributes,
+        		                                 alpaca.getDefaultWeight(),
+        		                                 alpaca.getBladderSize(),
+        		                                 alpaca.getFatigueIncrease(),
+        		                                 alpaca.getHarshness(),
+        		                                 alpaca.getFavouriteFood(),
+        		                                 alpaca.getFavouriteToy()));
         rdbtnAlpaca.setBounds(0, 65, 109, 23);
         add(rdbtnAlpaca);
 
         rdbtnPolarBear = new JRadioButton("<html><u>Polar bear</u></html>");
-        rdbtnPolarBear.setToolTipText(String.format( attributes,
-        		polarBear.getDefaultWeight(),
-        		polarBear.getBladderSize(),
-        		polarBear.getFatigueIncrease(),
-        		polarBear.getHarshness(),
-        		polarBear.getFavouriteFood(),
-        		polarBear.getFavouriteToy() ));
+        rdbtnPolarBear.setToolTipText(String.format(attributes,
+        		                                    polarBear.getDefaultWeight(),
+        		                                    polarBear.getBladderSize(),
+        		                                    polarBear.getFatigueIncrease(),
+        		                                    polarBear.getHarshness(),
+        		                                    polarBear.getFavouriteFood(),
+        		                                    polarBear.getFavouriteToy()));
         rdbtnPolarBear.setBounds(0, 195, 109, 23);
         add(rdbtnPolarBear);
 

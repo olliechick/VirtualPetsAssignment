@@ -181,9 +181,11 @@ public class HomePanel extends JPanel implements Observable {
      * @param currentPet Pet to display stats for
      * @param currentDay Current day number
      * @param numActions number of actions remaining
+     * @param currenlySleeping Is the current pet sleeping?
      */
     public void refreshTabs(Player currentPlayer, Pet currentPet,
-                            int currentDay, int numActions) {
+                            int currentDay, int numActions,
+                            Boolean currentlySleeping) {
         statusTab.setPetStatus(currentPet);
         storeTab.updatePlayerInventory(currentPlayer);
         playTab.listPlayerToys(currentPlayer.getToyList());
@@ -191,6 +193,11 @@ public class HomePanel extends JPanel implements Observable {
         refreshPlayerStats(currentPlayer, numActions);
         lblCurrentPet.setText(currentPet.getName());
         lblDayMarker.setText(currentDay + "/" + totalDays);
+        if (currentlySleeping) {
+            sleepTab.setAsleepImage(currentPet);
+        } else {
+            sleepTab.setAwakeImage(currentPet);
+        }
     }
 
     /**
@@ -213,7 +220,7 @@ public class HomePanel extends JPanel implements Observable {
      * Get the toilet tab.
      * @return toilet tab
      */
-    public ToiletPanel getToiletTab(){
+    public ToiletPanel getToiletTab() {
         return toiletTab;
     }
 
@@ -221,7 +228,7 @@ public class HomePanel extends JPanel implements Observable {
      * Get the play tab.
      * @return play tab
      */
-    public PlayPanel getPlayTab(){
+    public PlayPanel getPlayTab() {
         return playTab;
     }
 
@@ -298,6 +305,6 @@ public class HomePanel extends JPanel implements Observable {
         cat.setGender("male");
         cat.setName("Snowy");
         testPlayer.getPetList().add(cat);
-        myPanel.refreshTabs(testPlayer, cat, 5, 1);
+        myPanel.refreshTabs(testPlayer, cat, 5, 1, true);
     }
 }

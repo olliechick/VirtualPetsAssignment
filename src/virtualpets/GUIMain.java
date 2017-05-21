@@ -73,6 +73,10 @@ public class GUIMain implements Observer {
      * The total number of pets.
      */
     private int totalNumOfPets;
+    /**
+     * Is the current pet currently sleeping.
+     */
+    private Boolean currentlySleeping = false;
 
     /**
      * Part of the Observer pattern to get data from GUI to GameEnvironment.
@@ -87,7 +91,6 @@ public class GUIMain implements Observer {
                 numberOfPlayers = Integer.parseInt(values[0]);
                 clearFrame();
                 createPlayer();
-                System.out.println("Creating player 1");
                 break;
 
             case "player creation":
@@ -126,8 +129,8 @@ public class GUIMain implements Observer {
 
             case "sleep":
                 currentPet.sleep();
-                System.out.println("Sleeping");
                 numActions--;
+                currentlySleeping = true;
                 refreshScreen();
                 break;
 
@@ -140,9 +143,6 @@ public class GUIMain implements Observer {
 
             case "feed":
                 Food food = mainGame.getFoodPrototypes().get(values[0]);
-                System.out.println("Feeding "  + currentPet.getName() + " : "
-                                    + food.getName());
-                currentPet.feed(food);
                 currentPlayer.getFoodStock().remove(food);
                 numActions--;
                 refreshScreen();
@@ -150,8 +150,6 @@ public class GUIMain implements Observer {
 
             case "play":
                 Toy toy = mainGame.getToyPrototypes().get(values[0]);
-                String debug = "Playing "  + currentPet.getName() + " : " + toy.getName();
-                System.out.println(debug);
                 play(toy);
                 numActions--;
                 refreshScreen();
@@ -245,7 +243,7 @@ public class GUIMain implements Observer {
      */
     private void refreshScreen() {
     	int currentDay = mainGame.getCurrentDay();
-        homeScreen.refreshTabs(currentPlayer, currentPet, currentDay, numActions);
+        homeScreen.refreshTabs(currentPlayer, currentPet, currentDay, numActions, currentlySleeping);
     }
 
     /**
@@ -283,6 +281,7 @@ public class GUIMain implements Observer {
      *
      */
     private void nextPet() {
+        currentlySleeping = false;
         homeScreen.returnToStatus(); //Returns player to status screen on new pet
     	currentPetIndex++;
     	Boolean initialiseThisPet = true; //Boolean to decide if currentPet should be initialised.
@@ -412,7 +411,7 @@ public class GUIMain implements Observer {
     	    currentPet = currentPlayer.getPetList().get(0);
     	    initialisePlayer();
     	    System.out.println("========== New day " + mainGame.getCurrentDay() + "==============");
-    	    homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2);
+    	    homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2, false); //TODO: Why are you calling this instead of refreshScreen? --Sam
     	} else { // game is over
     	    clearFrame();
     	    postGame();
@@ -429,7 +428,8 @@ public class GUIMain implements Observer {
 
         if (numberOfPlayers > 1) {
             String message = "It is now " + currentPlayer.getName() + "'s turn.";
-            JOptionPane.showMessageDialog(mainFrame, message, null, JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(homeScreen, message, null,
+                                          JOptionPane.INFORMATION_MESSAGE);
         }
 	}
 
@@ -545,7 +545,7 @@ public class GUIMain implements Observer {
     private boolean askToDiscipline() {
         String message = currentPet.getName() + " is misbehaving, would you "
                          + "like to discipline them?";
-        int option = JOptionPane.showConfirmDialog(mainFrame, message, null,
+        int option = JOptionPane.showConfirmDialog(homeScreen, message, null,
                                                    JOptionPane.YES_NO_OPTION,
                                                    JOptionPane.QUESTION_MESSAGE);
         if (option == 1) { // if they select no
@@ -563,7 +563,7 @@ public class GUIMain implements Observer {
         if (currentPlayer.getBalance() >= 50) {
             String message = currentPet.getName() + " is sick, would you "
                              + "like to treat them for $50?";
-            int option = JOptionPane.showConfirmDialog(mainFrame, message, null,
+            int option = JOptionPane.showConfirmDialog(homeScreen, message, null,
                                                        JOptionPane.YES_NO_OPTION,
                                                        JOptionPane.QUESTION_MESSAGE);
             if (option == 1) { // if they select no
@@ -574,7 +574,7 @@ public class GUIMain implements Observer {
         } else { //if they can't afford treatment
             String message = currentPet.getName() + " is sick. You currently "
                              + "cannot afford treatment.";
-            JOptionPane.showMessageDialog(mainFrame, message, null,
+            JOptionPane.showMessageDialog(homeScreen, message, null,
                                           JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -589,7 +589,7 @@ public class GUIMain implements Observer {
         if (currentPet.getIsRevivable()) {
             String message = currentPet.getName() + " has died, would you "
                              + "like to revive them?";
-            int option = JOptionPane.showConfirmDialog(mainFrame, message, null,
+            int option = JOptionPane.showConfirmDialog(homeScreen, message, null,
                                                        JOptionPane.YES_NO_OPTION,
                                                        JOptionPane.QUESTION_MESSAGE);
             if (option == 1) { // if they select no
@@ -601,7 +601,7 @@ public class GUIMain implements Observer {
             String message = currentPet.getName() + " has died. You cannot "
                              + "revive them.\nYou're a bad person "
                              + "(or just unlucky).";
-            JOptionPane.showMessageDialog(mainFrame, message, null,
+            JOptionPane.showMessageDialog(homeScreen, message, null,
                                           JOptionPane.WARNING_MESSAGE);
             return false;
         }
