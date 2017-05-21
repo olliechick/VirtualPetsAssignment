@@ -143,6 +143,7 @@ public class GUIMain implements Observer {
 
             case "feed":
                 Food food = mainGame.getFoodPrototypes().get(values[0]);
+                currentPet.feed(food);
                 currentPlayer.getFoodStock().remove(food);
                 numActions--;
                 refreshScreen();
@@ -289,7 +290,7 @@ public class GUIMain implements Observer {
 
     	//Work out if there are any live pets left
     	for (Pet pet : combinedPetList){
-    		if (!pet.getIsDead()){
+    		if (!pet.getIsDead()){ //if the pet isn't dead
     			everyPetIsDead = false;
     		}
     	}
@@ -388,8 +389,8 @@ public class GUIMain implements Observer {
     	}
     	System.out.println("finished init");
     	refreshScreen();
-		if (currentPet.getIsDead()) { // if the pet was killed during newDayPetActions()
-			nextPet(); // set the number of actions to 0 so it will move on to next pet
+		if (initialiseThisPet && currentPet.getIsDead()) { // if the pet was killed during newDayPetActions()
+			nextPet();
 		}
     }
 
@@ -411,7 +412,7 @@ public class GUIMain implements Observer {
     	    currentPet = currentPlayer.getPetList().get(0);
     	    initialisePlayer();
     	    System.out.println("========== New day " + mainGame.getCurrentDay() + "==============");
-    	    homeScreen.refreshTabs(currentPlayer, currentPet, 1, 2, false); //TODO: Why are you calling this instead of refreshScreen? --Sam
+    	    refreshScreen();
     	} else { // game is over
     	    clearFrame();
     	    postGame();
