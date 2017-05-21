@@ -71,8 +71,11 @@ public class SetupPanel extends JPanel implements Observable {
 
         ButtonGroup radioButtonGroup = new ButtonGroup();
 
-        JLabel lblNumDays = new JLabel("Number of days to play for:");
-        lblNumDays.setBounds(25, 11, 158, 14);
+        JLabel lblNumDays = new JLabel("<html><u>Number of days to play for:</u>");
+        //This label is underlined so the user knows they can hover over it.
+        //TODO add a tooltip that tells the user: "The number of days must be an integer between 1 and 365. If you enter
+        //a number outside this range, it will revert to the last valid input."
+        lblNumDays.setBounds(25, 15, 158, 14);
         add(lblNumDays);
 
         JSpinner numberOfDaysSpinner = new JSpinner();
