@@ -136,11 +136,11 @@ public class HomePanel extends JPanel implements Observable {
         add(lblCurrentPet);
 
         JLabel lblActionsRemaining = new JLabel("Actions remaining:");
-        lblActionsRemaining.setBounds(531, 7, 122, 23);
+        lblActionsRemaining.setBounds(591, 7, 122, 23);
         add(lblActionsRemaining);
 
         lblNumActions = new JLabel("numActions");
-        lblNumActions.setBounds(625, 11, 66, 14);
+        lblNumActions.setBounds(685, 11, 66, 14);
         add(lblNumActions);
 
         lblDayMarker = new JLabel("dayMarker");

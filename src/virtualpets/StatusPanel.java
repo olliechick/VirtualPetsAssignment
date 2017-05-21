@@ -91,7 +91,7 @@ public class StatusPanel extends JPanel {
         lblHealth.setBounds(32, 126, 46, 14);
         add(lblHealth);
 
-        JLabel lblBladderFullness = new JLabel("Bladder Full:");
+        JLabel lblBladderFullness = new JLabel("Bladder full:");
         lblBladderFullness.setBounds(32, 150, 77, 14);
         add(lblBladderFullness);
 
@@ -225,7 +225,7 @@ public class StatusPanel extends JPanel {
 
         Integer bladderLevelInt = pet.getPercentBladderFull();
         String bladderLevel = bladderLevelInt.toString();
-        lblBladderPercentage.setText(bladderLevel + " %");
+        lblBladderPercentage.setText(bladderLevel + "%");
 
         String weight = ((Double) pet.getWeight()).toString();
         lblWeightScore.setText(weight + " kg");
