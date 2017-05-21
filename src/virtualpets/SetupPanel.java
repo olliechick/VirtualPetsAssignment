@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+
 import java.util.ArrayList;
 
 
@@ -60,7 +62,7 @@ public class SetupPanel extends JPanel implements Observable {
             + "\nStrategy:"
             + "\nCheck your pet's status before you start interacting with each pet. "
             + "Then make an informed decision of what to use your money and two daily actions for. "
-            + "Keeping your pet well will decrease its chance of misbhaving and getting sick. " //TODO: Well what? -- Sam. Well = !sick. --Ollie
+            + "Keeping your pet well will decrease its chance of misbhaving and getting sick. "
             + "Attributes that are of concern will be highlighted in orange; those highlighted in red are urgent.";
 
     /**
@@ -72,10 +74,12 @@ public class SetupPanel extends JPanel implements Observable {
         ButtonGroup radioButtonGroup = new ButtonGroup();
 
         JLabel lblNumDays = new JLabel("<html><u>Number of days to play for:</u>");
-        //This label is underlined so the user knows they can hover over it.
-        //TODO add a tooltip that tells the user: "The number of days must be an integer between 1 and 365. If you enter
-        //a number outside this range, it will revert to the last valid input."
+        //This label is underlined so the user knows they can hover over it"
         lblNumDays.setBounds(25, 15, 158, 14);
+        lblNumDays.setToolTipText("The number of days must be an integer "
+                                  + "between 1 and 365. If you enter a number"
+                                  + " outside this range, it will revert to the"
+                                  + " last valid input.");
         add(lblNumDays);
 
         JSpinner numberOfDaysSpinner = new JSpinner();
@@ -99,18 +103,20 @@ public class SetupPanel extends JPanel implements Observable {
         threePlayers.setBounds(187, 95, 60, 23);
         add(threePlayers);
 
-        JButton helpButton = new JButton("?");
-        helpButton.setBounds(10, 131, 23, 23);
-        helpButton.addActionListener(new ActionListener() {
+        JButton btnHelp = new JButton("");
+        btnHelp.setIcon(new ImageIcon("img/helpIcon.png"));
+        btnHelp.setHorizontalTextPosition(JButton.CENTER);
+        btnHelp.setVerticalTextPosition(JButton.CENTER);
 
-            @Override
+
+        btnHelp.setBounds(10, 131, 23, 23);
+        btnHelp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 //TODO popup with helptext
             	System.out.println(helpText);
             }
-
         });
-        add(helpButton);
+        add(btnHelp);
 
         radioButtonGroup.add(onePlayer);
         radioButtonGroup.add(twoPlayers);
