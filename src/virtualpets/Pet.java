@@ -226,6 +226,8 @@ public class Pet {
         return defaultWeight;
     }
     /**
+     * Gets the bladder size of the pet.
+     * @return Pet's bladder size.
      */
     public int getBladderSize() {
         return bladderSize;
