@@ -346,11 +346,9 @@ public class GUIMain implements Observer {
     			//Set the next button to say Next pet or Next day as appropriate.
     			if (currentPetIndex == totalNumOfPets) { //this is the last pet today
     				if (mainGame.getCurrentDay() == mainGame.getNumDays()) { //this is the last day
-    					//TODO nextButton.setText("Finish")
-    					System.out.println("finish button");
+    				    homeScreen.setNextButtonText("Finish");
     				} else {
-    					//TODO nextButton.setText("Next day")
-    					System.out.println("next day button");
+    				    homeScreen.setNextButtonText("Next day");
     				}
     			} else {
     				int cpi = currentPetIndex;
@@ -363,15 +361,12 @@ public class GUIMain implements Observer {
     					}
     				}
     				if (alivePetToGo) {
-    					//TODO nextButton.setText("Next pet")
-    					System.out.println("next pet button");
+    				    homeScreen.setNextButtonText("Next pet");
     				} else { // the rest of the pets today are dead
     					if (mainGame.getCurrentDay() == mainGame.getNumDays()) { //this is the last day
-    						//TODO nextButton.setText("Finish")
-        					System.out.println("finish button");
+    					    homeScreen.setNextButtonText("Finish");
     					} else {
-    						//TODO nextButton.setText("Next day")
-        					System.out.println("next day button");
+    					    homeScreen.setNextButtonText("Next day");
     					}
     				}
     			}
@@ -454,15 +449,6 @@ public class GUIMain implements Observer {
 		totalNumOfPets = IntStream.of(numOfPets).sum();
 
 		//Now create the combined list of pets.
-//		try{
-//
-//
-//
-//		}
-//		catch(Exception e)
-//		{System.out.println(e.getMessage() + " "+e.getStackTrace() + " ");e.printStackTrace();}
-
-//		combinedPetList = new Pet[totalNumOfPets];
 		try{
 			switch(numPlayersCreated){
 			case(3):
@@ -476,7 +462,7 @@ public class GUIMain implements Observer {
 				combinedPetList.addAll(mainGame.getPlayerList().get(0).getPetList());
 			}
 		}catch(Exception e)
-		{System.out.println("error :(");e.printStackTrace();}
+		{System.out.println("error :(");e.printStackTrace();} //TODO remove try catch
     }
 
     /**
@@ -536,7 +522,7 @@ public class GUIMain implements Observer {
             }
             refreshScreen();
         }
-        //TODO: Move onto next pet afterwards -- Sam
+        //TODO: Move onto next pet afterwards if pet isnt revived--Sam
         //TODO what? --ollie
     }
 
