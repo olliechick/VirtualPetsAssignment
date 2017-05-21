@@ -192,7 +192,7 @@ public class StatusPanel extends JPanel {
         lblSpeciesIcon.setBounds(37, 0, 365, 275);
         panel.add(lblSpeciesIcon);
 
-        JLabel lblFavourites = new JLabel("Favourites");
+        JLabel lblFavourites = new JLabel("<html><b>Favourites</b></html>");
         lblFavourites.setBounds(175, 126, 69, 14);
         add(lblFavourites);
 

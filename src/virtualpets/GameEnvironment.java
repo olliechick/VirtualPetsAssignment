@@ -310,9 +310,13 @@ public class GameEnvironment {
     /**
      * Checks it the pet has died.
      * The pet will die if:
-     * the pet is sick and has happiness less than 50%
-     * its health is less than 5%
-     * 2% chance of random death
+     * - the pet is sick and has happiness less than 50%
+     * - its health is less than 5%
+     * - its bladder is full
+     * - it is 100% tired
+     * - 50% chance of death if the bladder is more than 75% full
+     * - 15% chance of death if more than 75% tired
+     * - 1% chance of random death (hit by a car, etc.)
      * @param pet The pet who might be dead.
      * @return Whether the pet is dead.
      */

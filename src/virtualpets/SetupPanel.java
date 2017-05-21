@@ -60,7 +60,7 @@ public class SetupPanel extends JPanel implements Observable {
             + "\nIf you don't treat them, or you're very unlucky, they may die. You can revive each pet once, "
                 + "but if they die again they will be dead for good."
             + "\n"
-            + "\nStrategy:"
+            + "\n<html><h3>Strategy</h3></html>"
             + "\nCheck your pet's status before you start interacting with each pet. "
             + "\nThen make an informed decision of what to use your money and two daily actions for. "
             + "\nKeeping your pet well will decrease its chance of misbhaving and getting sick. "
