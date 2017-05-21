@@ -36,7 +36,7 @@ public class GameEnvironment {
     /**
      * The current day number.
      */
-    private int currentDay;
+    private int currentDay = 0;
     /**
      * The total number of days the game will run for.
      */
