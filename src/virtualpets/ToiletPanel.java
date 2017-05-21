@@ -20,9 +20,11 @@ public class ToiletPanel extends JPanel implements Observable {
      * List of observers currently observing this object.
      */
     private ArrayList<Observer> observers = new ArrayList<Observer>();
-    JLabel lblImage;
+    /**
+     * Label to display image.
+     */
+    private JLabel lblImage;
 
-    //TODO: start with normal image, switch to toilet image when they click go toilet
     /**
      * Create the panel.
      */
