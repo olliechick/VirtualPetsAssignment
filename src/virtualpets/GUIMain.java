@@ -77,6 +77,10 @@ public class GUIMain implements Observer {
      * Is the current pet currently sleeping.
      */
     private Boolean currentlySleeping = false;
+    /**
+     * Is the current pet currently going to the toilet.
+     */
+    private Boolean currentlyOnToilet = false;
 
     /**
      * Part of the Observer pattern to get data from GUI to GameEnvironment.
@@ -137,6 +141,7 @@ public class GUIMain implements Observer {
             case "toilet":
                 currentPet.goToilet();
                 numActions--;
+                currentlyOnToilet = true;
                 refreshScreen();
                 break;
 
@@ -241,7 +246,9 @@ public class GUIMain implements Observer {
      */
     private void refreshScreen() {
     	int currentDay = mainGame.getCurrentDay();
-        homeScreen.refreshTabs(currentPlayer, currentPet, currentDay, numActions, currentlySleeping);
+        homeScreen.refreshTabs(currentPlayer, currentPet, currentDay,
+                               numActions, currentlySleeping,
+                               currentlyOnToilet);
     }
 
     /**
@@ -279,7 +286,8 @@ public class GUIMain implements Observer {
      *
      */
     private void nextPet() {
-        currentlySleeping = false;
+        currentlySleeping = false; //reset toileting and sleeping to defaults
+        currentlyOnToilet = false;
         homeScreen.returnToStatus(); //Returns player to status screen on new pet
     	currentPetIndex++;
     	Boolean initialiseThisPet = true; //Boolean to decide if currentPet should be initialised.
