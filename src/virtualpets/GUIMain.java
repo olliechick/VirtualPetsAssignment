@@ -136,7 +136,6 @@ public class GUIMain implements Observer {
 
             case "toilet":
                 currentPet.goToilet();
-                System.out.println("Going toilet");
                 numActions--;
                 refreshScreen();
                 break;
@@ -218,7 +217,6 @@ public class GUIMain implements Observer {
         } catch (NullPointerException e) {
             //Ignore null pointer exceptions. Occurs when foodItems doesn't
             //contain the item.
-        	System.out.println(e.getStackTrace());
         }
 
         try { //then see if item is a toy
@@ -235,7 +233,6 @@ public class GUIMain implements Observer {
         } catch (NullPointerException e) {
             //Ignore null pointer exceptions. Occurs when toyItems doesn't
             //contain the item.
-        	System.out.println(e.getStackTrace());
         }
     }
 
@@ -336,7 +333,7 @@ public class GUIMain implements Observer {
     			nextDay();
     			if (mainGame.getCurrentDay() > mainGame.getNumDays()){
     				initialiseThisPet = false;
-    				System.out.println("End of the game");
+    				//System.out.println("End of the game");
     			}
     		}
 
@@ -357,7 +354,7 @@ public class GUIMain implements Observer {
     		numActions = 2;
     		refreshScreen();
     		newDayPetActions();
-    		System.out.println("ndpa done");
+    		System.out.println("new day pet actions done");
 
     		//Set the next button to say Next pet or Next day as appropriate.
     		if (currentPetIndex == totalNumOfPets) { //this is the last pet today
@@ -498,9 +495,9 @@ public class GUIMain implements Observer {
 
 
         mainGame.newDayPetActions(currentPet);
-        System.out.println("a");
+        //System.out.println("a");
         misbehaving = mainGame.checkIfMisbehaving(currentPet);
-        System.out.println("b");
+        //System.out.println("b");
         if (misbehaving) {
             disciplined = askToDiscipline();
             if (disciplined) {
@@ -510,10 +507,10 @@ public class GUIMain implements Observer {
             }
             refreshScreen();
         }
-        System.out.println("c");
+        //System.out.println("c");
 
         sick = mainGame.checkIfSick(currentPet);
-        System.out.println("d");
+        //System.out.println("d");
         if (sick) {
             treated = askToTreat();
             if (treated) {
@@ -524,10 +521,10 @@ public class GUIMain implements Observer {
             }
             refreshScreen();
         }
-        System.out.println("e");
+        //System.out.println("e");
 
         dead = mainGame.checkIfDead(currentPet);
-        System.out.println("f");
+        //System.out.println("f");
         if (dead) {
             revived = askToRevive();
             if (revived) {

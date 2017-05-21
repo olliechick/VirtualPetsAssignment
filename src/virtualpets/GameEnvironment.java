@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 /**
- * Launching off point for Virtual Pets game.
+ * Model for Virtual Pets game.
  *
  * @author Samuel Pell
  * @author Ollie Chick
@@ -475,7 +475,7 @@ public class GameEnvironment {
             } else {
                 newPet.setGender("male");
             }
-            System.out.println(newPet.getGender());
+            //System.out.println(newPet.getGender());
         }
 
         playerList.add(newPlayer);
