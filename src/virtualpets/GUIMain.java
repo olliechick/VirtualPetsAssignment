@@ -278,7 +278,7 @@ public class GUIMain implements Observer {
      * Moves on to the next pet.
      * If all pets have been played with, it calls nextDay() to move on to the next day.
      * If the pet is alive, it sets the number of actions remaining to 2
-     * and calls newDayPetACtions() to initialise the pet for the day.
+     * and calls newDayPetActions() to initialise the pet for the day.
      * If the pet is dead, it moves on to the next pet.
      *
      */
@@ -366,12 +366,12 @@ public class GUIMain implements Observer {
     			} else {
     				homeScreen.setNextButtonText("Next day");
     			}
-    		} else {
-    			int cpi = currentPetIndex;
+    		} else { //there are more pet(s) today
+    			int futurePetIndex = currentPetIndex + 1;
     			Boolean alivePetToGo = false; //assume there are no alive pets to go today unless proved wrong
-    			while(!alivePetToGo && cpi < totalNumOfPets-1){
-    				if (combinedPetList.get(cpi + 1).getIsDead()) { //the next pet is dead
-    					cpi++;
+    			while(!alivePetToGo && futurePetIndex < totalNumOfPets){
+    				if (combinedPetList.get(futurePetIndex).getIsDead()) { //the next pet is dead
+    					futurePetIndex++;
     				} else { //the next pet is alive
     					alivePetToGo = true;
     				}
@@ -533,12 +533,10 @@ public class GUIMain implements Observer {
                 currentPet.revive();
             } else {
                 currentPet.die();
-                nextPet();
+                nextPet(); //TODO WARNING RECURSION!!!
             }
             refreshScreen();
         }
-        //TODO: Move onto next pet afterwards if pet isnt revived--Sam
-        //TODO what? --ollie
     }
 
     /**

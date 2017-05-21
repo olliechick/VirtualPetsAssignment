@@ -69,6 +69,8 @@ public class StatusPanel extends JPanel {
      */
     private JLabel lblSpeciesIcon;
 
+    //TODO add favourite food and favourite toy
+
     /**
      * Create the panel.
      */
@@ -217,11 +219,12 @@ public class StatusPanel extends JPanel {
      * @param pet Pet to display status for.
      */
     public void setPetStatus(Pet pet) {
-        //Cast all ints to integers then use the toString method to get string representation
+        //Cast all ints to Integers then use the toString method to get string representation
         lblFatigueScore.setText(((Integer) pet.getFatigue()).toString());
         lblHappinessScore.setText(((Integer) pet.getHappiness()).toString());
         lblHealthScore.setText(((Integer) pet.getHealth()).toString());
         lblHungerScore.setText(((Integer) pet.getHunger()).toString());
+        //TODO why isn't mischievousness here?
 
         Integer bladderLevelInt = pet.getPercentBladderFull();
         String bladderLevel = bladderLevelInt.toString();
@@ -230,9 +233,9 @@ public class StatusPanel extends JPanel {
         String weight = ((Double) pet.getWeight()).toString();
         lblWeightScore.setText(weight + " kg");
 
-        lblPetGender.setText(pet.getGender());
         lblPetName.setText(pet.getName());
-        lblPetSpecies.setText(pet.getSpecies());
+        lblPetGender.setText(sentenceCase(pet.getGender()));
+        lblPetSpecies.setText(sentenceCase(pet.getSpecies()));
 
         if (pet.getIsRevivable()) {
             lblIsRevivable.setText("Yes");
@@ -258,6 +261,24 @@ public class StatusPanel extends JPanel {
     }
 
     /**
+     * Takes a strings and returns the sentence case version.
+     * e.g. "this is my string" -> "This is my string"
+     * e.g. "Already sentence case string" -> "Already sentence case string"
+     * e.g. "c" -> "C"
+     * @param str String to turn sentence case
+     * @return String in sentence case form
+     */
+    private String sentenceCase(String str) {
+    	if (str.length() == 0) {
+    		return str;
+    	} else if (str.length() == 1) {
+    		return str.toUpperCase();
+    	} else { //str.length() >= 2
+    		return str.substring(0, 1).toUpperCase() + str.substring(1);
+    	}
+	}
+
+	/**
      * Highlight labels to warn player. Also sets tool tips to alert user of
      * level of concern.
      * Highlighting rules: orange if in bottom 40%, red if in bottom 15%.
