@@ -8,8 +8,11 @@ import javax.swing.UIManager;
 import javax.swing.JRadioButton;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 
@@ -105,10 +108,27 @@ public class SetupPanel extends JPanel implements Observable {
         add(threePlayers);
 
         JButton btnHelp = new JButton("");
-        btnHelp.setIcon(new ImageIcon("img/helpIcon.png"));
         btnHelp.setHorizontalTextPosition(JButton.CENTER);
         btnHelp.setVerticalTextPosition(JButton.CENTER);
         btnHelp.setContentAreaFilled(false);
+        //Set the help button image.
+        String fileName = "img/helpIcon.png";
+        ImageIcon icon = new ImageIcon(fileName);
+        if (icon.getImage().getHeight(null) == -1) {
+            //if running from jar image height will be -1 as it cannot be found
+            //in this case add a forward slash onto the front of the filename
+            //so that the system searches from top of class path.
+            icon = new ImageIcon();
+            Image image;
+            try {
+                image = ImageIO.read(getClass().getResource("/" + fileName));
+                icon.setImage(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        btnHelp.setIcon(icon);
+
 
         btnHelp.setBounds(10, 131, 23, 23);
         btnHelp.addActionListener(new ActionListener() {

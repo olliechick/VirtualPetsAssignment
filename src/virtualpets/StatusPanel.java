@@ -5,7 +5,10 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 
@@ -249,7 +252,22 @@ public class StatusPanel extends JPanel {
                 fileName += "PolarBearSmall.png";
                 break;
         }
-        lblSpeciesIcon.setIcon(new ImageIcon(fileName));
+
+        ImageIcon icon = new ImageIcon(fileName);
+        if (icon.getImage().getHeight(null) == -1) {
+            //if running from jar image height will be -1 as it cannot be found
+            //in this case add a forward slash onto the front of the filename
+            //so that the system searches from top of class path.
+            icon = new ImageIcon();
+            Image image;
+            try {
+                image = ImageIO.read(getClass().getResource("/" + fileName));
+                icon.setImage(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        lblSpeciesIcon.setIcon(icon);
     }
 
     /**

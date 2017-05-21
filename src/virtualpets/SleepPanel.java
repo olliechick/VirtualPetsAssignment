@@ -2,10 +2,13 @@ package virtualpets;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -75,7 +78,7 @@ public class SleepPanel extends JPanel implements Observable{
                 fileName += "PolarBearSmall.png";
                 break;
         }
-        lblImageLabel.setIcon(new ImageIcon(fileName));
+        setImage(fileName);
     }
 
     /**
@@ -104,7 +107,32 @@ public class SleepPanel extends JPanel implements Observable{
                 fileName += "PolarBearSleeping.png";
                 break;
         }
-        lblImageLabel.setIcon(new ImageIcon(fileName));
+        setImage(fileName);
+    }
+
+    /**
+     * Sets the image for the based on the file name passed in.
+     * Contains the logic to detect that the program is running in either
+     * eclipse or in a jarred form. Then performs the correct actions to load
+     * the image.
+     * @param fileName Name of the image file to be loaded.
+     */
+    private void setImage(String fileName) {
+        ImageIcon icon = new ImageIcon(fileName);
+        if (icon.getImage().getHeight(null) == -1) {
+            //if running from jar image height will be -1 as it cannot be found
+            //in this case add a forward slash onto the front of the filename
+            //so that the system searches from top of class path.
+            icon = new ImageIcon();
+            Image image;
+            try {
+                image = ImageIO.read(getClass().getResource("/" + fileName));
+                icon.setImage(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        lblImageLabel.setIcon(icon);
     }
 
 

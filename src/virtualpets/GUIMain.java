@@ -12,7 +12,7 @@ import javax.swing.UIManager;
 
 
 /**
- * Main GUI class for VirtualPets sort of a View-Controller.
+ * Main GUI class for VirtualPets. Sort of a View-Controller.
  * @author Samuel Pell
  * @author Ollie Chick
  */
