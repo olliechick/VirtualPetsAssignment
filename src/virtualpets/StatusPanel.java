@@ -220,10 +220,10 @@ public class StatusPanel extends JPanel {
      */
     public void setPetStatus(Pet pet) {
         //Cast all ints to Integers then use the toString method to get string representation
-        lblFatigueScore.setText(((Integer) pet.getFatigue()).toString());
-        lblHappinessScore.setText(((Integer) pet.getHappiness()).toString());
-        lblHealthScore.setText(((Integer) pet.getHealth()).toString());
-        lblHungerScore.setText(((Integer) pet.getHunger()).toString());
+        lblFatigueScore.setText(((Integer) pet.getFatigue()).toString() + "%");
+        lblHappinessScore.setText(((Integer) pet.getHappiness()).toString() + "%");
+        lblHealthScore.setText(((Integer) pet.getHealth()).toString() + "%");
+        lblHungerScore.setText(((Integer) pet.getHunger()).toString() + "%");
         //TODO why isn't mischievousness here?
 
         Integer bladderLevelInt = pet.getPercentBladderFull();
