@@ -8,16 +8,34 @@ import javax.swing.SwingConstants;
 
 
 /**
- * Panel to display the results of the game
+ * Panel to display the results of the game.
  * @author Samuel Pell
  */
 @SuppressWarnings("serial")
 public class ScoreboardPanel extends JPanel {
+    /**
+     * Label to show the ranking of the first player.
+     */
     private JLabel lblFirst;
+    /**
+     * Label to show the ranking of the second player.
+     */
     private JLabel lblSecond;
+    /**
+     * Label to show the ranking of the third player.
+     */
     private JLabel lblThird;
+    /**
+     * Label to show the player in first place.
+     */
     private JLabel lblFirstPlace;
+    /**
+     * Label to show the player in second place.
+     */
     private JLabel lblSecondPlace;
+    /**
+     * Label to show the player in third place.
+     */
     private JLabel lblThirdPlace;
 
     /**
@@ -25,8 +43,7 @@ public class ScoreboardPanel extends JPanel {
      */
     public ScoreboardPanel() {
         setLayout(null);
-        //System.out.flush();
-        //System.out.println("I made it here");
+
         JLabel lblHeader = new JLabel("The game is over and the scores are in...");
         lblHeader.setBounds(10, 11, 430, 14);
         add(lblHeader);
