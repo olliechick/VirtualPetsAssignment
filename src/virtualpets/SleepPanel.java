@@ -26,7 +26,6 @@ public class SleepPanel extends JPanel implements Observable{
      */
     JLabel lblImageLabel;
 
-    //TODO: start with normal image, switch to sleeping image when they click sleep
     /**
      * Create the panel.
      */
@@ -79,6 +78,10 @@ public class SleepPanel extends JPanel implements Observable{
         lblImageLabel.setIcon(new ImageIcon(fileName));
     }
 
+    /**
+     * Set the sleeping image associated with the pet.
+     * @param pet Pet the image is associated with.
+     */
     public void setAsleepImage(Pet pet) {
         String fileName = "img/";
         switch (pet.getSpecies()) {
