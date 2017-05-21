@@ -236,7 +236,6 @@ public class GameEnvironment {
      * 2. If the pet is very tired, it decreases its health.
      *
      * @param pet The pet the player is about to interact with.
-     * @return
      */
     public void newDayPetActions(Pet pet) {
 
@@ -503,7 +502,7 @@ public class GameEnvironment {
     /**
      * Initialises a player's turn.
      * It gives the player their daily allowance.
-     * @param Player getting initialised.
+     * @param currentPlayer Player getting initialised.
      */
 	public void initialisePlayer(Player currentPlayer) {
 

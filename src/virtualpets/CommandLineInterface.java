@@ -129,7 +129,6 @@ public class CommandLineInterface {
     /**
      * Creates a pet object based on user input.
      * @return pet of species desired by player.
-     * @throws IOException because it isn't handled at lower levels.
      */
     public static Pet createPetSpecies() {
         Pet newPet = new Cat(); //default to a cat
