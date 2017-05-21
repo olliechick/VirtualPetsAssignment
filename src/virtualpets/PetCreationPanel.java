@@ -76,7 +76,7 @@ public class PetCreationPanel extends JPanel {
 
         String attributes = "<html>Weight: %.0f kg"
         				  + "<br />Bladder size: %d"
-        		          + "<br />Propensity to exhaustion: %d"//TODO better way to say this? - Fatigue rate?
+        		          + "<br />Fatigue rate: %d"
         		          + "<br />Harshness (with toys): %d"
         		          + "<br />Favourite food: %s"
         		          + "<br />Favourite toy: %s</html>";
