@@ -109,6 +109,13 @@ public class GUIMain implements Observer {
                     createPlayer();
                 } else {
                     displayHome();
+                    if (mainGame.getPlayerList().size() == 1 || mainGame.getPlayerList().get(0).getPetList().size() == 0) {
+                    	//if there is only one pet
+                    	homeScreen.setNextButtonText("Next day");
+                    } else { // more than one pet
+                    	homeScreen.setNextButtonText("Next pet");
+                    }
+
                 }
                 break;
 
@@ -290,6 +297,7 @@ public class GUIMain implements Observer {
     	if (everyPetIsDead) {
     		//TODO maybe a popup of some kind saying how how bad the player(s) are
     		postGame();
+    		endOfGame = true;
     	} else {
 
     		// Find out which is the next pet, and set that to currentPet
@@ -355,7 +363,7 @@ public class GUIMain implements Observer {
     			} else {
     				int cpi = currentPetIndex;
     				Boolean alivePetToGo = false; //assume there are no alive pets to go today unless proved wrong
-    				while(!alivePetToGo && cpi < totalNumOfPets){
+    				while(!alivePetToGo && cpi < totalNumOfPets-1){
     					if (combinedPetList.get(cpi + 1).getIsDead()) { //the next pet is dead
     						cpi++;
     					} else { //the next pet is alive
@@ -521,6 +529,7 @@ public class GUIMain implements Observer {
                 currentPet.revive();
             } else {
                 currentPet.die();
+                nextPet();
             }
             refreshScreen();
         }
