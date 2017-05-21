@@ -25,7 +25,8 @@ public class ScoreboardPanel extends JPanel {
      */
     public ScoreboardPanel() {
         setLayout(null);
-
+        //System.out.flush();
+        //System.out.println("I made it here");
         JLabel lblHeader = new JLabel("The game is over and the scores are in...");
         lblHeader.setBounds(10, 11, 430, 14);
         add(lblHeader);

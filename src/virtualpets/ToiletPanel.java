@@ -18,6 +18,7 @@ public class ToiletPanel extends JPanel implements Observable {
     private ArrayList<Observer> observers = new ArrayList<Observer>();
 
     //TODO: start with normal image, switch to toilet image when they click go toilet
+    //TODO: Make toilet images
     /**
      * Create the panel.
      */
