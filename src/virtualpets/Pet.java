@@ -456,7 +456,7 @@ public class Pet {
     public void feed(Food food) {
         int portionSize = food.getPortionSize();
         int healthIncrease = food.getHealthIncrease(species);
-        increaseHunger(-portionSize);
+        increaseHunger(-portionSize*healthIncrease);
         increaseWeight(portionSize);
         increasePercentBladderFull(portionSize / bladderSize + 1);
         increaseHappiness(healthIncrease * portionSize);
