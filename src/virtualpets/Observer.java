@@ -10,4 +10,6 @@ public interface Observer {
      * @param values Values being passed in.
      */
     public void getValues(String identifier, String[] values);
+
+	public void getValues(String identifier, Toy selected);
 }

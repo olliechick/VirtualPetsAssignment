@@ -167,7 +167,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         //Clone name list so that the names entered in the form aren't
         //duplicates and so that any unconfirmed names aren't registered
         @SuppressWarnings("unchecked") //Gets IDE to not complain at me - thinks that cast could fail.
-        ArrayList<String> nameListClone = (ArrayList<String>) nameList.clone();
+        ArrayList<String> nameListClone = (ArrayList<String>) nameList.clone(); //TODO why are you cloning this?
 
         //Always check player name strings
         String playerName = playerNameField.getText();

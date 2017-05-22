@@ -42,6 +42,14 @@ public class Toy extends Item {
     }
 
     /**
+     * Constructor to create a deep copy of the toy from a prototype.
+     */
+    public Toy(Toy prototype) {
+    	this(prototype.getName(), prototype.getDescription(), prototype.getPrice(), prototype.getDurability());
+    	this.setHappinessIncreaseHashMap(prototype.getHappinessIncreaseHashMap());
+    }
+
+    /**
      * Gets the item's remaining durability.
      * @return item's durability.
      */
@@ -58,10 +66,27 @@ public class Toy extends Item {
     public int getHappinessIncrease(String species) throws IllegalArgumentException {
         if (this.happinessIncrease.get(species) == null) {
             throw new IllegalArgumentException("Species " + species
-                    + " is not known to the toy " + this.getName());
+                    + " is not known to the toy " + this.getName()
+                    + ". Have you called setHappinessIncrease()?");
         } else {
             return this.happinessIncrease.get(species);
         }
+    }
+
+    /**
+     * Returns the happiness increase HashMap
+     * @return happiness increase HashMap
+     */
+    public HashMap<String, Integer> getHappinessIncreaseHashMap() {
+    	return happinessIncrease;
+    }
+
+    /**
+     * Returns the happiness increase HashMap
+     * @return happiness increase HashMap
+     */
+    public void setHappinessIncreaseHashMap(HashMap<String, Integer> happinessIncrease) {
+    	this.happinessIncrease = happinessIncrease;
     }
 
     /**

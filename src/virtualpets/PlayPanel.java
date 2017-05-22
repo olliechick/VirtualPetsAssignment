@@ -140,19 +140,18 @@ public class PlayPanel extends JPanel implements Observable {
     }
 
     /**
-     * Notifies observers with identifier "play" and a string array
-     * {Item name}.
+     * Notifies observers with identifier "play" and a toy selected.
      */
     public void notifyObservers() {
         for (Observer o: observers) {
-            Item selected = itemListPanel.getSelectedItem();
-            o.getValues("play", new String[] {selected.getName()});
+            Toy selected = (Toy) itemListPanel.getSelectedItem();
+            o.getValues("play", selected);
         }
     }
 
     /**
      * Testing functionality of this panel.
-     * @param args Arguments pased in from command line.
+     * @param args Arguments passed in from command line.
      */
     public static void main(String[] args) {
         try {

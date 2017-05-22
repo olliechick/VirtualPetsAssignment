@@ -157,13 +157,6 @@ public class GUIMain implements Observer {
                 refreshScreen();
                 break;
 
-            case "play":
-                Toy toy = mainGame.getToyPrototypes().get(values[0]);
-                play(toy);
-                numActions--;
-                refreshScreen();
-                break;
-
             case "next":
                 numActions = 0;
                 break;
@@ -172,6 +165,33 @@ public class GUIMain implements Observer {
                 System.err.println("Unknown GUI Element Identifier");
                 System.err.println("Dropping data");
                 System.err.println(identifier);
+        }
+
+        if (numActions == 0) {
+        	//finished interacting with this pet today
+        	nextPet();
+            refreshScreen();
+        }
+    }
+
+    /**
+     * Overloaded part of the Observer pattern to get data from GUI to GameEnvironment.
+     * Used to handle playing with toys.
+     * @param identifier Identifier of the operation.
+     * @param toy Toy appropriate to GUI call.
+     */
+    public void getValues(String identifier, Toy toy) {
+        switch (identifier) {
+        case "play":
+            play(toy);
+            numActions--;
+            refreshScreen();
+            break;
+
+        default:
+            System.err.println("Unknown GUI Element Identifier");
+            System.err.println("Dropping data");
+            System.err.println(identifier);
         }
 
         if (numActions == 0) {
@@ -212,14 +232,17 @@ public class GUIMain implements Observer {
         HashMap<String, Food> foodItems = mainGame.getFoodPrototypes();
         HashMap<String, Toy> toyItems = mainGame.getToyPrototypes();
 
-        try { //first try to see if item is a food.
-            Food purchasedItem = foodItems.get(itemBought);
-            if (purchasedItem.getPrice() <= currentPlayer.getBalance()) {
-                currentPlayer.spend(purchasedItem.getPrice());
-                currentPlayer.addFood(purchasedItem);
+        try { //first try to see if item is a food
+            Food purchasedFoodPrototype = foodItems.get(itemBought);
+            if (purchasedFoodPrototype.getPrice() <= currentPlayer.getBalance()) {
+            	//spend the required amount
+                currentPlayer.spend(purchasedFoodPrototype.getPrice());
+                //add the food prototype to the current player's inventory
+                //Note that if you wanted to
+                currentPlayer.addFood(purchasedFoodPrototype);
             } else {
                 String message = "You do not have enough money to purchase ";
-                message += purchasedItem.getName();
+                message += purchasedFoodPrototype.getName();
                 JOptionPane.showMessageDialog(mainFrame, message, null,
                         JOptionPane.INFORMATION_MESSAGE);
             }
@@ -229,14 +252,16 @@ public class GUIMain implements Observer {
         }
 
         try { //then see if item is a toy
-            Toy purchasedItem = toyItems.get(itemBought);
-            if (purchasedItem.getPrice() <= currentPlayer.getBalance()) {
-                currentPlayer.spend(purchasedItem.getPrice());
-                currentPlayer.addToy(purchasedItem);
+            Toy purchasedToyPrototype = toyItems.get(itemBought);
+            if (purchasedToyPrototype.getPrice() <= currentPlayer.getBalance()) {
+            	//spend the required amount
+            	currentPlayer.spend(purchasedToyPrototype.getPrice());
+            	//add a clone of the toy prototype to the current player's inventory
+            	currentPlayer.addToy(new Toy(purchasedToyPrototype));
             } else {
-                String message = "You do not have enough money to purchase ";
-                message += purchasedItem.getName();
-                JOptionPane.showMessageDialog(mainFrame, message, null,
+            	String message = "You do not have enough money to purchase ";
+            	message += purchasedToyPrototype.getName();
+            	JOptionPane.showMessageDialog(mainFrame, message, null,
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (NullPointerException e) {

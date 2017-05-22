@@ -234,7 +234,7 @@ public class StorePanel extends JPanel implements Observable {
 
     /**
      * Testing functionality of this panel.
-     * @param args Arguments pased in from command line.
+     * @param args Arguments passed in from command line.
      */
     public static void main(String[] args) {
         try {
