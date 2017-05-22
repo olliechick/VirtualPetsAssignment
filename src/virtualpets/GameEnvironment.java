@@ -240,7 +240,7 @@ public class GameEnvironment {
     public void newDayPetActions(Pet pet) {
 
 
-        pet.increaseFatigue(30);
+        pet.increaseFatigue(25);
         pet.increaseHappiness(-10);
         pet.increaseHunger(30);
         pet.increaseMischievousness(5);
