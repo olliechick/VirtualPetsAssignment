@@ -116,9 +116,13 @@ public class GUIMain implements Observer {
                     createPlayer();
                 } else {
                     displayHome();
-                    if (mainGame.getPlayerList().size() == 1 && mainGame.getPlayerList().get(0).getPetList().size() == 0) {
+                    if (mainGame.getPlayerList().size() == 1 && mainGame.getPlayerList().get(0).getPetList().size() == 1) {
                     	//if there is only one pet
-                    	homeScreen.setNextButtonText("Next day");
+                    	if (mainGame.getNumDays() == 1){ //if there's only one day
+                    		homeScreen.setNextButtonText("Finish");
+                    	} else {
+                    		homeScreen.setNextButtonText("Next day");
+                    	}
                     } else { // more than one pet
                     	homeScreen.setNextButtonText("Next pet");
                     }
@@ -436,7 +440,8 @@ public class GUIMain implements Observer {
     private void initialisePlayer() {
     	mainGame.initialisePlayer(currentPlayer);
 
-        if (numberOfPlayers > 1) {
+        if (numberOfPlayers > 1) { //if there are multiple players
+        	// Display a popup saying whose turn it is
             String message = "It is now " + currentPlayer.getName() + "'s turn.";
             JOptionPane.showMessageDialog(homeScreen, message, null,
                                           JOptionPane.INFORMATION_MESSAGE);
