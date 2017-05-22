@@ -146,7 +146,6 @@ public class FeedPanel extends JPanel implements Observable {
      * {item name}.
      */
     public void notifyObservers() {
-        System.out.println("Eating Food");
         Item selected = itemListPanel.getSelectedItem();
         for (Observer o: observers) {
             o.getValues("feed", new String[]{selected.getName()});
