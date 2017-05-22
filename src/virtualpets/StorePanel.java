@@ -141,9 +141,13 @@ public class StorePanel extends JPanel implements Observable {
         btnBuyItem.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
-                int row = storeInventory.getSelectedRow();
-                int col = storeInventory.getSelectedColumn();
-                selectedItem = (Item) storeInventory.getValueAt(row, col) ;
+            	int row = storeInventory.getSelectedRow();
+            	int col = storeInventory.getSelectedColumn();
+            	try { //try to get the item at the selected cell
+            		selectedItem = (Item) storeInventory.getValueAt(row, col) ;
+            	} catch (ArrayIndexOutOfBoundsException e) {//if there is nothing selected
+            		//do nothing
+            	}
                 notifyObservers();
             }
         });
