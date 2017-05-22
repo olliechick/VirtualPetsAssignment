@@ -329,9 +329,6 @@ public class GameEnvironment {
         		|| pet.getPercentBladderFull() == 100
         		|| pet.getFatigue() == 100
         		|| randomNumber == 0) {
-        	if (randomNumber == 0) {
-        		System.out.println("That was very unlucky");
-        	}
             return true;
         }
 
@@ -478,7 +475,6 @@ public class GameEnvironment {
             } else {
                 newPet.setGender("male");
             }
-            //System.out.println(newPet.getGender());
         }
 
         playerList.add(newPlayer);
@@ -522,8 +518,6 @@ public class GameEnvironment {
         }
         //Give them an allowance per alive pet
         currentPlayer.earn(dailyPetAllowance * numOfAlivePets);
-        System.out.println(currentPlayer.getName() + " is rOlling in the moneys!!! $"+currentPlayer.getBalance()
-        +" deets: "+dailyPetAllowance + " * "+numOfAlivePets);
 
 	}
 }

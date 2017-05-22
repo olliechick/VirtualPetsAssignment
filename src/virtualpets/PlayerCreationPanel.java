@@ -194,7 +194,6 @@ public class PlayerCreationPanel extends JPanel implements Observable {
                 return false;
             }
             nameListClone.add(petName);
-            System.out.println(petName);
         }
 
         //Check pet two if it is selected
