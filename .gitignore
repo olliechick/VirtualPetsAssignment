@@ -6,3 +6,4 @@ compile.bat
 checkstyle-7.7.jar
 .checkstyle
 output.txt
+/.settings/
