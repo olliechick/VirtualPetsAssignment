@@ -1,6 +1,5 @@
-VirtualPetsAssignment
+VirtualPetsAssignment och26 spe80
 
-=== Command Line Version ===
-To run the command line version use the command below from the command line of your choice.
+To run the JAR file, open a terminal and navigate to the current directory. Then enter the command below:
 
-java -jar VirtualPetsCLI.jar 
+java -jar VirtualPets_och26_spe80.jar 
