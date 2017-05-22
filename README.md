@@ -9,5 +9,5 @@ from the command line of your choice
 To run the GUI version use the command
 ``java -jar VirtualPets_och26_spe80.jar``
 To build the GUI JAR file. Run the following command:
-``jar cvf newBuildName.jar buildmanifest.mf src/virtualpets img config``
+``jar cvf newBuildName.jar buildmanifest.mf src/virtualpets img config``.
 ``buildmanifest.mf`` simply seals the jar and sets GUIMain.class as the main entry point.
