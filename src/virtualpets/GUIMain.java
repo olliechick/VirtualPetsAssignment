@@ -496,8 +496,8 @@ public class GUIMain implements Observer {
         currentPlayer = mainGame.getPlayerList().get(0);
         currentPet = currentPlayer.getPetList().get(0);
         newDayPetActions();
-        refreshScreen();
 		initialisePlayer();
+		refreshScreen();
 
 		totalNumOfPets = IntStream.of(numOfPets).sum();
 
