@@ -7,6 +7,6 @@ java -jar VirtualPets_och26_spe80.jar
 
 To build the JAR file. Run the following command:
 
-jar cvf TestBuild.jar buildmanifest.mf src/virtualpets img config
+jar cvf newBuildName.jar buildmanifest.mf src/virtualpets img config
 
 "buildmanifest.mf" simply seals the jar and sets GUIMain.class as the main entry point.
