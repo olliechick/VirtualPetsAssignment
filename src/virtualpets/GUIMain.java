@@ -422,8 +422,8 @@ public class GUIMain implements Observer {
 
     	refreshScreen();
 
-    	// If the pet is dead, move on
-		if (currentPet.getIsDead()) {
+    	// If the pet is dead (but there are still alive ones out there), move on
+		if (!everyPetIsDead && currentPet.getIsDead()) {
 			nextPet();
 		}
     }
