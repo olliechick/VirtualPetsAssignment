@@ -298,14 +298,13 @@ public class GUIMain implements Observer {
     	Boolean everyPetIsDead = true; //Boolean to decide if we should just end it all.
 
     	//Work out if there are any live pets left
-    	for (Pet pet : combinedPetList){
+    	for (Pet pet : combinedPetList){// for every pet in the game
     		if (!pet.getIsDead()){ //if the pet isn't dead
     			everyPetIsDead = false;
     		}
     	}
 
     	//If there are any alive pets, work out which is the new currentPet
-    	//TODO: Is this strong enough?
     	if (everyPetIsDead) {
     	    String message = "Quite frankly you are horrible. You managed to murder all your pets.\n"
     	                      + "You should feel bad about what you've done";

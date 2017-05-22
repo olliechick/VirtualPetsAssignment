@@ -87,7 +87,6 @@ public class StorePanel extends JPanel implements Observable {
         Item[] foodItemArray = foodItems.toArray(new Item[0]);
         Item[][] storeArray = {toyItemArray, foodItemArray};
         //Transposing storeArray so there are two columns, toy and food
-        //TODO: Add more items or fix transposition somehow --Sam
         storeArray = transposeMatrix(storeArray);
         String[] typesOfItem = {"Toys", "Food"};
 

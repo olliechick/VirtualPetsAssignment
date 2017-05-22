@@ -239,7 +239,6 @@ public class GameEnvironment {
      */
     public void newDayPetActions(Pet pet) {
 
-        //TODO: Balance these, these are really harsh. --Sam
         pet.increaseFatigue(25);
         pet.increaseHappiness(-10);
         pet.increaseHunger(20);
