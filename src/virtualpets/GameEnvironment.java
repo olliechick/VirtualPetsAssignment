@@ -242,7 +242,7 @@ public class GameEnvironment {
         //TODO: Balance these, these are really harsh. --Sam
         pet.increaseFatigue(25);
         pet.increaseHappiness(-10);
-        pet.increaseHunger(30);
+        pet.increaseHunger(20);
         pet.increaseMischievousness(5);
 
         // If fatigue is especially high, reduce health.

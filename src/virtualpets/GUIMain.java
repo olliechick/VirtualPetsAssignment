@@ -301,8 +301,12 @@ public class GUIMain implements Observer {
     	}
 
     	//If there are any alive pets, work out which is the new currentPet
+    	//TODO: Is this strong enough?
     	if (everyPetIsDead) {
-    		//TODO maybe a popup of some kind saying how how bad the player(s) are
+    	    String message = "Quite frankly you are horrible. You managed to murder all your pets.\n"
+    	                      + "You should feel bad about what you've done";
+    		JOptionPane.showMessageDialog(homeScreen, message, null,
+    		                              JOptionPane.INFORMATION_MESSAGE);
     		postGame();
     		initialiseThisPet = false;
     	} else {
@@ -450,6 +454,7 @@ public class GUIMain implements Observer {
         scorePanel.setVisible(true);
 
         scorePanel.setSize(450, 200);
+        mainFrame.setMinimumSize(new Dimension(465, 225));
         mainFrame.setSize(465, 225);
 
         Player[] players;
