@@ -112,7 +112,7 @@ public class StorePanel extends JPanel implements Observable {
         storeInventory.getTableHeader().setReorderingAllowed(false); //prevent header changing
         storeInventory.getTableHeader().setResizingAllowed(false); //prevent resizing columns
         JScrollPane scrollBar = new JScrollPane(storeInventory); //Add a scroll bar to the JTable so that the user can scroll
-        scrollBar.setBounds(22, 39, 250, 203); //put scrollbar in the right place.
+        scrollBar.setBounds(22, 39, 250, 253); //put scrollbar in the right place.
         add(scrollBar);
 
 

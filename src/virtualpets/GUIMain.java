@@ -360,8 +360,8 @@ public class GUIMain implements Observer {
 
     		System.out.println("alive");
     		numActions = 2;
-    		refreshScreen();
     		newDayPetActions();
+    		refreshScreen();
     		System.out.println("new day pet actions done");
 
     		//Set the next button to say Next pet or Next day as appropriate.
@@ -503,6 +503,7 @@ public class GUIMain implements Observer {
 
 
         mainGame.newDayPetActions(currentPet);
+        refreshScreen();
         //System.out.println("a");
         misbehaving = mainGame.checkIfMisbehaving(currentPet);
         //System.out.println("b");
