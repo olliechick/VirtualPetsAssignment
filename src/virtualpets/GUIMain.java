@@ -315,7 +315,7 @@ public class GUIMain implements Observer {
      *
      */
     private void nextPet() {
-        currentlySleeping = false; //reset toileting and sleeping to defaults
+        currentlySleeping = false; //reset toileting and sleeping to default
         currentlyOnToilet = false;
         homeScreen.returnToStatus(); //Returns player to status screen on new pet
     	currentPetIndex++;
