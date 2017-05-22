@@ -319,9 +319,9 @@ public class StatusPanel extends JPanel {
 
     /**
      * Takes a strings and returns the sentence case version.
-     * e.g. "this is my string" -> "This is my string"
-     * e.g. "Already sentence case string" -> "Already sentence case string"
-     * e.g. "c" -> "C"
+     * e.g. "this is my string" to "This is my string"
+     * e.g. "Already sentence case string" to "Already sentence case string"
+     * e.g. "c" to "C"
      * @param str String to turn sentence case
      * @return String in sentence case form
      */

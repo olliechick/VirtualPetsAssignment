@@ -62,7 +62,7 @@ public class GUIMain implements Observer {
     private int numActions = 2;
     /**
      * Number of pets each player has.
-     * This is initialised to 0 so currentPetIndex !< numOfPets[i] if Player i does not exist.
+     * This is initialised to 0 so currentPetIndex is not less than numOfPets[i] if Player i does not exist.
      */
     private int[] numOfPets = {0, 0, 0};
     /**
