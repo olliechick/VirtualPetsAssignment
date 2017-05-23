@@ -80,7 +80,7 @@ public class GUIMain implements Observer {
     /**
      * Combined list of all players' pets.
      */
-    private List<Pet> combinedPetList = new ArrayList<>();
+    private ArrayList<Pet> combinedPetList = new ArrayList<>();
 
     /**
      * The total number of pets.
@@ -326,13 +326,9 @@ public class GUIMain implements Observer {
     	currentPetIndex++;
     	Boolean initialiseThisPet = true; //Boolean to decide if currentPet should be initialised.
     	Boolean everyPetIsDead = true; //Boolean to decide if we should just end it all.
+    	Boolean newPlayer = false; //Boolean to decide whether to initialise the player.
 
-    	//Work out if there are any alive pets left
-    	for (Pet pet : combinedPetList)  {// for every pet in the game
-    		if (!pet.getIsDead()){ //if the pet isn't dead
-    			everyPetIsDead = false;
-    		}
-    	}
+    	everyPetIsDead = !hasAnAlivePet(combinedPetList);
 
     	// If there are no alive pets left, popup a message and enter the postGame
     	if (everyPetIsDead) {
@@ -354,9 +350,8 @@ public class GUIMain implements Observer {
 
     		} else if (numberOfPlayers >= 2 && currentPetIndex == numOfPets[0]) {
     			// Player 2 exists, so we're moving on to Player 2
-
+    			newPlayer = true;
     			currentPlayer = mainGame.getPlayerList().get(1);
-    			initialisePlayer();
     			numOfPets[1] = mainGame.getPlayerList().get(1).getPetList().size();
     			currentPet = currentPlayer.getPetList().get(0); //get the player's first pet
 
@@ -366,8 +361,8 @@ public class GUIMain implements Observer {
 
     		} else if (numberOfPlayers >= 3 && currentPetIndex == (numOfPets[0] + numOfPets[1])) {
     			// Player 3 exists, so we're moving on to Player 3
+    			newPlayer = true;
     			currentPlayer = mainGame.getPlayerList().get(2);
-    			initialisePlayer();
     			numOfPets[2] = mainGame.getPlayerList().get(2).getPetList().size();
     			currentPet = currentPlayer.getPetList().get(0); //get the player's first pet
 
@@ -390,6 +385,11 @@ public class GUIMain implements Observer {
     	if (initialiseThisPet && currentPet.getIsDead()) {
     		initialiseThisPet = false;
     	}
+
+    	//If this is a new player, initialise them if they have any alive pets
+		if (newPlayer && hasAnAlivePet(currentPlayer.getPetList())) {
+				initialisePlayer();
+		}
 
     	// If we haven't reached the end of the game and the current pet isn't dead,
     	// then initialise the pet, refresh the screen, and set the next button.
@@ -428,12 +428,7 @@ public class GUIMain implements Observer {
 
     	refreshScreen();
 
-    	//Work out if there are any alive pets left
-    	for (Pet pet : combinedPetList){// for every pet in the game
-    		if (!pet.getIsDead()){ //if the pet isn't dead
-    			everyPetIsDead = false;
-    		}
-    	}
+    	everyPetIsDead = !hasAnAlivePet(combinedPetList);
 
     	// If the pet is dead (but there are still alive ones out there), move on
 		if (!everyPetIsDead && currentPet.getIsDead()) {
@@ -442,6 +437,21 @@ public class GUIMain implements Observer {
     }
 
     /**
+     * Returns whether the petList provided contains any alive pets.
+     * @param petList List of pets to check
+     * @return If there are any alive pets
+     */
+    private Boolean hasAnAlivePet(ArrayList<Pet> petList) {
+    	Boolean alivePetExists = false;
+    	for (Pet pet : petList) { // for every pet in the pet list
+    		if (!pet.getIsDead()) { //if the pet isn't dead
+    			alivePetExists = true;
+    		}
+    	}
+    	return alivePetExists;
+	}
+
+	/**
      * Move to a new day.
      */
     private void nextDay() {
