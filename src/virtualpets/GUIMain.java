@@ -21,34 +21,42 @@ public class GUIMain implements Observer {
      * Frame in which all GUI elements appear.
      */
     private JFrame mainFrame;
+
     /**
      * Main model class.
      */
     private GameEnvironment mainGame;
+
     /**
      * Number of players playing.
      */
     private int numberOfPlayers;
+
     /**
      * List of names to check for duplicates against.
      */
     private ArrayList<String> nameList = new ArrayList<String>();
+
     /**
      * Number of players that have been created by the ViewController.
      */
     private int numPlayersCreated = 0;
+
     /**
      * Home panel to display all in game info.
      */
     private HomePanel homeScreen;
+
     /**
      * The current player.
      */
     private Player currentPlayer;
+
     /**
      * The current pet.
      */
     private Pet currentPet;
+
     /**
      * Index of the current pet.
      * This is the index of an imaginary array made by
@@ -56,27 +64,34 @@ public class GUIMain implements Observer {
      * given by mainGame.getPlayerList().
      */
     private int currentPetIndex;
+
     /**
      * Number of actions remaining for the current pet.
      */
     private int numActions = 2;
+
     /**
      * Number of pets each player has.
-     * This is initialised to 0 so currentPetIndex is not less than numOfPets[i] if Player i does not exist.
+     * This is initialised to 0 so currentPetIndex is not less
+     * than numOfPets[i] if Player i does not exist.
      */
     private int[] numOfPets = {0, 0, 0};
+
     /**
      * Combined list of all players' pets.
      */
     private List<Pet> combinedPetList = new ArrayList<>();
+
     /**
      * The total number of pets.
      */
     private int totalNumOfPets;
+
     /**
      * Is the current pet currently sleeping.
      */
     private Boolean currentlySleeping = false;
+
     /**
      * Is the current pet currently going to the toilet.
      */
@@ -114,18 +129,8 @@ public class GUIMain implements Observer {
                 clearFrame();
                 if (numPlayersCreated < numberOfPlayers) {
                     createPlayer();
-                } else {
+                } else { //finished making players, display home
                     displayHome();
-                    if (mainGame.getPlayerList().size() == 1 && mainGame.getPlayerList().get(0).getPetList().size() == 1) {
-                    	//if there is only one pet
-                    	if (mainGame.getNumDays() == 1){ //if there's only one day
-                    		homeScreen.setNextButtonText("Finish");
-                    	} else {
-                    		homeScreen.setNextButtonText("Next day");
-                    	}
-                    } else { // more than one pet
-                    	homeScreen.setNextButtonText("Next pet");
-                    }
 
                 }
                 break;
@@ -428,7 +433,7 @@ public class GUIMain implements Observer {
     			everyPetIsDead = false;
     		}
     	}
-    	
+
     	// If the pet is dead (but there are still alive ones out there), move on
 		if (!everyPetIsDead && currentPet.getIsDead()) {
 			nextPet();
@@ -504,6 +509,7 @@ public class GUIMain implements Observer {
         currentPlayer = mainGame.getPlayerList().get(0);
         currentPet = currentPlayer.getPetList().get(0);
         newDayPetActions();
+        refreshScreen();
 		initialisePlayer();
 		refreshScreen();
 

@@ -23,27 +23,34 @@ public class GameEnvironment {
      * The list of players.
      */
     private ArrayList<Player> playerList = new ArrayList<Player>();
+
     /**
      * HashMap of all foods. It maps the name of the food to an instance of the
      * food.
      */
     private HashMap<String, Food> foodPrototypes;
+
     /**
      * HashMap of all toys.
      * It maps the name of the toy to an instance of the toy.
      */
     private HashMap<String, Toy> toyPrototypes;
+
     /**
      * The current day number.
      */
     private int currentDay = 0;
+
     /**
      * The total number of days the game will run for.
      */
     private int numberOfDays;
+
     /**
      * How much each player gets per pet per day, in dollars.
      */
+
+    //note if this is changed, also change the helpText string in SetupPanel.java
     private int dailyPetAllowance = 15;
     /**
      * The random number generated, used for random events. Random events
