@@ -468,7 +468,7 @@ public class GUIMain implements Observer {
 	}
 
 	/**
-	 * Ranks the players show them their scores
+	 * Ranks the players and show them their scores
 	 */
     private void postGame() {
         clearFrame();
@@ -481,6 +481,7 @@ public class GUIMain implements Observer {
         mainFrame.setMinimumSize(new Dimension(465, 225));
         mainFrame.setSize(465, 225);
 
+        //Rank the players
         Player[] players;
         players = mainGame.rankPlayers();
 
