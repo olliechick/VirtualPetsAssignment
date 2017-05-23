@@ -328,7 +328,7 @@ public class GUIMain implements Observer {
     	Boolean everyPetIsDead = true; //Boolean to decide if we should just end it all.
 
     	//Work out if there are any alive pets left
-    	for (Pet pet : combinedPetList){// for every pet in the game
+    	for (Pet pet : combinedPetList)  {// for every pet in the game
     		if (!pet.getIsDead()){ //if the pet isn't dead
     			everyPetIsDead = false;
     		}
@@ -336,8 +336,9 @@ public class GUIMain implements Observer {
 
     	// If there are no alive pets left, popup a message and enter the postGame
     	if (everyPetIsDead) {
-    	    String message = "Quite frankly you are horrible. You managed to murder all your pets.\n"
-    	                      + "You should feel bad about what you've done";
+    	    String message = "Quite frankly you are horrible. "
+    	    			      + "You managed to murder all your pets.\n"
+    	                      + "You should feel bad about what you've done.";
     		JOptionPane.showMessageDialog(homeScreen, message, null,
     		                              JOptionPane.INFORMATION_MESSAGE);
     		postGame();
