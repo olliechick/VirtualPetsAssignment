@@ -293,12 +293,13 @@ public class GameEnvironment {
     /**
      * Checks if the pet is sick.
      * The pet will be sick if:
-     * the pet was already sick
-     * the pet has health below 5%.
+     * - the pet was already sick
+     * - the pet has health below 5%
+     * - the pet's hunger is 100%.
      * It could also become sick randomly, if:
-     * the pet has health below 25%, it has a 75% chance of becoming sick
-     * the pet has health below 50%, it has a 50% chance of becoming sick
-     * the pet has health below 75%, it has a 25% chance of becoming sick
+     * - the pet has health below 25%, it has a 75% chance of becoming sick
+     * - the pet has health below 50%, it has a 50% chance of becoming sick
+     * - the pet has health below 75%, it has a 25% chance of becoming sick
      * @param pet The pet who might be sick.
      * @return Whether the pet is sick.
      */
@@ -312,7 +313,8 @@ public class GameEnvironment {
                 || health < 5
                 || health < 25 && randomNumber < 75
                 || health < 50 && randomNumber < 50
-                || health < 75 && randomNumber < 25;
+                || health < 75 && randomNumber < 25
+                || pet.getHunger() == 100;
     }
 
     /**
