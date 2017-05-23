@@ -509,6 +509,18 @@ public class GameEnvironment {
      */
     public void nextDay() {
         currentDay++;
+
+        //If there are any fresh fish, change to off fish
+        Food offFish = foodPrototypes.get("Off fish");
+        for (Player player : playerList) {
+            for (Food food : player.getFoodStock()) {
+                System.out.println(food.getName());
+                if (food.getName().equals("Fresh fish")) {
+                    player.getFoodStock().remove(food);
+                    player.getFoodStock().add(offFish);
+                }
+            }
+        }
     }
 
     /**
