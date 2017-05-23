@@ -96,7 +96,7 @@ public class PlayPanel extends JPanel implements Observable {
         add(btnPlayWithToy);
 
         lblDurabilityScore = new JLabel("");
-        lblDurabilityScore.setBounds(291, 101, 275, 30);
+        lblDurabilityScore.setBounds(291, 93, 275, 30);
         add(lblDurabilityScore);
     }
 
