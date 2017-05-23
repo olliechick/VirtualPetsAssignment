@@ -273,17 +273,18 @@ public class GameEnvironment {
     public Boolean checkIfMisbehaving(Pet pet) {
         // create random number between 0 and 99
         int randomNumber = randomNumGen.nextInt(100);
+
+        //calculate wellness
         int wellness = (pet.getHappiness() * 3
                 + pet.getHealth()
                 + (100 - pet.getMischievousness()) * 5
                 + (100 - pet.getHunger())) / 10;
-        if (wellness < 25 && randomNumber < 75
+
+        //return if misbehaving
+        return pet.getIsMisbehaving()
+        		|| wellness < 25 && randomNumber < 75
                 || wellness < 50 && randomNumber < 50
-                || wellness < 75 && randomNumber < 25) {
-            return true;
-        } else {
-            return false;
-        }
+                || wellness < 75 && randomNumber < 25;
     }
 
     /**
@@ -301,16 +302,14 @@ public class GameEnvironment {
     public Boolean checkIfSick(Pet pet) {
         // create random number between 0 and 99
         int randomNumber = randomNumGen.nextInt(100);
+
+        //return if sick
         int health = pet.getHealth();
-        if (pet.getIsSick()
+        return pet.getIsSick()
                 || health < 5
                 || health < 25 && randomNumber < 75
                 || health < 50 && randomNumber < 50
-                || health < 75 && randomNumber < 25) {
-            return true;
-        } else {
-            return false;
-        }
+                || health < 75 && randomNumber < 25;
     }
 
     /**
@@ -329,18 +328,15 @@ public class GameEnvironment {
     public Boolean checkIfDead(Pet pet) {
         // create random number between 0 and 99
         int randomNumber = randomNumGen.nextInt(100);
-        if (pet.getIsSick() && pet.getHappiness() < 50
+
+        //return if dead
+        return pet.getIsSick() && pet.getHappiness() < 50
         		|| pet.getHealth() < 5
         		|| pet.getPercentBladderFull() > 75 && randomNumber < 50
         		|| pet.getFatigue() > 75 && randomNumber < 15
         		|| pet.getPercentBladderFull() == 100
         		|| pet.getFatigue() == 100
-        		|| randomNumber == 0) {
-            return true;
-        }
-
-        return false;
-
+        		|| randomNumber == 0;
     }
 
     /**
