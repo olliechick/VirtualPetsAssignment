@@ -83,9 +83,9 @@ public class StatusPanel extends JPanel {
      * Label to display pets favourite food.
      */
     JLabel lblFavouriteFood;
-    
+
     /**
-     * Column 
+     * Column
      */
 
     /**
@@ -95,131 +95,131 @@ public class StatusPanel extends JPanel {
         setLayout(null);
 
         JLabel lblHappiness = new JLabel("Happiness:");
-        lblHappiness.setBounds(32, 53, 77, 14);
+        lblHappiness.setBounds(10, 52, 77, 14);
         add(lblHappiness);
 
         JLabel lblHunger = new JLabel("Hunger:");
-        lblHunger.setBounds(32, 78, 46, 14);
+        lblHunger.setBounds(10, 77, 46, 14);
         add(lblHunger);
 
         JLabel lblPlayfulness = new JLabel("Fatigue:");
-        lblPlayfulness.setBounds(32, 103, 46, 14);
+        lblPlayfulness.setBounds(10, 98, 46, 22);
         add(lblPlayfulness);
 
         JLabel lblHealth = new JLabel("Health:");
-        lblHealth.setBounds(32, 126, 46, 14);
+        lblHealth.setBounds(10, 125, 46, 14);
         add(lblHealth);
 
         JLabel lblBladderFullness = new JLabel("Bladder full:");
-        lblBladderFullness.setBounds(32, 150, 77, 14);
+        lblBladderFullness.setBounds(10, 149, 77, 14);
         add(lblBladderFullness);
 
         JLabel lblWeight = new JLabel("Weight:");
-        lblWeight.setBounds(32, 204, 46, 14);
+        lblWeight.setBounds(10, 199, 46, 22);
         add(lblWeight);
 
         JLabel lblMisbehaving = new JLabel("Misbehaving:");
-        lblMisbehaving.setBounds(32, 229, 77, 14);
+        lblMisbehaving.setBounds(10, 228, 77, 14);
         add(lblMisbehaving);
 
         JLabel lblSick = new JLabel("Sick:");
-        lblSick.setBounds(32, 254, 46, 14);
+        lblSick.setBounds(10, 253, 46, 14);
         add(lblSick);
 
         JLabel lblRevivable = new JLabel("Revivable:");
-        lblRevivable.setBounds(32, 279, 59, 14);
+        lblRevivable.setBounds(10, 278, 59, 14);
         add(lblRevivable);
 
         lblHappinessScore = new JLabel("hapinessScore");
-        lblHappinessScore.setBounds(130, 53, 46, 14);
+        lblHappinessScore.setBounds(118, 52, 46, 14);
         add(lblHappinessScore);
 
         lblHungerScore = new JLabel("hungerScore");
-        lblHungerScore.setBounds(130, 78, 46, 14);
+        lblHungerScore.setBounds(118, 77, 46, 14);
         add(lblHungerScore);
 
         lblFatigueScore = new JLabel("fatigueScore");
-        lblFatigueScore.setBounds(130, 103, 46, 14);
+        lblFatigueScore.setBounds(118, 102, 46, 14);
         add(lblFatigueScore);
 
         lblHealthScore = new JLabel("healthScore");
-        lblHealthScore.setBounds(130, 126, 46, 14);
+        lblHealthScore.setBounds(118, 125, 46, 14);
         add(lblHealthScore);
 
         lblBladderPercentage = new JLabel("bladderPercentage");
-        lblBladderPercentage.setBounds(130, 150, 46, 14);
+        lblBladderPercentage.setBounds(118, 149, 46, 14);
         add(lblBladderPercentage);
 
         lblWeightScore = new JLabel("weightScore");
-        lblWeightScore.setBounds(130, 204, 46, 14);
+        lblWeightScore.setBounds(118, 203, 46, 14);
         add(lblWeightScore);
 
         lblIsMisbehaving = new JLabel("isMisbehaving");
-        lblIsMisbehaving.setBounds(130, 229, 46, 14);
+        lblIsMisbehaving.setBounds(118, 228, 46, 14);
         add(lblIsMisbehaving);
 
         lblIsSick = new JLabel("isSick");
-        lblIsSick.setBounds(130, 254, 46, 14);
+        lblIsSick.setBounds(118, 253, 46, 14);
         add(lblIsSick);
 
         lblIsRevivable = new JLabel("isRevivable");
-        lblIsRevivable.setBounds(130, 279, 46, 14);
+        lblIsRevivable.setBounds(118, 278, 46, 14);
         add(lblIsRevivable);
 
         JLabel lblName = new JLabel("Name:");
-        lblName.setBounds(186, 53, 46, 14);
+        lblName.setBounds(186, 52, 46, 14);
         add(lblName);
 
         lblPetName = new JLabel("petName");
-        lblPetName.setBounds(240, 53, 145, 14);
+        lblPetName.setBounds(248, 52, 157, 14);
         add(lblPetName);
 
         JLabel lblGender = new JLabel("Gender:");
-        lblGender.setBounds(186, 78, 46, 14);
+        lblGender.setBounds(186, 77, 46, 14);
         add(lblGender);
 
         lblPetGender = new JLabel("petGender");
-        lblPetGender.setBounds(240, 78, 145, 14);
+        lblPetGender.setBounds(248, 77, 190, 14);
         add(lblPetGender);
 
         JLabel lblSpecies = new JLabel("Species:");
-        lblSpecies.setBounds(186, 103, 46, 14);
+        lblSpecies.setBounds(186, 102, 46, 14);
         add(lblSpecies);
 
         lblPetSpecies = new JLabel("petSpecies");
-        lblPetSpecies.setBounds(240, 103, 145, 14);
+        lblPetSpecies.setBounds(248, 102, 190, 14);
         add(lblPetSpecies);
-        
+
                 lblSpeciesIcon = new JLabel("");
                 lblSpeciesIcon.setBounds(405, 52, 365, 275);
                 add(lblSpeciesIcon);
 
         JLabel lblFavourites = new JLabel("<html><b>Favourites</b></html>");
-        lblFavourites.setBounds(186, 126, 69, 14);
+        lblFavourites.setBounds(186, 125, 69, 14);
         add(lblFavourites);
 
         JLabel lblFood = new JLabel("Food:");
-        lblFood.setBounds(186, 150, 46, 14);
+        lblFood.setBounds(186, 149, 46, 14);
         add(lblFood);
 
         JLabel lblToy = new JLabel("Toy:");
-        lblToy.setBounds(186, 175, 46, 14);
+        lblToy.setBounds(186, 174, 46, 14);
         add(lblToy);
 
         lblFavouriteFood = new JLabel("favouriteFood");
-        lblFavouriteFood.setBounds(240, 150, 145, 14);
+        lblFavouriteFood.setBounds(248, 149, 190, 14);
         add(lblFavouriteFood);
 
         lblFavouriteToy = new JLabel("favouriteToy");
-        lblFavouriteToy.setBounds(240, 175, 145, 14);
+        lblFavouriteToy.setBounds(248, 174, 190, 14);
         add(lblFavouriteToy);
 
         JLabel lblMischeviousness = new JLabel("Mischievousness:");
-        lblMischeviousness.setBounds(32, 175, 103, 14);
+        lblMischeviousness.setBounds(10, 174, 103, 14);
         add(lblMischeviousness);
 
         lblMischievousnessScore = new JLabel("mischeivousnessScore");
-        lblMischievousnessScore.setBounds(130, 175, 46, 14);
+        lblMischievousnessScore.setBounds(118, 174, 46, 14);
         add(lblMischievousnessScore);
 
     }

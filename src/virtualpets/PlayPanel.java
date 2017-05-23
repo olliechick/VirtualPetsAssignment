@@ -78,7 +78,7 @@ public class PlayPanel extends JPanel implements Observable {
         add(lblDescription);
 
         JLabel lblDurability = new JLabel("Durability: ");
-        lblDurability.setBounds(235, 101, 58, 14);
+        lblDurability.setBounds(235, 101, 72, 14);
         add(lblDurability);
 
         JButton btnPlayWithToy = new JButton("Play with Toy");
@@ -96,7 +96,7 @@ public class PlayPanel extends JPanel implements Observable {
         add(btnPlayWithToy);
 
         lblDurabilityScore = new JLabel("");
-        lblDurabilityScore.setBounds(291, 101, 189, 14);
+        lblDurabilityScore.setBounds(291, 101, 275, 30);
         add(lblDurabilityScore);
     }
 
