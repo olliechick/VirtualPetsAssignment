@@ -354,18 +354,18 @@ public class GUIMain implements Observer {
     			numOfPets[1] = mainGame.getPlayerList().get(1).getPetList().size();
     			currentPet = currentPlayer.getPetList().get(0); //get the player's first pet
 
-    		} else if (currentPetIndex < numOfPets[0] + numOfPets[1]) {
+    		} else if (currentPetIndex < (numOfPets[0] + numOfPets[1])) {
     			// still on Player 2
     			currentPet = currentPlayer.getPetList().get(currentPetIndex - numOfPets[0]);
 
-    		} else if (numberOfPlayers >= 3 && currentPetIndex == numOfPets[1]) {
+    		} else if (numberOfPlayers >= 3 && currentPetIndex == (numOfPets[0] + numOfPets[1])) {
     			// Player 3 exists, so we're moving on to Player 3
     			currentPlayer = mainGame.getPlayerList().get(2);
     			initialisePlayer();
     			numOfPets[2] = mainGame.getPlayerList().get(2).getPetList().size();
     			currentPet = currentPlayer.getPetList().get(0); //get the player's first pet
 
-    		} else if (currentPetIndex < numOfPets[0] + numOfPets[1] + numOfPets[2]) {
+    		} else if (currentPetIndex < (numOfPets[0] + numOfPets[1] + numOfPets[2])) {
     			// still on Player 3
     			currentPet = currentPlayer.getPetList().get(currentPetIndex - numOfPets[0] - numOfPets[1]);
 
@@ -422,6 +422,13 @@ public class GUIMain implements Observer {
 
     	refreshScreen();
 
+    	//Work out if there are any alive pets left
+    	for (Pet pet : combinedPetList){// for every pet in the game
+    		if (!pet.getIsDead()){ //if the pet isn't dead
+    			everyPetIsDead = false;
+    		}
+    	}
+    	
     	// If the pet is dead (but there are still alive ones out there), move on
 		if (!everyPetIsDead && currentPet.getIsDead()) {
 			nextPet();
@@ -506,8 +513,10 @@ public class GUIMain implements Observer {
 		switch(numPlayersCreated){
 		case(3):
 			combinedPetList.addAll(mainGame.getPlayerList().get(2).getPetList());
+			numOfPets[2] = mainGame.getPlayerList().get(2).getPetList().size();
 		case(2):
 			combinedPetList.addAll(mainGame.getPlayerList().get(1).getPetList());
+			numOfPets[1] = mainGame.getPlayerList().get(1).getPetList().size();
 		case(1):
 			combinedPetList.addAll(mainGame.getPlayerList().get(0).getPetList());
 		}
