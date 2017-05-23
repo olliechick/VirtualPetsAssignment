@@ -507,9 +507,9 @@ public class PetTest {
 		myMinCat.feed(myBadFood);
 		
 		//check new hunger is lower
-		assertTrue(myCat.getHunger() < initialHunger);
-		//check for no change in minimum hunger case
-		assertEquals(myMinCat.getHunger(), 0);
+		assertTrue(myCat.getHunger() > initialHunger);
+		//check for no change in maximum hunger case
+		assertEquals(myMaxCat.getHunger(), 100);
 		
 		//check new weight is higher
 		assertTrue(myCat.getWeight() > initialWeight);
