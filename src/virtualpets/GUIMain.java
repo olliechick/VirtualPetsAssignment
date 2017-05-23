@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.stream.IntStream;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -173,8 +172,8 @@ public class GUIMain implements Observer {
         }
 
         if (numActions == 0) {
-        	//finished interacting with this pet today
-        	nextPet();
+            //finished interacting with this pet today
+            nextPet();
             refreshScreen();
         }
     }
@@ -200,8 +199,8 @@ public class GUIMain implements Observer {
         }
 
         if (numActions == 0) {
-        	//finished interacting with this pet today
-        	nextPet();
+            //finished interacting with this pet today
+            nextPet();
             refreshScreen();
         }
     }
@@ -240,7 +239,7 @@ public class GUIMain implements Observer {
         try { //first try to see if item is a food
             Food purchasedFoodPrototype = foodItems.get(itemBought);
             if (purchasedFoodPrototype.getPrice() <= currentPlayer.getBalance()) {
-            	//spend the required amount
+                //spend the required amount
                 currentPlayer.spend(purchasedFoodPrototype.getPrice());
                 //add the food prototype to the current player's inventory
                 //Note that if you wanted to
@@ -259,14 +258,14 @@ public class GUIMain implements Observer {
         try { //then see if item is a toy
             Toy purchasedToyPrototype = toyItems.get(itemBought);
             if (purchasedToyPrototype.getPrice() <= currentPlayer.getBalance()) {
-            	//spend the required amount
-            	currentPlayer.spend(purchasedToyPrototype.getPrice());
-            	//add a clone of the toy prototype to the current player's inventory
-            	currentPlayer.addToy(new Toy(purchasedToyPrototype));
+                //spend the required amount
+                currentPlayer.spend(purchasedToyPrototype.getPrice());
+                //add a clone of the toy prototype to the current player's inventory
+                currentPlayer.addToy(new Toy(purchasedToyPrototype));
             } else {
-            	String message = "You do not have enough money to purchase ";
-            	message += purchasedToyPrototype.getName();
-            	JOptionPane.showMessageDialog(mainFrame, message, null,
+                String message = "You do not have enough money to purchase ";
+                message += purchasedToyPrototype.getName();
+                JOptionPane.showMessageDialog(mainFrame, message, null,
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (NullPointerException e) {
@@ -279,7 +278,7 @@ public class GUIMain implements Observer {
      * Refresh screen to display change in data.
      */
     private void refreshScreen() {
-    	int currentDay = mainGame.getCurrentDay();
+        int currentDay = mainGame.getCurrentDay();
         homeScreen.refreshTabs(currentPlayer, currentPet, currentDay,
                                numActions, currentlySleeping,
                                currentlyOnToilet);
@@ -323,117 +322,123 @@ public class GUIMain implements Observer {
         currentlySleeping = false; //reset toileting and sleeping to default
         currentlyOnToilet = false;
         homeScreen.returnToStatus(); //Returns player to status screen on new pet
-    	currentPetIndex++;
-    	Boolean initialiseThisPet = true; //Boolean to decide if currentPet should be initialised.
-    	Boolean everyPetIsDead = true; //Boolean to decide if we should just end it all.
-    	Boolean newPlayer = false; //Boolean to decide whether to initialise the player.
+        currentPetIndex++;
+        Boolean initialiseThisPet = true; //Boolean to decide if currentPet should be initialised.
+        Boolean everyPetIsDead = true; //Boolean to decide if we should just end it all.
+        Boolean newPlayer = false; //Boolean to decide whether to initialise the player.
 
-    	everyPetIsDead = !hasAnAlivePet(combinedPetList);
+        everyPetIsDead = !hasAnAlivePet(combinedPetList);
 
-    	// If there are no alive pets left, popup a message and enter the postGame
-    	if (everyPetIsDead) {
-    	    String message = "Quite frankly you are horrible. "
-    	    			      + "You managed to murder all your pets.\n"
-    	                      + "You should feel bad about what you've done.";
-    		JOptionPane.showMessageDialog(homeScreen, message, null,
-    		                              JOptionPane.INFORMATION_MESSAGE);
-    		postGame();
-    		initialiseThisPet = false;
+        // If there are no alive pets left, popup a message and enter the postGame
+        if (everyPetIsDead) {
+            String message = "Quite frankly you are horrible. "
+                              + "You managed to murder all your pets.\n"
+                              + "You should feel bad about what you've done.";
+            JOptionPane.showMessageDialog(homeScreen, message, null,
+                                          JOptionPane.INFORMATION_MESSAGE);
+            postGame();
+            initialiseThisPet = false;
 
-    	} else { // If there are any alive pets, work out which is the new currentPet
-    		// If we've just finished with the last pet, then move on to the next day.
+        } else { // If there are any alive pets, work out which is the new currentPet
+            // If we've just finished with the last pet, then move on to the next day.
+            int numOfPetsPlayers1and2 = numOfPets[0] + numOfPets[1];
 
-    		// Find out which is the next pet, and set that to currentPet
-    		if (currentPetIndex < numOfPets[0]) {
-    			// still on Player 1
-    			currentPet = currentPlayer.getPetList().get(currentPetIndex);
+            // Find out which is the next pet, and set that to currentPet
+            if (currentPetIndex < numOfPets[0]) {
+                // still on Player 1
+                currentPet = currentPlayer.getPetList().get(currentPetIndex);
 
-    		} else if (numberOfPlayers >= 2 && currentPetIndex == numOfPets[0]) {
-    			// Player 2 exists, so we're moving on to Player 2
-    			newPlayer = true;
-    			currentPlayer = mainGame.getPlayerList().get(1);
-    			numOfPets[1] = mainGame.getPlayerList().get(1).getPetList().size();
-    			currentPet = currentPlayer.getPetList().get(0); //get the player's first pet
+            } else if (numberOfPlayers >= 2 && currentPetIndex == numOfPets[0]) {
+                // Player 2 exists, so we're moving on to Player 2
+                newPlayer = true;
+                currentPlayer = mainGame.getPlayerList().get(1);
+                numOfPets[1] = mainGame.getPlayerList().get(1).getPetList().size();
+                currentPet = currentPlayer.getPetList().get(0); //get the player's first pet
 
-    		} else if (currentPetIndex < (numOfPets[0] + numOfPets[1])) {
-    			// still on Player 2
-    			currentPet = currentPlayer.getPetList().get(currentPetIndex - numOfPets[0]);
+            } else if (currentPetIndex < numOfPetsPlayers1and2) {
+                // still on Player 2
+                currentPet = currentPlayer.getPetList().get(currentPetIndex - numOfPets[0]);
 
-    		} else if (numberOfPlayers >= 3 && currentPetIndex == (numOfPets[0] + numOfPets[1])) {
-    			// Player 3 exists, so we're moving on to Player 3
-    			newPlayer = true;
-    			currentPlayer = mainGame.getPlayerList().get(2);
-    			numOfPets[2] = mainGame.getPlayerList().get(2).getPetList().size();
-    			currentPet = currentPlayer.getPetList().get(0); //get the player's first pet
+            } else if (numberOfPlayers >= 3 && currentPetIndex == numOfPetsPlayers1and2) {
+                // Player 3 exists, so we're moving on to Player 3
+                newPlayer = true;
+                currentPlayer = mainGame.getPlayerList().get(2);
+                numOfPets[2] = mainGame.getPlayerList().get(2).getPetList().size();
+                currentPet = currentPlayer.getPetList().get(0); //get the player's first pet
 
-    		} else if (currentPetIndex < (numOfPets[0] + numOfPets[1] + numOfPets[2])) {
-    			// still on Player 3
-    			currentPet = currentPlayer.getPetList().get(currentPetIndex - numOfPets[0] - numOfPets[1]);
+            } else if (currentPetIndex < (numOfPetsPlayers1and2 + numOfPets[2])) {
+                // still on Player 3
+                currentPet = currentPlayer.getPetList().get(
+                        currentPetIndex - numOfPetsPlayers1and2);
 
-    		} else {
-    			// All players finished
-    			// Time to move on to the next day.
-    			nextDay();
-    			if (mainGame.getCurrentDay() > mainGame.getNumDays()){
-    				initialiseThisPet = false;
-    			}
-    		}
-    	}
+            } else {
+                // All players finished
+                // Time to move on to the next day.
+                nextDay();
+                if (mainGame.getCurrentDay() > mainGame.getNumDays()) {
+                    initialiseThisPet = false;
+                }
+            }
+        }
 
-    	// If we haven't reached the end of the game, but the current pet is dead,
-    	// don't let it initialise the pet
-    	if (initialiseThisPet && currentPet.getIsDead()) {
-    		initialiseThisPet = false;
-    	}
+        // If we haven't reached the end of the game, but the current pet is dead,
+        // don't let it initialise the pet
+        if (initialiseThisPet && currentPet.getIsDead()) {
+            initialiseThisPet = false;
+        }
 
-    	//If this is a new player, initialise them if they have any alive pets
-		if (newPlayer && hasAnAlivePet(currentPlayer.getPetList())) {
-				initialisePlayer();
-		}
+        //If this is a new player, initialise them if they have any alive pets
+        if (newPlayer && hasAnAlivePet(currentPlayer.getPetList())) {
+                initialisePlayer();
+        }
 
-    	// If we haven't reached the end of the game and the current pet isn't dead,
-    	// then initialise the pet, refresh the screen, and set the next button.
-    	if (initialiseThisPet) {
-    		newDayPetActions();
-    		refreshScreen();
+        // If we haven't reached the end of the game and the current pet isn't dead,
+        // then initialise the pet, refresh the screen, and set the next button.
+        if (initialiseThisPet) {
+            newDayPetActions();
+            refreshScreen();
 
-    		//Set the next button to say Next pet or Next day as appropriate.
-    		if (currentPetIndex == totalNumOfPets) { //this is the last pet today
-    			if (mainGame.getCurrentDay() == mainGame.getNumDays()) { //this is the last day
-    				homeScreen.setNextButtonText("Finish");
-    			} else {
-    				homeScreen.setNextButtonText("Next day");
-    			}
-    		} else { //there are more pet(s) today
-    			int futurePetIndex = currentPetIndex + 1;
-    			Boolean alivePetToGo = false; //assume there are no alive pets to go today unless proved wrong
-    			while(!alivePetToGo && futurePetIndex < totalNumOfPets){
-    				if (combinedPetList.get(futurePetIndex).getIsDead()) { //the next pet is dead
-    					futurePetIndex++;
-    				} else { //the next pet is alive
-    					alivePetToGo = true;
-    				}
-    			}
-    			if (alivePetToGo) {
-    				homeScreen.setNextButtonText("Next pet");
-    			} else { // the rest of the pets today are dead
-    				if (mainGame.getCurrentDay() == mainGame.getNumDays()) { //this is the last day
-    					homeScreen.setNextButtonText("Finish");
-    				} else {
-    					homeScreen.setNextButtonText("Next day");
-    				}
-    			}
-    		}
-    	}
+            //Set the next button to say Next pet or Next day as appropriate.
+            if (currentPetIndex == totalNumOfPets) { //this is the last pet today
+                if (mainGame.getCurrentDay() == mainGame.getNumDays()) {
+                    //this is the last day
+                    homeScreen.setNextButtonText("Finish");
+                } else {
+                    homeScreen.setNextButtonText("Next day");
+                }
+            } else { //there are more pet(s) today
+                int futurePetIndex = currentPetIndex + 1;
+                //assume there are no alive pets to go today unless proved wrong
+                Boolean alivePetToGo = false;
+                while (!alivePetToGo && futurePetIndex < totalNumOfPets) {
+                    if (combinedPetList.get(futurePetIndex).getIsDead()) {
+                        //the next pet is dead
+                        futurePetIndex++;
+                    } else { //the next pet is alive
+                        alivePetToGo = true;
+                    }
+                }
+                if (alivePetToGo) {
+                    homeScreen.setNextButtonText("Next pet");
+                } else { // the rest of the pets today are dead
+                    if (mainGame.getCurrentDay() == mainGame.getNumDays()) {
+                        //this is the last day
+                        homeScreen.setNextButtonText("Finish");
+                    } else {
+                        homeScreen.setNextButtonText("Next day");
+                    }
+                }
+            }
+        }
 
-    	refreshScreen();
+        refreshScreen();
 
-    	everyPetIsDead = !hasAnAlivePet(combinedPetList);
+        everyPetIsDead = !hasAnAlivePet(combinedPetList);
 
-    	// If the pet is dead (but there are still alive ones out there), move on
-		if (!everyPetIsDead && currentPet.getIsDead()) {
-			nextPet();
-		}
+        // If the pet is dead (but there are still alive ones out there), move on
+        if (!everyPetIsDead && currentPet.getIsDead()) {
+            nextPet();
+        }
     }
 
     /**
@@ -442,36 +447,36 @@ public class GUIMain implements Observer {
      * @return If there are any alive pets
      */
     private Boolean hasAnAlivePet(ArrayList<Pet> petList) {
-    	Boolean alivePetExists = false;
-    	for (Pet pet : petList) { // for every pet in the pet list
-    		if (!pet.getIsDead()) { //if the pet isn't dead
-    			alivePetExists = true;
-    		}
-    	}
-    	return alivePetExists;
-	}
+        Boolean alivePetExists = false;
+        for (Pet pet : petList) { // for every pet in the pet list
+            if (!pet.getIsDead()) { //if the pet isn't dead
+                alivePetExists = true;
+            }
+        }
+        return alivePetExists;
+    }
 
-	/**
+    /**
      * Move to a new day.
      */
     private void nextDay() {
-    	mainGame.nextDay();
+        mainGame.nextDay();
 
         // Calculate all the scores for today (well, technically yesterday now)
-        for (Player player : mainGame.getPlayerList()){
+        for (Player player : mainGame.getPlayerList()) {
             player.calculateScore();
         }
 
         //init day if all days haven't finished
-    	if (mainGame.getCurrentDay() <= mainGame.getNumDays()) {
-    	    currentPetIndex = 0;
-    	    currentPlayer = mainGame.getPlayerList().get(0);
-    	    currentPet = currentPlayer.getPetList().get(0);
-    	    initialisePlayer();
-    	    refreshScreen();
-    	} else { // game is over
-    	    postGame();
-    	}
+        if (mainGame.getCurrentDay() <= mainGame.getNumDays()) {
+            currentPetIndex = 0;
+            currentPlayer = mainGame.getPlayerList().get(0);
+            currentPet = currentPlayer.getPetList().get(0);
+            initialisePlayer();
+            refreshScreen();
+        } else { // game is over
+            postGame();
+        }
     }
 
     /**
@@ -480,19 +485,19 @@ public class GUIMain implements Observer {
      * If there are multiple players, it pops up a window to say who's turn it is.
      */
     private void initialisePlayer() {
-    	mainGame.initialisePlayer(currentPlayer);
+        mainGame.initialisePlayer(currentPlayer);
 
         if (numberOfPlayers > 1) { //if there are multiple players
-        	// Display a popup saying whose turn it is
+            // Display a popup saying whose turn it is
             String message = "It is now " + currentPlayer.getName() + "'s turn.";
             JOptionPane.showMessageDialog(homeScreen, message, null,
                                           JOptionPane.INFORMATION_MESSAGE);
         }
-	}
+    }
 
-	/**
-	 * Ranks the players and show them their scores
-	 */
+    /**
+     * Ranks the players and show them their scores.
+     */
     private void postGame() {
         clearFrame();
         ScoreboardPanel scorePanel = new ScoreboardPanel();
@@ -514,29 +519,32 @@ public class GUIMain implements Observer {
     /**
      * Initialises the days.
      */
-    private void initialiseDays(){
-    	numOfPets[0] = mainGame.getPlayerList().get(0).getPetList().size();
-    	mainGame.nextDay(); //moves to Day 1
+    private void initialiseDays() {
+        numOfPets[0] = mainGame.getPlayerList().get(0).getPetList().size();
+        mainGame.nextDay(); //moves to Day 1
         currentPlayer = mainGame.getPlayerList().get(0);
         currentPet = currentPlayer.getPetList().get(0);
         newDayPetActions();
         refreshScreen();
-		initialisePlayer();
-		refreshScreen();
+        initialisePlayer();
+        refreshScreen();
 
-		totalNumOfPets = IntStream.of(numOfPets).sum();
+        totalNumOfPets = IntStream.of(numOfPets).sum();
 
-		//Now create the combined list of pets.
-		switch(numPlayersCreated){
-		case(3):
-			combinedPetList.addAll(mainGame.getPlayerList().get(2).getPetList());
-			numOfPets[2] = mainGame.getPlayerList().get(2).getPetList().size();
-		case(2):
-			combinedPetList.addAll(mainGame.getPlayerList().get(1).getPetList());
-			numOfPets[1] = mainGame.getPlayerList().get(1).getPetList().size();
-		case(1):
-			combinedPetList.addAll(mainGame.getPlayerList().get(0).getPetList());
-		}
+        //Now create the combined list of pets.
+        switch (numPlayersCreated) {
+        case(3):
+            combinedPetList.addAll(mainGame.getPlayerList().get(2).getPetList());
+            numOfPets[2] = mainGame.getPlayerList().get(2).getPetList().size();
+        case(2):
+            combinedPetList.addAll(mainGame.getPlayerList().get(1).getPetList());
+            numOfPets[1] = mainGame.getPlayerList().get(1).getPetList().size();
+        case(1):
+            combinedPetList.addAll(mainGame.getPlayerList().get(0).getPetList());
+            break;
+        default:
+            throw new IllegalArgumentException("numPlayersCreated is not 1, 2, or 3.");
+        }
     }
 
     /**
@@ -558,10 +566,11 @@ public class GUIMain implements Observer {
 
         //throw an error if the pet is dead
         if (currentPet.getIsDead()) {
-        	throw new IllegalArgumentException("Trying to do new day pet actions on a dead pet.");
+            String message = "Trying to do new day pet actions on a dead pet.";
+            throw new IllegalArgumentException(message);
         }
 
-		numActions = 2; //2 actions for this pet today
+        numActions = 2; //2 actions for this pet today
 
         mainGame.newDayPetActions(currentPet);
         refreshScreen();
@@ -611,7 +620,7 @@ public class GUIMain implements Observer {
                                                    JOptionPane.YES_NO_OPTION,
                                                    JOptionPane.QUESTION_MESSAGE);
         if (option == 1) { // if they select no
-            return false;
+            return false; //TODO can these be simplified to return option == 0;?
         } else {
             return true;
         }
@@ -693,7 +702,7 @@ public class GUIMain implements Observer {
      * Get a list of all registered names.
      * @return List of names.
      */
-    public ArrayList<String> getRegisteredNames(){
+    public ArrayList<String> getRegisteredNames() {
         return nameList;
     }
 

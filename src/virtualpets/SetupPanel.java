@@ -39,7 +39,7 @@ public class SetupPanel extends JPanel implements Observable {
     /**
      * Width of the object on screen.
      */
-    public final int width = 300;
+    public final int width = 300; //TODO why are these public?
 
     /**
      * Height of the object on screen.

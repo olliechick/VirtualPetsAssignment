@@ -265,7 +265,8 @@ public class GameEnvironment {
 
     /**
      * Checks if the pet is misbehaving.
-     * The pet will misbehave based on its wellness, which is a weighted
+     * The pet will misbehave if it is already misbehaving,
+     * or based on its wellness, which is a weighted
      * combination of the pet's happiness, health, mischievousness, and hunger.
      * @param pet The pet who might be misbehaving.
      * @return Whether the pet is misbehaving.
@@ -274,15 +275,17 @@ public class GameEnvironment {
         // create random number between 0 and 99
         int randomNumber = randomNumGen.nextInt(100);
 
-        //calculate wellness
-        int wellness = (pet.getHappiness() * 3
+        //calculate wellness (divided by 10 so its range is 0-100)
+        int wellness = (
+                pet.getHappiness() * 3
                 + pet.getHealth()
                 + (100 - pet.getMischievousness()) * 5
-                + (100 - pet.getHunger())) / 10;
+                + (100 - pet.getHunger())
+                ) / 10;
 
         //return if misbehaving
         return pet.getIsMisbehaving()
-        		|| wellness < 25 && randomNumber < 75
+                || wellness < 25 && randomNumber < 75
                 || wellness < 50 && randomNumber < 50
                 || wellness < 75 && randomNumber < 25;
     }
@@ -331,12 +334,12 @@ public class GameEnvironment {
 
         //return if dead
         return pet.getIsSick() && pet.getHappiness() < 50
-        		|| pet.getHealth() < 5
-        		|| pet.getPercentBladderFull() > 75 && randomNumber < 50
-        		|| pet.getFatigue() > 75 && randomNumber < 15
-        		|| pet.getPercentBladderFull() == 100
-        		|| pet.getFatigue() == 100
-        		|| randomNumber == 0;
+                || pet.getHealth() < 5
+                || pet.getPercentBladderFull() > 75 && randomNumber < 50
+                || pet.getFatigue() > 75 && randomNumber < 15
+                || pet.getPercentBladderFull() == 100
+                || pet.getFatigue() == 100
+                || randomNumber == 0;
     }
 
     /**
@@ -376,7 +379,7 @@ public class GameEnvironment {
      * Get the number of days the game will go on for.
      * @return number of days game will run for.
      */
-    public int getNumDays(){
+    public int getNumDays() {
         return numberOfDays;
     }
 
@@ -437,16 +440,16 @@ public class GameEnvironment {
      * @throws IOException Pet creation side effect.
      * @throws IllegalArgumentException For an unknown pet type.
      */
-    public void createPlayer(String[] values) throws IOException, IllegalArgumentException{
+    public void createPlayer(String[] values) throws IOException, IllegalArgumentException {
         Player newPlayer = new Player();
         newPlayer.setName(values[0]);
         String[] petData;
 
-        for(int i = 1; i < values.length; i++){
+        for (int i = 1; i < values.length; i++) {
             petData = values[i].split("\n");
             Pet newPet;
 
-            switch (petData[1]){
+            switch (petData[1]) {
                 case "alpaca":
                     newPet = new Alpaca();
                     break;
@@ -503,7 +506,7 @@ public class GameEnvironment {
      * Moves on to the next day.
      */
     public void nextDay() {
-    	currentDay++;
+        currentDay++;
     }
 
     /**
@@ -511,7 +514,7 @@ public class GameEnvironment {
      * It gives the player their daily allowance.
      * @param currentPlayer Player getting initialised.
      */
-	public void initialisePlayer(Player currentPlayer) {
+    public void initialisePlayer(Player currentPlayer) {
 
         int numOfAlivePets = 0;
         for (Pet pet : currentPlayer.getPetList()) { // count up all the alive pets
@@ -522,5 +525,5 @@ public class GameEnvironment {
         //Give them an allowance per alive pet
         currentPlayer.earn(dailyPetAllowance * numOfAlivePets);
 
-	}
+    }
 }
