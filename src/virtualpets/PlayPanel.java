@@ -88,7 +88,7 @@ public class PlayPanel extends JPanel implements Observable {
              * When button pressed notify observers.
              */
             public void actionPerformed(ActionEvent arg0) {
-                if (itemListPanel.getSelectedItem() != null){
+                if (itemListPanel.getSelectedItem() != null) {
                     notifyObservers();
                 }
             }

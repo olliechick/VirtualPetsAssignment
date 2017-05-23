@@ -114,7 +114,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         petTwoBox.setBounds(194, 57, 43, 23);
         petTwoBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (petTwoBox.isSelected()){
+                if (petTwoBox.isSelected()) {
                     petTwoPanel.enable();
                 } else {
                     petTwoPanel.disable();
@@ -138,7 +138,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
 
         //Add button to move to next dialog.
         JButton btnNext = new JButton("Next");
-        btnNext.addActionListener(new ActionListener(){
+        btnNext.addActionListener(new ActionListener() {
             /**
              * Listener that checks input, and if it is valid prepares it for
              * output and notifies the object's observers.
@@ -168,7 +168,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         //duplicates and so that any unconfirmed names aren't registered.
         //If not cloned then any entered names are effectively registered and
         //means they can't be used.
-        @SuppressWarnings("unchecked") //Gets IDE to not complain at me - thinks that cast could fail.
+        @SuppressWarnings("unchecked") // Suppress warning that cast could fail.
         ArrayList<String> nameListClone = (ArrayList<String>) nameList.clone();
 
         //Always check player name strings
@@ -189,7 +189,8 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         if (petOneBox.isSelected()) {
             petName = petOnePanel.getPetName();
             if (petName.equals("")) {
-                JOptionPane.showMessageDialog(null, "Please enter a name for pet one and try again.");
+                JOptionPane.showMessageDialog(null,
+                        "Please enter a name for pet 1 and try again.");
                 return false;
             } else if (mainGUI.nameTaken(petName, nameListClone)) {
                 JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Pet 1)");
@@ -202,7 +203,8 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         if (petTwoBox.isSelected()) {
             petName = petTwoPanel.getPetName();
             if (petName.equals("")) {
-                JOptionPane.showMessageDialog(null, "Please enter a name for pet two and try again.");
+                JOptionPane.showMessageDialog(null,
+                        "Please enter a name for pet 2 and try again.");
                 return false;
             } else if (mainGUI.nameTaken(petName, nameListClone)) {
                 JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Pet 2)");
@@ -215,7 +217,8 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         if (petThreeBox.isSelected()) {
             petName = petThreePanel.getPetName();
             if (petName.equals("")) {
-                JOptionPane.showMessageDialog(null, "Please enter a name for pet three and try again.");
+                JOptionPane.showMessageDialog(null,
+                        "Please enter a name for pet 3 and try again.");
                 return false;
             } else if (mainGUI.nameTaken(petName, nameListClone)) {
                 JOptionPane.showMessageDialog(null, "Duplicate names are not allowed. (Pet 3)");
@@ -224,7 +227,10 @@ public class PlayerCreationPanel extends JPanel implements Observable {
             nameListClone.add(petName);
         }
 
-        if (!(petOneBox.isSelected() || petTwoBox.isSelected() || petThreeBox.isSelected())) { //if no pets are selected
+        if (!
+                (petOneBox.isSelected()
+                || petTwoBox.isSelected()
+                || petThreeBox.isSelected())) { //if no pets are selected
             JOptionPane.showMessageDialog(null, "Each player must have at least one pet.");
             return false;
         }

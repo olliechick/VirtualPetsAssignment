@@ -9,7 +9,12 @@ public interface Observer {
      * @param identifier String to tell the object what the information is.
      * @param values Values being passed in.
      */
-    public void getValues(String identifier, String[] values);
+    void getValues(String identifier, String[] values);
 
-	public void getValues(String identifier, Toy selected);
+    /**
+     * Method to get values from the object being observed.
+     * @param identifier String to tell the object what the information is.
+     * @param selected Toy selected.
+     */
+    void getValues(String identifier, Toy selected);
 }

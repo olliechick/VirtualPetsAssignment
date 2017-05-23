@@ -39,7 +39,7 @@ public class SetupPanel extends JPanel implements Observable {
     /**
      * Width of the object on screen.
      */
-    public final int width = 300; //TODO why are these public?
+    public final int width = 300; //TODO why are these public? TODO are these even used?
 
     /**
      * Height of the object on screen.
@@ -57,20 +57,24 @@ public class SetupPanel extends JPanel implements Observable {
                 + "to see their characteristics. "
             + "\nYou begin with $100 to buy food and toys for your pets. "
                 + "You will receive $15 per day per (live) pet. "
-            + "\nEach day, each player can perform up to two actions per pet (or click the next button to skip to the next pet). "
+            + "\nEach day, each player can perform up to two actions per pet "
+                + "(or click the next button to skip to the next pet). "
             + "\nFeeding, playing, going toilet, and sleeping all count as one action each. "
             + "\nIf you neglect to keep your pet happy and healthy, "
                 + "they may begin to misbehave, get sick, and even die. "
             + "\nIf they misbehave, you can choose to discipline your pet, which "
                 + "will decrease their happiness but also decrease their mischievousness. "
             + "\nIf they get sick, you can choose to treat them (if you can afford it). "
-            + "\nIf you don't treat them, or you're very unlucky, they may die. You can revive each pet once, "
+            + "\nIf you don't treat them, or you're very unlucky, they may die. "
+                + "You can revive each pet once, "
                 + "but if they die again they will be dead for good."
             + "\n<html><h3>Strategy</h3></html>"
             + "\nCheck your pet's status before you start interacting with each pet. "
-            + "\nThen make an informed decision of what to use your money and two daily actions for. "
+            + "\nThen make an informed decision of what to use your money "
+                + "and two daily actions for. "
             + "\nKeeping your pet well will decrease its chance of misbhaving and getting sick. "
-            + "\nAttributes that are of concern will be highlighted in orange; those highlighted in red are urgent.";
+            + "\nAttributes that are of concern will be highlighted in orange; "
+                + "those highlighted in red are urgent.";
 
     /**
      * Create the panel.

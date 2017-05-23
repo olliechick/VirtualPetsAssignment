@@ -43,10 +43,12 @@ public class Toy extends Item {
 
     /**
      * Constructor to create a deep copy of the toy from a prototype.
+     * @param prototype Toy prototype to make a deep copy of
      */
     public Toy(Toy prototype) {
-    	this(prototype.getName(), prototype.getDescription(), prototype.getPrice(), prototype.getDurability());
-    	this.setHappinessIncreaseHashMap(prototype.getHappinessIncreaseHashMap());
+        this(prototype.getName(), prototype.getDescription(),
+                prototype.getPrice(), prototype.getDurability());
+        this.setHappinessIncreaseHashMap(prototype.getHappinessIncreaseHashMap());
     }
 
     /**
@@ -74,19 +76,19 @@ public class Toy extends Item {
     }
 
     /**
-     * Returns the happiness increase HashMap
+     * Returns the happiness increase HashMap.
      * @return happiness increase HashMap
      */
     public HashMap<String, Integer> getHappinessIncreaseHashMap() {
-    	return happinessIncrease;
+        return happinessIncrease;
     }
 
     /**
-     * Returns the happiness increase HashMap
-     * @return happiness increase HashMap
+     * Returns the happiness increase HashMap.
+     * @param happinessIncrease increase HashMap
      */
     public void setHappinessIncreaseHashMap(HashMap<String, Integer> happinessIncrease) {
-    	this.happinessIncrease = happinessIncrease;
+        this.happinessIncrease = happinessIncrease;
     }
 
     /**

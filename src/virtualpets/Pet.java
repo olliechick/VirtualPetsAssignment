@@ -456,7 +456,7 @@ public class Pet {
     public void feed(Food food) {
         int portionSize = food.getPortionSize();
         int healthIncrease = food.getHealthIncrease(species);
-        increaseHunger(-portionSize*healthIncrease);
+        increaseHunger(-portionSize * healthIncrease);
         increaseWeight(portionSize);
         increasePercentBladderFull(portionSize / bladderSize + 1);
         increaseHappiness(healthIncrease * portionSize);
@@ -533,19 +533,19 @@ public class Pet {
      * @param row The name of the item
      * @return datum wanted
      */
-    private String getDatumFromFile(String fileName, String heading, String row){
+    private String getDatumFromFile(String fileName, String heading, String row) {
         String datum = null;
         int col = 0;
         Boolean found = false;
         String typeOfItem = null;
 
-        try{
+        try {
             Reader inputFile;
             try { //Runs if running class directly
                 String topDir = System.getProperty("user.dir");
-                if (topDir.endsWith("bin")){ //from cmdln
+                if (topDir.endsWith("bin")) { //from cmdln
                     fileName = "../config/" + fileName;
-                }else{ //from eclipse
+                } else { //from eclipse
                     fileName = "config/" + fileName;
                 }
                 inputFile = new FileReader(fileName);
@@ -560,25 +560,25 @@ public class Pet {
             String line;
             int i = 0;
 
-            while ((line = bufferReader.readLine()) != null){
-                switch(i){
+            while ((line = bufferReader.readLine()) != null) {
+                switch (i) {
                     case 0: break; //description line
                     case 1:
                         int j = 0;
                         typeOfItem = line.split(",")[0];
-                        for(String piece : line.split(",")){
-                            if (piece.equals(heading)){
+                        for (String piece : line.split(",")) {
+                            if (piece.equals(heading)) {
                                 col = j;
                                 found = true;
                             }
                             j++;
                         }
-                        if (!found){
+                        if (!found) {
                             throw new IllegalArgumentException("No such heading");
                         }
                         break;
                     default:
-                        if(line.split(",")[0].equals(row)){ //if the right row
+                        if (line.split(",")[0].equals(row)) { //if the right row
                             datum = line.split(",")[col];
                         }
                 }
@@ -589,11 +589,11 @@ public class Pet {
             bufferReader.close();
             inputFile.close();
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.err.println("Error while reading file line by line: " + e.getMessage());
         }
 
-        if (datum == null){
+        if (datum == null) {
             throw new IllegalArgumentException("Unknown " + typeOfItem + ": " + row);
         } else {
             return datum;

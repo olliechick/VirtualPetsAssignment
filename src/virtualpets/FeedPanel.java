@@ -129,7 +129,7 @@ public class FeedPanel extends JPanel implements Observable {
      * List the toys in the players inventory.
      * @param foodList List of toys the player owns
      */
-    public void listPlayerFood(ArrayList<Food> foodList){
+    public void listPlayerFood(ArrayList<Food> foodList) {
         Item[] itemList = foodList.toArray(new Item[0]);
         itemListPanel.displayInventory(itemList);
     }

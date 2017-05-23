@@ -74,15 +74,15 @@ public class StatusPanel extends JPanel {
     /**
      * Label to display pet's mischeviousness.
      */
-    JLabel lblMischievousnessScore;
+    private JLabel lblMischievousnessScore;
     /**
      * Label to display pets favourite toy.
      */
-    JLabel lblFavouriteToy;
+    private JLabel lblFavouriteToy;
     /**
      * Label to display pets favourite food.
      */
-    JLabel lblFavouriteFood;
+    private JLabel lblFavouriteFood;
 
     /**
      * Column
@@ -250,6 +250,8 @@ public class StatusPanel extends JPanel {
             case "polar bear":
                 fileName += "PolarBearSmall.png";
                 break;
+            default:
+                throw new IllegalArgumentException("Invalid pet");
         }
 
         ImageIcon icon = new ImageIcon(fileName);
@@ -325,16 +327,16 @@ public class StatusPanel extends JPanel {
      * @return String in sentence case form
      */
     private String sentenceCase(String str) {
-    	if (str.length() == 0) {
-    		return str;
-    	} else if (str.length() == 1) {
-    		return str.toUpperCase();
-    	} else { //str.length() >= 2
-    		return str.substring(0, 1).toUpperCase() + str.substring(1);
-    	}
+        if (str.length() == 0) {
+            return str;
+        } else if (str.length() == 1) {
+            return str.toUpperCase();
+        } else { //str.length() >= 2
+            return str.substring(0, 1).toUpperCase() + str.substring(1);
+        }
     }
 
-	/**
+    /**
      * Highlight labels to warn player. Also sets tool tips to alert user of
      * level of concern.
      * Highlighting rules: orange if in bottom 40%, red if in bottom 15%.

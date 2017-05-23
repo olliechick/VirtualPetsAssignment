@@ -74,6 +74,8 @@ public class ToiletPanel extends JPanel implements Observable {
             case "polar bear":
                 fileName += "PolarBearSmall.png";
                 break;
+            default:
+                throw new IllegalArgumentException("Invalid pet");
         }
         setImage(fileName);
     }
@@ -103,6 +105,8 @@ public class ToiletPanel extends JPanel implements Observable {
             case "polar bear":
                 fileName += "PolarBearToilet.png";
                 break;
+            default:
+                throw new IllegalArgumentException("Invalid pet");
         }
         setImage(fileName);
     }

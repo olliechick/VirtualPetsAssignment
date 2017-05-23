@@ -17,7 +17,7 @@ import javax.swing.JButton;
  * @author Ollie Chick
  */
 @SuppressWarnings("serial")
-public class SleepPanel extends JPanel implements Observable{
+public class SleepPanel extends JPanel implements Observable {
 
     /**
      * List of objects currently observing this element.
@@ -26,7 +26,7 @@ public class SleepPanel extends JPanel implements Observable{
     /**
      * Label to display pet image.
      */
-    JLabel lblImageLabel;
+    private JLabel lblImageLabel;
 
     /**
      * Create the panel.
@@ -76,6 +76,8 @@ public class SleepPanel extends JPanel implements Observable{
             case "polar bear":
                 fileName += "PolarBearSmall.png";
                 break;
+            default:
+                throw new IllegalArgumentException("Invalid pet");
         }
         setImage(fileName);
     }
@@ -105,6 +107,8 @@ public class SleepPanel extends JPanel implements Observable{
             case "polar bear":
                 fileName += "PolarBearSleeping.png";
                 break;
+            default:
+                throw new IllegalArgumentException("Invalid pet");
         }
         setImage(fileName);
     }

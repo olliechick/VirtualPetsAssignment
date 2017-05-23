@@ -201,6 +201,8 @@ public class ScoreboardPanel extends JPanel {
                     lblThirdPlace.setText(text);
                 }
                 break;
+        default:
+            throw new IllegalArgumentException("Number of players is not 1, 2, or 3.");
         }
     }
 

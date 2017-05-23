@@ -90,28 +90,30 @@ public class StorePanel extends JPanel implements Observable {
         storeArray = transposeMatrix(storeArray);
         String[] typesOfItem = {"Toys", "Food"};
 
-        storeInventory = new JTable(storeArray, typesOfItem){
+        storeInventory = new JTable(storeArray, typesOfItem) {
             public boolean isCellEditable(int row, int column) {
                     return false;
             };
         }; //create JTable with store items at core
         storeInventory.setDefaultEditor(Object.class, null);
-        storeInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //Set it so that one item can be selected at a time
+        //Set it so that one item can be selected at a time
+        storeInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         storeInventory.setCellSelectionEnabled(true);
         storeInventory.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             /**
              * When selection changes display new items stats.
              */
             public void valueChanged(ListSelectionEvent arg0) {
-            	int row = storeInventory.getSelectedRow();
-            	int col = storeInventory.getSelectedColumn();
-            	Item selected = (Item) storeInventory.getValueAt(row, col);
+                int row = storeInventory.getSelectedRow();
+                int col = storeInventory.getSelectedColumn();
+                Item selected = (Item) storeInventory.getValueAt(row, col);
                 showItemStats(selected);
-			}
+            }
         });
         storeInventory.getTableHeader().setReorderingAllowed(false); //prevent header changing
         storeInventory.getTableHeader().setResizingAllowed(false); //prevent resizing columns
-        JScrollPane scrollBar = new JScrollPane(storeInventory); //Add a scroll bar to the JTable so that the user can scroll
+        //Add a scroll bar to the JTable so that the user can scroll
+        JScrollPane scrollBar = new JScrollPane(storeInventory);
         scrollBar.setBounds(22, 39, 250, 253); //put scrollbar in the right place.
         add(scrollBar);
 
@@ -141,13 +143,13 @@ public class StorePanel extends JPanel implements Observable {
         btnBuyItem.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
-            	int row = storeInventory.getSelectedRow();
-            	int col = storeInventory.getSelectedColumn();
-            	try { //try to get the item at the selected cell
-            		selectedItem = (Item) storeInventory.getValueAt(row, col) ;
-            	} catch (ArrayIndexOutOfBoundsException e) {//if there is nothing selected
-            		//do nothing
-            	}
+                int row = storeInventory.getSelectedRow();
+                int col = storeInventory.getSelectedColumn();
+                try { //try to get the item at the selected cell
+                    selectedItem = (Item) storeInventory.getValueAt(row, col);
+                } catch (ArrayIndexOutOfBoundsException e) { //if there is nothing selected
+                    //do nothing
+                }
                 notifyObservers();
             }
         });

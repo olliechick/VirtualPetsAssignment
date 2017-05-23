@@ -268,7 +268,7 @@ public class HomePanel extends JPanel implements Observable {
      * Set the text on the button which moves player onto the next step.
      * @param text New button text
      */
-    public void setNextButtonText(String text){
+    public void setNextButtonText(String text) {
         btnNext.setText(text);
     }
 
