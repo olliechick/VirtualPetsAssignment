@@ -545,8 +545,9 @@ public class GUIMain implements Observer {
      * as well as prompting the user if the pet is misbehaving, sick, or dead.
      * If so, they have the option to discipline, treat, or revive,
      * depending on what happened.
+     * @throws IllegalArgumentException if the pet is dead
      */
-    private void newDayPetActions() {
+    private void newDayPetActions() throws IllegalArgumentException {
         Boolean misbehaving;
         Boolean sick;
         Boolean dead;
@@ -554,6 +555,11 @@ public class GUIMain implements Observer {
         Boolean disciplined;
         Boolean treated;
         Boolean revived;
+
+        //throw an error if the pet is dead
+        if (currentPet.getIsDead()) {
+        	throw new IllegalArgumentException("Trying to do new day pet actions on a dead pet.");
+        }
 
 		numActions = 2; //2 actions for this pet today
 
