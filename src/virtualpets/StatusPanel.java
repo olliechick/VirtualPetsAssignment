@@ -83,6 +83,10 @@ public class StatusPanel extends JPanel {
      * Label to display pets favourite food.
      */
     JLabel lblFavouriteFood;
+    
+    /**
+     * Column 
+     */
 
     /**
      * Create the panel.
@@ -127,100 +131,95 @@ public class StatusPanel extends JPanel {
         add(lblRevivable);
 
         lblHappinessScore = new JLabel("hapinessScore");
-        lblHappinessScore.setBounds(119, 53, 46, 14);
+        lblHappinessScore.setBounds(130, 53, 46, 14);
         add(lblHappinessScore);
 
         lblHungerScore = new JLabel("hungerScore");
-        lblHungerScore.setBounds(119, 78, 46, 14);
+        lblHungerScore.setBounds(130, 78, 46, 14);
         add(lblHungerScore);
 
         lblFatigueScore = new JLabel("fatigueScore");
-        lblFatigueScore.setBounds(119, 103, 46, 14);
+        lblFatigueScore.setBounds(130, 103, 46, 14);
         add(lblFatigueScore);
 
         lblHealthScore = new JLabel("healthScore");
-        lblHealthScore.setBounds(119, 126, 46, 14);
+        lblHealthScore.setBounds(130, 126, 46, 14);
         add(lblHealthScore);
 
         lblBladderPercentage = new JLabel("bladderPercentage");
-        lblBladderPercentage.setBounds(119, 150, 46, 14);
+        lblBladderPercentage.setBounds(130, 150, 46, 14);
         add(lblBladderPercentage);
 
         lblWeightScore = new JLabel("weightScore");
-        lblWeightScore.setBounds(119, 204, 46, 14);
+        lblWeightScore.setBounds(130, 204, 46, 14);
         add(lblWeightScore);
 
         lblIsMisbehaving = new JLabel("isMisbehaving");
-        lblIsMisbehaving.setBounds(119, 229, 46, 14);
+        lblIsMisbehaving.setBounds(130, 229, 46, 14);
         add(lblIsMisbehaving);
 
         lblIsSick = new JLabel("isSick");
-        lblIsSick.setBounds(119, 254, 46, 14);
+        lblIsSick.setBounds(130, 254, 46, 14);
         add(lblIsSick);
 
         lblIsRevivable = new JLabel("isRevivable");
-        lblIsRevivable.setBounds(119, 279, 46, 14);
+        lblIsRevivable.setBounds(130, 279, 46, 14);
         add(lblIsRevivable);
 
         JLabel lblName = new JLabel("Name:");
-        lblName.setBounds(175, 53, 46, 14);
+        lblName.setBounds(186, 53, 46, 14);
         add(lblName);
 
         lblPetName = new JLabel("petName");
-        lblPetName.setBounds(221, 53, 164, 14);
+        lblPetName.setBounds(240, 53, 145, 14);
         add(lblPetName);
 
         JLabel lblGender = new JLabel("Gender:");
-        lblGender.setBounds(175, 78, 46, 14);
+        lblGender.setBounds(186, 78, 46, 14);
         add(lblGender);
 
         lblPetGender = new JLabel("petGender");
-        lblPetGender.setBounds(221, 78, 164, 14);
+        lblPetGender.setBounds(240, 78, 145, 14);
         add(lblPetGender);
 
         JLabel lblSpecies = new JLabel("Species:");
-        lblSpecies.setBounds(175, 103, 46, 14);
+        lblSpecies.setBounds(186, 103, 46, 14);
         add(lblSpecies);
 
         lblPetSpecies = new JLabel("petSpecies");
-        lblPetSpecies.setBounds(221, 103, 164, 14);
+        lblPetSpecies.setBounds(240, 103, 145, 14);
         add(lblPetSpecies);
-
-        JPanel panel = new JPanel();
-        panel.setBounds(395, 53, 365, 275);
-        add(panel);
-        panel.setLayout(null);
-
-        lblSpeciesIcon = new JLabel("");
-        lblSpeciesIcon.setBounds(37, 0, 365, 275);
-        panel.add(lblSpeciesIcon);
+        
+                lblSpeciesIcon = new JLabel("");
+                lblSpeciesIcon.setBounds(405, 52, 365, 275);
+                add(lblSpeciesIcon);
 
         JLabel lblFavourites = new JLabel("<html><b>Favourites</b></html>");
-        lblFavourites.setBounds(175, 126, 69, 14);
+        lblFavourites.setBounds(186, 126, 69, 14);
         add(lblFavourites);
 
         JLabel lblFood = new JLabel("Food:");
-        lblFood.setBounds(175, 150, 46, 14);
+        lblFood.setBounds(186, 150, 46, 14);
         add(lblFood);
 
         JLabel lblToy = new JLabel("Toy:");
-        lblToy.setBounds(175, 175, 46, 14);
+        lblToy.setBounds(186, 175, 46, 14);
         add(lblToy);
 
         lblFavouriteFood = new JLabel("favouriteFood");
-        lblFavouriteFood.setBounds(221, 150, 164, 14);
+        lblFavouriteFood.setBounds(240, 150, 145, 14);
         add(lblFavouriteFood);
 
         lblFavouriteToy = new JLabel("favouriteToy");
-        lblFavouriteToy.setBounds(221, 175, 164, 14);
+        lblFavouriteToy.setBounds(240, 175, 145, 14);
         add(lblFavouriteToy);
 
         JLabel lblMischeviousness = new JLabel("Mischievousness:");
-        lblMischeviousness.setBounds(32, 175, 93, 14);
+        lblMischeviousness.setBounds(32, 175, 103, 14);
         add(lblMischeviousness);
 
         lblMischievousnessScore = new JLabel("mischeivousnessScore");
-        lblMischievousnessScore.setBounds(119, 175, 46, 14);
+        lblMischievousnessScore.setBounds(130, 175, 46, 14);
         add(lblMischievousnessScore);
 
     }
@@ -460,7 +459,7 @@ public class StatusPanel extends JPanel {
 
         cat = new Pet("cat");
         cat.setGender("male");
-        cat.setName("Snowy");
+        cat.setName("Snowy a really long name etc etc");
         myPanel.setPetStatus(cat);
 
         myFrame.getContentPane().add(myPanel);
