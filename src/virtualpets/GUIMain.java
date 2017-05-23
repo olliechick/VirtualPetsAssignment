@@ -360,10 +360,6 @@ public class GUIMain implements Observer {
         Boolean everyPetIsDead = true; //Boolean to decide if we should just end it all.
         Boolean newPlayer = false; //Boolean to decide whether to initialise the player.
         // Message to display to the user in a popup if they kill all their pets
-        String murdererMessage = "Quite frankly you are horrible.\n"
-                + "You managed to murder all your pets.\n"
-                + "You should feel bad about what you've done.";
-
         everyPetIsDead = !hasAnAlivePet(combinedPetList);
 
         // If there are no alive pets left, popup a message and enter the postGame
