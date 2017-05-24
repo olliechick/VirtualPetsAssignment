@@ -359,7 +359,7 @@ public class GUIMain implements Observer {
         Boolean initialiseThisPet = true; //Boolean to decide if currentPet should be initialised.
         Boolean everyPetIsDead = true; //Boolean to decide if we should just end it all.
         Boolean newPlayer = false; //Boolean to decide whether to initialise the player.
-        // Message to display to the user in a popup if they kill all their pets
+
         everyPetIsDead = !hasAnAlivePet(combinedPetList);
 
         // If there are no alive pets left, calculate the scores and enter the postGame
@@ -428,7 +428,7 @@ public class GUIMain implements Observer {
         // If the pet is dead
         if (currentPet.getIsDead()) {
             if (currentPetIndex == totalNumOfPets-1) { //just killed the last pet of the day
-                //note that this won't trigger if there are still dead pets to go
+                //note that this won't trigger if there are still dead pets to go today
                 nextDay();
             } else if (everyPetIsDead) { //just killed the last pet left alive
                 calculateScores();
@@ -514,6 +514,7 @@ public class GUIMain implements Observer {
                                       JOptionPane.INFORMATION_MESSAGE);
         }
 
+        //Clear the frame and open the scoreboard panel
         clearFrame();
         ScoreboardPanel scorePanel = new ScoreboardPanel();
 
@@ -528,6 +529,7 @@ public class GUIMain implements Observer {
         Player[] players;
         players = mainGame.rankPlayers();
 
+        //Display the rankings
         scorePanel.showRanking(players);
     }
 
@@ -535,12 +537,16 @@ public class GUIMain implements Observer {
      * Initialises the days.
      */
     private void initialiseDays() {
-        mainGame.nextDay(); //moves to Day 1
+        //Move to day 1
+        mainGame.nextDay();
+
+        //Set the current player and pet to the first ones
         currentPlayer = mainGame.getPlayerList().get(0);
         currentPet = currentPlayer.getPetList().get(0);
         currentPetIndex = 0;
+
+        //Initialise the pet and player
         newDayPetActions();
-        refreshScreen();
         initialisePlayer();
         refreshScreen();
 
@@ -568,7 +574,7 @@ public class GUIMain implements Observer {
      * Perform daily actions for a pet.
      * This includes increasing fatigue, hunger, etc.,
      * as well as prompting the user if the pet is misbehaving, sick, or dead.
-     * If so, they have the option to discipline, treat, or revive,
+     * If so, they may have the option to discipline, treat, or revive,
      * depending on what happened.
      * @throws IllegalArgumentException if the pet is dead
      */
