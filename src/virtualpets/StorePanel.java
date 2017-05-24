@@ -40,6 +40,11 @@ public class StorePanel extends JPanel implements Observable {
      */
     private JLabel lblPriceField;
     /**
+     * Label which displays the object's
+     * durability or portion size (toy/food).
+     */
+    private JLabel lblDurabilityField;
+    /**
      * Panel which displays the players inventory.
      */
     private InventoryPanel playerInventory;
@@ -107,14 +112,14 @@ public class StorePanel extends JPanel implements Observable {
                 int row = storeInventory.getSelectedRow();
                 int col = storeInventory.getSelectedColumn();
                 Item selected = (Item) storeInventory.getValueAt(row, col);
-                showItemStats(selected);
+                showItemStats(selected, col);
             }
         });
         storeInventory.getTableHeader().setReorderingAllowed(false); //prevent header changing
         storeInventory.getTableHeader().setResizingAllowed(false); //prevent resizing columns
         //Add a scroll bar to the JTable so that the user can scroll
         JScrollPane scrollBar = new JScrollPane(storeInventory);
-        scrollBar.setBounds(22, 39, 250, 253); //put scrollbar in the right place.
+        scrollBar.setBounds(22, 39, 250, 333); //put scrollbar in the right place.
         add(scrollBar);
 
 
@@ -129,6 +134,10 @@ public class StorePanel extends JPanel implements Observable {
         lblPriceField = new JLabel("");
         lblPriceField.setBounds(295, 90, 70, 14);
         add(lblPriceField);
+
+        lblDurabilityField = new JLabel("");
+        lblDurabilityField.setBounds(295, 115, 155, 14);
+        add(lblDurabilityField);
 
         JLabel lblStore = new JLabel("Store");
         lblStore.setBounds(22, 14, 46, 14);
@@ -182,8 +191,9 @@ public class StorePanel extends JPanel implements Observable {
     /**
      * Display the selected item's stats to the player.
      * @param selected Item currently selected in store inventory
+     * @param col Currently selected column
      */
-    private void showItemStats(Item selected) {
+    private void showItemStats(Item selected, int col) {
         lblName.setText(selected.getName());
         //Format description string
         String description = selected.getDescription() + ".";
@@ -193,6 +203,13 @@ public class StorePanel extends JPanel implements Observable {
         lblDescription.setText(description);
         Integer price = selected.getPrice();
         lblPriceField.setText("Price: $" + price.toString());
+        if (col == 0) {
+        	Toy selectedToy = (Toy) selected;
+        	lblDurabilityField.setText("Durability: " + selectedToy.getDurability());
+        } else {
+        	Food selectedFood = (Food) selected;
+        	lblDurabilityField.setText("Portion size: " + selectedFood.getPortionSize());
+        }        	
     }
 
     /**

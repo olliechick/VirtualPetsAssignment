@@ -734,7 +734,7 @@ public class GUIMain implements Observer {
      * Shows the setup panel to the user.
      */
     private void showSetup() {
-        mainFrame.setBounds(0, 0, 300, 200);
+        mainFrame.setSize(300, 200);
         mainFrame.setMinimumSize(new Dimension(300, 200));
         SetupPanel setupPanel = new SetupPanel();
         setupPanel.registerObserver(this);
@@ -751,7 +751,7 @@ public class GUIMain implements Observer {
      * Display a player creation pane.
      */
     private void createPlayer() {
-        mainFrame.setBounds(0, 0, 435, 392);
+        mainFrame.setSize(435, 392);
         mainFrame.setMinimumSize(new Dimension(435, 392));
         PlayerCreationPanel playerCreation = new PlayerCreationPanel(this);
         playerCreation.registerObserver(this);

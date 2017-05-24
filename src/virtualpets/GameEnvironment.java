@@ -513,16 +513,19 @@ public class GameEnvironment {
         //If there are any fresh fish, change to off fish
         Food offFish = foodPrototypes.get("Off fish");
         for (Player player : playerList) {
+        	ArrayList<Food> newFoodStock = new ArrayList<Food>();
+        	
             for (Food food : player.getFoodStock()) {
-                System.out.println(food.getName());
                 if (food.getName().equals("Fresh fish")) {
-                    player.getFoodStock().remove(food);
-                    player.getFoodStock().add(offFish);
+                	newFoodStock.add(offFish);
+                } else {
+                	newFoodStock.add(food);
                 }
             }
+            player.setFoodStock(newFoodStock);
         }
     }
-
+    
     /**
      * Initialises a player's turn.
      * It gives the player their daily allowance.

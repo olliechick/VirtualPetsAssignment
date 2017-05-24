@@ -229,4 +229,13 @@ public class Player implements Comparable<Player> {
         }
     }
 
+    /**
+     * Sets the food stock to the user input.
+     * @param newFoodStock new food stock
+     */
+	public void setFoodStock(ArrayList<Food> newFoodStock) {
+		foodStock = newFoodStock;
+		
+	}
+
 }
