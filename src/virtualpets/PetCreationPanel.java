@@ -53,7 +53,7 @@ public class PetCreationPanel extends JPanel {
         setLayout(null);
 
         petNameField = new JTextField();
-        petNameField.setBounds(10, 25, 103, 20);
+        petNameField.setBounds(10, 25, 103, 25);
         add(petNameField);
         petNameField.setColumns(10);
 
@@ -63,7 +63,7 @@ public class PetCreationPanel extends JPanel {
         add(lblPetName);
 
         JLabel lblPetSpecies = new JLabel("Pet species:");
-        lblPetSpecies.setBounds(27, 48, 69, 14);
+        lblPetSpecies.setBounds(27, 56, 69, 14);
         add(lblPetSpecies);
 
         //Create the tooltips
@@ -89,7 +89,7 @@ public class PetCreationPanel extends JPanel {
                                               cat.getHarshness(),
                                               cat.getFavouriteFood(),
                                               cat.getFavouriteToy()));
-        rdbtnCat.setBounds(0, 91, 109, 23);
+        rdbtnCat.setBounds(0, 99, 109, 23);
         add(rdbtnCat);
 
         rdbtnDog = new JRadioButton("<html><u>Dog</u></html>");
@@ -100,7 +100,7 @@ public class PetCreationPanel extends JPanel {
                                               dog.getHarshness(),
                                               dog.getFavouriteFood(),
                                               dog.getFavouriteToy()));
-        rdbtnDog.setBounds(0, 117, 109, 23);
+        rdbtnDog.setBounds(0, 125, 109, 23);
         add(rdbtnDog);
 
         rdbtnHorse = new JRadioButton("<html><u>Horse</u></html>");
@@ -111,7 +111,7 @@ public class PetCreationPanel extends JPanel {
                                                 horse.getHarshness(),
                                                 horse.getFavouriteFood(),
                                                 horse.getFavouriteToy()));
-        rdbtnHorse.setBounds(0, 169, 109, 23);
+        rdbtnHorse.setBounds(0, 177, 109, 23);
         add(rdbtnHorse);
 
         rdbtnGoat = new JRadioButton("<html><u>Goat</u></html>");
@@ -122,7 +122,7 @@ public class PetCreationPanel extends JPanel {
                                                goat.getHarshness(),
                                                goat.getFavouriteFood(),
                                                goat.getFavouriteToy()));
-        rdbtnGoat.setBounds(0, 143, 109, 23);
+        rdbtnGoat.setBounds(0, 151, 109, 23);
         add(rdbtnGoat);
 
         rdbtnAlpaca = new JRadioButton("<html><u>Alpaca</u></html>", true); //default to alpaca
@@ -133,7 +133,7 @@ public class PetCreationPanel extends JPanel {
                                                  alpaca.getHarshness(),
                                                  alpaca.getFavouriteFood(),
                                                  alpaca.getFavouriteToy()));
-        rdbtnAlpaca.setBounds(0, 65, 109, 23);
+        rdbtnAlpaca.setBounds(0, 73, 109, 23);
         add(rdbtnAlpaca);
 
         rdbtnPolarBear = new JRadioButton("<html><u>Polar bear</u></html>");
@@ -144,7 +144,7 @@ public class PetCreationPanel extends JPanel {
                                                     polarBear.getHarshness(),
                                                     polarBear.getFavouriteFood(),
                                                     polarBear.getFavouriteToy()));
-        rdbtnPolarBear.setBounds(0, 195, 109, 23);
+        rdbtnPolarBear.setBounds(0, 203, 109, 23);
         add(rdbtnPolarBear);
 
         radioButtonGroup.add(rdbtnPolarBear);

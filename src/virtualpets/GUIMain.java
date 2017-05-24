@@ -623,7 +623,7 @@ public class GUIMain implements Observer {
                                                    JOptionPane.YES_NO_OPTION,
                                                    JOptionPane.QUESTION_MESSAGE);
         if (option == 1) { // if they select no
-            return false; //TODO can these be simplified to return option == 0;?
+            return false;
         } else {
             return true;
         }
