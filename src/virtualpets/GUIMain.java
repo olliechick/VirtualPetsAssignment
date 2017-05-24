@@ -362,8 +362,9 @@ public class GUIMain implements Observer {
         // Message to display to the user in a popup if they kill all their pets
         everyPetIsDead = !hasAnAlivePet(combinedPetList);
 
-        // If there are no alive pets left, popup a message and enter the postGame
+        // If there are no alive pets left, calculate the scores and enter the postGame
         if (everyPetIsDead) {
+            calculateScores();
             postGame();
             initialiseThisPet = false;
 
@@ -426,7 +427,11 @@ public class GUIMain implements Observer {
 
         // If the pet is dead
         if (currentPet.getIsDead()) {
-            if (everyPetIsDead) { //just killed the last pet
+            if (currentPetIndex == totalNumOfPets-1) { //just killed the last pet of the day
+                //note that this won't trigger if there are still dead pets to go
+                nextDay();
+            } else if (everyPetIsDead) { //just killed the last pet left alive
+                calculateScores();
                 postGame();
             } else { //still some alive pets out there
                 nextPet();
@@ -453,12 +458,10 @@ public class GUIMain implements Observer {
      * Move to a new day.
      */
     private void nextDay() {
-        mainGame.nextDay();
+        mainGame.nextDay(); //increments day number, makes any fresh fish into off fish
 
         // Calculate all the scores for today (well, technically yesterday now)
-        for (Player player : mainGame.getPlayerList()) {
-            player.calculateScore();
-        }
+        calculateScores();
 
         //init day if all days haven't finished
         if (mainGame.getCurrentDay() <= mainGame.getNumDays()) {
@@ -469,6 +472,15 @@ public class GUIMain implements Observer {
             refreshScreen();
         } else { // game is over
             postGame();
+        }
+    }
+
+    /*
+     * Calculates each player's score.
+     */
+    private void calculateScores() {
+        for (Player player : mainGame.getPlayerList()) {
+            player.calculateScore();
         }
     }
 
