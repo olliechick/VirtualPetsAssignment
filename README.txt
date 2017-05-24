@@ -15,7 +15,7 @@ javac -d "../../bin/virtualpets" /*.class
 (bash script only)
 Another way is to just import it into eclipse and run it internally and then
 jar it. But hey what you do in your own time isn't up to us.
-To build the JAR file. Run the following command:
+To build the JAR file, run the following command:
 
 jar cvfm newBuildName.jar buildmanifest.txt -C bin . img config
 
