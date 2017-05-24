@@ -430,10 +430,7 @@ public class GUIMain implements Observer {
             if (currentPetIndex == totalNumOfPets-1) { //just killed the last pet of the day
                 //note that this won't trigger if there are still dead pets to go today
                 nextDay();
-            } else if (everyPetIsDead) { //just killed the last pet left alive
-                calculateScores();
-                postGame();
-            } else { //still some alive pets out there
+            } else if (!everyPetIsDead) { //still some alive pets out there
                 nextPet();
             }
         }
@@ -462,6 +459,11 @@ public class GUIMain implements Observer {
 
         // Calculate all the scores for today (well, technically yesterday now)
         calculateScores();
+
+        //Exit the days if there are no alive pets left
+        if (!hasAnAlivePet(combinedPetList)) {
+            postGame();
+        }
 
         //init day if all days haven't finished
         if (mainGame.getCurrentDay() <= mainGame.getNumDays()) {
