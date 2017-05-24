@@ -526,12 +526,11 @@ public class GUIMain implements Observer {
         mainGame.nextDay(); //moves to Day 1
         currentPlayer = mainGame.getPlayerList().get(0);
         currentPet = currentPlayer.getPetList().get(0);
+        currentPetIndex = 0;
         newDayPetActions();
         refreshScreen();
         initialisePlayer();
         refreshScreen();
-
-        totalNumOfPets = IntStream.of(numOfPets).sum();
 
         //Now create the combined list of pets and the numOfPets array
         switch (numPlayersCreated) {
@@ -548,6 +547,9 @@ public class GUIMain implements Observer {
         default:
             throw new IllegalArgumentException("numPlayersCreated is not 1, 2, or 3.");
         }
+
+        totalNumOfPets = IntStream.of(numOfPets).sum();
+        refreshScreen();
     }
 
     /**
