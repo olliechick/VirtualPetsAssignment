@@ -1,13 +1,12 @@
 package virtualpets;
+
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
-
 import java.awt.Color;
 import java.awt.Image;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -83,10 +82,6 @@ public class StatusPanel extends JPanel {
      * Label to display pets favourite food.
      */
     private JLabel lblFavouriteFood;
-
-    /**
-     * Column
-     */
 
     /**
      * Create the panel.
