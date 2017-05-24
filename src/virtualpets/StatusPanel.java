@@ -94,7 +94,7 @@ public class StatusPanel extends JPanel {
         add(lblHappiness);
 
         JLabel lblHunger = new JLabel("Hunger:");
-        lblHunger.setBounds(10, 77, 46, 14);
+        lblHunger.setBounds(10, 73, 46, 22);
         add(lblHunger);
 
         JLabel lblPlayfulness = new JLabel("Fatigue:");
@@ -114,7 +114,7 @@ public class StatusPanel extends JPanel {
         add(lblWeight);
 
         JLabel lblMisbehaving = new JLabel("Misbehaving:");
-        lblMisbehaving.setBounds(10, 228, 77, 14);
+        lblMisbehaving.setBounds(10, 224, 77, 22);
         add(lblMisbehaving);
 
         JLabel lblSick = new JLabel("Sick:");
@@ -146,7 +146,7 @@ public class StatusPanel extends JPanel {
         add(lblBladderPercentage);
 
         lblWeightScore = new JLabel("weightScore");
-        lblWeightScore.setBounds(118, 203, 46, 14);
+        lblWeightScore.setBounds(118, 199, 46, 22);
         add(lblWeightScore);
 
         lblIsMisbehaving = new JLabel("isMisbehaving");
@@ -166,7 +166,7 @@ public class StatusPanel extends JPanel {
         add(lblName);
 
         lblPetName = new JLabel("petName");
-        lblPetName.setBounds(248, 52, 157, 14);
+        lblPetName.setBounds(248, 48, 157, 22);
         add(lblPetName);
 
         JLabel lblGender = new JLabel("Gender:");
@@ -198,15 +198,15 @@ public class StatusPanel extends JPanel {
         add(lblFood);
 
         JLabel lblToy = new JLabel("Toy:");
-        lblToy.setBounds(186, 174, 46, 14);
+        lblToy.setBounds(186, 170, 46, 22);
         add(lblToy);
 
         lblFavouriteFood = new JLabel("favouriteFood");
-        lblFavouriteFood.setBounds(248, 149, 190, 14);
+        lblFavouriteFood.setBounds(248, 145, 190, 22);
         add(lblFavouriteFood);
 
         lblFavouriteToy = new JLabel("favouriteToy");
-        lblFavouriteToy.setBounds(248, 174, 190, 14);
+        lblFavouriteToy.setBounds(248, 170, 190, 22);
         add(lblFavouriteToy);
 
         JLabel lblMischeviousness = new JLabel("Mischievousness:");

@@ -74,12 +74,12 @@ public class FeedPanel extends JPanel implements Observable {
         add(lblName);
 
         lblDescription = new JLabel("");
-        lblDescription.setBounds(235, 76, 331, 14);
+        lblDescription.setBounds(235, 76, 331, 20);
         add(lblDescription);
 
-        JLabel lblDurability = new JLabel("Portion Size: ");
-        lblDurability.setBounds(235, 101, 85, 14);
-        add(lblDurability);
+        JLabel lblPortionSize = new JLabel("Portion Size: ");
+        lblPortionSize.setBounds(235, 101, 85, 14);
+        add(lblPortionSize);
 
         JButton btnEatFood = new JButton("Feed");
         btnEatFood.setBounds(656, 349, 104, 23);
@@ -96,7 +96,7 @@ public class FeedPanel extends JPanel implements Observable {
         add(btnEatFood);
 
         lblPortionScore = new JLabel("");
-        lblPortionScore.setBounds(300, 101, 189, 14);
+        lblPortionScore.setBounds(310, 101, 189, 14);
         add(lblPortionScore);
     }
 

@@ -44,35 +44,35 @@ public class ScoreboardPanel extends JPanel {
     public ScoreboardPanel() {
         setLayout(null);
 
-        JLabel lblHeader = new JLabel("The game is over and the scores are in...");
-        lblHeader.setBounds(10, 11, 430, 14);
+        JLabel lblHeader = new JLabel("The game is over and the scores are in!");
+        lblHeader.setBounds(10, 7, 430, 22);
         add(lblHeader);
 
         lblFirst = new JLabel("1");
         lblFirst.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblFirst.setBounds(10, 60, 83, 14);
+        lblFirst.setBounds(10, 56, 83, 22);
         add(lblFirst);
 
         lblSecond = new JLabel("2");
         lblSecond.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblSecond.setBounds(10, 110, 83, 14);
+        lblSecond.setBounds(10, 106, 83, 22);
         add(lblSecond);
 
         lblThird = new JLabel("3");
         lblThird.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblThird.setBounds(10, 153, 83, 14);
+        lblThird.setBounds(10, 149, 83, 22);
         add(lblThird);
 
         lblFirstPlace = new JLabel("firstPlace");
-        lblFirstPlace.setBounds(103, 60, 337, 14);
+        lblFirstPlace.setBounds(103, 56, 337, 22);
         add(lblFirstPlace);
 
         lblSecondPlace = new JLabel("secondPlace");
-        lblSecondPlace.setBounds(103, 110, 337, 14);
+        lblSecondPlace.setBounds(103, 106, 337, 22);
         add(lblSecondPlace);
 
         lblThirdPlace = new JLabel("thirdPlace");
-        lblThirdPlace.setBounds(103, 153, 337, 14);
+        lblThirdPlace.setBounds(103, 149, 337, 22);
         add(lblThirdPlace);
     }
 
@@ -96,11 +96,11 @@ public class ScoreboardPanel extends JPanel {
             case (2):
                 if (playerList[0].getScore() == playerList[1].getScore()) {
                     //If a tie
-                    lblFirst.setText("First equal.");
+                    lblFirst.setText("First equal:");
                     text = playerList[0].getName() + ": "
                            + playerList[0].getScore();
                     lblFirstPlace.setText(text);
-                    lblSecond.setText("First equal.");
+                    lblSecond.setText("First equal:");
                     text = playerList[1].getName() + ": "
                            + playerList[1].getScore();
                     lblSecondPlace.setText(text);
@@ -108,11 +108,11 @@ public class ScoreboardPanel extends JPanel {
                     lblThirdPlace.setText("");
                 } else {
                     //otherwise
-                    lblFirst.setText("First.");
+                    lblFirst.setText("First:");
                     text = playerList[0].getName() + ": "
                            + playerList[0].getScore();
                     lblFirstPlace.setText(text);
-                    lblSecond.setText("Second.");
+                    lblSecond.setText("Second:");
                     text = playerList[1].getName() + ": "
                            + playerList[1].getScore();
                     lblSecondPlace.setText(text);
@@ -154,49 +154,49 @@ public class ScoreboardPanel extends JPanel {
                 }
 
                 if (threeWayTie) {
-                    lblFirst.setText("First equal.");
+                    lblFirst.setText("First equal:");
                     text = winner.getName() + ": " + winner.getScore();
                     lblFirstPlace.setText(text);
-                    lblSecond.setText("First equal.");
+                    lblSecond.setText("First equal:");
                     text = runnerUp.getName() + ": " + runnerUp.getScore();
                     lblSecondPlace.setText(text);
-                    lblThird.setText("First equal.");
+                    lblThird.setText("First equal:");
                     text = loser.getName() + ": " + loser.getScore();
                     lblThirdPlace.setText(text);
 
                 } else if (lowTie) {
                     //if players 2 and 3 tie
-                    lblFirst.setText("First.");
+                    lblFirst.setText("First:");
                     text = winner.getName() + ": " + winner.getScore();
                     lblFirstPlace.setText(text);
-                    lblSecond.setText("Second equal.");
+                    lblSecond.setText("Second equal:");
                     text = runnerUp.getName() + ": " + runnerUp.getScore();
                     lblSecondPlace.setText(text);
-                    lblThird.setText("Second equal.");
+                    lblThird.setText("Second equal:");
                     text = loser.getName() + ": " + loser.getScore();
                     lblThirdPlace.setText(text);
 
                 } else if (highTie) {
                     //if players 1 and 2 tie
-                    lblFirst.setText("First equal.");
+                    lblFirst.setText("First equal:");
                     text = winner.getName() + ": " + winner.getScore();
                     lblFirstPlace.setText(text);
-                    lblSecond.setText("First equal.");
+                    lblSecond.setText("First equal:");
                     text = runnerUp.getName() + ": " + runnerUp.getScore();
                     lblSecondPlace.setText(text);
-                    lblThird.setText("Third.");
+                    lblThird.setText("Third:");
                     text = loser.getName() + ": " + loser.getScore();
                     lblThirdPlace.setText(text);
 
                 } else {
                     //no ties
-                    lblFirst.setText("First.");
+                    lblFirst.setText("First:");
                     text = winner.getName() + ": " + winner.getScore();
                     lblFirstPlace.setText(text);
-                    lblSecond.setText("Second.");
+                    lblSecond.setText("Second:");
                     text = runnerUp.getName() + ": " + runnerUp.getScore();
                     lblSecondPlace.setText(text);
-                    lblThird.setText("Third.");
+                    lblThird.setText("Third:");
                     text = loser.getName() + ": " + loser.getScore();
                     lblThirdPlace.setText(text);
                 }

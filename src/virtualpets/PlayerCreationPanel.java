@@ -73,7 +73,7 @@ public class PlayerCreationPanel extends JPanel implements Observable {
         add(lblPlayerName);
 
         playerNameField = new JTextField();
-        playerNameField.setBounds(88, 8, 123, 23);
+        playerNameField.setBounds(88, 8, 123, 26);
         add(playerNameField);
         playerNameField.setColumns(10);
 

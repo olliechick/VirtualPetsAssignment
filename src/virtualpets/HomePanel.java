@@ -116,7 +116,7 @@ public class HomePanel extends JPanel implements Observable {
         add(lblPlayer);
 
         lblCurrentPlayer = new JLabel("currentPlayer");
-        lblCurrentPlayer.setBounds(51, 11, 159, 14);
+        lblCurrentPlayer.setBounds(51, 8, 159, 20);
         add(lblCurrentPlayer);
 
         JLabel lblBalance = new JLabel("Balance:");
@@ -132,23 +132,23 @@ public class HomePanel extends JPanel implements Observable {
         add(lblPet);
 
         lblCurrentPet = new JLabel("currentPet");
-        lblCurrentPet.setBounds(345, 11, 176, 14);
+        lblCurrentPet.setBounds(345, 8, 176, 20);
         add(lblCurrentPet);
 
         JLabel lblActionsRemaining = new JLabel("Actions remaining:");
-        lblActionsRemaining.setBounds(591, 7, 122, 23);
+        lblActionsRemaining.setBounds(594, 7, 122, 23);
         add(lblActionsRemaining);
 
         lblNumActions = new JLabel("numActions");
-        lblNumActions.setBounds(685, 11, 66, 14);
+        lblNumActions.setBounds(705, 11, 66, 14);
         add(lblNumActions);
 
         lblDayMarker = new JLabel("dayMarker");
-        lblDayMarker.setBounds(731, 11, 59, 14);
+        lblDayMarker.setBounds(750, 11, 59, 14);
         add(lblDayMarker);
 
         JLabel lblDay = new JLabel("Day:");
-        lblDay.setBounds(701, 11, 25, 14);
+        lblDay.setBounds(720, 11, 25, 14);
         add(lblDay);
 
         btnNext = new JButton("Next");
