@@ -531,7 +531,6 @@ public class Pet {
                 InputStream stream = this.getClass().getResourceAsStream(fileName);
                 inputFile = new InputStreamReader(stream);
             }
-            FileReader inputFile = new FileReader(fileName);
             BufferedReader bufferReader = new BufferedReader(inputFile);
 
             String line;
