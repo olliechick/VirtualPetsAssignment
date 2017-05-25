@@ -178,11 +178,11 @@ public class StatusPanel extends JPanel {
         add(lblPetGender);
 
         JLabel lblSpecies = new JLabel("Species:");
-        lblSpecies.setBounds(186, 102, 46, 14);
+        lblSpecies.setBounds(186, 98, 46, 20);
         add(lblSpecies);
 
         lblPetSpecies = new JLabel("petSpecies");
-        lblPetSpecies.setBounds(248, 102, 190, 14);
+        lblPetSpecies.setBounds(248, 98, 190, 20);
         add(lblPetSpecies);
 
                 lblSpeciesIcon = new JLabel("");
