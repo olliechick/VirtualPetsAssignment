@@ -111,45 +111,25 @@ public class HomePanel extends JPanel implements Observable {
         toiletTab = new ToiletPanel();
         tabbedPane.addTab("Toilet", null, toiletTab, null);
 
-        JLabel lblPlayer = new JLabel("Player:");
-        lblPlayer.setBounds(10, 11, 46, 14);
-        add(lblPlayer);
-
         lblCurrentPlayer = new JLabel("currentPlayer");
-        lblCurrentPlayer.setBounds(51, 8, 159, 20);
+        lblCurrentPlayer.setBounds(10, 8, 195, 20);
         add(lblCurrentPlayer);
 
-        JLabel lblBalance = new JLabel("Balance:");
-        lblBalance.setBounds(211, 11, 59, 14);
-        add(lblBalance);
-
         lblPlayerBalance = new JLabel("playerBalance");
-        lblPlayerBalance.setBounds(260, 11, 75, 14);
+        lblPlayerBalance.setBounds(210, 8, 140, 20);
         add(lblPlayerBalance);
 
-        JLabel lblPet = new JLabel("Pet:");
-        lblPet.setBounds(320, 11, 46, 14);
-        add(lblPet);
-
         lblCurrentPet = new JLabel("currentPet");
-        lblCurrentPet.setBounds(345, 8, 176, 20);
+        lblCurrentPet.setBounds(345, 8, 250, 20);
         add(lblCurrentPet);
 
-        JLabel lblActionsRemaining = new JLabel("Actions remaining:");
-        lblActionsRemaining.setBounds(594, 7, 122, 23);
-        add(lblActionsRemaining);
-
         lblNumActions = new JLabel("numActions");
-        lblNumActions.setBounds(705, 11, 66, 14);
+        lblNumActions.setBounds(600, 8, 200, 20);
         add(lblNumActions);
 
         lblDayMarker = new JLabel("dayMarker");
-        lblDayMarker.setBounds(750, 11, 59, 14);
+        lblDayMarker.setBounds(725, 8, 90, 20);
         add(lblDayMarker);
-
-        JLabel lblDay = new JLabel("Day:");
-        lblDay.setBounds(720, 11, 25, 14);
-        add(lblDay);
 
         btnNext = new JButton("Next");
         btnNext.addActionListener(new ActionListener() {
@@ -170,9 +150,9 @@ public class HomePanel extends JPanel implements Observable {
      */
     public void refreshPlayerStats(Player currentPlayer, int numActions) {
         Integer balance = currentPlayer.getBalance();
-        lblPlayerBalance.setText("$" + balance.toString());
-        lblCurrentPlayer.setText(currentPlayer.getName());
-        lblNumActions.setText(((Integer) numActions).toString());
+        lblPlayerBalance.setText("Balance: $" + balance.toString());
+        lblCurrentPlayer.setText("Player: " + currentPlayer.getName());
+        lblNumActions.setText("Actions remaining: " + ((Integer) numActions).toString());
     }
 
     /**
@@ -193,8 +173,8 @@ public class HomePanel extends JPanel implements Observable {
         playTab.listPlayerToys(currentPlayer.getToyList());
         feedTab.listPlayerFood(currentPlayer.getFoodStock());
         refreshPlayerStats(currentPlayer, numActions);
-        lblCurrentPet.setText(currentPet.getName());
-        lblDayMarker.setText(currentDay + "/" + totalDays);
+        lblCurrentPet.setText("Pet: " + currentPet.getName());
+        lblDayMarker.setText("Day: " + currentDay + "/" + totalDays);
         if (currentlySleeping) {
             sleepTab.setAsleepImage(currentPet);
         } else {
