@@ -13,7 +13,7 @@ into the appropriate directory:
 javac -d "../../bin/virtualpets" /*.class
 
 (bash script only)
-Another way is to just import it into eclipse and run it internally and then
+Another way is to just import it into eclipse as normal and run it internally. Then you
 jar it. But hey what you do in your own time isn't up to us.
 To build the JAR file, run the following command:
 
