@@ -37,16 +37,6 @@ public class SetupPanel extends JPanel implements Observable {
     private ArrayList<Observer> observers = new ArrayList<Observer>();
 
     /**
-     * Width of the object on screen.
-     */
-    public final int width = 300; //TODO why are these public? TODO are these even used?
-
-    /**
-     * Height of the object on screen.
-     */
-    public final int height = 165;
-
-    /**
      * Text that is displayed as the tutorial.
      */
     private String helpText = "Welcome to Virtual Pets!"
