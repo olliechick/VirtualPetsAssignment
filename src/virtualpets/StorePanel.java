@@ -58,26 +58,6 @@ public class StorePanel extends JPanel implements Observable {
     private ArrayList<Observer> observers = new ArrayList<Observer>();
 
     /**
-     * Method to transpose a matrix of items.
-     * @param matrix Matrix to transpose
-     * @return A transposed matrix.
-     */
-    public static Item[][] transposeMatrix(Item[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
-
-        Item[][] trasposedMatrix = new Item[n][m];
-
-        for (int x = 0; x < n; x++) {
-            for (int y = 0; y < m; y++) {
-                trasposedMatrix[x][y] = matrix[y][x];
-            }
-        }
-
-        return trasposedMatrix;
-    }
-
-    /**
      * Create the panel.
      * @param toyPrototypes Hashmap of toy prototypes.
      * @param foodPrototypes Hashmap of food prototypes.
@@ -170,6 +150,26 @@ public class StorePanel extends JPanel implements Observable {
     }
 
     /**
+     * Method to transpose a matrix of items.
+     * @param matrix Matrix to transpose
+     * @return A transposed matrix.
+     */
+    private static Item[][] transposeMatrix(Item[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        Item[][] trasposedMatrix = new Item[n][m];
+
+        for (int x = 0; x < n; x++) {
+            for (int y = 0; y < m; y++) {
+                trasposedMatrix[x][y] = matrix[y][x];
+            }
+        }
+
+        return trasposedMatrix;
+    }
+
+    /**
      * Update the players inventory.
      * @param currentPlayer Player currently in store.
      */
@@ -209,7 +209,7 @@ public class StorePanel extends JPanel implements Observable {
         } else {
         	Food selectedFood = (Food) selected;
         	lblDurabilityField.setText("Portion size: " + selectedFood.getPortionSize());
-        }        	
+        }
     }
 
     /**
