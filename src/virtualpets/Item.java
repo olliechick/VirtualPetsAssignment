@@ -56,19 +56,6 @@ public abstract class Item {
     }
 
     /**
-     * Sets the price of the item. Item price must be greater than 0.
-     * @param newPrice item's new price.
-     * @throws IllegalArgumentException newPrice is less than 0.
-     */
-    public void setPrice(int newPrice) throws IllegalArgumentException {
-        if (newPrice > 0) {
-            this.price = newPrice;
-        } else {
-            throw new IllegalArgumentException("Item price must be > 0");
-        }
-    }
-
-    /**
      * Sets the description of the item. The items description cannot be null.
      * @param newDescription items new description.
      * @throws IllegalArgumentException newDescription is null object.
@@ -78,6 +65,19 @@ public abstract class Item {
             this.description = newDescription;
         } else {
             throw new IllegalArgumentException("Item description must not be null");
+        }
+    }
+
+    /**
+     * Sets the price of the item. Item price must be greater than 0.
+     * @param newPrice item's new price.
+     * @throws IllegalArgumentException newPrice is less than 0.
+     */
+    public void setPrice(int newPrice) throws IllegalArgumentException {
+        if (newPrice > 0) {
+            this.price = newPrice;
+        } else {
+            throw new IllegalArgumentException("Item price must be > 0");
         }
     }
 
