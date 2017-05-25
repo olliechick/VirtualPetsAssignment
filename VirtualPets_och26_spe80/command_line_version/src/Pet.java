@@ -1,5 +1,9 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 /**
  * A class for pets.
@@ -507,19 +511,26 @@ public class Pet {
      * @return datum wanted
      */
     private String getDatumFromFile(String fileName, String heading, String row) {
-        String topDir = System.getProperty("user.dir");
-        if (topDir.endsWith("bin")) {
-            fileName = "../src/" + fileName;
-        } else {
-            fileName = System.getProperty("user.dir")  + "/src/" + fileName;
-        }
         String datum = null;
         int col = 0;
         Boolean found = false;
         String typeOfItem = null;
 
         try {
-            FileReader inputFile = new FileReader(fileName);
+            Reader inputFile;
+            try { //Runs if running class directly
+                String topDir = System.getProperty("user.dir");
+                if (topDir.endsWith("bin")) { //from cmdln
+                    fileName = "../src/" + fileName;
+                } else { //from eclipse
+                    fileName = "src/" + fileName;
+                }
+                inputFile = new FileReader(fileName);
+            } catch (FileNotFoundException e) { //if running from jar file.
+                fileName = "/" + fileName;
+                InputStream stream = this.getClass().getResourceAsStream(fileName);
+                inputFile = new InputStreamReader(stream);
+            }
             BufferedReader bufferReader = new BufferedReader(inputFile);
 
             String line;
