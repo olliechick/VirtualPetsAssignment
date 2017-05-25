@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 /**
  * Launching off point for Virtual Pets game.
@@ -72,31 +76,37 @@ public class GameEnvironment {
      * @return ArrayList of each line as a string.
      */
     private ArrayList<String> getDataFromFile(String fileName) {
-        String topDir = System.getProperty("user.dir");
-        if (topDir.endsWith("bin")) {
-            fileName = "../src/" + fileName;
-        } else {
-            fileName = System.getProperty("user.dir") + "/src/" + fileName;
-        }
         String line;
         ArrayList<String> data = new ArrayList<String>();
 
-        try {
-            FileReader inputFile = new FileReader(fileName);
-            BufferedReader bufferReader = new BufferedReader(inputFile);
+       try {
+            Reader inputFile;
+            try { //Runs if running class directly
+                String topDir = System.getProperty("user.dir");
+                if (topDir.endsWith("bin")) { //from cmdln
+                    fileName = "../../src/" + fileName;
+                } else { //from eclipse
+                    fileName = "src/" + fileName;
+                }
+                inputFile = new FileReader(fileName);
+            } catch (FileNotFoundException e) { //if running from jar file.
+                fileName = "/" + fileName;
+                InputStream stream = this.getClass().getResourceAsStream(fileName);
+                inputFile = new InputStreamReader(stream);
+            }
 
-            bufferReader.readLine(); // ignore first line
+            BufferedReader bufferReader = new BufferedReader(inputFile);
+            bufferReader.readLine(); //ignore first line
 
             while ((line = bufferReader.readLine()) != null) {
                 data.add(line);
             }
 
-            bufferReader.close(); // tidy up after reading file
+            bufferReader.close(); //tidy up after reading file
             inputFile.close();
         } catch (IOException e) {
-            // If there is an IO error here just give up.
-            String errorName = "Error while reading file line by line: ";
-            System.err.println(errorName + e.getMessage());
+            //If there is an IO error here just give up.
+            System.err.println("Error while reading file line by line: " + e.getMessage());
             System.exit(0);
         }
 
