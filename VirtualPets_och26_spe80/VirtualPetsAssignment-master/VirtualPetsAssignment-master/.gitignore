@@ -1,0 +1,6 @@
+/bin/
+/doc/
+runme.bat
+runme input.bat
+compile.bat
+.checkstyle
