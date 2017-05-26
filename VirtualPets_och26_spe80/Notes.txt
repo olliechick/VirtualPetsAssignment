@@ -1,0 +1,7 @@
+The Command line version has been included in case the GUI version fails for some reason.
+
+The UML diagram has two blue boxes - these are to group together two groups of classes:
+1. Every class that inherits from JPanel
+2. Every class that has 0..* Observables and implements Observer
+This was done because arrows going from all of these to Observable, Observer, and JPanel
+would have severly cluttered the diagram, making it unreadable.
